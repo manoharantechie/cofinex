@@ -198,7 +198,6 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                 ],
               ),
             ),
-
             Container(
               height: MediaQuery.of(context).size.height*0.3,
               child:Column(

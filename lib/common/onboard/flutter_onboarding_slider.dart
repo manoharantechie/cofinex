@@ -158,20 +158,7 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
       create: (BuildContext context) => PageOffsetNotifier(_pageController),
       child: Scaffold(
         backgroundColor: widget.pageBackgroundColor ?? null,
-        floatingActionButton: widget.hasFloatingButton
-            ? BackgroundFinalButton(
-                buttonTextStyle: widget.finishButtonTextStyle,
-                skipIcon: widget.skipIcon,
-                addButton: widget.addButton,
-                currentPage: _currentPage,
-                pageController: _pageController,
-                totalPage: widget.totalPage,
-                onPageFinish: widget.onFinish,
-                finishButtonStyle: widget.finishButtonStyle,
-                buttonText: widget.finishButtonText,
-                hasSkip: widget.hasSkip,
-              )
-            : SizedBox.shrink(),
+
         body: CupertinoPageScaffold(
           navigationBar: OnBoardingNavigationBar(
             skipFunctionOverride: widget.skipFunctionOverride,
@@ -200,26 +187,36 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
                 speed: widget.speed,
                 totalPage: widget.totalPage,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: BackgroundBody(
-                          controller: _pageController,
-                          function: slide,
+
+                      const SizedBox(height: 25.0,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [        BackgroundController(
+                          indicatorPosition: widget.indicatorPosition,
+                          indicatorAbove: widget.indicatorAbove,
+                          currentPage: _currentPage,
                           totalPage: widget.totalPage,
-                          bodies: widget.pageBodies,
+                          controllerColor: widget.controllerColor,
                         ),
-                      ),
-                      widget.addController
-                          ? BackgroundController(
-                              indicatorPosition: widget.indicatorPosition,
-                              indicatorAbove: widget.indicatorAbove,
-                              currentPage: _currentPage,
+                          Container(
+                            height: MediaQuery.of(context).size.height*0.4,
+                            width: MediaQuery.of(context).size.width,
+                            child: BackgroundBody(
+                              controller: _pageController,
+                              function: slide,
                               totalPage: widget.totalPage,
-                              controllerColor: widget.controllerColor,
-                            )
-                          : SizedBox.shrink(),
+                              bodies: widget.pageBodies,
+                            ),
+                          ),],
+                      )
+
+
+
+
+
                     ]),
               ),
             ),

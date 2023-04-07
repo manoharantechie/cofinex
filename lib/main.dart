@@ -11,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.white,
+    statusBarColor: Color(0xFF01081E),
     statusBarBrightness: Brightness.dark,
     statusBarIconBrightness: Brightness.dark, // status bar icon color
     systemNavigationBarIconBrightness:

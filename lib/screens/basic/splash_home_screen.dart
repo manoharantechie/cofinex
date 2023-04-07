@@ -40,131 +40,130 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
             child: Padding(
               padding: EdgeInsets.only(bottom: 45.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height*0.6,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('assets/images/Logo-dark.svg', height: 100.0,),
-                          SizedBox(height: 15.0,),
-                          Text(
-                            AppLocalizations.instance.text("loc_welcome_txt"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                26.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w700,
-                                'FontRegular'),
-                          ),
-                          SizedBox(height: 35.0,),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
-                              color: Theme.of(context).focusColor,
-                            ),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/images/f_logo.svg', height: 20.0,),
-                                SizedBox(width: 10.0,),
-                                Text(
-                                  AppLocalizations.instance.text("loc_fb_txt"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20.0,),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
-                              color: Theme.of(context).focusColor,
-                            ),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/images/logo-apple.svg', height: 20.0,),
-                                SizedBox(width: 10.0,),
-                                Text(
-                                  AppLocalizations.instance.text("loc_apple_txt"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20.0,),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
-                              color: Theme.of(context).focusColor,
-                            ),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/images/logo-google.svg', height: 20.0,),
-                                SizedBox(width: 10.0,),
-                                Text(
-                                  AppLocalizations.instance.text("loc_google_txt"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20.0,),
-                          InkWell(
-                            onTap: (){
-                              setState(() {
+                    margin: EdgeInsets.only(top: 70.0),
 
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).buttonColor,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(color: Theme.of(context).backgroundColor, ),
+                    child: Column(
+                      children: [
+                        SvgPicture.asset('assets/images/Logo-dark.svg', height: 100.0,),
+                        SizedBox(height: 15.0,),
+                        Text(
+                          AppLocalizations.instance.text("loc_welcome_txt"),
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              26.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w700,
+                              'FontRegular'),
+                        ),
+                        SizedBox(height: 35.0,),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                            color: Theme.of(context).focusColor,
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/images/f_logo.svg', height: 20.0,),
+                              SizedBox(width: 10.0,),
+                              Text(
+                                AppLocalizations.instance.text("loc_fb_txt"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
                               ),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.instance.text("loc_sign_up_txt"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
-                                ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20.0,),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                            color: Theme.of(context).focusColor,
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/images/logo-apple.svg', height: 20.0,),
+                              SizedBox(width: 10.0,),
+                              Text(
+                                AppLocalizations.instance.text("loc_apple_txt"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20.0,),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                            color: Theme.of(context).focusColor,
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/images/logo-google.svg', height: 20.0,),
+                              SizedBox(width: 10.0,),
+                              Text(
+                                AppLocalizations.instance.text("loc_google_txt"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20.0,),
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).buttonColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(color: Theme.of(context).backgroundColor, ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                AppLocalizations.instance.text("loc_sign_up_txt"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
 
                   Container(
-                    height: MediaQuery.of(context).size.height*0.25,
+
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -176,8 +175,8 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 14.0,
-                                Theme.of(context).accentColor,
-                                FontWeight.w500,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w600,
                                 'FontRegular'),
                           ),
                         ),

@@ -79,3 +79,13 @@ flutter:
     - assets/images/
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: FontRegular
+      fonts:
+        - asset: assets/font/Manrope-Regular.ttf
+    - family: FontLight
+      fonts:
+        - asset: assets/font/Manrope-Light.ttf
+    - family: FontMedium
+      fonts:
+        - asset: assets/font/Manrope-Medium.ttf

@@ -71,7 +71,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                           AppLocalizations.instance.text("loc_verify"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              26.0,
+                              27.0,
                               Theme.of(context).primaryColor,
                               FontWeight.w700,
                               'FontRegular'),
@@ -119,9 +119,9 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                     borderColor: Theme.of(context).accentColor.withOpacity(0.5),
                     fillColor: Theme.of(context).splashColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomTextStyle(
-                        Theme.of(context).backgroundColor, FontWeight.w500, 'FontRegular'),
+                        Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
                     textInputAction: TextInputAction.next,
                     focusNode: codeFocus,
                     maxlines: 1,

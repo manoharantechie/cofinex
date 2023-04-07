@@ -72,7 +72,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                         AppLocalizations.instance.text("loc_sign_up"),
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
-                                26.0,
+                                27.0,
                                 Theme.of(context).primaryColor,
                                 FontWeight.w700,
                                 'FontRegular'),
@@ -104,9 +104,9 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                     borderColor: Theme.of(context).accentColor.withOpacity(0.5),
                     fillColor: Theme.of(context).splashColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomTextStyle(
-                        Theme.of(context).backgroundColor, FontWeight.w500, 'FontRegular'),
+                        Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
                     textInputAction: TextInputAction.next,
                     focusNode: emailFocus,
                     maxlines: 1,
@@ -145,9 +145,9 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                     borderColor: Theme.of(context).splashColor,
                     fillColor: Theme.of(context).splashColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomTextStyle(
-                        Theme.of(context).backgroundColor, FontWeight.w500, 'FontRegular'),
+                        Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
                     radius: 5.0,
                     focusNode: passFocus,
                     suffix: Container(
@@ -196,7 +196,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                               .CustomSizedTextStyle(
                               14.0,
                               Theme.of(context).primaryColor,
-                              FontWeight.w500,
+                              FontWeight.w600,
                               'FontRegular'),
                         ),
                       ),
@@ -220,7 +220,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                           .CustomSizedTextStyle(
                           14.0,
                           Theme.of(context).canvasColor,
-                          FontWeight.w500,
+                          FontWeight.w600,
                           'FontRegular'),
                     ),
                   ),
@@ -244,9 +244,9 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                           AppLocalizations.instance.text("loc_signup"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              16.0,
+                              14.0,
                               Theme.of(context).backgroundColor,
-                              FontWeight.w500,
+                              FontWeight.w600,
                               'FontRegular'),
                         ),
                       ),

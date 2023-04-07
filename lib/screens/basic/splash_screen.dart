@@ -1,6 +1,7 @@
 import 'package:cofinex/screens/basic/onboard_screen.dart';
 import 'package:cofinex/screens/basic/splash_home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -32,9 +33,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      color:  Theme.of(context).primaryColor,
+      color:  Theme.of(context).backgroundColor,
+      padding: EdgeInsets.fromLTRB(80.0, 0.0, 80.0, 0.0),
       child: Center(
-        child:Image.asset('assets/images/god.png', height: 300.0,),
+        child: SvgPicture.asset(
+          'assets/images/logo.svg',
+          height: 150.0,
+        )
+        // child:Image.asset('assets/images/god.png', height: 300.0,),
       ),
     );
   }

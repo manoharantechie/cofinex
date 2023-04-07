@@ -46,7 +46,7 @@ class MyThemes {
       buttonColor: Color(0xFF00C4C3),
       secondaryHeaderColor: Color(0xFF1A94AE),
       splashColor: Color(0xFFE8E8E8),
-      highlightColor: Color(0xFF8B9CAE),
+      highlightColor: Color(0xFFF7F7F7),
       errorColor: Color(0xFFffffff),
       hintColor: Color(0xFFffffff),
       hoverColor: Color(0xFF000000),

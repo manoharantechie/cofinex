@@ -54,7 +54,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                           AppLocalizations.instance.text("loc_welcome_txt"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              26.0,
+                              27.0,
                               Theme.of(context).primaryColor,
                               FontWeight.w700,
                               'FontRegular'),
@@ -77,7 +77,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                     .CustomSizedTextStyle(
                                     14.0,
                                     Theme.of(context).primaryColor,
-                                    FontWeight.w500,
+                                    FontWeight.w600,
                                     'FontRegular'),
                               ),
                             ],
@@ -101,7 +101,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                     .CustomSizedTextStyle(
                                     14.0,
                                     Theme.of(context).primaryColor,
-                                    FontWeight.w500,
+                                    FontWeight.w600,
                                     'FontRegular'),
                               ),
                             ],
@@ -125,7 +125,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                     .CustomSizedTextStyle(
                                     14.0,
                                     Theme.of(context).primaryColor,
-                                    FontWeight.w500,
+                                    FontWeight.w600,
                                     'FontRegular'),
                               ),
                             ],
@@ -152,7 +152,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                     .CustomSizedTextStyle(
                                     14.0,
                                     Theme.of(context).primaryColor,
-                                    FontWeight.w500,
+                                    FontWeight.w600,
                                     'FontRegular'),
                               ),
                             ),
@@ -199,9 +199,9 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                 AppLocalizations.instance.text("loc_login"),
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                    16.0,
+                                    14.0,
                                     Theme.of(context).backgroundColor,
-                                    FontWeight.w500,
+                                    FontWeight.w600,
                                     'FontRegular'),
                               ),
                             ),

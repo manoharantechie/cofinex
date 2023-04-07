@@ -42,11 +42,11 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                margin: EdgeInsets.only(top: 70.0),
                 // height: MediaQuery.of(context).size.height*0.55,
                 child: Center(
                   child: Column(
                     children: [
-                      SizedBox(height: 50.0,),
                       Padding(padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                         child: SvgPicture.asset('assets/images/logo.svg', height: 60.0,),),
                       SizedBox(height: 15.0,),
@@ -54,7 +54,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                         AppLocalizations.instance.text("loc_welcome_txt"),
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
-                            26.0,
+                            27.0,
                             Theme.of(context).primaryColor,
                             FontWeight.w700,
                             'FontRegular'),
@@ -77,7 +77,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                                   .CustomSizedTextStyle(
                                   14.0,
                                   Theme.of(context).primaryColor,
-                                  FontWeight.w500,
+                                  FontWeight.w600,
                                   'FontRegular'),
                             ),
                           ],
@@ -101,7 +101,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                                   .CustomSizedTextStyle(
                                   14.0,
                                   Theme.of(context).primaryColor,
-                                  FontWeight.w500,
+                                  FontWeight.w600,
                                   'FontRegular'),
                             ),
                           ],
@@ -125,7 +125,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                                   .CustomSizedTextStyle(
                                   14.0,
                                   Theme.of(context).primaryColor,
-                                  FontWeight.w500,
+                                  FontWeight.w600,
                                   'FontRegular'),
                             ),
                           ],
@@ -152,7 +152,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                                   .CustomSizedTextStyle(
                                   14.0,
                                   Theme.of(context).primaryColor,
-                                  FontWeight.w500,
+                                  FontWeight.w600,
                                   'FontRegular'),
                             ),
                           ),
@@ -176,7 +176,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                             .CustomSizedTextStyle(
                             14.0,
                             Theme.of(context).canvasColor,
-                            FontWeight.w500,
+                            FontWeight.w600,
                             'FontRegular'),
                       ),
                     ),
@@ -200,9 +200,9 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                             AppLocalizations.instance.text("loc_signin"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                16.0,
+                                14.0,
                                 Theme.of(context).backgroundColor,
-                                FontWeight.w500,
+                                FontWeight.w600,
                                 'FontRegular'),
                           ),
                         ),

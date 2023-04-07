@@ -13,6 +13,15 @@ class Wallet_Screen extends StatefulWidget {
 }
 
 class _Wallet_ScreenState extends State<Wallet_Screen> {
+
+  ScrollController? _scrollController = ScrollController();
+  List list_name=[
+    "Bitcoin","Binance USD","Ethereum","Ripple","Dogecoin"
+  ];
+  List list_img=["assets/images/bit.svg","assets/images/binance.svg","assets/images/eth.svg","assets/images/xrp.svg"
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +56,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: Theme.of(context).backgroundColor,
@@ -57,7 +66,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       child: SvgPicture.asset(
                         "assets/images/mic.svg",
                         color: Theme.of(context).bottomAppBarColor,
-                        height: 20.0,
+                        height: 22.0,
                       ),
                     ),
                   ))),
@@ -94,7 +103,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                         'FontRegular'),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 15.0,),
+                  SizedBox(height: 5.0,),
                   Row(
                     children: [
                       Text(
@@ -155,7 +164,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                 children: [
                   Flexible(child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
@@ -185,7 +194,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   ),flex: 1,),
                   SizedBox(width: 10.0,),
                   Flexible(child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
@@ -217,7 +226,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   SizedBox(width: 10.0,),
                   Flexible(child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
@@ -247,7 +256,160 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   ),flex: 1,)
                 ],
               ),
+            ),
+            SizedBox(height: 15.0,),
+            Row(
+              children: [
+                Text(
+            AppLocalizations.instance.text("loc_hide_bal"),
+                  style: CustomWidget(context: context)
+                      .CustomSizedTextStyle(
+                      10.0,
+                      Theme.of(context).canvasColor,
+                      FontWeight.w500,
+                      'FontRegular'),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            SizedBox(height: 15.0,),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15.0),
+                  topRight: Radius.circular(15.0),
+                  bottomRight: Radius.circular(15.0),
+                  bottomLeft: Radius.circular(15.0),
+                ),
+                color: Colors.white,
+              ),
+                child: ListView.builder(
+                  physics: ScrollPhysics(),
+                  itemCount: list_name.length,
+                  shrinkWrap: true,
+                  controller: _scrollController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 12.0),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: Theme.of(context).highlightColor,
+                                          ),
+                                          child: SvgPicture.asset("assets/images/bit.svg", height: 25.0,),
+                                        ),
+                                        SizedBox(width: 5.0,),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              list_name[index].toString(),
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context).primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 8.0,),
+                                            Text(
+                                              "BTC",
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme.of(context).canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "0.1832",
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context).primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(height: 8.0,),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "123.12",
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme.of(context).canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(width: 2.0,),
+                                            Text(
+                                              "USD",
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme.of(context).canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1.0,
+                          color: Theme.of(context).splashColor,
+                        )
+                      ],
+                    );
+                  },
+                )
             )
+
           ],
         ),
       ),

@@ -137,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15.0),
                               border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                              color:  Theme.of(context).backgroundColor,
+                              color:  Theme.of(context).focusColor,
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +183,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15.0),
                               border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                              color:  Theme.of(context).backgroundColor,
+                              color:  Theme.of(context).focusColor,
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -232,8 +232,8 @@ class _DashboardState extends State<Dashboard> {
                         padding: EdgeInsets.zero,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
                         ),
                         // physics: ScrollPhysics(),
                         shrinkWrap: true,
@@ -241,9 +241,9 @@ class _DashboardState extends State<Dashboard> {
                         itemBuilder: (BuildContext context, index) {
                           return Container(
                               padding: EdgeInsets.only(
-                                  top: 3.0, bottom: 3.0, right: 5.0, left: 5.0),
+                                  top: 5.0, bottom: 5.0, right: 12.0, left: 12.0),
                               decoration: BoxDecoration(
-                                color:  Theme.of(context).backgroundColor,
+                                color:  Theme.of(context).focusColor,
                                 border: Border.all(width: 1.0,color: Theme.of(context).splashColor),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -263,7 +263,7 @@ class _DashboardState extends State<Dashboard> {
                                     // AppLocalizations.instance.text("loc_widthdraw"),
                                     grid_name[index].toString(),
                                     style: CustomWidget(context: context).CustomSizedTextStyle(
-                                        12.0,
+                                        10.0,
                                         Theme.of(context).primaryColor,
                                         FontWeight.w600,
                                         'FontRegular'),
@@ -277,7 +277,49 @@ class _DashboardState extends State<Dashboard> {
                     )
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 20.0,),
+
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color:  Theme.of(context).primaryColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.instance.text("loc_tot_asset"),
+                      style: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          12.0,
+                          Theme.of(context).accentColor,
+                          FontWeight.w600,
+                          'FontRegular'),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 15.0,),
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.2,
+                      child: Center(
+                        child:  Text(
+                          AppLocalizations.instance.text("loc_signup"),
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              12.0,
+                              Theme.of(context).accentColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
 
             ],
           ),

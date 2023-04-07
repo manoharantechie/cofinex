@@ -26,53 +26,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        elevation: 0.0,
-        leading: Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 5.0, bottom: 5.0),
-            child: InkWell(
-                onTap: () {
-                  // Navigator.push(context,MaterialPageRoute(builder:(context)=> Home_Screen()));
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Theme.of(context).bottomAppBarColor,
-                ),)),
-        title: Text(
-          AppLocalizations.instance
-              .text("loc_wallet"),
-          style: CustomWidget(context: context).CustomSizedTextStyle(
-              18.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
-        ),
-        centerTitle: true,
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(left: 0.0, top: 5.0, bottom: 5.0, right: 20.0),
-              child: InkWell(
-                  onTap: () {
-                    // Navigator.push(context,MaterialPageRoute(builder:(context)=> Home_Screen()));
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Theme.of(context).backgroundColor,
-                        border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        "assets/images/mic.svg",
-                        color: Theme.of(context).bottomAppBarColor,
-                        height: 22.0,
-                      ),
-                    ),
-                  ))),
 
-        ],
-      ),
       body: Container(
         padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
         height: MediaQuery.of(context).size.height,

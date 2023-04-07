@@ -26,9 +26,11 @@ class _Home_ScreenState extends State<Home_Screen> {
     Dashboard(),
     Container(),
     Container(),
-    Container(),
+    Wallet_Screen(),
     Container(),
   ];
+
+  List<String> titleText=["loc_side_home","loc_side_markets","loc_side_trade","loc_side_wallet","loc_side_nft"];
 
    Widget screen = Dashboard();
   @override
@@ -56,13 +58,15 @@ class _Home_ScreenState extends State<Home_Screen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
+        centerTitle: true,
         leading: Padding(
-            padding: EdgeInsets.only(left: 13.0, top: 6.0, bottom: 6.0),
+            padding: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 10.0),
             child: InkWell(
               onTap: () {
 
               },
                 child: Container(
+                  margin: EdgeInsets.only(left: 5.0),
 
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
@@ -75,22 +79,65 @@ class _Home_ScreenState extends State<Home_Screen> {
                     ),
                   ),
                 ))),
-        // title: Text(
-        //   AppLocalizations.instance
-        //       .text("loc_pooja_list"),
-        //   style: CustomWidget(context: context).CustomSizedTextStyle(
-        //       20.0, Theme.of(context).backgroundColor, FontWeight.w700, 'FontRegular'),
-        // ),
+
+        title: currentIndex==0? InkWell(
+            onTap: () {
+
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 35.0,
+              decoration: BoxDecoration(
+                  color:
+                      CustomTheme.of(context).focusColor,
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: CustomTheme.of(context)
+                          .canvasColor
+                          .withOpacity(0.4),
+                      width: 1)),
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Icon(
+                    Icons.search_rounded,
+                    color: CustomTheme.of(context).canvasColor,
+                    size: 18.0,
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "ETH/USDT",
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                            13.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w300,
+                            'FontRegular'),
+                  ),
+                ],
+              ),
+            ))
+            :Text(
+          AppLocalizations.instance
+              .text(titleText[currentIndex]),
+          style: CustomWidget(context: context).CustomSizedTextStyle(
+              18.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
+        ),
+
         actions: [
           Padding(
-              padding: EdgeInsets.only(left: 0.0, top: 5.0, bottom: 5.0, right: 20.0),
+              padding: EdgeInsets.only(left: 0.0, top: 10.0, bottom: 8.0, right: 20.0),
               child: InkWell(
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder:(context)=> Wallet_Screen()));
+
                     // Navigator.pop(context);
                   },
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(13.0, 5.0, 13.0, 5.0),
+                    padding: EdgeInsets.fromLTRB(10.0, 3.0, 10.0,3.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: Theme.of(context).backgroundColor,

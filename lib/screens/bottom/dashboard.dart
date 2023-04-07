@@ -41,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
         width: MediaQuery.of(context).size.width,
         color:  Theme.of(context).backgroundColor,
         child: SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -237,6 +238,7 @@ class _DashboardState extends State<Dashboard> {
                     Container(
                       child: GridView.builder(
                         padding: EdgeInsets.zero,
+                        controller: _scrollController,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           crossAxisSpacing: 10,

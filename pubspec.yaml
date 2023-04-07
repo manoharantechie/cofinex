@@ -79,6 +79,7 @@ flutter:
     - assets/images/
     - assets/bottom/
     - assets/icon/
+    - assets/profile/
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:

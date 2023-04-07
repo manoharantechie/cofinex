@@ -1,5 +1,6 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/screens/basic/profile.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
 import 'package:cofinex/screens/wallet/wallet.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,7 +64,8 @@ class _Home_ScreenState extends State<Home_Screen> {
             padding: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 10.0),
             child: InkWell(
               onTap: () {
-
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Profile_Screen()));
               },
                 child: Container(
                   margin: EdgeInsets.only(left: 5.0),

@@ -107,7 +107,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20.0,),
+                      const  SizedBox(height: 20.0,),
                         Container(
                           padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                           decoration: BoxDecoration(

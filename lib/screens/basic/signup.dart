@@ -1,3 +1,4 @@
+import 'package:cofinex/screens/basic/verification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -55,24 +56,31 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
         color:  Theme.of(context).backgroundColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-            child: Text(
-              AppLocalizations.instance.text("loc_sign_up"),
-              style: CustomWidget(context: context)
-                  .CustomSizedTextStyle(
-                  26.0,
-                  Theme.of(context).primaryColor,
-                  FontWeight.w700,
-                  'FontRegular'),
-              textAlign: TextAlign.center,
-            ),),
-            SizedBox(height: 15.0,),
             Container(
+              // height: MediaQuery.of(context).size.height*0.55,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(height: 50.0,),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
+                      child: Text(
+                        AppLocalizations.instance.text("loc_sign_up"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                                26.0,
+                                Theme.of(context).primaryColor,
+                                FontWeight.w700,
+                                'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15.0,),
                   Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
                   child: Text(
                     AppLocalizations.instance.text("loc_email_phone"),
@@ -91,12 +99,12 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                       // FocusScope.of(context).requestFocus(snameFocus);
                     },
                     radius: 10.0,
-                    error: "Enter Pooja Name",
+                    error: "Enter Email or Phone Number",
                     textColor: Theme.of(context).backgroundColor,
                     borderColor: Theme.of(context).accentColor.withOpacity(0.5),
                     fillColor: Theme.of(context).splashColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        15.0, Theme.of(context).disabledColor, FontWeight.w500, 'FontRegular'),
+                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomTextStyle(
                         Theme.of(context).backgroundColor, FontWeight.w500, 'FontRegular'),
                     textInputAction: TextInputAction.next,
@@ -137,7 +145,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                     borderColor: Theme.of(context).splashColor,
                     fillColor: Theme.of(context).splashColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        15.0, Theme.of(context).disabledColor, FontWeight.w500, 'FontRegular'),
+                        12.0, Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomTextStyle(
                         Theme.of(context).backgroundColor, FontWeight.w500, 'FontRegular'),
                     radius: 5.0,
@@ -148,7 +156,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                     controller: passwordController,
                     enabled: true,
                     onChanged: () {},
-                    hintText: "******",
+                    hintText: "************",
                     textChanged: (value) {},
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -199,7 +207,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height*0.3,
+              // height: MediaQuery.of(context).size.height*0.3,
               child:Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -207,11 +215,11 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                   Container(
                     padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
                     child: Text(
-                      AppLocalizations.instance.text("loc_all_account"),
+                      AppLocalizations.instance.text("loc_not_acc"),
                       style: CustomWidget(context: context)
                           .CustomSizedTextStyle(
                           14.0,
-                          Theme.of(context).accentColor,
+                          Theme.of(context).canvasColor,
                           FontWeight.w500,
                           'FontRegular'),
                     ),
@@ -220,10 +228,11 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                     onTap: (){
                       setState(() {
                         Navigator.of(context)
-                            .pushReplacement(MaterialPageRoute(builder: (context) => Sign_Up_screen()));
+                            .push(MaterialPageRoute(builder: (context) => Verification_Screen()));
                       });
                     },
                     child: Container(
+                      margin: EdgeInsets.only(bottom: 15.0),
                       padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
@@ -232,7 +241,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                       ),
                       child: Center(
                         child: Text(
-                          AppLocalizations.instance.text("loc_signin"),
+                          AppLocalizations.instance.text("loc_signup"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               16.0,
@@ -243,7 +252,7 @@ class _Sign_Up_screenState extends State<Sign_Up_screen> {
                       ),
                     ),
                   ),
-
+                  SizedBox(height: 15.0,)
                 ],
               ),
             ),

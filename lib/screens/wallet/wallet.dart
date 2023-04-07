@@ -28,7 +28,6 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-
       body: Container(
         padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
         height: MediaQuery.of(context).size.height,

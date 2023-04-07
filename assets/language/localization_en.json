@@ -65,4 +65,9 @@
   "loc_side_wallet": "Wallet",
   "loc_side_nft": "NFT",
   "loc_hide_bal": "Hide zero Balances"
+  "loc_side_nft": "NFT",
+  "loc_acc": "Account",
+  "loc_verification": "Verification",
+  "loc_security": "Security",
+  "loc_aml": "AML Check"
 }

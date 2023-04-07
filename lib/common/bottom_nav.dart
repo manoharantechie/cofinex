@@ -4,7 +4,6 @@ import 'package:flutter/material.dart' as md;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class BottomNav extends md.StatefulWidget {
   final int? index;
   final int? selectedIndex;
@@ -74,9 +73,7 @@ class BottomNavState extends md.State<BottomNav> {
               textStyle: selected
                   ? labelStyle!.getOnSelectTextStyle()
                   : labelStyle!.getTextStyle(),
-              color: selected
-                  ? CustomTheme.of(context).splashColor
-                  : CustomTheme.of(context).splashColor.withOpacity(0.5),
+              color:  selected?CustomTheme.of(context).focusColor:CustomTheme.of(context).canvasColor,
               bgColor:
                   selected ? bgStyle!.getSelectedColor() : bgStyle!.getColor(),
             );

@@ -1,6 +1,8 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
 import 'package:cofinex/screens/basic/signin.dart';
+
+import 'package:cofinex/screens/basic/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,7 +109,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                             ],
                           ),
                         ),
-                      const  SizedBox(height: 20.0,),
+                        SizedBox(height: 20.0,),
                         Container(
                           padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                           decoration: BoxDecoration(
@@ -168,7 +170,15 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
+
+
+                      InkWell(
+                        onTap: (){
+                          Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => Sign_Up_screen()));
+
+                        },
+                        child: Container(
                           padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
                           child: Text(
                             AppLocalizations.instance.text("loc_all_account"),
@@ -180,12 +190,13 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                                 'FontRegular'),
                           ),
                         ),
+                      ),
                         InkWell(
                           onTap: (){
-                            setState(() {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(builder: (context) => Sign_In_Screen()));
-                            });
+
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) => Sign_In_Screen()));
+
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
@@ -196,7 +207,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                AppLocalizations.instance.text("loc_login"),
+                                AppLocalizations.instance.text("loc_signin"),
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     16.0,

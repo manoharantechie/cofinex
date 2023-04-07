@@ -183,7 +183,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                     onTap: (){
                       setState(() {
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) => Home_Screen()));
+                            .pushReplacement(MaterialPageRoute(builder: (context) => Home_Screen()));
                       });
                     },
                     child: Container(

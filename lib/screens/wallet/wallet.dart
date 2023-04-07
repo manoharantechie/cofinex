@@ -14,13 +14,15 @@ class Wallet_Screen extends StatefulWidget {
 
 class _Wallet_ScreenState extends State<Wallet_Screen> {
 
-  ScrollController? _scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
   List list_name=[
     "Bitcoin","Binance USD","Ethereum","Ripple","Dogecoin"
   ];
   List list_img=["assets/images/bit.svg","assets/images/binance.svg","assets/images/eth.svg","assets/images/xrp.svg"
 
   ];
+
+  bool checkHide=false;
 
   @override
   Widget build(BuildContext context) {
@@ -215,6 +217,23 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
               SizedBox(height: 15.0,),
               Row(
                 children: [
+                  Theme(
+                      data: ThemeData(
+                        primarySwatch: Colors.cyan,
+                        unselectedWidgetColor: Colors.grey, // Your color
+                      ),
+                      child: Checkbox(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        value: checkHide,
+                        checkColor:   Theme.of(context).focusColor,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            checkHide = value!;
+                          });
+                        },
+                      )),
                   Text(
                     AppLocalizations.instance.text("loc_hide_bal"),
                     style: CustomWidget(context: context)
@@ -227,7 +246,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   ),
                 ],
               ),
-              SizedBox(height: 15.0,),
+              SizedBox(height: 10.0,),
               Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Theme.of(context).splashColor, width: 1.0),

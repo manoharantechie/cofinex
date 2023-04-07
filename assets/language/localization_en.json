@@ -63,5 +63,6 @@
   "loc_side_markets": "Markets",
   "loc_side_trade": "Trade",
   "loc_side_wallet": "Wallet",
-  "loc_side_nft": "NFT"
+  "loc_side_nft": "NFT",
+  "loc_hide_bal": "Hide zero Balances"
 }

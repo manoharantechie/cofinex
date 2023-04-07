@@ -1,6 +1,7 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
+import 'package:cofinex/screens/bottom/market.dart';
 import 'package:cofinex/screens/wallet/wallet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   int selectIndex=0;
   List<Widget>     bottomPage = [
     Dashboard(),
-    Container(),
+    MarketScreen(),
     Container(),
     Wallet_Screen(),
     Container(),

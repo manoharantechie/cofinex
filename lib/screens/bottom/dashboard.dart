@@ -12,11 +12,18 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
+  ScrollController _scrollController = ScrollController();
   List grid_name=[
     "Widthdraw","Exchange","Staking","NFT","AML","Leaders","Invite","Support"
   ];
 
   List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/images/nft.svg","assets/images/aml.svg","assets/images/cup.svg","assets/images/invite.svg","assets/images/mic.svg"
+
+  ];
+  List list_name=[
+    "Bitcoin","Binance USD","Ethereum","Ripple"
+  ];
+  List list_img=["assets/images/bit.svg","assets/images/binance.svg","assets/images/eth.svg","assets/images/xrp.svg"
 
   ];
 
@@ -291,35 +298,215 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      AppLocalizations.instance.text("loc_tot_asset"),
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          12.0,
-                          Theme.of(context).accentColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textAlign: TextAlign.center,
-                    ),
+                   Row(children: [
+                     Flexible(child:  Text(
+                       "Get rewarded up to 4030 USDT for signing up!",
+                       style: CustomWidget(context: context)
+                           .CustomSizedTextStyle(
+                           22.0,
+                           Theme.of(context).focusColor,
+                           FontWeight.w600,
+                           'FontRegular'),
+                       textAlign: TextAlign.start,
+                     ),flex: 2,),
+                     Flexible(child: Container(),flex: 1,),
+                   ],),
                     SizedBox(height: 15.0,),
                     Container(
-                      width: MediaQuery.of(context).size.width*0.2,
+                      width: MediaQuery.of(context).size.width*0.25,
+                      padding: EdgeInsets.only(top: 5.0,bottom: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color:  Theme.of(context).buttonColor,
+                      ),
                       child: Center(
                         child:  Text(
                           AppLocalizations.instance.text("loc_signup"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context).accentColor,
+                              14.0,
+                              Theme.of(context).primaryColor,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                    )
+                    ),
+                    SizedBox(height: 15.0,),
+
                   ],
                 ),
               ),
+              SizedBox(height: 20.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  Text(
+                    "Top Cryptocurency",
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                        18.0,
+                        Theme.of(context).primaryColor,
+                        FontWeight.w600,
+                        'FontRegular'),
+                    textAlign: TextAlign.center,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "See All",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 3.0,),
+                      Container(
+                        width: 50,
+                        height: 1.0,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 10.0,),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: ListView.builder(
+                    physics: ScrollPhysics(),
+                    itemCount: list_name.length,
+                    shrinkWrap: true,
+                    controller: _scrollController,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 12.0),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
+                                              borderRadius: BorderRadius.circular(10.0),
+                                              color: Theme.of(context).highlightColor,
+                                            ),
+                                            child: SvgPicture.asset("assets/images/bit.svg", height: 25.0,),
+                                          ),
+                                          SizedBox(width: 5.0,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                list_name[index].toString(),
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context).primaryColor,
+                                                    FontWeight.w600,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              SizedBox(height: 8.0,),
+                                              Text(
+                                                "BTC",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    12.0,
+                                                    Theme.of(context).canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SvgPicture.asset(index%2==0?'assets/icon/graph_success.svg':'assets/icon/graph_fail.svg'),
+
+
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "0.1832",
+                                            style: CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                14.0,
+                                                Theme.of(context).primaryColor,
+                                                FontWeight.w600,
+                                                'FontRegular'),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(height: 8.0,),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "1.0%",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    12.0,
+                                                    index%2==0?Theme.of(context).indicatorColor:Theme.of(context).scaffoldBackgroundColor,
+                                                    FontWeight.w600,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 1.0,
+                            color: Theme.of(context).splashColor,
+                          )
+                        ],
+                      );
+                    },
+                  )
+              ),
+              SizedBox(height: 30.0,),
 
             ],
           ),

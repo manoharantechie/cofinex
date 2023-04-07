@@ -65,5 +65,7 @@
   "loc_phone" : "Phone",
   "loc_email_id" : "Email Id",
   "loc_user_id" : "User Id",
-  "loc_no_records" : "No Records Found...!"
+  "loc_no_records" : "No Records Found...!",
+  "loc_wallet" : "Wallet",
+  "loc_exchange" : "Exchange"
 }

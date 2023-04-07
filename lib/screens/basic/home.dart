@@ -1,3 +1,4 @@
+import 'package:cofinex/screens/wallet/wallet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,14 @@ class Home_Screen extends StatefulWidget {
 }
 
 class _Home_ScreenState extends State<Home_Screen> {
+
+  List grid_name=[
+    "Widthdraw","Exchange","Staking","NFT","AML","Leaders","Invite","Support"
+  ];
+
+  List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/images/nft.svg","assets/images/aml.svg","assets/images/cup.svg","assets/images/invite.svg","assets/images/mic.svg"
+
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +59,8 @@ class _Home_ScreenState extends State<Home_Screen> {
               padding: EdgeInsets.only(left: 0.0, top: 5.0, bottom: 5.0, right: 20.0),
               child: InkWell(
                   onTap: () {
-                    // Navigator.push(context,MaterialPageRoute(builder:(context)=> Home_Screen()));
-                    Navigator.pop(context);
+                    Navigator.push(context,MaterialPageRoute(builder:(context)=> Wallet_Screen()));
+                    // Navigator.pop(context);
                   },
                   child: Container(
                     padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
@@ -291,18 +300,19 @@ class _Home_ScreenState extends State<Home_Screen> {
                             ),
                             alignment: Alignment.center,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
-                                  "assets/images/widthdraw.svg",
+                                  grid_img[index].toString(),
                                   height: 25.0,
                                 ),
                                 SizedBox(
                                   height: 10.0,
                                 ),
                                 Text(
-                                  AppLocalizations.instance.text("loc_widthdraw"),
+                                  // AppLocalizations.instance.text("loc_widthdraw"),
+                                  grid_name[index].toString(),
                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                       12.0,
                                       Theme.of(context).primaryColor,

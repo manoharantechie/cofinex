@@ -123,7 +123,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
                       ),
                       child: Column(
                         children: [
@@ -154,7 +154,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
                       ),
                       child: Column(
                         children: [
@@ -185,7 +185,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
                       ),
                       child: Column(
                         children: [

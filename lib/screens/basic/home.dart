@@ -1,6 +1,6 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
-import 'package:cofinex/screens/basic/profile.dart';
+import 'package:cofinex/screens/bottom/profile.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
 import 'package:cofinex/screens/bottom/market.dart';
 import 'package:cofinex/screens/wallet/wallet.dart';
@@ -27,9 +27,9 @@ class _Home_ScreenState extends State<Home_Screen> {
   List<Widget>     bottomPage = [
     Dashboard(),
     MarketScreen(),
-    Container(),
+    testWidget(),
     Wallet_Screen(),
-    Container(),
+    testWidget()
   ];
 
   List<String> titleText=["loc_side_home","loc_side_markets","loc_side_trade","loc_side_wallet","loc_side_nft"];
@@ -206,4 +206,31 @@ class _Home_ScreenState extends State<Home_Screen> {
     return bottomItems;
   }
 
+
+
 }
+
+class testWidget extends StatefulWidget {
+  const testWidget({Key? key}) : super(key: key);
+
+  @override
+  State<testWidget> createState() => _testWidgetState();
+}
+
+class _testWidgetState extends State<testWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return          Container(
+      height: MediaQuery.of(context).size.height,
+      child: Center(
+        child: Text("Coming Soon....!",     style: CustomWidget(context: context)
+            .CustomSizedTextStyle(
+            18.0,
+            Theme.of(context).primaryColor,
+            FontWeight.w600,
+            'FontRegular'),),
+      ),
+    );
+  }
+  }
+

@@ -3,6 +3,7 @@ import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/screens/bottom/profile.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
 import 'package:cofinex/screens/bottom/market.dart';
+import 'package:cofinex/screens/bottom/trade.dart';
 import 'package:cofinex/screens/wallet/wallet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   List<Widget>     bottomPage = [
     Dashboard(),
     MarketScreen(),
-    testWidget(),
+    TradeScreen(),
     Wallet_Screen(),
     testWidget()
   ];

@@ -95,5 +95,9 @@
   "loc_share": "Share",
   "loc_download": "Download",
   "loc_leader": "Leaderboard",
-  "loc_wallet_increase": "Wallet Increase:"
+  "loc_wallet_increase": "Wallet Increase:",
+  "loc_currency_check": "CURRENCY TO CHECK",
+  "loc_ckeck": "Check",
+  "loc_from": "FROM",
+  "loc_to": "TO"
 }

@@ -1,5 +1,7 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
+import 'package:cofinex/screens/basic/aml_check.dart';
+import 'package:cofinex/screens/basic/exchange.dart';
 import 'package:cofinex/screens/basic/leader_board.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -265,6 +267,18 @@ class _DashboardState extends State<Dashboard> {
                                       builder: (context) => Invite_Screen()));
 
                                 }
+                              else if(index==4)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Aml_Check_Screen()));
+
+                              }
+                              else if(index==1)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Exchange_Screen()));
+
+                              }
 
 
                             },

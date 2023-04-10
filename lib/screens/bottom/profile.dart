@@ -441,7 +441,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                 width: 10.0,
                               ),
                               Text(
-                                AppLocalizations.instance.text("loc_aml"),
+                                AppLocalizations.instance.text("loc_ctx_info"),
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                         12.0,

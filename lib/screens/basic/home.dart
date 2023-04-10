@@ -1,5 +1,6 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/screens/bottom/assets.dart';
 import 'package:cofinex/screens/bottom/profile.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
 import 'package:cofinex/screens/bottom/market.dart';
@@ -30,7 +31,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     MarketScreen(),
     TradeScreen(),
     Wallet_Screen(),
-    testWidget()
+    Assets()
   ];
 
   List<String> titleText=["loc_side_home","loc_side_markets","loc_side_trade","loc_side_wallet","loc_side_nft"];

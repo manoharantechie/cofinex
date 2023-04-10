@@ -17,9 +17,7 @@ class _MarketScreenState extends State<MarketScreen>  with SingleTickerProviderS
   List list_name=[
     "Bitcoin","Binance USD","Ethereum","Ripple","Dogecoin"
   ];
-  List list_img=["assets/images/bit.svg","assets/images/binance.svg","assets/images/eth.svg","assets/images/xrp.svg"
 
-  ];
 
   @override
   void initState() {

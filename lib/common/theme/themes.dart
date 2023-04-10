@@ -23,7 +23,7 @@ class MyThemes {
       highlightColor: Color(0xFF8B9CAE),
       errorColor: Color(0xFFDD2942),
       hintColor: Color(0xFF202020),
-      hoverColor: Color(0xFF8B9CAE),
+      hoverColor: Color(0xFF77838F),
       secondaryHeaderColor:Color(0xFFFFFFFF),
       indicatorColor: Color(0xFF1B9368),
       selectedRowColor: Color(0xFFFAAD34),
@@ -49,7 +49,7 @@ class MyThemes {
       highlightColor: Color(0xFFF7F7F7),
       errorColor: Color(0xFFffffff),
       hintColor: Color(0xFF202020),
-      hoverColor: Color(0xFF000000),
+      hoverColor: Color(0xFF77838F),
       indicatorColor: Color(0xFF1B9368),
       selectedRowColor: Color(0xFFFAAD34),
       scaffoldBackgroundColor: Color(0xFFDD2942)

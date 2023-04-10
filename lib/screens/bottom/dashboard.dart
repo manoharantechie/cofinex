@@ -1,5 +1,6 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
+import 'package:cofinex/screens/basic/leader_board.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -252,8 +253,10 @@ class _DashboardState extends State<Dashboard> {
                         itemBuilder: (BuildContext context, index) {
                           return InkWell(
                             onTap: (){
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Invite_Screen()));
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Invite_Screen()));
+                                  builder: (context) => Leader_Board_Screen()));
                             },
                             child: Container(
                                 padding: EdgeInsets.only(

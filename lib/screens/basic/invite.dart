@@ -348,14 +348,14 @@ class _Invite_ScreenState extends State<Invite_Screen> {
           ),
         ),
         barrierColor: Colors.white.withOpacity(0),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).focusColor,
         enableDrag: true,
         context: context,
         builder: (BuildContext con) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter ssetState) {
                 return Container(
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -379,7 +379,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            width: 45.0,
+                            width: 35.0,
                             height: 5.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
@@ -404,7 +404,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                                   FontWeight.w700, 'FontRegular'),
                               textAlign: TextAlign.center,
                             ),
-                            Padding(padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                            Padding(padding: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
                             child: Text(
                               AppLocalizations.instance.text("loc_reffer_txt3"),
                               style: CustomWidget(context: context)
@@ -415,25 +415,76 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                             SizedBox(
                               height: 25.0,
                             ),
-                            SvgPicture.asset(
-                              "assets/menu/qr_code.svg",
-                              height: 200.0,
-                              color: Theme.of(context).bottomAppBarColor,
+                            SvgPicture.asset("assets/images/qr_code.svg", height: 240.0,),
+                            SizedBox(
+                              height: 25.0,
                             ),
                           ],
                         ),
                       ),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: 35.0,
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                // Navigator.of(context)
+                                //     .push(MaterialPageRoute(builder: (context) => Verification_Screen()));
+                              });
+                            },
+                            child: Container(
+                              // margin: EdgeInsets.only(bottom: 15.0),
+                              padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).buttonColor,
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(color: Theme.of(context).backgroundColor, ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.instance.text("loc_share"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context).primaryColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                ),
+                              ),
+                            ),
                           ),
-                          
                           SizedBox(
-                            height: 35.0,
+                            height: 15.0,
                           ),
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                // Navigator.of(context)
+                                //     .push(MaterialPageRoute(builder: (context) => Verification_Screen()));
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 5.0),
+                              padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).hintColor,
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(color: Theme.of(context).backgroundColor, ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.instance.text("loc_download"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context).primaryColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                ),
+                              ),
+                            ),
+                          )
 
                         ],
                       ),

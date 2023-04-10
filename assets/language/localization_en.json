@@ -90,5 +90,9 @@
   "loc_reffer_link": "Referal Link",
   "loc_reffer_txt1": "Justo donec enim diam vulputate ut pharetra. Ut placerat orci nulla pellenNulla pellentesque dignissim enim sit. Orci eu lobortis elementum nibh tellus. ",
   "loc_reffer_txt2": "Tincidunt nunc pulvinar sapien et ligula ullamcorper. A diam maecenas sed enim ut sem viverra. In hac habitasse platea dictumst quisque sagittis. Egestas tellus rutrum tellus pellentesque eu tincidunt ",
-  "loc_reffer_txt3": "Send it to your friend or show them the QR code"
+  "loc_reffer_txt3": "Send it to your friend or show them \nthe QR code",
+  "loc_share": "Share",
+  "loc_download": "Download",
+  "loc_leader": "Leaderboard",
+  "loc_wallet_increase": "Wallet Increase:"
 }

@@ -319,6 +319,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                           )
                                         ],
                                       ),
+
                                     ),
                                     Container(
                                       child: Column(

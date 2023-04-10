@@ -122,7 +122,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   children: [
                     Flexible(child: InkWell(
                       onTap: (){
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Choose_Currency()));
                       },
                       child: Container(
@@ -160,7 +160,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                     SizedBox(width: 10.0,),
                     Flexible(child: InkWell(
                       onTap: (){
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Widthdraw_Screen()));
                       },
                       child: Container(

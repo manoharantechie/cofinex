@@ -253,10 +253,20 @@ class _DashboardState extends State<Dashboard> {
                         itemBuilder: (BuildContext context, index) {
                           return InkWell(
                             onTap: (){
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) => Invite_Screen()));
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Leader_Board_Screen()));
+
+                              if(index==5)
+                                {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Leader_Board_Screen()));
+                                }
+                              else if(index==6)
+                                {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Invite_Screen()));
+
+                                }
+
+
                             },
                             child: Container(
                                 padding: EdgeInsets.only(

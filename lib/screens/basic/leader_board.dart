@@ -14,6 +14,7 @@ class Leader_Board_Screen extends StatefulWidget {
 
 class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
 
+  int selIndex=0;
   ScrollController _scrollController = ScrollController();
   List list_name=[
     "Merkulove","CrTrader","Singh","Cryptodeter","Codecrypto","Bitcoinbutler","Coinunlike","Coinfizzle"
@@ -55,6 +56,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
           padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: Column(
             children: [
+              const SizedBox(height: 20.0,),
               ListView.builder(
                 physics: ScrollPhysics(),
                 itemCount: list_name.length,
@@ -63,15 +65,25 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
+
                       InkWell(
                         onTap: (){
+
+
+                          setState(() {
+
+                            selIndex=index;
+                          });
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => Wallet_Address()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
+
                             borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                            border: Border.all(width: 1.0,color: Theme.of(context).splashColor,
+                            ),
+                            color: selIndex==index? Theme.of(context).primaryColor:Theme.of(context).focusColor
                           ),
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 5.0),
@@ -112,7 +124,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                               14.0,
-                                              Theme.of(context).primaryColor,
+                                              selIndex==index? Theme.of(context).focusColor:Theme.of(context).primaryColor,
                                               FontWeight.w600,
                                               'FontRegular'),
                                           textAlign: TextAlign.center,
@@ -130,7 +142,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             10.0,
-                                            Theme.of(context).canvasColor,
+                                            selIndex==index? Theme.of(context).splashColor:   Theme.of(context).canvasColor,
                                             FontWeight.w500,
                                             'FontRegular'),
                                         textAlign: TextAlign.center,

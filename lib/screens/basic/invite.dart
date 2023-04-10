@@ -161,7 +161,9 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
+                              color: Theme.of(context).focusColor
+
                             ),
                             padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
                             child: Row(
@@ -219,7 +221,8 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
+                                color: Theme.of(context).focusColor
                             ),
                             padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
                             child: Row(
@@ -341,14 +344,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
   showInviteFriends() {
     showModalBottomSheet(
         isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15.0),
-            topLeft: Radius.circular(15.0),
-          ),
-        ),
-        barrierColor: Colors.white.withOpacity(0),
-        backgroundColor: Theme.of(context).focusColor,
+        backgroundColor: Colors.transparent,
         enableDrag: true,
         context: context,
         builder: (BuildContext con) {
@@ -362,7 +358,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                       topRight: Radius.circular(15.0),
                       topLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.transparent,
+                    color: Colors.white,
                   ),
                   padding: EdgeInsets.only(right: 15.0, left: 15.0),
                   child: Column(
@@ -468,7 +464,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                               margin: EdgeInsets.only(bottom: 5.0),
                               padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).dividerColor,
                                 borderRadius: BorderRadius.circular(15.0),
                                 border: Border.all(color: Theme.of(context).backgroundColor, ),
                               ),

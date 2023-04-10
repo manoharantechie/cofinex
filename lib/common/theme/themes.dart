@@ -25,7 +25,7 @@ class MyThemes {
       hintColor: Color(0xFF202020),
       hoverColor: Color(0xFF77838F),
       secondaryHeaderColor:Color(0xFFFFFFFF),
-      indicatorColor: Color(0xFF1B9368),
+      indicatorColor: Color(0xFF1ABC7B),
       selectedRowColor: Color(0xFFFAAD34),
       scaffoldBackgroundColor: Color(0xFFDD2942)
   );
@@ -50,7 +50,7 @@ class MyThemes {
       errorColor: Color(0xFFffffff),
       hintColor: Color(0xFF202020),
       hoverColor: Color(0xFF77838F),
-      indicatorColor: Color(0xFF1B9368),
+      indicatorColor: Color(0xFF1ABC7B),
       selectedRowColor: Color(0xFFFAAD34),
       scaffoldBackgroundColor: Color(0xFFDD2942)
   );

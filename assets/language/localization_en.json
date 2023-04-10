@@ -24,7 +24,7 @@
   "loc_okay" : "Okay",
   "loc_submit": "Submit",
   "loc_deposite": "Deposit",
-  "loc_buy_cryp": "Buy Cripto",
+  "loc_buy_cryp": "Buy Crypto",
   "loc_widthdraw": "Withdraw",
   "loc_tot_asset" : "Totel Assets",
   "loc_actions": "Actions",
@@ -95,5 +95,6 @@
   "loc_share": "Share",
   "loc_download": "Download",
   "loc_leader": "Leaderboard",
-  "loc_wallet_increase": "Wallet Increase:"
+  "loc_wallet_increase": "Wallet Increase:",
+  "loc_ch_plan": "Choose Plan "
 }

@@ -9,6 +9,7 @@ import '../wallet/deposite.dart';
 import '../wallet/wallet_address.dart';
 
 class Choose_Currency extends StatefulWidget {
+
   const Choose_Currency({Key? key}) : super(key: key);
 
   @override

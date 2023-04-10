@@ -1,6 +1,7 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/screens/bottom/assets.dart';
+import 'package:cofinex/screens/basic/notification.dart';
 import 'package:cofinex/screens/bottom/profile.dart';
 import 'package:cofinex/screens/bottom/dashboard.dart';
 import 'package:cofinex/screens/bottom/market.dart';
@@ -138,7 +139,8 @@ class _Home_ScreenState extends State<Home_Screen> {
               padding: EdgeInsets.only(left: 0.0, top: 10.0, bottom: 8.0, right: 20.0),
               child: InkWell(
                   onTap: () {
-
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Notification_Screen()));
                     // Navigator.pop(context);
                   },
                   child: Container(

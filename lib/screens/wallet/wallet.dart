@@ -1,3 +1,5 @@
+import 'package:cofinex/screens/basic/choose_currency.dart';
+import 'package:cofinex/screens/wallet/widthdraw.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -118,96 +120,113 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
               Container(
                 child: Row(
                   children: [
-                    Flexible(child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
-                      ),
-                      child: Column(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/deposite.svg",
-                            height: 25.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            AppLocalizations.instance
-                                .text("loc_deposite"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),flex: 1,),
-                    SizedBox(width: 10.0,),
-                    Flexible(child: Container(
-                      padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
-                      ),
-                      child: Column(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/withdraw.svg",
-                            height: 25.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            AppLocalizations.instance
-                                .text("loc_widthdraw"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                    Flexible(child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => Choose_Currency()));
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                        ),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/deposite.svg",
+                              height: 25.0,
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              AppLocalizations.instance
+                                  .text("loc_deposite"),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ),flex: 1,),
                     SizedBox(width: 10.0,),
-                    Flexible(child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                    Flexible(child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => Widthdraw_Screen()));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                        ),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/withdraw.svg",
+                              height: 25.0,
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              AppLocalizations.instance
+                                  .text("loc_widthdraw"),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/exchange.svg",
-                            height: 25.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            AppLocalizations.instance
-                                .text("loc_exchange"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                    ),flex: 1,),
+                    SizedBox(width: 10.0,),
+                    Flexible(child: InkWell(
+                      onTap: (){
+
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                        ),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/exchange.svg",
+                              height: 25.0,
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              AppLocalizations.instance
+                                  .text("loc_exchange"),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     ),flex: 1,)
                   ],

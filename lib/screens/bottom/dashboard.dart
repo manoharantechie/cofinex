@@ -3,6 +3,8 @@ import 'package:cofinex/common/localization/localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../basic/invite.dart';
+
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
 
@@ -248,38 +250,44 @@ class _DashboardState extends State<Dashboard> {
                         shrinkWrap: true,
                         itemCount: 8,
                         itemBuilder: (BuildContext context, index) {
-                          return Container(
-                              padding: EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, right: 12.0, left: 12.0),
-                              decoration: BoxDecoration(
-                                color:  Theme.of(context).focusColor,
-                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    grid_img[index].toString(),
-                                    height: 25.0,
-                                  ),
-                                  SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Text(
-                                    // AppLocalizations.instance.text("loc_widthdraw"),
-                                    grid_name[index].toString(),
-                                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                                        10.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              )
+                          return InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Invite_Screen()));
+                            },
+                            child: Container(
+                                padding: EdgeInsets.only(
+                                    top: 5.0, bottom: 5.0, right: 12.0, left: 12.0),
+                                decoration: BoxDecoration(
+                                  color:  Theme.of(context).focusColor,
+                                  border: Border.all(width: 1.0,color: Theme.of(context).splashColor),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      grid_img[index].toString(),
+                                      height: 25.0,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      // AppLocalizations.instance.text("loc_widthdraw"),
+                                      grid_name[index].toString(),
+                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                          10.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                )
+                            ),
                           );
                         },
                       ),

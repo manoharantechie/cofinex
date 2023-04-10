@@ -79,5 +79,16 @@
   "loc_merchant": "MERCHANT",
   "loc_fee" : "Fee",
   "loc_amt_receive": "Amount Received",
-  "loc_tot": "Total"
+  "loc_tot": "Total",
+  "loc_invite": "Invite Friends",
+  "loc_get_voucher": "USDT Cashback Voucher",
+  "loc_get" : "Get",
+  "loc_get_txt": "When Inbitee accumulatively deposits more than $50.",
+  "loc_reffer_head" : "Referal Details",
+  "loc_reffer_txt": "Copy the referal code and send it to the friend",
+  "loc_reffer_id": "Referal ID",
+  "loc_reffer_link": "Referal Link",
+  "loc_reffer_txt1": "Justo donec enim diam vulputate ut pharetra. Ut placerat orci nulla pellenNulla pellentesque dignissim enim sit. Orci eu lobortis elementum nibh tellus. ",
+  "loc_reffer_txt2": "Tincidunt nunc pulvinar sapien et ligula ullamcorper. A diam maecenas sed enim ut sem viverra. In hac habitasse platea dictumst quisque sagittis. Egestas tellus rutrum tellus pellentesque eu tincidunt ",
+  "loc_reffer_txt3": "Send it to your friend or show them the QR code"
 }

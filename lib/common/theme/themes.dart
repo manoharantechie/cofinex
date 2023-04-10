@@ -49,7 +49,7 @@ class MyThemes {
       highlightColor: Color(0xFFF7F7F7),
       errorColor: Color(0xFFffffff),
       hintColor: Color(0xFFEBEBEB),
-      hoverColor: Color(0xFF000000),
+      hoverColor: Color(0xFFDCDCDC),
       indicatorColor: Color(0xFF1B9368),
       selectedRowColor: Color(0xFFFAAD34),
       scaffoldBackgroundColor: Color(0xFFDD2942)

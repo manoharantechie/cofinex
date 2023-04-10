@@ -231,8 +231,8 @@ class _Widthdraw_ScreenState extends State<Widthdraw_Screen> {
                                     Container(
                                       padding: EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: Theme.of(context).backgroundColor,
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        color: Theme.of(context).focusColor,
                                       ),
                                       child: SvgPicture.asset("assets/images/bit.svg", height: 20.0,),
                                     ),

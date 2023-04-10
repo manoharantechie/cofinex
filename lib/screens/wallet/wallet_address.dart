@@ -101,7 +101,7 @@ class _Wallet_AddressState extends State<Wallet_Address> {
                           textAlign: TextAlign.center,
                         ),
                       ],
-                    ),flex: 1,),
+                    ),flex: 3,),
                     Flexible(child: InkWell(
                       child: Container(
                         decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class _Wallet_AddressState extends State<Wallet_Address> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                    ))
+                    ),flex: 1,)
 
                   ],
                 ),

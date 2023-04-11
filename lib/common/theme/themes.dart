@@ -27,7 +27,9 @@ class MyThemes {
       secondaryHeaderColor:Color(0xFFFFFFFF),
       indicatorColor: Color(0xFF1B9368),
       selectedRowColor: Color(0xFFFAAD34),
-      scaffoldBackgroundColor: Color(0xFFDD2942)
+      scaffoldBackgroundColor: Color(0xFFDD2942),
+      dialogBackgroundColor: Color(0xFFA0A0A0),
+      toggleableActiveColor: Color(0xFFD9D9D9)
   );
 
 
@@ -52,7 +54,9 @@ class MyThemes {
       hoverColor: Color(0xFF77838F),
       indicatorColor: Color(0xFF1B9368),
       selectedRowColor: Color(0xFFFAAD34),
-      scaffoldBackgroundColor: Color(0xFFDD2942)
+      scaffoldBackgroundColor: Color(0xFFDD2942),
+      dialogBackgroundColor: Color(0xFFA0A0A0),
+     toggleableActiveColor: Color(0xFFD9D9D9)
   );
 
   static ThemeData getThemeFromKey(MyThemeKeys themeKey) {

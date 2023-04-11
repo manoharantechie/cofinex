@@ -2,6 +2,7 @@
 
 import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
+import 'package:cofinex/screens/bottom/profile_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,31 +133,37 @@ class _Profile_ScreenState extends State<Profile_Screen> {
               SizedBox(
                 height: 10.0,
               ),
-              Container(
-                padding: EdgeInsets.only(
-                    top: 15.0, right: 15.0, left: 15.0, bottom: 15.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/profile/Icon.svg",
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      "Dan Tourlan",
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              14.0,
-                              Theme.of(context).focusColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                    ),
-                  ],
+              InkWell(
+                onTap: (){
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => ProfileDetailsScreen()));
+                },
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 15.0, right: 15.0, left: 15.0, bottom: 15.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/profile/Icon.svg",
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "Dan Tourlan",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

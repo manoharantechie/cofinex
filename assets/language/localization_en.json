@@ -104,5 +104,25 @@
   "loc_uid": "UID",
   "loc_uname": "User name",
   "loc_language": "Language",
-  "loc_currency": "Currency"
+  "loc_currency": "Currency",
+  "loc_unverified": "Unverified",
+  "loc_verified": "Verified",
+  "loc_current_services": "Current Services",
+  "loc_width": "Withdrawals",
+  "loc_p2p": "P2P Trading",
+  "loc_fiat_dep": "Fiat Deposit",
+  "loc_all_serv": "All Services",
+  "loc_verify_now": "Verify Now",
+  "loc_let_start": "Let’s start  verfication",
+  "loc_issue": "Issuing country/Region",
+  "loc_verify_txt2": "Which verification method  would you like to use ?",
+  "loc_id": "ID card ",
+  "loc_passport": "Passport",
+  "loc_drive_lic": "Driver’s License ",
+  "loc_nxt": "Next",
+  "loc_personal_info": "Personal Information",
+  "loc_first_name": "First Name",
+  "loc_last_name": "Last Name",
+  "loc_id_num": "ID Number"
+
 }

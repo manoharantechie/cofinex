@@ -1,3 +1,4 @@
+import 'package:cofinex/screens/bottom/profile_verification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -88,6 +89,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top: 15.0),
                       padding: EdgeInsets.only(
                           top: 20.0, right: 15.0, left: 15.0, bottom: 20.0),
                       decoration: BoxDecoration(
@@ -145,22 +147,29 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                 ],
                               ),
                               SizedBox(height: 8.0,),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: Theme.of(context).focusColor.withOpacity(0.5),
-                                ),
-                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                                child: Text(
-                                  "Unverified",
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      8.0,
-                                      Theme.of(context).dialogBackgroundColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                                ),
-                              )
+                             InkWell(
+                               onTap: (){
+                                 Navigator.of(context)
+                                     .push(MaterialPageRoute(builder: (context) => ProfileVerification_Screen()));
+                               },
+                               child:  Container(
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(5.0),
+                                   color: Theme.of(context).toggleableActiveColor.withOpacity(0.2),
+                                 ),
+                                 padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                 child: Text(
+                                   AppLocalizations.instance
+                                       .text("loc_unverified"),
+                                   style: CustomWidget(context: context)
+                                       .CustomSizedTextStyle(
+                                       8.0,
+                                       Theme.of(context).dialogBackgroundColor,
+                                       FontWeight.w600,
+                                       'FontRegular'),
+                                 ),
+                               ),
+                             )
                             ],
                           ),flex: 1,)
                         ],

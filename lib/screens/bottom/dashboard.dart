@@ -22,7 +22,7 @@ class _DashboardState extends State<Dashboard> {
 
   ScrollController _scrollController = ScrollController();
   List grid_name=[
-    "Widthdraw","Exchange","Staking","NFT","AML","Leaders","Invite","Support"
+    "Widthdraw","Exchange","Staking","NFT","Copy Trading","Leaders","Invite","Support"
   ];
 
   List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/images/nft.svg","assets/images/aml.svg","assets/images/cup.svg","assets/images/invite.svg","assets/images/mic.svg"
@@ -148,94 +148,106 @@ class _DashboardState extends State<Dashboard> {
                     Row(
                       children: [
                         Flexible(
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                              color:  Theme.of(context).focusColor,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        "assets/images/deposite.svg",
-                                        height: 25.0,
-                                      ),
-                                      SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Text(
-                                        AppLocalizations.instance
-                                            .text("loc_deposite"),
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            12.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w600,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
+                          child:InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Choose_Currency()));
+                            },
+                            child:  Container(
+                              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
+                                color:  Theme.of(context).focusColor,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          "assets/images/deposite.svg",
+                                          height: 25.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                          AppLocalizations.instance
+                                              .text("loc_deposite"),
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              12.0,
+                                              Theme.of(context).primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 15.0,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15.0,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),flex: 1,),
                         SizedBox(width: 15.0,),
                         Flexible(
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                              color:  Theme.of(context).focusColor,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        "assets/images/crypco.svg",
-                                        height: 25.0,
-                                      ),
-                                      SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Text(
-                                        AppLocalizations.instance
-                                            .text("loc_buy_cryp"),
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            12.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w600,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Choose_Currency()));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
+                                color:  Theme.of(context).focusColor,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          "assets/images/crypco.svg",
+                                          height: 25.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                          AppLocalizations.instance
+                                              .text("loc_buy_cryp"),
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              12.0,
+                                              Theme.of(context).primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 15.0,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15.0,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),flex: 1,)
                       ],
@@ -258,8 +270,31 @@ class _DashboardState extends State<Dashboard> {
                         itemBuilder: (BuildContext context, index) {
                           return InkWell(
                             onTap: (){
+                              if(index==0)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Widthdraw_Screen()));
+                              }
 
-                              if(index==5)
+                              else if(index==1)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Exchange_Screen()));
+
+                              }
+                              else if(index==2)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Staking()));
+
+                              }
+                              else if(index==4)
+                              {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Aml_Check_Screen()));
+
+                              }
+                             else if(index==5)
                                 {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => Leader_Board_Screen()));
@@ -270,18 +305,8 @@ class _DashboardState extends State<Dashboard> {
                                       builder: (context) => Invite_Screen()));
 
                                 }
-                              else if(index==4)
-                              {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Aml_Check_Screen()));
 
-                              }
-                              else if(index==1)
-                              {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Exchange_Screen()));
 
-                              }
 
 
                             },

@@ -1,4 +1,5 @@
 import 'package:cofinex/screens/basic/choose_currency.dart';
+import 'package:cofinex/screens/basic/exchange.dart';
 import 'package:cofinex/screens/wallet/widthdraw.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20.0,),
+           const   SizedBox(height: 20.0,),
               Container(
                 child: Row(
                   children: [
@@ -157,7 +158,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                         ),
                       ),
                     ),flex: 1,),
-                    SizedBox(width: 10.0,),
+               const     SizedBox(width: 10.0,),
                     Flexible(child: InkWell(
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(
@@ -195,10 +196,11 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                         ),
                       ),
                     ),flex: 1,),
-                    SizedBox(width: 10.0,),
+                  const  SizedBox(width: 10.0,),
                     Flexible(child: InkWell(
                       onTap: (){
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Exchange_Screen()));
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,

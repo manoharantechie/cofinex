@@ -10,17 +10,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF01081E),
-    statusBarBrightness: Brightness.dark,
-    statusBarIconBrightness: Brightness.dark, // status bar icon color
-    systemNavigationBarIconBrightness:
-        Brightness.dark, // color of navigation controls
-  ));
+
 
   runApp(
     const CustomTheme(
-      initialThemeKey: MyThemeKeys.DARK,
+      initialThemeKey: MyThemeKeys.LIGHT,
       child: MyApp(),
     ),
   );

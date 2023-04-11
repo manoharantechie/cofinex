@@ -1,8 +1,10 @@
 
 
 import 'package:cofinex/common/custom_switch.dart';
+import 'package:cofinex/common/theme/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
@@ -16,8 +18,52 @@ class Profile_Screen extends StatefulWidget {
 }
 
 class _Profile_ScreenState extends State<Profile_Screen> {
-  bool checkTheme = false;
 
+  bool light=false;
+  String themeType="";
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDetails();
+  }
+
+
+
+  getDetails()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    setState(() {
+
+      themeType=preferences.getString('theme').toString();
+      print(themeType);
+
+      if(themeType==null || themeType=="null")
+      {
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
+        light=true;
+      }
+      else if(themeType=="dark"){
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.DARK);
+        light=false;
+
+      }
+      else
+      {
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
+        light=true;
+      }
+    });
+  }
+  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+    CustomTheme.instanceOf(buildContext).changeTheme(key);
+  }
+
+  setData(String type)async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    preferences.setString("theme", type);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +110,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       child: SvgPicture.asset(
                         "assets/images/mic.svg",
                         height: 20.0,
+                        color: Theme.of(context).secondaryHeaderColor,
                       ),
                     ),
                   ))),
@@ -351,15 +398,36 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                             ],
                           ),
                           CustomSwitch(
-                              value: checkTheme,
+                              value: light,
                               activeColor: Theme.of(context).accentColor.withOpacity(0.5),
                               circleColor:  Theme.of(context).focusColor,
                               inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
                               activeTextColor: Theme.of(context).focusColor,
-                              chanegStatus: checkTheme,
+                              chanegStatus: light,
                             onChanged: (val){
                                 setState(() {
-                                  checkTheme=val;
+
+                                  print(val);
+
+                                  if(val)
+                                    {
+                                      _changeTheme(context, MyThemeKeys.LIGHT);
+
+                                      light=val;
+                                      setData("light");
+
+                                    }
+                                  else{
+
+                                    _changeTheme(context, MyThemeKeys.DARK);
+
+                                    light=val;
+                                    setData("dark");
+
+                                  }
+
+
+
                                 });
                             },
                           ),

@@ -110,7 +110,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     TextFormFieldCustom(
                       onEditComplete: () {
                         fnameFocus.unfocus();
-                        // FocusScope.of(context).requestFocus(snameFocus);
+                        FocusScope.of(context).requestFocus(lnameFocus);
                       },
                       radius: 10.0,
                       error: "Enter First Name",
@@ -119,8 +119,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
+                      textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          12.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: fnameFocus,
                       maxlines: 1,
@@ -154,7 +154,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     TextFormFieldCustom(
                       onEditComplete: () {
                         lnameFocus.unfocus();
-                        // FocusScope.of(context).requestFocus(snameFocus);
+                        FocusScope.of(context).requestFocus(idnameFocus);
                       },
                       radius: 10.0,
                       error: "Enter Last Name",
@@ -163,8 +163,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
+                      textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          12.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: lnameFocus,
                       maxlines: 1,
@@ -207,8 +207,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
+                      textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          12.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: idnameFocus,
                       maxlines: 1,

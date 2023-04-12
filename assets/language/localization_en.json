@@ -123,6 +123,25 @@
   "loc_personal_info": "Personal Information",
   "loc_first_name": "First Name",
   "loc_last_name": "Last Name",
-  "loc_id_num": "ID Number"
+  "loc_id_num": "ID Number",
+  "loc_log_pass": "Login Password",
+  "loc_change": "Change",
+  "loc_trd_pass" : "Trading Password",
+  "loc_not_config": "Not Configured",
+  "loc_bind": "Bind",
+  "loc_veri_goo": "Google verification",
+  "loc_anti_code": "Anti-phishing code",
+  "loc_change_pass": "Change Password",
+  "loc_old_pass": "Old Password ",
+  "loc_new_pass": "New Password ",
+  "loc_verify_code": "Verification Code",
+  "loc_confirm": "Confirm",
+  "loc_not_rcv_sms": "Cannot receive SMS?",
+  "loc_bind_email": "Bind Email",
+  "loc_sms_vfy_code": "SMS verification code",
+  "loc_pay_method": "Payment methods",
+  "loc_cong": "Congratulation! ",
+  "loc_verified_kyc": "Your KYC has been verified",
+  "loc_gift_card": "Gift Cards"
 
 }

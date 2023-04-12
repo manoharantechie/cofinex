@@ -1,5 +1,6 @@
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/common/theme/themes.dart';
 import 'package:cofinex/screens/bottom/assets.dart';
 import 'package:cofinex/screens/basic/notification.dart';
 import 'package:cofinex/screens/bottom/profile.dart';
@@ -10,6 +11,7 @@ import 'package:cofinex/screens/wallet/wallet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
@@ -43,8 +45,34 @@ class _Home_ScreenState extends State<Home_Screen> {
     // TODO: implement initState
     super.initState();
     _bottomItems = createBottomItems();
+    getDetails();
   }
 
+
+  getDetails()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    setState(() {
+
+     String themeType=preferences.getString('theme').toString();
+      print(themeType);
+
+      if(themeType==null || themeType=="null")
+      {
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
+
+      }
+      else if(themeType=="dark"){
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.DARK);
+
+
+      }
+      else
+      {
+        CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
+
+      }
+    });
+  }
 
   void onSelectItem(int index) async {
     setState(() {
@@ -82,6 +110,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                     child: SvgPicture.asset(
                       "assets/images/user.svg",
                       height: 20.0,
+
                     ),
                   ),
                 ))),
@@ -154,6 +183,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                       child: SvgPicture.asset(
                       currentIndex==0?  "assets/images/notification.svg":"assets/icon/search.svg",
                         height: 20.0,
+                        color: Theme.of(context).secondaryHeaderColor,
                       ),
                     ),
                   ))),

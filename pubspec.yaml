@@ -44,6 +44,7 @@ dependencies:
   awesome_snackbar_content:
   provider:
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,6 +81,7 @@ flutter:
     - assets/bottom/
     - assets/icon/
     - assets/profile/
+    - assets/icon/logo.gif
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:

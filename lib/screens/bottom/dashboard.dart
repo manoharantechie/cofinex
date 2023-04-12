@@ -58,7 +58,10 @@ class _DashboardState extends State<Dashboard> {
                 padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 20.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  color:  Theme.of(context).primaryColor,
+                  image: DecorationImage(
+                    image: AssetImage("assets/icon/back.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +85,7 @@ class _DashboardState extends State<Dashboard> {
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               22.0,
-                              Theme.of(context).focusColor,
+                              Theme.of(context).errorColor,
                               FontWeight.w700,
                               'FontRegular'),
                           textAlign: TextAlign.center,
@@ -108,7 +111,7 @@ class _DashboardState extends State<Dashboard> {
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).focusColor,
+                              Theme.of(context).errorColor,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.center,
@@ -171,6 +174,7 @@ class _DashboardState extends State<Dashboard> {
                                         SvgPicture.asset(
                                           "assets/images/deposite.svg",
                                           height: 25.0,
+                                          color:  Theme.of(context).primaryColor,
                                         ),
                                         SizedBox(
                                           width: 10.0,
@@ -223,6 +227,7 @@ class _DashboardState extends State<Dashboard> {
                                         SvgPicture.asset(
                                           "assets/images/crypco.svg",
                                           height: 25.0,
+                                          color:  Theme.of(context).primaryColor,
                                         ),
                                         SizedBox(
                                           width: 10.0,
@@ -326,6 +331,7 @@ class _DashboardState extends State<Dashboard> {
                                     SvgPicture.asset(
                                       grid_img[index].toString(),
                                       height: 25.0,
+                                      color:  Theme.of(context).primaryColor,
                                     ),
                                     SizedBox(
                                       height: 10.0,
@@ -356,8 +362,11 @@ class _DashboardState extends State<Dashboard> {
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 20.0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color:  Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(10.0),
+                  image: DecorationImage(
+                    image: AssetImage("assets/icon/back.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,7 +378,7 @@ class _DashboardState extends State<Dashboard> {
                        style: CustomWidget(context: context)
                            .CustomSizedTextStyle(
                            22.0,
-                           Theme.of(context).focusColor,
+                           Theme.of(context).errorColor,
                            FontWeight.w600,
                            'FontRegular'),
                        textAlign: TextAlign.start,
@@ -451,7 +460,7 @@ class _DashboardState extends State<Dashboard> {
                       bottomRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).highlightColor,
                   ),
                   child: ListView.builder(
                     physics: ScrollPhysics(),
@@ -463,6 +472,7 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width,
+
                             padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

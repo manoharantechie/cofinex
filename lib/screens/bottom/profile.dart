@@ -43,17 +43,17 @@ class _Profile_ScreenState extends State<Profile_Screen> {
       if(themeType==null || themeType=="null")
       {
         CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
-        light=true;
+        light=false;
       }
       else if(themeType=="dark"){
         CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.DARK);
-        light=false;
+        light=true;
 
       }
       else
       {
         CustomTheme.instanceOf(context).changeTheme(MyThemeKeys.LIGHT);
-        light=true;
+        light=false;
       }
     });
   }
@@ -143,7 +143,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       top: 15.0, right: 15.0, left: 15.0, bottom: 15.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: Theme.of(context).primaryColor,
+                    image: DecorationImage(
+                      image: AssetImage("assets/icon/back.png"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -416,7 +419,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
 
                                   print(val);
 
-                                  if(val)
+                                  if(!val)
                                     {
                                       _changeTheme(context, MyThemeKeys.LIGHT);
 

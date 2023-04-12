@@ -197,7 +197,7 @@ class _Home_ScreenState extends State<Home_Screen> {
         color: CustomTheme.of(context).primaryColor,
         iconStyle: IconStyle(
           color: CustomTheme.of(context).canvasColor,
-          onSelectColor: CustomTheme.of(context).focusColor,
+          onSelectColor: CustomTheme.of(context).errorColor,
           size: 25.0,
         ),
         bgStyle: BgStyle(
@@ -213,7 +213,7 @@ class _Home_ScreenState extends State<Home_Screen> {
               'FontRegular'),
           onSelectTextStyle: CustomWidget(context: context).CustomSizedTextStyle(
             12.0,
-              Theme.of(context).focusColor,
+              Theme.of(context).errorColor,
               FontWeight.normal,
               'FontRegular'),
         ),

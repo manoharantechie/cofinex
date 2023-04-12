@@ -93,7 +93,7 @@ class _Choose_CurrencyState extends State<Choose_Currency> with SingleTickerProv
               Container(
                 height: 35.0,
                 decoration: BoxDecoration(
-                    color: CustomTheme.of(context).focusColor,
+                    color: CustomTheme.of(context).errorColor,
                     borderRadius: BorderRadius.circular(15.0),
                     border: Border.all(color: CustomTheme.of(context).splashColor)
                 ),
@@ -103,15 +103,21 @@ class _Choose_CurrencyState extends State<Choose_Currency> with SingleTickerProv
                   labelStyle:CustomWidget(context: context)
                       .CustomSizedTextStyle(
                       13.0,
-                      Theme.of(context).accentColor,
+                      Theme.of(context).splashColor,
                       FontWeight.w600,
                       'FontRegular'),
 
-                  labelColor: CustomTheme.of(context).primaryColor,
+                  labelColor: CustomTheme.of(context).splashColor,
+                  unselectedLabelStyle:CustomWidget(context: context)
+                      .CustomSizedTextStyle(
+                      13.0,
+                      Theme.of(context).splashColor,
+                      FontWeight.w600,
+                      'FontRegular'),
+
                   //<-- selected text color
                   unselectedLabelColor: CustomTheme.of(context)
-                      .primaryColor
-                      .withOpacity(0.5),
+                      .hintColor,
                   // isScrollable: true,
                   indicatorColor: CustomTheme.of(context).cardColor,
                   indicator: BoxDecoration(
@@ -159,7 +165,7 @@ class _Choose_CurrencyState extends State<Choose_Currency> with SingleTickerProv
             bottomRight: Radius.circular(15.0),
             bottomLeft: Radius.circular(15.0),
           ),
-          color: Colors.white,
+          color:  Theme.of(context).focusColor,
         ),
         child: ListView.builder(
           physics: ScrollPhysics(),
@@ -268,7 +274,7 @@ class _Choose_CurrencyState extends State<Choose_Currency> with SingleTickerProv
             bottomRight: Radius.circular(15.0),
             bottomLeft: Radius.circular(15.0),
           ),
-          color: Colors.white,
+          color:  Theme.of(context).focusColor,
         ),
         child: ListView.builder(
           physics: ScrollPhysics(),

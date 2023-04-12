@@ -13,6 +13,9 @@ class GiftCard_Details extends StatefulWidget {
 }
 
 class _GiftCard_DetailsState extends State<GiftCard_Details> {
+
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +67,76 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                     ),
                   ))),
         ],
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Theme.of(context).backgroundColor,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  controller: _scrollController,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  // physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 8,
+                  itemBuilder: (BuildContext context, index) {
+                    return InkWell(
+                      onTap: (){
+
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(
+                              top: 5.0, bottom: 5.0, right: 12.0, left: 12.0),
+                          decoration: BoxDecoration(
+                            color:  Theme.of(context).focusColor,
+                            border: Border.all(width: 1.0,color: Theme.of(context).splashColor),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          alignment: Alignment.center,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                // grid_img[index].toString(),
+                                "",
+                                height: 25.0,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(
+                                // AppLocalizations.instance.text("loc_widthdraw"),
+                                // grid_name[index].toString(),
+                                "",
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    10.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          )
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -97,9 +97,9 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+
                       Flexible(child: InkWell(
                           onTap: () {
-
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width ,

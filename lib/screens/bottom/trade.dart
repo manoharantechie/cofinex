@@ -356,7 +356,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                         .CustomSizedTextStyle(
                                                         10.0,
                                                         Theme.of(context)
-                                                            .primaryColor,
+                                                            .hintColor,
                                                         FontWeight
                                                             .w500,
                                                         'FontRegular'),
@@ -373,7 +373,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                               Icons.arrow_drop_down,
                                               color: CustomTheme.of(
                                                   context)
-                                                  .primaryColor,
+                                                  .hintColor,
                                               size: 15.0,
                                             ),
                                           ),
@@ -518,7 +518,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                         .CustomSizedTextStyle(
                                                         10.0,
                                                         Theme.of(context)
-                                                            .primaryColor,
+                                                            .hintColor,
                                                         FontWeight
                                                             .w500,
                                                         'FontRegular'),
@@ -534,7 +534,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                         icon: Icon(
                                           Icons.arrow_drop_down,
                                           color: CustomTheme.of(context)
-                                              .primaryColor,
+                                              .hintColor,
                                           size: 15.0,
                                         ),
                                       ),
@@ -557,7 +557,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                     borderRadius:
                                     BorderRadius.circular(10.0),
                                     color: CustomTheme.of(context)
-                                        .focusColor),
+                                        .errorColor),
                                 child: Row(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.center,
@@ -582,7 +582,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                   .CustomSizedTextStyle(
                                                   20.0,
                                                   Theme.of(context)
-                                                      .bottomAppBarColor,
+                                                      .hintColor,
                                                   FontWeight.w500,
                                                   'FontRegular'),
                                             ),
@@ -603,7 +603,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                 .CustomSizedTextStyle(
                                                 13.0,
                                                 Theme.of(context)
-                                                    .primaryColor,
+                                                    .hintColor,
                                                 FontWeight.w500,
                                                 'FontRegular'),
                                             inputFormatters: [
@@ -614,14 +614,14 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                             decoration: InputDecoration(
                                                 contentPadding:
                                                 EdgeInsets.only(
-                                                    bottom: 15.0),
+                                                    bottom: 17.0),
                                                 hintText: "Price",
                                                 hintStyle: CustomWidget(
                                                     context: context)
                                                     .CustomSizedTextStyle(
                                                     12.0,
                                                     Theme.of(context)
-                                                        .canvasColor,
+                                                        .hintColor,
                                                     FontWeight.w500,
                                                     'FontRegular'),
                                                 border: InputBorder.none),
@@ -649,7 +649,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                   .CustomSizedTextStyle(
                                                   20.0,
                                                   Theme.of(context)
-                                                      .bottomAppBarColor,
+                                                      .hintColor,
                                                   FontWeight.w500,
                                                   'FontRegular'),
                                             ),
@@ -691,7 +691,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                     borderRadius:
                                     BorderRadius.circular(10.0),
                                     color: CustomTheme.of(context)
-                                        .focusColor),
+                                        .errorColor),
                                 child: Row(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.center,
@@ -716,7 +716,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                   .CustomSizedTextStyle(
                                                   20.0,
                                                   Theme.of(context)
-                                                      .bottomAppBarColor,
+                                                      .hintColor,
                                                   FontWeight.w500,
                                                   'FontRegular'),
                                             ),
@@ -737,7 +737,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                 .CustomSizedTextStyle(
                                                 13.0,
                                                 Theme.of(context)
-                                                    .primaryColor,
+                                                    .hintColor,
                                                 FontWeight.w500,
                                                 'FontRegular'),
                                             inputFormatters: [
@@ -755,7 +755,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                     .CustomSizedTextStyle(
                                                     10.0,
                                                     Theme.of(context)
-                                                        .primaryColor,
+                                                        .hintColor,
                                                     FontWeight.w500,
                                                     'FontRegular'),
                                                 border: InputBorder.none),
@@ -783,7 +783,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                   .CustomSizedTextStyle(
                                                   20.0,
                                                   Theme.of(context)
-                                                      .bottomAppBarColor,
+                                                      .hintColor,
                                                   FontWeight.w500,
                                                   'FontRegular'),
                                             ),
@@ -970,7 +970,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                                         .CustomSizedTextStyle(
                                                         10.0,
                                                         Theme.of(context)
-                                                            .primaryColor,
+                                                            .hintColor,
                                                         FontWeight
                                                             .w500,
                                                         'FontRegular'),
@@ -986,7 +986,7 @@ class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStat
                                         icon: Icon(
                                           Icons.arrow_drop_down,
                                           color: CustomTheme.of(context)
-                                              .primaryColor,
+                                              .hintColor,
                                           size: 15.0,
                                         ),
                                       ),

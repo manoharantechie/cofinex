@@ -162,7 +162,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).focusColor,
+                            Theme.of(context).errorColor,
                             FontWeight.w600,
                             'FontRegular'),
                       ),

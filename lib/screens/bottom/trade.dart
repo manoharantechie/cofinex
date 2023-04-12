@@ -1,6 +1,7 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TradeScreen extends StatefulWidget {
@@ -10,12 +11,11 @@ class TradeScreen extends StatefulWidget {
   State<TradeScreen> createState() => _TradeScreenState();
 }
 
-class _TradeScreenState extends State<TradeScreen> {
+class _TradeScreenState extends State<TradeScreen> with SingleTickerProviderStateMixin{
   List list_name = ["BTC", "ADA", "ETH", "BUSD", "BNB", "DOGE"];
 
   int currentIndex = 0;
   int indexVal = 0;
-
   List<String> chartTime = [
     "1m",
     "15m",
@@ -23,13 +23,30 @@ class _TradeScreenState extends State<TradeScreen> {
     "1d",
   ];
   ScrollController _scrollController = ScrollController();
-  List<String> options=["more"];
-  String selectedOption="";
+  List<String> options = ["collapes"];
+  List<String> borrows = ["Manual Borrow"];
+  List<String> orderType = ["Limit", "Market"];
+  List<String> volType = ["Vol(USDT)"];
+  String selectedOption = "";
+  String selectedBorrow = "";
+  String selectedType = "";
+  String selectedVol = "";
+  TextEditingController amtController = TextEditingController();
+  TextEditingController coinController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+
+  late TabController _tabController;
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedOption=options.first;
+    selectedOption = options.first;
+    selectedBorrow = borrows.first;
+    selectedType = orderType.first;
+    selectedVol = volType.first;
+    _tabController = TabController(vsync: this, length: 4);
   }
 
   @override
@@ -38,349 +55,486 @@ class _TradeScreenState extends State<TradeScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: CustomTheme.of(context).focusColor,
+        color: CustomTheme.of(context).backgroundColor,
         child: Column(
           children: [
-            Container(
 
-              color: CustomTheme.of(context).backgroundColor,
-                height: MediaQuery.of(context).size.height*0.15,
-              child: Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: ListView.builder(
-                  physics: ScrollPhysics(),
-                  itemCount: list_name.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  controller: _scrollController,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 15.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Theme.of(context).splashColor,
-                                  width: 1.0),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15.0),
-                                topRight: Radius.circular(15.0),
-                                bottomRight: Radius.circular(15.0),
-                                bottomLeft: Radius.circular(15.0),
-                              ),
-                              color: currentIndex == index
-                                  ? Theme.of(context).buttonColor
-                                  : Colors.white,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding:
-                                  EdgeInsets.fromLTRB(15.0, 12.0, 15.0, 12.0),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Theme.of(context).splashColor,
-                                        width: 1.0),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: currentIndex == index
-                                        ? Theme.of(context).focusColor
-                                        : Theme.of(context).highlightColor,
-                                  ),
-                                  child: SvgPicture.asset(
-                                    "assets/images/bit.svg",
-                                    height: 25.0,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  list_name[index].toString(),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10.0,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              )
-            ),
-             Container(
-              height: 15.0,
-               color: CustomTheme.of(context).backgroundColor,
-            ),
             Container(
-                color: CustomTheme.of(context).focusColor,
-                height: MediaQuery.of(context).size.height*0.65,
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                    child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-                  child: Column(
+              height: 35.0,
+              margin: EdgeInsets.only(left: 15.0,right: 15.0),
+              decoration: BoxDecoration(
+                  color: CustomTheme.of(context).focusColor,
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(color: CustomTheme.of(context).accentColor,width: 1.0)
+              ),
+              child:
+              TabBar(
+                controller: _tabController,
+                labelStyle:CustomWidget(context: context)
+                    .CustomSizedTextStyle(
+                    13.0,
+                    Theme.of(context).accentColor,
+                    FontWeight.w600,
+                    'FontRegular'),
+
+                labelColor: CustomTheme.of(context).primaryColor,
+                //<-- selected text color
+                unselectedLabelColor: CustomTheme.of(context)
+                    .primaryColor
+                    .withOpacity(0.5),
+                // isScrollable: true,
+                indicatorColor: CustomTheme.of(context).cardColor,
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12), // Creates border
+                  color: CustomTheme.of(context).buttonColor,),
+                tabs: <Widget>[
+                  Tab(
+                    text: "Spot",
+                  ),
+                  Tab(
+                    text: "Cross Margin",
+                  ),
+                  Tab(
+                    text: "Grid",
+                  ),
+                  Tab(
+                    text: "Fiat",
+                  ),
+
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(top: 10.0),
+                color: CustomTheme.of(context).backgroundColor,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    tradeUI(),
+                    tradeUI(),
+                    tradeUI(),
+                    tradeUI(),
+                    // spotList()
+                  ],
+                ),
+              ),
+            )
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget tradeUI(){
+    return  Container(
+        color: CustomTheme.of(context).focusColor,
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Padding(
+              padding:
+              EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+              child: Column(
+                children: [
+                  Column(
                     children: [
-                      Column(
+                      Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "BTCUSDT",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        18.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
+                                    18.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
                                 textAlign: TextAlign.center,
                               ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                "+ 1.76%",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .indicatorColor,
+                                    FontWeight.w700,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
                               Container(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context).indicatorColor,
-                                      borderRadius: BorderRadius.circular(5.0)),
+                                      color: Theme.of(context)
+                                          .buttonColor
+                                          .withOpacity(0.1),
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .buttonColor),
+                                      borderRadius:
+                                      BorderRadius.circular(10.0)),
                                   padding: EdgeInsets.only(
-                                      left: 10.0,
-                                      right: 10.0,
+                                      left: 7.0,
+                                      right: 7.0,
                                       top: 5.0,
                                       bottom: 5.0),
                                   child: Center(
                                     child: Text(
-                                      "1.76%",
-                                      style: CustomWidget(context: context)
+                                      "10x",
+                                      style:
+                                      CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
-                                              Theme.of(context).focusColor,
-                                              FontWeight.w500,
-                                              'FontRegular'),
+                                          12.0,
+                                          Theme.of(context)
+                                              .buttonColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
                                       textAlign: TextAlign.center,
                                     ),
                                   )),
+                              const SizedBox(
+                                width: 25.0,
+                              ),
+                              SvgPicture.asset(
+                                'assets/icon/togle.svg',
+                                height: 25.0,
+                              ),
                             ],
                           )
                         ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Candlestick",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            10.0,
+                            CustomTheme.of(context).canvasColor,
+                            FontWeight.w400,
+                            'FontRegular'),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "22,228.00",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                    22.0,
-                                    Theme.of(context).primaryColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "24 High",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).canvasColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Text(
-                                    "22,391.00",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "24 High",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).canvasColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(
-                                    width: 15.0,
-                                  ),
-                                  Text(
-                                    "22,391.00",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icon/togle.svg',
-                            height: 25.0,
-                          ),
-                          Row(
 
-                            children: [
-                              Container(
-                                height: 35.0,
-                                child: ListView.builder(
-                                    itemCount: chartTime.length,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Row(
-                                        children: [
-                                          InkWell(
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 12.0, right: 12.0),
-                                              decoration: BoxDecoration(
-
-                                                  color: indexVal == index
-                                                      ? CustomTheme.of(context)
-                                                          .hintColor
-                                                      : CustomTheme.of(context)
-                                                          .focusColor,
-
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              12.0)),
-                                                border: Border.all(
-                                                  color: indexVal == index
-                                                      ? CustomTheme.of(context)
-                                                      .hintColor
-                                                      : CustomTheme.of(context)
-                                                      .canvasColor.withOpacity(0.5),
-                                                )
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  chartTime[index].toString(),
-                                                  style: CustomWidget(
-                                                          context: context)
-                                                      .CustomSizedTextStyle(
-                                                          10.0,
-                                                      indexVal == index
-                                                          ? CustomTheme.of(context)
-                                                          .focusColor
-                                                          : CustomTheme.of(context)
-                                                          .canvasColor,
-                                                          FontWeight.w400,
-                                                          'FontRegular'),
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                indexVal = index;
-                                              });
-                                            },
-                                          ),
-                                          const SizedBox(
-                                            width: 20.0,
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                              ),
-                              Container(
-                                height: 35.0,
-                                padding: const EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 0.0, bottom: 0.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: CustomTheme.of(context).focusColor,
-                                  border: Border.all(
-                                    color: CustomTheme.of(context).canvasColor.withOpacity(0.5),
-                                  )
+                      // SvgPicture.asset(
+                      //   'assets/icon/togle.svg',
+                      //   height: 25.0,
+                      // ),
+                      Container(
+                        height: 35.0,
+                        padding: const EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                            top: 0.0,
+                            bottom: 0.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: CustomTheme.of(context).errorColor,
+                            border: Border.all(
+                              color: CustomTheme.of(context)
+                                  .canvasColor
+                                  .withOpacity(0.5),
+                            )),
+                        child: Center(
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              canvasColor:
+                              CustomTheme.of(context).focusColor,
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                items: options
+                                    .map((value) => DropdownMenuItem(
+                                  child: Text(
+                                    value,
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        Theme.of(context)
+                                            .primaryColor,
+                                        FontWeight.w500,
+                                        'FontRegular'),
+                                  ),
+                                  value: value,
+                                ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                                isExpanded: false,
+                                value: selectedOption,
+                                icon: Icon(
+                                  Icons.arrow_drop_up_sharp,
+                                  color: CustomTheme.of(context)
+                                      .primaryColor,
+                                  size: 15.0,
                                 ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Image.asset(
+                    'assets/icon/graph.png',
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: 30.0,
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0,
+                                        right: 10.0,
+                                        top: 0.0,
+                                        bottom: 0.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                        color: CustomTheme.of(context)
+                                            .errorColor,
+                                        border: Border.all(
+                                          color: CustomTheme.of(context)
+                                              .canvasColor
+                                              .withOpacity(0.5),
+                                        )),
+                                    child: Center(
+                                      child: Theme(
+                                        data:
+                                        Theme.of(context).copyWith(
+                                          canvasColor:
+                                          CustomTheme.of(context)
+                                              .focusColor,
+                                        ),
+                                        child:
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButton(
+                                            items: borrows
+                                                .map((value) =>
+                                                DropdownMenuItem(
+                                                  child: Text(
+                                                    value,
+                                                    style: CustomWidget(
+                                                        context:
+                                                        context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight
+                                                            .w500,
+                                                        'FontRegular'),
+                                                  ),
+                                                  value: value,
+                                                ))
+                                                .toList(),
+                                            onChanged: (value) {
+                                              setState(() {});
+                                            },
+                                            isExpanded: false,
+                                            value: selectedBorrow,
+                                            icon: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: CustomTheme.of(
+                                                  context)
+                                                  .primaryColor,
+                                              size: 15.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 30.0,
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0,
+                                        right: 20.0,
+                                        top: 0.0,
+                                        bottom: 0.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                        color: CustomTheme.of(context)
+                                            .accentColor
+                                            .withOpacity(0.5),
+                                        border: Border.all(
+                                          color: CustomTheme.of(context)
+                                              .accentColor
+                                              .withOpacity(0.5),
+                                        )),
+                                    child: Center(
+                                      child: Text(
+                                        "Sell",
+                                        style: CustomWidget(
+                                            context: context)
+                                            .CustomSizedTextStyle(
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .primaryColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                children: [
+                                  Flexible(
+                                      child: Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .primaryColor,
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                        padding: EdgeInsets.only(
+                                            top: 7.0, bottom: 7.0),
+                                        child: Center(
+                                          child: Text(
+                                            "Sell",
+                                            style: CustomWidget(
+                                                context: context)
+                                                .CustomSizedTextStyle(
+                                                10.0,
+                                                CustomTheme.of(context)
+                                                    .focusColor,
+                                                FontWeight.w600,
+                                                'FontRegular'),
+                                          ),
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Flexible(
+                                      child: Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .buttonColor,
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                        padding: EdgeInsets.only(
+                                            top: 7.0, bottom: 7.0),
+                                        child: Center(
+                                          child: Text(
+                                            "Buy",
+                                            style: CustomWidget(
+                                                context: context)
+                                                .CustomSizedTextStyle(
+                                                10.0,
+                                                CustomTheme.of(context)
+                                                    .primaryColor,
+                                                FontWeight.w600,
+                                                'FontRegular'),
+                                          ),
+                                        ),
+                                      ))
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                height: 30.0,
+                                padding: const EdgeInsets.only(
+                                    left: 10.0,
+                                    right: 10.0,
+                                    top: 0.0,
+                                    bottom: 0.0),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    color: CustomTheme.of(context)
+                                        .errorColor,
+                                    border: Border.all(
+                                      color: CustomTheme.of(context)
+                                          .canvasColor
+                                          .withOpacity(0.5),
+                                    )),
                                 child: Center(
                                   child: Theme(
                                     data: Theme.of(context).copyWith(
-                                      canvasColor: CustomTheme.of(context).focusColor,
+                                      canvasColor:
+                                      CustomTheme.of(context)
+                                          .focusColor,
                                     ),
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton(
-                                        items: options
-                                            .map((value) => DropdownMenuItem(
-                                          child: Text(
-                                            value,
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                10.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                          ),
-                                          value: value,
-                                        ))
+                                        items: orderType
+                                            .map(
+                                                (value) =>
+                                                DropdownMenuItem(
+                                                  child: Text(
+                                                    value,
+                                                    style: CustomWidget(
+                                                        context:
+                                                        context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight
+                                                            .w500,
+                                                        'FontRegular'),
+                                                  ),
+                                                  value: value,
+                                                ))
                                             .toList(),
                                         onChanged: (value) {
-                                          setState(() {
-
-                                          });
+                                          setState(() {});
                                         },
-                                        isExpanded: false,
-                                        value: selectedOption,
+                                        isExpanded: true,
+                                        value: selectedType,
                                         icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: CustomTheme.of(context).primaryColor,
+                                          Icons.arrow_drop_down,
+                                          color: CustomTheme.of(context)
+                                              .primaryColor,
                                           size: 15.0,
                                         ),
                                       ),
@@ -388,75 +542,1100 @@ class _TradeScreenState extends State<TradeScreen> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: CustomTheme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    color: CustomTheme.of(context)
+                                        .focusColor),
+                                child: Row(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                          height: 30.0,
+                                          width: 35.0,
+                                          padding:
+                                          const EdgeInsets.only(
+                                            left: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "-",
+                                              style: CustomWidget(
+                                                  context: context)
+                                                  .CustomSizedTextStyle(
+                                                  20.0,
+                                                  Theme.of(context)
+                                                      .bottomAppBarColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
+                                          )),
+                                    ),
+                                    Flexible(
+                                        child: Container(
+                                          height: 30.0,
+                                          child: TextField(
+                                            enabled: true,
+                                            controller: priceController,
+                                            keyboardType:
+                                            const TextInputType
+                                                .numberWithOptions(
+                                                decimal: true),
+                                            style: CustomWidget(
+                                                context: context)
+                                                .CustomSizedTextStyle(
+                                                13.0,
+                                                Theme.of(context)
+                                                    .primaryColor,
+                                                FontWeight.w500,
+                                                'FontRegular'),
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .allow(RegExp(r'[0-9.]')),
+                                            ],
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                contentPadding:
+                                                EdgeInsets.only(
+                                                    bottom: 15.0),
+                                                hintText: "Price",
+                                                hintStyle: CustomWidget(
+                                                    context: context)
+                                                    .CustomSizedTextStyle(
+                                                    12.0,
+                                                    Theme.of(context)
+                                                        .canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                border: InputBorder.none),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )),
+                                    const SizedBox(
+                                      width: 2.0,
+                                    ),
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                          height: 30.0,
+                                          width: 35.0,
+                                          padding:
+                                          const EdgeInsets.only(
+                                            left: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "+",
+                                              style: CustomWidget(
+                                                  context: context)
+                                                  .CustomSizedTextStyle(
+                                                  20.0,
+                                                  Theme.of(context)
+                                                      .bottomAppBarColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                width:
+                                MediaQuery.of(context).size.width,
+                                child: Text(
+                                  "=28,109.93 USD",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      10.0,
+                                      CustomTheme.of(context)
+                                          .canvasColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: CustomTheme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    color: CustomTheme.of(context)
+                                        .focusColor),
+                                child: Row(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                          height: 30.0,
+                                          width: 35.0,
+                                          padding:
+                                          const EdgeInsets.only(
+                                            left: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "-",
+                                              style: CustomWidget(
+                                                  context: context)
+                                                  .CustomSizedTextStyle(
+                                                  20.0,
+                                                  Theme.of(context)
+                                                      .bottomAppBarColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
+                                          )),
+                                    ),
+                                    Flexible(
+                                        child: Container(
+                                          height: 30.0,
+                                          child: TextField(
+                                            enabled: true,
+                                            controller: amtController,
+                                            keyboardType:
+                                            const TextInputType
+                                                .numberWithOptions(
+                                                decimal: true),
+                                            style: CustomWidget(
+                                                context: context)
+                                                .CustomSizedTextStyle(
+                                                13.0,
+                                                Theme.of(context)
+                                                    .primaryColor,
+                                                FontWeight.w500,
+                                                'FontRegular'),
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .allow(RegExp(r'[0-9.]')),
+                                            ],
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                contentPadding:
+                                                EdgeInsets.only(
+                                                    bottom: 20.0),
+                                                hintText: "Amount(BTC)",
+                                                hintStyle: CustomWidget(
+                                                    context: context)
+                                                    .CustomSizedTextStyle(
+                                                    10.0,
+                                                    Theme.of(context)
+                                                        .primaryColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                border: InputBorder.none),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )),
+                                    const SizedBox(
+                                      width: 2.0,
+                                    ),
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                          height: 30.0,
+                                          width: 35.0,
+                                          padding:
+                                          const EdgeInsets.only(
+                                            left: 10.0,
+                                            right: 10.0,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "+",
+                                              style: CustomWidget(
+                                                  context: context)
+                                                  .CustomSizedTextStyle(
+                                                  20.0,
+                                                  Theme.of(context)
+                                                      .bottomAppBarColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10.0),
+                                          color: CustomTheme.of(context)
+                                              .errorColor,
+                                          border: Border.all(
+                                            color:
+                                            CustomTheme.of(context)
+                                                .canvasColor
+                                                .withOpacity(0.5),
+                                          )),
+                                      padding: EdgeInsets.only(
+                                          left: 7.0,
+                                          right: 7.0,
+                                          top: 5.0,
+                                          bottom: 5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "25%",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .canvasColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10.0),
+                                          color: CustomTheme.of(context)
+                                              .errorColor,
+                                          border: Border.all(
+                                            color:
+                                            CustomTheme.of(context)
+                                                .canvasColor
+                                                .withOpacity(0.5),
+                                          )),
+                                      padding: EdgeInsets.only(
+                                          left: 7.0,
+                                          right: 7.0,
+                                          top: 5.0,
+                                          bottom: 5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "50%",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .canvasColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10.0),
+                                          color: CustomTheme.of(context)
+                                              .errorColor,
+                                          border: Border.all(
+                                            color:
+                                            CustomTheme.of(context)
+                                                .canvasColor
+                                                .withOpacity(0.5),
+                                          )),
+                                      padding: EdgeInsets.only(
+                                          left: 7.0,
+                                          right: 7.0,
+                                          top: 5.0,
+                                          bottom: 5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "75%",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .canvasColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10.0),
+                                          color: CustomTheme.of(context)
+                                              .errorColor,
+                                          border: Border.all(
+                                            color:
+                                            CustomTheme.of(context)
+                                                .canvasColor
+                                                .withOpacity(0.5),
+                                          )),
+                                      padding: EdgeInsets.only(
+                                          left: 7.0,
+                                          right: 7.0,
+                                          top: 5.0,
+                                          bottom: 5.0),
+                                      child: Center(
+                                        child: Text(
+                                          "100%",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .canvasColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                height: 30.0,
+                                padding: const EdgeInsets.only(
+                                    left: 10.0,
+                                    right: 10.0,
+                                    top: 0.0,
+                                    bottom: 0.0),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    color: CustomTheme.of(context)
+                                        .errorColor,
+                                    border: Border.all(
+                                      color: CustomTheme.of(context)
+                                          .canvasColor
+                                          .withOpacity(0.5),
+                                    )),
+                                child: Center(
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      canvasColor:
+                                      CustomTheme.of(context)
+                                          .focusColor,
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        items: volType
+                                            .map(
+                                                (value) =>
+                                                DropdownMenuItem(
+                                                  child: Text(
+                                                    value,
+                                                    style: CustomWidget(
+                                                        context:
+                                                        context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight
+                                                            .w500,
+                                                        'FontRegular'),
+                                                  ),
+                                                  value: value,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() {});
+                                        },
+                                        isExpanded: true,
+                                        value: selectedVol,
+                                        icon: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: CustomTheme.of(context)
+                                              .primaryColor,
+                                          size: 15.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                width:
+                                MediaQuery.of(context).size.width,
+                                child: Text(
+                                  "=0.00 USD",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      10.0,
+                                      CustomTheme.of(context)
+                                          .canvasColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Avail",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                  Text(
+                                    "=0.00 USD",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .buttonColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).buttonColor,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                padding:
+                                EdgeInsets.only(top: 7.0, bottom: 7.0),
+                                child: Center(
+                                  child: Text(
+                                    "Buy BTC",
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        14.0,
+                                        CustomTheme.of(context)
+                                            .errorColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                  ),
+                                ),
+                              )
                             ],
-                          )
-                        ],
+                          ),
+                        ),
+                        flex: 1,
                       ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      
-                      Image.asset('assets/icon/graph.png'),
-                      const SizedBox(
-                        height: 35.0,
-                      ),
+                      const SizedBox(width: 10.0),
+                      Flexible(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Price",
+                                        style:
+                                        CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            14.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
+                                      ),
+                                      Text(
+                                        "(USDT)",
+                                        style:
+                                        CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Total",
+                                        style:
+                                        CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            14.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
+                                      ),
+                                      Text(
+                                        "(BTC)",
+                                        style:
+                                        CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
+                                      ),
+                                    ],
+                                  )
 
-                      Row(
-                        children: [
-                          Flexible(child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color:   Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
-                            child: Center(
-                              child: Text(
-                                "Sell",
-                                style: CustomWidget(
-                                    context: context)
-                                    .CustomSizedTextStyle(
-                                    14.0, CustomTheme.of(context)
-                                        .focusColor
-                                       ,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                                ],
                               ),
-                            ),
-                          )),
-                          const SizedBox(width: 10.0,),
-                          Flexible(child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                color:   Theme.of(context).buttonColor,
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            padding: EdgeInsets.only(top: 15.0,bottom: 15.0),
-                            child: Center(
-                              child: Text(
-                                "Buy",
-                                style: CustomWidget(
-                                    context: context)
-                                    .CustomSizedTextStyle(
-                                    14.0, CustomTheme.of(context)
-                                    .primaryColor
-                                    ,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                              const SizedBox(height: 10.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ))
-                        ],
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,), Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10.0,),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child:     Text(
+                                  "21,439.40",
+                                  style:
+                                  CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      10.0,
+                                      CustomTheme.of(context)
+                                          .indicatorColor,
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child:     Text(
+                                  "=28,333.1 USD",
+                                  style:
+                                  CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      10.0,
+                                      CustomTheme.of(context)
+                                          .canvasColor,
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              const SizedBox(height: 10.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),   const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+
+                                  Text(
+                                    "0.777",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .indicatorColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                  Text(
+                                    "73.755",
+                                    style:
+                                    CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        10.0,
+                                        CustomTheme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10.0,),
+
+
+
+
+
+                            ],
+                          ),
+                        ),
+                        flex: 1,
                       )
-
-
 
                     ],
                   ),
-                )))
-          ],
-        ),
-      ),
-    );
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+
+                ],
+              ),
+            )));
   }
 }

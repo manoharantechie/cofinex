@@ -122,7 +122,7 @@ class _MarketScreenState extends State<MarketScreen>  with SingleTickerProviderS
                       bottomRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).focusColor
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +250,7 @@ class _MarketScreenState extends State<MarketScreen>  with SingleTickerProviderS
                       bottomRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.white,
+                    color:Theme.of(context).focusColor
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -378,7 +378,7 @@ class _MarketScreenState extends State<MarketScreen>  with SingleTickerProviderS
                       bottomRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).focusColor
                   ),
                   child: Center(
                     child: Row(

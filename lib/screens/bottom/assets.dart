@@ -89,7 +89,7 @@ class _AssetsState extends State<Assets> {
                                         bottomRight: Radius.circular(15.0),
                                         bottomLeft: Radius.circular(15.0),
                                       ),
-                                      color: Colors.white,
+                                      color:   Theme.of(context).focusColor,
                                     ),
                                     child:   Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,

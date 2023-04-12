@@ -46,7 +46,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                 padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 20.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
-                  color:  Theme.of(context).primaryColor,
+                  image: DecorationImage(
+                    image: AssetImage("assets/icon/back.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +60,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       style: CustomWidget(context: context)
                           .CustomSizedTextStyle(
                           12.0,
-                          Theme.of(context).accentColor,
+                          Theme.of(context).errorColor,
                           FontWeight.w600,
                           'FontRegular'),
                       textAlign: TextAlign.center,
@@ -70,7 +73,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               22.0,
-                              Theme.of(context).focusColor,
+                              Theme.of(context).errorColor,
                               FontWeight.w700,
                               'FontRegular'),
                           textAlign: TextAlign.center,
@@ -96,7 +99,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).focusColor,
+                              Theme.of(context).errorColor,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.center,
@@ -139,6 +142,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                             SvgPicture.asset(
                               "assets/images/deposite.svg",
                               height: 25.0,
+                              color: Theme.of(context).bottomAppBarColor,
                             ),
                             SizedBox(
                               height: 10.0,
@@ -177,6 +181,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                             SvgPicture.asset(
                               "assets/images/withdraw.svg",
                               height: 25.0,
+                              color: Theme.of(context).bottomAppBarColor,
                             ),
                             SizedBox(
                               height: 10.0,
@@ -215,6 +220,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                             SvgPicture.asset(
                               "assets/images/exchange.svg",
                               height: 25.0,
+                              color: Theme.of(context).bottomAppBarColor,
                             ),
                             SizedBox(
                               height: 10.0,
@@ -279,7 +285,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       bottomRight: Radius.circular(15.0),
                       bottomLeft: Radius.circular(15.0),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).focusColor
                   ),
                   child: ListView.builder(
                     physics: ScrollPhysics(),

@@ -15,6 +15,9 @@ class GiftCard_Details extends StatefulWidget {
 class _GiftCard_DetailsState extends State<GiftCard_Details> {
 
   ScrollController _scrollController = ScrollController();
+  List<String> gift_img = [
+    "assets/images/"
+  ];
 
   @override
   Widget build(BuildContext context) {

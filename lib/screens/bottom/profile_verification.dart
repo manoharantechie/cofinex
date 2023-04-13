@@ -85,6 +85,10 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                           top: 20.0, right: 15.0, left: 15.0, bottom: 20.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                          image: AssetImage("assets/icon/back.png"),
+                          fit: BoxFit.cover,
+                        ),
                         color: Theme.of(context).primaryColor,
                       ),
                       child: Row(

@@ -192,8 +192,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                     InkWell(
                       onTap: (){
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) => Future_Trade_Screen()));
+
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -295,8 +294,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                     InkWell(
                       onTap: (){
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) => GiftCard_Details()));
+
                       },
                       child: Padding(
                         padding: EdgeInsets.only(

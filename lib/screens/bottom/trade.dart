@@ -1,5 +1,6 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/screens/basic/future_trade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -123,7 +124,7 @@ class _TradeScreenState extends State<TradeScreen>
                     CrosstradeUI(),
                     FuturetradeUI(),
                     FiattradeUI(),
-                    tradeUI(),
+                    Future_Trade_Screen(),
 
                     // spotList()
                   ],

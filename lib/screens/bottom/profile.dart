@@ -3,6 +3,7 @@
 import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
 import 'package:cofinex/screens/basic/gift_card.dart';
+import 'package:cofinex/screens/basic/notification.dart';
 import 'package:cofinex/screens/basic/security.dart';
 import 'package:cofinex/screens/bottom/profile_details.dart';
 import 'package:flutter/material.dart';
@@ -469,42 +470,49 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/notification.svg",
-                                height: 18.0,
-                                color: Theme.of(context).accentColor,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                AppLocalizations.instance.text("loc_notify"),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                        12.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
-                              ),
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15.0,
-                            color: Theme.of(context).splashColor,
-                          )
-                        ],
-                      ),
-                    ),
+                   InkWell(
+                     onTap: (){
+                       Navigator.of(context)
+                           .push(MaterialPageRoute(builder: (context) => Notification_Screen()));
+
+                     },
+                     child:    Padding(
+                       padding: EdgeInsets.only(
+                           left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.center,
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Row(
+                             children: [
+                               SvgPicture.asset(
+                                 "assets/images/notification.svg",
+                                 height: 18.0,
+                                 color: Theme.of(context).accentColor,
+                               ),
+                               SizedBox(
+                                 width: 10.0,
+                               ),
+                               Text(
+                                 AppLocalizations.instance.text("loc_notify"),
+                                 style: CustomWidget(context: context)
+                                     .CustomSizedTextStyle(
+                                     12.0,
+                                     Theme.of(context).primaryColor,
+                                     FontWeight.w600,
+                                     'FontRegular'),
+                               ),
+                             ],
+                           ),
+                           Icon(
+                             Icons.arrow_forward_ios,
+                             size: 15.0,
+                             color: Theme.of(context).splashColor,
+                           )
+                         ],
+                       ),
+                     ),
+                   ),
                     SizedBox(
                       height: 10.0,
                     ),

@@ -1,10 +1,12 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
-import 'package:cofinex/screens/basic/choose_currency.dart';
+
 import 'package:cofinex/screens/basic/aml_check.dart';
 import 'package:cofinex/screens/basic/exchange.dart';
+import 'package:cofinex/screens/basic/gift_card.dart';
 import 'package:cofinex/screens/basic/leader_board.dart';
 import 'package:cofinex/screens/dashboard/staking.dart';
+import 'package:cofinex/screens/profile/choose_currency.dart';
 import 'package:cofinex/screens/wallet/widthdraw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,10 +24,10 @@ class _DashboardState extends State<Dashboard> {
 
   ScrollController _scrollController = ScrollController();
   List grid_name=[
-    "Widthdraw","Exchange","Staking","NFT","Copy Trading","Leaders","Invite","Support"
+    "Withdraw","Exchange","Staking","Cards","Leaders","Airdrop","Giftcard","Invite","Support"
   ];
 
-  List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/images/nft.svg","assets/images/aml.svg","assets/images/cup.svg","assets/images/invite.svg","assets/images/mic.svg"
+  List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/icon/card.svg","assets/images/cup.svg","assets/icon/airdrop.svg","assets/icon/gift.svg","assets/images/invite.svg","assets/images/mic.svg",
 
   ];
   List list_name=[
@@ -271,7 +273,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         // physics: ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: 8,
+                        itemCount: grid_name.length,
                         itemBuilder: (BuildContext context, index) {
                           return InkWell(
                             onTap: (){
@@ -296,15 +298,15 @@ class _DashboardState extends State<Dashboard> {
                               else if(index==4)
                               {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Aml_Check_Screen()));
+                                    builder: (context) => Leader_Board_Screen()));
 
                               }
-                             else if(index==5)
+                             else if(index==6)
                                 {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Leader_Board_Screen()));
+                                      builder: (context) => GiftCard_Details()));
                                 }
-                              else if(index==6)
+                              else if(index==7)
                                 {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => Invite_Screen()));

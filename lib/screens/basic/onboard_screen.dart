@@ -2,7 +2,7 @@ import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
 import 'package:cofinex/common/onboard/background_final_button.dart';
 import 'package:cofinex/common/onboard/flutter_onboarding_slider.dart';
-import 'package:cofinex/screens/basic/splash_home_screen.dart';
+import 'package:cofinex/screens/basic/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +23,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
       onFinish: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => SplashHomeScreen()));
+            MaterialPageRoute(builder: (context) => Sign_In_Screen()));
       },
       finishButtonStyle: FinishButtonStyle(
         backgroundColor: Theme.of(context).primaryColor,
@@ -46,7 +46,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
       // ),
       trailingFunction: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => SplashHomeScreen()));
+            MaterialPageRoute(builder: (context) => Sign_In_Screen()));
       },
       controllerColor: Theme.of(context).focusColor,
       totalPage: 3,
@@ -212,7 +212,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               setState(() {
                 storeData();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => SplashHomeScreen()));
+                    builder: (context) => Sign_In_Screen()));
               });
             },
             child: Container(
@@ -243,7 +243,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
                 storeData();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => SplashHomeScreen()));
+                    builder: (context) => Sign_In_Screen()));
               });
             },
             child: Container(

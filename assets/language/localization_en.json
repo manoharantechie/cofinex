@@ -25,6 +25,8 @@
   "loc_submit": "Submit",
   "loc_deposite": "Deposit",
   "loc_buy_cryp": "Buy Crypto",
+  "loc_buy": "Buy",
+  "loc_sell": "Sell",
   "loc_widthdraw": "Withdraw",
   "loc_tot_asset" : "Totel Assets",
   "loc_actions": "Actions",
@@ -143,6 +145,7 @@
   "loc_cong": "Congratulation! ",
   "loc_verified_kyc": "Your KYC has been verified",
   "loc_gift_card": "Gift Cards",
-  "loc_add_cart": "Add to cart"
+  "loc_add_cart": "Add to cart",
+  "loc_future": "Future Trade"
 
 }

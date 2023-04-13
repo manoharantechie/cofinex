@@ -81,6 +81,10 @@ class _Verification_FinalState extends State<Verification_Final> {
                 padding: EdgeInsets.fromLTRB(15.0, 50, 15.0, 50.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
+                  image: DecorationImage(
+                    image: AssetImage("assets/icon/back.png"),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Column(

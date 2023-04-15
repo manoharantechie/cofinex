@@ -2,6 +2,7 @@
 
 import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
+import 'package:cofinex/screens/basic/airdrop.dart';
 import 'package:cofinex/screens/basic/future_trade.dart';
 import 'package:cofinex/screens/basic/gift_card.dart';
 import 'package:cofinex/screens/basic/notification.dart';
@@ -192,7 +193,8 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                     InkWell(
                       onTap: (){
-
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) => Airdrop_Screen()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(

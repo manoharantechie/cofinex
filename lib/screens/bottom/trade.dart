@@ -1,6 +1,7 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/screens/basic/future_trade.dart';
+import 'package:cofinex/screens/trade/copy_trading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,7 +54,7 @@ class _TradeScreenState extends State<TradeScreen>
     _tabCrossController = TabController(vsync: this, length: 2);
     _tabFiatController = TabController(vsync: this, length: 1);
     _tabTradeController = TabController(vsync: this, length: 3);
-    _tabController = TabController(vsync: this, length: 7);
+    _tabController = TabController(vsync: this, length: 6);
   }
 
   @override
@@ -102,6 +103,9 @@ class _TradeScreenState extends State<TradeScreen>
                     text: "Cross",
                   ),
                   Tab(
+                    text: "Copy Trading",
+                  ),
+                  Tab(
                     text: "Future",
                   ),
                   Tab(
@@ -122,6 +126,7 @@ class _TradeScreenState extends State<TradeScreen>
                   children: <Widget>[
                     tradeUI(),
                     CrosstradeUI(),
+                    CopyTrading(),
                     FuturetradeUI(),
                     FiattradeUI(),
                     Future_Trade_Screen(),

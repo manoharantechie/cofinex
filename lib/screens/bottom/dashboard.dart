@@ -1,10 +1,11 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
+import 'package:cofinex/screens/dashboard/airdrop.dart';
 
 import 'package:cofinex/screens/basic/aml_check.dart';
-import 'package:cofinex/screens/basic/exchange.dart';
-import 'package:cofinex/screens/basic/gift_card.dart';
-import 'package:cofinex/screens/basic/leader_board.dart';
+import 'package:cofinex/screens/dashboard/exchange.dart';
+import 'package:cofinex/screens/dashboard/gift_card.dart';
+import 'package:cofinex/screens/dashboard/leader_board.dart';
 import 'package:cofinex/screens/dashboard/staking.dart';
 import 'package:cofinex/screens/profile/choose_currency.dart';
 import 'package:cofinex/screens/wallet/widthdraw.dart';
@@ -299,6 +300,11 @@ class _DashboardState extends State<Dashboard> {
                               {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Leader_Board_Screen()));
+
+                              }     else if(index==5)
+                              {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) => Airdrop_Screen()));
 
                               }
                              else if(index==6)

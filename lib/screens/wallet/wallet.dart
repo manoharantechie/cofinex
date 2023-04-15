@@ -1,5 +1,5 @@
 
-import 'package:cofinex/screens/basic/exchange.dart';
+import 'package:cofinex/screens/dashboard/exchange.dart';
 import 'package:cofinex/screens/profile/choose_currency.dart';
 import 'package:cofinex/screens/wallet/widthdraw.dart';
 import 'package:flutter/cupertino.dart';

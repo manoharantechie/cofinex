@@ -2,12 +2,14 @@
 
 import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
-import 'package:cofinex/screens/basic/airdrop.dart';
+import 'package:cofinex/screens/dashboard/airdrop.dart';
 import 'package:cofinex/screens/basic/future_trade.dart';
-import 'package:cofinex/screens/basic/gift_card.dart';
+import 'package:cofinex/screens/dashboard/gift_card.dart';
 import 'package:cofinex/screens/basic/notification.dart';
 import 'package:cofinex/screens/basic/security.dart';
+import 'package:cofinex/screens/basic/verification.dart';
 import 'package:cofinex/screens/bottom/profile_details.dart';
+import 'package:cofinex/screens/bottom/verification1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -194,7 +196,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     InkWell(
                       onTap: (){
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) => Airdrop_Screen()));
+                            .push(MaterialPageRoute(builder: (context) => Verification_Screen1()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(

@@ -26,6 +26,7 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
   String selectedBorrow = "";
   String selectedType = "";
   String selectedVol = "";
+  List<String> textTrade=["Life is Good","Small Goals","All in Crypto","Be Cool","Making Money","Intro World"];
   bool collapse = false;
   late TabController  _tabTradeController;
   @override
@@ -64,15 +65,19 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 10.0,),
                       Row(
+
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
 
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start ,
                             children: [
+
 
                               InkWell(
                                 onTap: () {
@@ -93,7 +98,7 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          collapse ? "Current Price" : "Expand",
+                                          collapse ? "Current Price" : "Last Price",
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                               10.0,
@@ -335,7 +340,7 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                   ),
                   SingleChildScrollView(
                     child:   ListView.builder(
-                      itemCount: 5,
+                      itemCount: textTrade.length,
                       shrinkWrap: true,
                       controller: controller,
                       itemBuilder: (BuildContext context, int index) {
@@ -370,11 +375,11 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                                                 width: 15.0,
                                               ),
                                               Text(
-                                                "Life is Good",
+                                               textTrade[index],
                                                 style: CustomWidget(
                                                     context: context)
                                                     .CustomSizedTextStyle(
-                                                    16.0,
+                                                    14.0,
                                                     Theme.of(context)
                                                         .primaryColor,
                                                     FontWeight.w400,
@@ -389,7 +394,7 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                                             "+178.005%",
                                             style: CustomWidget(context: context)
                                                 .CustomSizedTextStyle(
-                                              20.0,
+                                              16.0,
                                                 Theme.of(context).buttonColor,
                                                 FontWeight.w400,
                                                 'FontRegular'),
@@ -397,91 +402,197 @@ class _CopyTradingState extends State<CopyTrading> with TickerProviderStateMixin
                                         ],
                                       ),
                                       children: [
-                                        Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  "PnL% in 30days",
-                                                  style: CustomWidget(
-                                                      context: context)
-                                                      .CustomTextStyle(
-                                                      Theme.of(context)
-                                                          .canvasColor,
-                                                      FontWeight.w400,
-                                                      'FontRegular'),
-                                                  softWrap: true,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              const SizedBox(height: 5.0,),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    "30d PnL",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomTextStyle(
-                                                        Theme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(width: 10.0,),
-                                                  Text(
-                                                    "\$4522.085",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomTextStyle(
-                                                        Theme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ],
-                                              ),
-                                                const SizedBox(height: 5.0,),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "Win rate",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomTextStyle(
-                                                          Theme.of(context)
-                                                              .canvasColor,
-                                                          FontWeight.w400,
-                                                          'FontRegular'),
-                                                      softWrap: true,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                    const SizedBox(width: 10.0,),
-                                                    Text(
-                                                      "98.05%",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomTextStyle(
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w400,
-                                                          'FontRegular'),
-                                                      softWrap: true,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                            ),
-                                            SvgPicture.asset(index%2==0?'assets/icon/graph_success.svg':'assets/icon/graph_fail.svg'),
-                                          ],
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                        ),
+                                       Column(
+                                         children: [
+
+                                           Row(
+                                             children: [
+                                               Column(
+                                                 children: [
+                                                   Text(
+                                                     "PnL% in 30days",
+                                                     style: CustomWidget(
+                                                         context: context)
+                                                         .CustomTextStyle(
+                                                         Theme.of(context)
+                                                             .canvasColor,
+                                                         FontWeight.w400,
+                                                         'FontRegular'),
+                                                     softWrap: true,
+                                                     overflow: TextOverflow.ellipsis,
+                                                   ),
+                                                   const SizedBox(height: 5.0,),
+                                                   Row(
+                                                     children: [
+                                                       Text(
+                                                         "30d PnL",
+                                                         style: CustomWidget(
+                                                             context: context)
+                                                             .CustomTextStyle(
+                                                             Theme.of(context)
+                                                                 .canvasColor,
+                                                             FontWeight.w400,
+                                                             'FontRegular'),
+                                                         softWrap: true,
+                                                         overflow: TextOverflow.ellipsis,
+                                                       ),
+                                                       const SizedBox(width: 10.0,),
+                                                       Text(
+                                                         "\$4522.085",
+                                                         style: CustomWidget(
+                                                             context: context)
+                                                             .CustomTextStyle(
+                                                             Theme.of(context)
+                                                                 .primaryColor,
+                                                             FontWeight.w400,
+                                                             'FontRegular'),
+                                                         softWrap: true,
+                                                         overflow: TextOverflow.ellipsis,
+                                                       ),
+                                                     ],
+                                                   ),
+                                                   const SizedBox(height: 5.0,),
+                                                   Row(
+                                                     children: [
+                                                       Text(
+                                                         "Win rate",
+                                                         style: CustomWidget(
+                                                             context: context)
+                                                             .CustomTextStyle(
+                                                             Theme.of(context)
+                                                                 .canvasColor,
+                                                             FontWeight.w400,
+                                                             'FontRegular'),
+                                                         softWrap: true,
+                                                         overflow: TextOverflow.ellipsis,
+                                                       ),
+                                                       const SizedBox(width: 10.0,),
+                                                       Text(
+                                                         "98.05%",
+                                                         style: CustomWidget(
+                                                             context: context)
+                                                             .CustomTextStyle(
+                                                             Theme.of(context)
+                                                                 .primaryColor,
+                                                             FontWeight.w400,
+                                                             'FontRegular'),
+                                                         softWrap: true,
+                                                         overflow: TextOverflow.ellipsis,
+                                                       ),
+                                                     ],
+                                                   )
+                                                 ],
+                                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                               ),
+                                               SvgPicture.asset(index%2==0?'assets/icon/graph_success.svg':'assets/icon/graph_fail.svg'),
+                                             ],
+                                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                             crossAxisAlignment: CrossAxisAlignment.center,
+                                           ),
+                                           const SizedBox(height: 8.0,),
+                                           Container(
+                                             margin: EdgeInsets.only(left:20.0,right:20.0),
+                                             height: 0.5,
+                                             width: MediaQuery.of(context).size.width,
+                                             color:     Theme.of(context)
+                                                 .canvasColor,
+                                           ),
+                                           const SizedBox(height: 8.0,),
+                                           Padding(padding: EdgeInsets.only(left: 20.0),child: Row(
+                                             children: [
+                                               Text(
+                                                 "AUM",
+                                                 style: CustomWidget(
+                                                     context: context)
+                                                     .CustomTextStyle(
+                                                     Theme.of(context)
+                                                         .canvasColor,
+                                                     FontWeight.w400,
+                                                     'FontRegular'),
+                                                 softWrap: true,
+                                                 overflow: TextOverflow.ellipsis,
+                                               ),
+                                               const SizedBox(width: 10.0,),
+                                               Text(
+                                                 "\$15022.8503",
+                                                 style: CustomWidget(
+                                                     context: context)
+                                                     .CustomTextStyle(
+                                                     Theme.of(context)
+                                                         .primaryColor,
+                                                     FontWeight.w400,
+                                                     'FontRegular'),
+                                                 softWrap: true,
+                                                 overflow: TextOverflow.ellipsis,
+                                               ),
+                                             ],
+                                           ),),
+                                           const SizedBox(height: 8.0,),
+                                           Padding(padding: EdgeInsets.only(left: 20.0),child: Row(
+                                             children: [
+                                               Text(
+                                                 "Copy Trade PnL",
+                                                 style: CustomWidget(
+                                                     context: context)
+                                                     .CustomTextStyle(
+                                                     Theme.of(context)
+                                                         .canvasColor,
+                                                     FontWeight.w400,
+                                                     'FontRegular'),
+                                                 softWrap: true,
+                                                 overflow: TextOverflow.ellipsis,
+                                               ),
+                                               const SizedBox(width: 10.0,),
+                                               Text(
+                                                 "\$1020.8503",
+                                                 style: CustomWidget(
+                                                     context: context)
+                                                     .CustomTextStyle(
+                                                     Theme.of(context)
+                                                         .primaryColor,
+                                                     FontWeight.w400,
+                                                     'FontRegular'),
+                                                 softWrap: true,
+                                                 overflow: TextOverflow.ellipsis,
+                                               ),
+                                             ],
+                                           ),),
+                                           const SizedBox(height: 10.0,),
+                                           Container(
+                                             margin: EdgeInsets.only(left: 15.0,right: 15.0),
+                                             padding:EdgeInsets.only(top: 8.0,bottom: 8.0),
+
+                                             child: Center(
+                                               child: Text(
+                                                index%2==0? "Vacancy remainder":"Copy",
+                                                 style: CustomWidget(
+                                                     context: context)
+                                                     .CustomSizedTextStyle(
+                                                   18.0,
+                                                     index%2==0?Theme.of(context)
+                                                         .primaryColor:Theme.of(context)
+                                                         .canvasColor,
+                                                     FontWeight.w500,
+                                                     'FontRegular'),
+                                                 softWrap: true,
+                                                 overflow: TextOverflow.ellipsis,
+                                               ),
+                                             ),
+                                             decoration: BoxDecoration(
+                                               borderRadius: BorderRadius.circular(25.0),
+                                               border: Border.all(color: Theme.of(context)
+                                                   .canvasColor,),
+                                               color:  index%2==0?Theme.of(context)
+                                                   .canvasColor.withOpacity(0.2):Theme.of(context)
+                                                   .errorColor
+                                             ),
+                                           )
+
+                                         ],
+                                       ),
                                         SizedBox(height: 10.0,),
+
+
 
                                       ],
                                       trailing: Container(

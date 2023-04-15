@@ -78,7 +78,7 @@ class _TradeScreenState extends State<TradeScreen>
                       color: CustomTheme.of(context).accentColor, width: 1.0)),
               child: TabBar(
                 controller: _tabController,
-                isScrollable: false,
+                isScrollable: true,
                 labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                     13.0,
                     Theme.of(context).accentColor,

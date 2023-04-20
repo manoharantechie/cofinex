@@ -1,6 +1,6 @@
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:cofinex/common/ring.dart';
+import 'package:cofinex/common/loading_indicator.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -122,7 +122,7 @@ class CustomWidget {
       child:  Center(
         child: Container(
           child: Center(
-            child: SpinKitDualRing(
+            child: SpinKitFadingCube(
               color: color,
             ),
           ),
@@ -193,17 +193,27 @@ class CustomWidget {
     );
   }
 
-  custombar(String title, String message, bool status) {
-    var snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-        title: title,
-        message: message,
-        contentType: status ? ContentType.success : ContentType.failure,
+
+  void showSnackBar(BuildContext contexts,String text,bool type) {
+    final snackBar = SnackBar(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+      content: Container(
+        height: 35.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(child:  Text(text),),
+            IconButton(onPressed: (){
+
+            }, icon: Icon(Icons.clear,color: Colors.white,size: 10.0,))
+          ],
+        ),
       ),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: type ?Colors.teal:Colors.redAccent,
     );
-    return ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+
 }

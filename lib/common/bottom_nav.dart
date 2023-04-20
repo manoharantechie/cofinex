@@ -62,7 +62,8 @@ class BottomNavState extends md.State<BottomNav> {
           children: widget.items!.map((b) {
             final int i = widget.items!.indexOf(b);
             bool selected = false;
-            selected = i == currentIndex;
+            selected = i ==selectedIndex;
+            print(selected);
             return BMNavItem(
               image: b.image,
               iconSize: selected
@@ -84,6 +85,7 @@ class BottomNavState extends md.State<BottomNav> {
   onItemClick(int i) {
     setState(() {
       currentIndex = i;
+      selectedIndex = i;
     });
     if (widget.onTap != null) widget.onTap!(i);
   }

@@ -25,10 +25,10 @@ class _DashboardState extends State<Dashboard> {
 
   ScrollController _scrollController = ScrollController();
   List grid_name=[
-    "Withdraw","Exchange","Staking","Cards","Leaders","Airdrop","Giftcard","Invite","Support"
+    "Withdraw","Exchange","Staking","Cards","Leaders","Airdrop","Giftcard","Invite"
   ];
 
-  List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/icon/card.svg","assets/images/cup.svg","assets/icon/airdrop.svg","assets/icon/gift.svg","assets/images/invite.svg","assets/images/mic.svg",
+  List grid_img=["assets/images/withdraw.svg","assets/images/exchange.svg","assets/images/staking.svg","assets/icon/card.svg","assets/images/cup.svg","assets/icon/airdrop.svg","assets/icon/gift.svg","assets/images/invite.svg"
 
   ];
   List list_name=[

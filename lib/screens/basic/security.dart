@@ -1,6 +1,6 @@
 import 'package:cofinex/screens/basic/bind_email.dart';
 import 'package:cofinex/screens/profile/change_password.dart';
-import 'package:cofinex/screens/basic/trade_changepassword.dart';
+import 'package:cofinex/screens/profile/trade_changepassword.dart';
 import 'package:cofinex/screens/bottom/verification_final.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

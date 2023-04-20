@@ -1,5 +1,6 @@
 import 'package:cofinex/common/localization/localizations.dart';
-import 'package:cofinex/screens/basic/signup.dart';
+import 'package:cofinex/screens/basic/login.dart';
+import 'package:cofinex/screens/basic/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,14 +24,14 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
         toolbarHeight: 10.0,
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   // Status bar color
-        //   statusBarColor: Theme.of(context).backgroundColor,
-        //
-        //   // Status bar brightness (optional)
-        //   statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-        //   statusBarBrightness: Brightness.light, // For iOS (dark icons)
-        // ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // Status bar color
+          statusBarColor: Theme.of(context).backgroundColor,
+
+          // Status bar brightness (optional)
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS (dark icons)
+        ),
       ),
       body: Container(
           padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
@@ -135,7 +136,8 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                       InkWell(
                         onTap: (){
                           setState(() {
-
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) => Register()));
                           });
                         },
                         child: Container(
@@ -170,22 +172,27 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                   children: [
                     Container(
                       padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
-                      child: Text(
-                        AppLocalizations.instance.text("loc_all_account"),
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            14.0,
-                            Theme.of(context).canvasColor,
-                            FontWeight.w600,
-                            'FontRegular'),
-                      ),
+                      child: GestureDetector(
+                        onTap: (){
+
+                        },
+                        child: Text(
+                          AppLocalizations.instance.text("loc_all_account"),
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context).canvasColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                        ),
+                      )
                     ),
                     InkWell(
                       onTap: (){
-                        setState(() {
+
                           Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) => Sign_Up_screen()));
-                        });
+                              .push(MaterialPageRoute(builder: (context) => Login()));
+
                       },
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15.0),

@@ -76,6 +76,7 @@ class _Choose_CurrencyState extends State<Choose_Currency> with SingleTickerProv
                       child: SvgPicture.asset(
                         "assets/icon/search.svg",
                         height: 20.0,
+                        color: Theme.of(context).secondaryHeaderColor,
                       ),
                     ),
                   ))),

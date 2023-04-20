@@ -34,7 +34,7 @@ class MyThemes {
   static final ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       primaryColor: Color(0xFFFFFFFF),
-      backgroundColor: Color(0xFF01081E),
+      backgroundColor: Color(0xFF1B1F28),
       focusColor: Color(0xFF000112),
       bottomAppBarColor: Color(0xFFFFFFFF),
       disabledColor: Color(0xFF8B9CAE),

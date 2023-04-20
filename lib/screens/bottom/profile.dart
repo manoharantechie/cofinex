@@ -2,6 +2,7 @@
 
 import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
+import 'package:cofinex/screens/basic/aml_check.dart';
 import 'package:cofinex/screens/dashboard/airdrop.dart';
 import 'package:cofinex/screens/basic/future_trade.dart';
 import 'package:cofinex/screens/dashboard/gift_card.dart';
@@ -11,6 +12,7 @@ import 'package:cofinex/screens/basic/verification.dart';
 import 'package:cofinex/screens/bottom/profile_details.dart';
 import 'package:cofinex/screens/bottom/verification1.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -79,6 +81,14 @@ class _Profile_ScreenState extends State<Profile_Screen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // Status bar color
+          statusBarColor: Theme.of(context).backgroundColor,
+
+          // Status bar brightness (optional)
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS (dark icons)
+        ),
         centerTitle: true,
         leading: Padding(
             padding: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 10.0),
@@ -298,6 +308,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                     InkWell(
                       onTap: (){
+
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) => Aml_Check_Screen()));
 
                       },
                       child: Padding(

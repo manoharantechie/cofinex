@@ -12,17 +12,27 @@ class APIUtils {
   static const sentOTPURL = "users/generateOTP";
   static const fetchOTPURL = "users/getOTP";
   static const verifyEmailURL = "users/emailVerified";
+  static const getTokenURL = "https://api.cofinex.in/encodewsheader";
 
-  Future<dynamic> doRegisterEmail(String firstName, String lastName,
-      String email, String countryISOCode, String password) async {
+  Future<dynamic> doRegisterEmail(
+      String firstName,
+      String lastName,
+      String email,
+      String countryISOCode,
+      String password,
+      String phoneNumber,
+      String referralCode) async {
     var emailbodyData = {
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
       'countryISOCode': countryISOCode,
-      'password': password
+      'password': password,
+      'phoneNumber': phoneNumber,
+      'referralCode': referralCode
     };
 
+    print("testiomg");
 
     final response = await http.post(
       Uri.parse(initURL + registerURL),
@@ -31,16 +41,12 @@ class APIUtils {
         'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
       },
     );
-    if(response.statusCode==200)
-    {
-
+    print(response.body);
+    if (response.statusCode == 200) {
       return json.decode(response.body);
-    }
-    else
-    {
+    } else {
       return false;
     }
-
   }
 
   Future<dynamic> generateOTP(
@@ -51,10 +57,13 @@ class APIUtils {
       'action': "VERIFY_EMAIL",
     };
 
-    final response =
-        await http.post(Uri.parse(initURL + sentOTPURL), body: emailbodyData,     headers: {
-          'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
-        },);
+    final response = await http.post(
+      Uri.parse(initURL + sentOTPURL),
+      body: emailbodyData,
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+      },
+    );
 
     return json.decode(response.body);
   }
@@ -67,10 +76,13 @@ class APIUtils {
       'action': "VERIFY_EMAIL",
     };
 
-    final response =
-        await http.post(Uri.parse(initURL + fetchOTPURL), body: emailbodyData,     headers: {
-          'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
-        },);
+    final response = await http.post(
+      Uri.parse(initURL + fetchOTPURL),
+      body: emailbodyData,
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+      },
+    );
 
     return GetOtpModel.fromJson(json.decode(response.body));
   }
@@ -82,16 +94,18 @@ class APIUtils {
       'userId': userId,
     };
 
-    final response = await http.put(Uri.parse(initURL + verifyEmailURL),
-        body: emailbodyData,     headers: {
+    final response = await http.put(
+      Uri.parse(initURL + verifyEmailURL),
+      body: emailbodyData,
+      headers: {
         'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
-      },);
+      },
+    );
 
     return json.decode(response.body);
   }
 
-  Future<dynamic> doLoginEmail(
-      String email, String password) async {
+  Future<dynamic> doLoginEmail(String email, String password) async {
     var emailbodyData = {
       'username': email,
       'password': password,
@@ -104,21 +118,20 @@ class APIUtils {
     final response = await http.post(
       Uri.parse(authURL + "realms/cofinex/protocol/openid-connect/token"),
       body: emailbodyData,
-
     );
 
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
 
-    if(response.statusCode==200)
-      {
+  Future<dynamic> generateToken() async {
+    final response = await http.get(Uri.parse(
+      getTokenURL,
+    ));
 
-        return json.decode(response.body);
-      }
-    else
-      {
-        return false;
-      }
-
-
-
+    return json.decode(response.body);
   }
 }

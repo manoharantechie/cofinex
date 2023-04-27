@@ -1,3 +1,4 @@
+import 'package:cofinex/screens/basic/home.dart';
 import 'package:cofinex/screens/basic/onboard_screen.dart';
 import 'package:cofinex/screens/basic/signin.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String address = "";
+  String token = "";
 
   @override
   void initState() {
@@ -24,7 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
   getdata() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     address = preferences.getString("first").toString();
-    onLoad();
+    token = preferences.getString("token").toString();
+   onLoad();
   }
 
   onLoad() {
@@ -32,19 +35,35 @@ class _SplashScreenState extends State<SplashScreen> {
         address.toString() == null ||
         address.toString() == "null") {
       setState(() {
-        Future.delayed(const Duration(seconds: 5), () {
+        Future.delayed(const Duration(seconds:3), () {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => OnboardScreen()));
         });
         // checkDeviceID(deviceData['device_id'].toString());
       });
     } else {
-      Future.delayed(const Duration(seconds: 5), () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => Sign_In_Screen()));
-      });
+
+      if (token.toString() == "" ||
+          token.toString() == null ||
+          token.toString() == "null") {
+        setState(() {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
+          });
+          // checkDeviceID(deviceData['device_id'].toString());
+        });
+
+
     }
-  }
+      else
+        {
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: true)));
+          });
+        }
+  }}
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Image.asset(
         'assets/icon/logo.gif',
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height ,
+        height: MediaQuery.of(context).size.height ,fit: BoxFit.cover,
       )
           // child: SvgPicture.asset(
           //   'assets/images/logo.svg',

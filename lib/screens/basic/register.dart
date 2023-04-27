@@ -1,3 +1,4 @@
+import 'package:cofinex/common/textformfield_error_custom.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/screens/basic/home.dart';
@@ -26,16 +27,20 @@ class _Sign_Up_screenState extends State<Register> {
   FocusNode lasttNFocus = FocusNode();
   FocusNode emailFocus = FocusNode();
   FocusNode passFocus = FocusNode();
+  FocusNode mobileFocus = FocusNode();
+  FocusNode referralFocus = FocusNode();
   TextEditingController FirstNameController = TextEditingController();
   TextEditingController LastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController referralController = TextEditingController();
   final List<Locale> systemLocales = WidgetsBinding.instance.window.locales;
   String isoCountryCode = "";
   APIUtils apiUtils = APIUtils();
-
-
   final _formKey = GlobalKey<FormState>();
+  String errortext = "";
+  bool errorCheck = false;
 
   @override
   void initState() {
@@ -51,9 +56,7 @@ class _Sign_Up_screenState extends State<Register> {
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
         systemOverlayStyle: SystemUiOverlayStyle(
-          // Status bar color
           statusBarColor: Theme.of(context).backgroundColor,
-          // Status bar brightness (optional)
           statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
           statusBarBrightness: Brightness.light, // For iOS (dark icons)
         ),
@@ -61,7 +64,6 @@ class _Sign_Up_screenState extends State<Register> {
             padding: EdgeInsets.only(left: 0.0, top: 5.0, bottom: 5.0),
             child: InkWell(
               onTap: () {
-                // Navigator.push(context,MaterialPageRoute(builder:(context)=> Home_Screen()));
                 Navigator.pop(context);
               },
               child: Center(
@@ -87,7 +89,6 @@ class _Sign_Up_screenState extends State<Register> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-
                     Center(
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 5.0),
@@ -141,10 +142,12 @@ class _Sign_Up_screenState extends State<Register> {
                                   .withOpacity(0.5),
                               FontWeight.w600,
                               'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).bottomAppBarColor,
-                          FontWeight.w600,
-                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: firstNFocus,
                       maxlines: 1,
@@ -203,10 +206,12 @@ class _Sign_Up_screenState extends State<Register> {
                                   .withOpacity(0.5),
                               FontWeight.w600,
                               'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).bottomAppBarColor,
-                          FontWeight.w600,
-                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: lasttNFocus,
                       maxlines: 1,
@@ -249,10 +254,10 @@ class _Sign_Up_screenState extends State<Register> {
                     TextFormFieldCustom(
                       onEditComplete: () {
                         emailFocus.unfocus();
-                        // FocusScope.of(context).requestFocus(snameFocus);
+                         FocusScope.of(context).requestFocus(mobileFocus);
                       },
                       radius: 10.0,
-                      error: "Enter Email or Phone Number",
+                      error: "Enter Email address",
                       textColor: Theme.of(context).bottomAppBarColor,
                       borderColor:
                           Theme.of(context).accentColor.withOpacity(0.5),
@@ -265,15 +270,17 @@ class _Sign_Up_screenState extends State<Register> {
                                   .withOpacity(0.5),
                               FontWeight.w600,
                               'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).bottomAppBarColor,
-                          FontWeight.w600,
-                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                       textInputAction: TextInputAction.next,
                       focusNode: emailFocus,
                       maxlines: 1,
                       text: '',
-                      hintText: "incrypto-app@email.com",
+                      hintText: "Email address",
                       obscureText: false,
                       textChanged: (value) {},
                       onChanged: () {},
@@ -283,7 +290,8 @@ class _Sign_Up_screenState extends State<Register> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter Email";
-                        } else if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        } else if (!RegExp(
+                                r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(value)) {
                           return "Please enter valid Email";
                         }
@@ -293,6 +301,79 @@ class _Sign_Up_screenState extends State<Register> {
                       enabled: true,
                       textInputType: TextInputType.name,
                       controller: emailController,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        "Mobile number",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            10.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w500,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    TextFormFieldCustom(
+                      onEditComplete: () {
+                        mobileFocus.unfocus();
+                         FocusScope.of(context).requestFocus(passFocus);
+                      },
+                      radius: 10.0,
+                      error: "Enter Email address",
+                      textColor: Theme.of(context).bottomAppBarColor,
+                      borderColor:
+                      Theme.of(context).accentColor.withOpacity(0.5),
+                      fillColor: Theme.of(context).splashColor,
+                      hintStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          12.0,
+                          Theme.of(context)
+                              .bottomAppBarColor
+                              .withOpacity(0.5),
+                          FontWeight.w600,
+                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          16.0,
+                          Theme.of(context).bottomAppBarColor,
+                          FontWeight.w600,
+                          'FontRegular'),
+                      textInputAction: TextInputAction.next,
+                      focusNode: mobileFocus,
+                      maxlines: 1,
+                      text: '',
+                      hintText: "Mobile number",
+                      obscureText: false,
+                      textChanged: (value) {},
+                      onChanged: () {},
+                      suffix: Container(
+                        width: 0.0,
+                      ),
+                      validator: (value) {
+                        int va=int.parse(value!.length.toString());
+                        print(value.length);
+                        if (value.isEmpty) {
+                          return "Please enter Mobile number";
+                        } else if (va <= 10) {
+                          return "Please enter valid Mobile number";
+                        }
+
+                        return null;
+                      },
+                      enabled: true,
+                      textInputType: TextInputType.name,
+                      controller: mobileController,
                     ),
                     SizedBox(
                       height: 15.0,
@@ -327,16 +408,18 @@ class _Sign_Up_screenState extends State<Register> {
                                   .withOpacity(0.5),
                               FontWeight.w600,
                               'FontRegular'),
-                      textStyle: CustomWidget(context: context).CustomTextStyle(
-                          Theme.of(context).bottomAppBarColor,
-                          FontWeight.w600,
-                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                       radius: 5.0,
                       focusNode: passFocus,
                       suffix: IconButton(
                         icon: Icon(
                           passVisible ? Icons.visibility : Icons.visibility_off,
-                          color:  Theme.of(context)
+                          color: Theme.of(context)
                               .bottomAppBarColor
                               .withOpacity(0.5),
                         ),
@@ -363,21 +446,91 @@ class _Sign_Up_screenState extends State<Register> {
                       text: "",
                       onEditComplete: () {
                         passFocus.unfocus();
+                       FocusScope.of(context).requestFocus(referralFocus);
                       },
                       textInputType: TextInputType.visiblePassword,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        "Referral ID",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            10.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w500,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    TextFormFieldCustom(
+                      onEditComplete: () {
+                        referralFocus.unfocus();
+                        // FocusScope.of(context).requestFocus(snameFocus);
+                      },
+                      radius: 10.0,
+                      error: "Enter Email address",
+                      textColor: Theme.of(context).bottomAppBarColor,
+                      borderColor:
+                      Theme.of(context).accentColor.withOpacity(0.5),
+                      fillColor: Theme.of(context).splashColor,
+                      hintStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          12.0,
+                          Theme.of(context)
+                              .bottomAppBarColor
+                              .withOpacity(0.5),
+                          FontWeight.w600,
+                          'FontRegular'),
+                      textStyle: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          16.0,
+                          Theme.of(context).bottomAppBarColor,
+                          FontWeight.w600,
+                          'FontRegular'),
+                      textInputAction: TextInputAction.next,
+                      focusNode: referralFocus,
+                      maxlines: 1,
+                      text: '',
+                      hintText: "Referral ID",
+                      obscureText: false,
+                      textChanged: (value) {},
+                      onChanged: () {},
+                      suffix: Container(
+                        width: 0.0,
+                      ),
+                      validator: (value) {
+
+
+                        return null;
+                      },
+                      enabled: true,
+                      textInputType: TextInputType.name,
+                      controller: referralController,
                     ),
 
                     SizedBox(
                       height: 25.0,
                     ),
+
                     InkWell(
                       onTap: () {
                         setState(() {
-                          FocusScope.of(context).unfocus();                          if (_formKey.currentState!.validate()) {
+                          FocusScope.of(context).unfocus();
 
+                          if (_formKey.currentState!.validate()) {
                             setState(() {
-                              loading=true;
-                              doRegisterFunc();
+                              loading = true;
+
+                              if (loading) {
+                                doRegisterFunc();
+                              }
                             });
                           }
                         });
@@ -404,35 +557,30 @@ class _Sign_Up_screenState extends State<Register> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ))),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+
+                    SizedBox(
+                      height: 35.0,
+                    ),
                     Container(
-                      padding: const EdgeInsets.only(
-                          left: 25.0, right: 25.0, bottom: 20.0),
+                      width: MediaQuery.of(context).size.width,
+
                       child: Text(
                         AppLocalizations.instance.text("loc_not_acc"),
+                        textAlign: TextAlign.center,
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
+                            14.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
                       ),
                     ),
+                    const SizedBox(height: 10.0,),
+
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (context) => Login()));
-
                       },
                       child: Container(
                         margin: EdgeInsets.only(bottom: 15.0),
@@ -449,17 +597,21 @@ class _Sign_Up_screenState extends State<Register> {
                             AppLocalizations.instance.text("loc_signin"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    14.0,
-                                    Theme.of(context).backgroundColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                                14.0,
+                                Theme.of(context).backgroundColor,
+                                FontWeight.w600,
+                                'FontRegular'),
                           ),
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 25.0,
+                    ),
                   ],
                 ),
-              ),
+              ))),
+
               loading
                   ? CustomWidget(context: context).loadingIndicator(
                       CustomTheme.of(context).buttonColor,
@@ -471,54 +623,52 @@ class _Sign_Up_screenState extends State<Register> {
   }
 
   doRegisterFunc() {
+    print("Manp");
     apiUtils
         .doRegisterEmail(
             FirstNameController.text.toString(),
             LastNameController.text.toString(),
             emailController.text.toString(),
             isoCountryCode.toLowerCase(),
-            passwordController.text.toString())
+            passwordController.text.toString(),mobileController.text.toString(),referralController.text.toString())
         .then((dynamic loginData) {
-
-
-      if (loginData.toString()=="false") {
+      if (loginData.toString() == "false") {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).showSnackBar(
+              context, "User not registered ..Try again...!", false);
+        });
+      } else if (loginData["status"].toString() == "false") {
         setState(() {
           loading = false;
           CustomWidget(context: context)
-              .showSnackBar(context, "User not registered ..Try again...!", false);
+              .showSnackBar(context, loginData["message"], false);
         });
-
-
-
       } else {
-
         setState(() {
           storeData(loginData["userId"].toString());
           sentOTP(loginData["userId"]);
-
         });
       }
     }).catchError((Object error) {
+      print(error);
       setState(() {
         loading = false;
       });
     });
   }
+
   sentOTP(String id) {
-    apiUtils
-        .generateOTP(id)
-        .then((dynamic loginData) {
-
-        setState(() {
-          loading = false;
-        });
-
-        print(loginData);
-        CustomWidget(context: context)
-            .showSnackBar(context, "Code send to your Email", true);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => Verification_Screen(user_id: id,)));
-
+    apiUtils.generateOTP(id).then((dynamic loginData) {
+      setState(() {
+        loading = false;
+      });
+      CustomWidget(context: context)
+          .showSnackBar(context, "Code send to your Email", true);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Verification_Screen(
+                user_id: id,
+              )));
     }).catchError((Object error) {
       setState(() {
         loading = false;

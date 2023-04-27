@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-class TextFormFieldCustom extends StatelessWidget {
+class TextFormFieldCustomError extends StatelessWidget {
   final String hintText, text;
   final bool obscureText, enabled;
   final Function onChanged;
@@ -23,13 +23,14 @@ class TextFormFieldCustom extends StatelessWidget {
   final TextStyle textStyle;
 
 
+  final String errorText;
   final Widget suffix;
   final FormFieldValidator<String> validator;
   final FocusNode focusNode;
   final double radius;
 
 
-  const TextFormFieldCustom(
+  const TextFormFieldCustomError(
       {required this.onEditComplete,
       required this.error,
       required this.textColor,
@@ -50,7 +51,7 @@ class TextFormFieldCustom extends StatelessWidget {
       required this.textChanged,
       required this.focusNode,
         required this.radius,
-      required this.suffix,
+      required this.suffix, required this.errorText,
       });
 
   @override
@@ -82,8 +83,10 @@ class TextFormFieldCustom extends StatelessWidget {
           suffixIcon: suffix,
           filled: true,
 
-
+          enabled: false,
+          errorText: errorText,
           fillColor: fillColor,
+          
           border: OutlineInputBorder(
             borderRadius:  BorderRadius.all(Radius.circular(radius)),
             borderSide: BorderSide(color: borderColor, width: 1.0),

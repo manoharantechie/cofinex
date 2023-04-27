@@ -43,6 +43,7 @@ dependencies:
   permission_handler:
   awesome_snackbar_content:
   provider:
+  graphql_flutter: ^5.1.2
 
 
 dev_dependencies:

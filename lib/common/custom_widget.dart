@@ -135,8 +135,9 @@ class CustomWidget {
     return TextStyle(
       fontFamily: family,
       color: color,
+        letterSpacing: 1.5,
       fontWeight: weight,
-      fontSize: 12.0
+      fontSize: 10.0
     );
   }
 
@@ -162,6 +163,7 @@ class CustomWidget {
       fontSize: size,
       fontFamily: family,
       color: color,
+      letterSpacing: 1.5,
       fontWeight: weight,
     );
   }

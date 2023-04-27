@@ -191,7 +191,7 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      const SizedBox(height: 25.0,),
+                      const SizedBox(height: 15.0,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [        BackgroundController(
@@ -202,7 +202,7 @@ class _OnBoardingSliderState extends State<OnBoardingSlider> {
                           controllerColor: widget.controllerColor,
                         ),
                           Container(
-                            height: MediaQuery.of(context).size.height*0.4,
+                            height: MediaQuery.of(context).size.height*0.5,
                             width: MediaQuery.of(context).size.width,
                             child: BackgroundBody(
                               controller: _pageController,

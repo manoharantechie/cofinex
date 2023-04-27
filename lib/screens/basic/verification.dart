@@ -340,8 +340,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
     apiUtils
         .verifyEmail(id)
         .then((dynamic loginData) {
-          print("verifued");
-          print(loginData);
+
       if (loginData["status"]!) {
         CustomWidget(context: context)
             .showSnackBar(context, "User Registered Successfully..!", true);

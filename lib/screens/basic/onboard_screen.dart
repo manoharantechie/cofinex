@@ -2,6 +2,7 @@ import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/localization/localizations.dart';
 import 'package:cofinex/common/onboard/background_final_button.dart';
 import 'package:cofinex/common/onboard/flutter_onboarding_slider.dart';
+import 'package:cofinex/screens/basic/home.dart';
 import 'package:cofinex/screens/basic/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
       onFinish: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => Sign_In_Screen()));
+            MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false,)));
       },
       finishButtonStyle: FinishButtonStyle(
         backgroundColor: Theme.of(context).primaryColor,
@@ -54,13 +55,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
       pageBackgroundColor: Theme.of(context).primaryColor,
       background: [
         SizedBox(
-          height: 400.0,
+          height: MediaQuery.of(context).size.height*0.5
         ),
         SizedBox(
-          height: 400.0,
+          height:MediaQuery.of(context).size.height*0.5
         ),
         SizedBox(
-          height: 400.0,
+          height: MediaQuery.of(context).size.height*0.5
         ),
       ],
       speed: 0.1,
@@ -99,11 +100,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     'FontRegular'),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
             bottomSkip(),
               SizedBox(
-                height: 10,
+                height:30,
               ),
             ],
           ),
@@ -122,7 +123,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 style:
                 CustomWidget(context: context)
                     .CustomSizedTextStyle(
-                    32.0,
+                    30.0,
                    Colors.white,
                     FontWeight.w700,
                     'FontRegular'),

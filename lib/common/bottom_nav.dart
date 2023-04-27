@@ -63,7 +63,7 @@ class BottomNavState extends md.State<BottomNav> {
             final int i = widget.items!.indexOf(b);
             bool selected = false;
             selected = i ==selectedIndex;
-            print(selected);
+
             return BMNavItem(
               image: b.image,
               iconSize: selected

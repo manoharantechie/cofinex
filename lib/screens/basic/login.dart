@@ -359,8 +359,9 @@ class _Sign_Up_screenState extends State<Login> {
       });
     });
   }
-  storeData(String userID) async {
+  storeData(String token) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString("token", userID);
+    preferences.setString("token", token);
+
   }
 }

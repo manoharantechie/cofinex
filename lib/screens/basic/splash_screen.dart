@@ -43,26 +43,16 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     } else {
 
-      if (token.toString() == "" ||
-          token.toString() == null ||
-          token.toString() == "null") {
-        setState(() {
+
           Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
           });
           // checkDeviceID(deviceData['device_id'].toString());
-        });
 
 
-    }
-      else
-        {
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: true)));
-          });
-        }
+
+
   }}
 
   @override

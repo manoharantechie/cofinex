@@ -44,6 +44,7 @@ dependencies:
   awesome_snackbar_content:
   provider:
   graphql_flutter: ^5.1.2
+  web_socket_channel:
 
 
 dev_dependencies:

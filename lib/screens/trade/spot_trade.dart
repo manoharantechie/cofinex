@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/graph_ql_utils.dart';
+import 'package:cofinex/data_model/model/open_trade_model.dart';
+import 'package:cofinex/data_model/model/order_book_model.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
 import 'package:cofinex/data_model/query_utils.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_socket_channel/io.dart';
 
 class SpotTrade extends StatefulWidget {
   const SpotTrade({Key? key}) : super(key: key);
@@ -19,13 +26,19 @@ class SpotTrade extends StatefulWidget {
 class _SpotTradeState extends State<SpotTrade>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
-  ScrollController controller = ScrollController();
+
 
   List<String> orderType = ["Limit", "Market"];
   List<String> volType = ["Vol(USDT)"];
   List<AllTicker> allTicker = [];
   List<AllTicker> searchPair = [];
   AllTicker? selectPair;
+  APIUtils apiUtils=APIUtils();
+
+  List<OrderBookData> buyData=[];
+  List<OrderBookData> sellData=[];
+  List<OpenOrdersHistory> orderHistory=[];
+
   TextEditingController searchController = TextEditingController();
   FocusNode searchFocus = FocusNode();
 
@@ -43,7 +56,15 @@ class _SpotTradeState extends State<SpotTrade>
   String coinOne = "";
 
   String coinTwo = "";
+  String token = "";
+  String bearer="";
 
+  String num1="";
+  String num2="";
+
+  IOWebSocketChannel? channelOpenOrder,channelTradeHistory;
+
+  bool loginStatus=false;
   @override
   void initState() {
     // TODO: implement initState
@@ -51,8 +72,55 @@ class _SpotTradeState extends State<SpotTrade>
     selectedType = orderType.first;
     selectedVol = volType.first;
     _tabTradeController = TabController(vsync: this, length: 3);
-    loading = true;
-    fillList();
+
+    channelOpenOrder = IOWebSocketChannel.connect(
+        Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+        headers: {
+          "Sec-WebSocket-Protocol":"graphql-ws"
+        },
+        pingInterval: Duration(seconds: 30));
+    channelOpenOrder!.sink.close();
+
+    getBearer();
+    getRand();
+    getRand1();
+  }
+
+
+  getRand(){
+    var rng = Random();
+    for (var i = 0; i < 10; i++) {
+
+      setState(() {
+        num1=(rng.nextInt(1150000)).toString()+DateTime.now().toString();
+      });
+    }
+  }
+
+  getRand1(){
+    var rng = Random();
+    for (var i = 0; i < 10; i++) {
+      setState(() {
+        num1=(rng.nextInt(2150000)).toString()+DateTime.now().toString();
+      });
+
+    }
+  }
+  getBearer()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    setState(() {
+      bearer=preferences.getString("token").toString();
+
+      loginStatus=preferences.getBool("login")!;
+     if(loginStatus)
+       {
+         getToken();
+         loading = true;
+
+         coinList();
+       }
+    });
+
   }
 
   @override
@@ -928,7 +996,7 @@ class _SpotTradeState extends State<SpotTrade>
                                                       'FontRegular'),
                                             ),
                                             Text(
-                                              "(USDT)",
+                                            "("+  coinTwo+")",
                                               style: CustomWidget(
                                                       context: context)
                                                   .CustomSizedTextStyle(
@@ -954,7 +1022,7 @@ class _SpotTradeState extends State<SpotTrade>
                                                       'FontRegular'),
                                             ),
                                             Text(
-                                              "(BTC)",
+                                              "("+  coinOne+")",
                                               style: CustomWidget(
                                                       context: context)
                                                   .CustomSizedTextStyle(
@@ -971,184 +1039,66 @@ class _SpotTradeState extends State<SpotTrade>
                                     const SizedBox(
                                       height: 10.0,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .scaffoldBackgroundColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
+                                     Container(
+                                       height: MediaQuery.of(context).size.height*0.15,
+                                       child: sellData.length>0?ListView.builder(
+                                         physics: ScrollPhysics(),
+                                         itemCount: sellData.length,
+                                         shrinkWrap: true,
+                                         controller: _scrollController,
+                                         itemBuilder: (BuildContext context, int index) {
+                                           return Column(
+                                             children: [
+                                               Row(
+                                                 mainAxisAlignment:
+                                                 MainAxisAlignment.spaceBetween,
+                                                 children: [
+                                                   Text(
+                                                     sellData[index].price.toString(),
+                                                     style: CustomWidget(context: context)
+                                                         .CustomSizedTextStyle(
+                                                         10.0,
+                                                         CustomTheme.of(context)
+                                                             .scaffoldBackgroundColor,
+                                                         FontWeight.w400,
+                                                         'FontRegular'),
+                                                   ),
+                                                   Text(
+                                                     sellData[index].amount.toString(),
+                                                     style: CustomWidget(context: context)
+                                                         .CustomSizedTextStyle(
+                                                         10.0,
+                                                         CustomTheme.of(context)
+                                                             .canvasColor,
+                                                         FontWeight.w400,
+                                                         'FontRegular'),
+                                                   ),
+                                                 ],
+                                               ),
+                                               const SizedBox(height: 5.0,)
+
+                                             ],
+                                           );
+                                         },
+                                       ):Center(
+                                         child: Text(
+                                           "No Records Found....!",
+                                           style: CustomWidget(context: context).CustomSizedTextStyle(
+                                               10.0,
+                                               CustomTheme.of(context).buttonColor,
+                                               FontWeight.w500,
+                                               'FontRegular'),
+                                         ),
+                                       ),
+                                     ),
+
                                     const SizedBox(
                                       height: 10.0,
                                     ),
-                                    Container(
+                                    selectPair==null?Container():Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
-                                        "21,439.40",
+                                        selectPair!.low24Hr.toString(),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                                 10.0,
@@ -1159,10 +1109,10 @@ class _SpotTradeState extends State<SpotTrade>
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
-                                    Container(
+                                    selectPair==null?Container():   Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
-                                        "=28,333.1 USD",
+                                        "= "+selectPair!.marketPrice.toString()+coinTwo,
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                                 10.0,
@@ -1179,206 +1129,62 @@ class _SpotTradeState extends State<SpotTrade>
                                     const SizedBox(
                                       height: 5.0,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
+
+                                    Container(
+                                      height: MediaQuery.of(context).size.height*0.15,
+                                      child: buyData.length>0?ListView.builder(
+                                        physics: ScrollPhysics(),
+                                        itemCount: buyData.length,
+                                        shrinkWrap: true,
+                                        controller: _scrollController,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    buyData[index].price.toString(),
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .indicatorColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                  ),
+                                                  Text(
+                                                    buyData[index].amount.toString(),
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .canvasColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 5.0,)
+
+                                            ],
+                                          );
+                                        },
+                                      ):Center(
+                                        child: Text(
+                                          "No Records Found....!",
+                                          style: CustomWidget(context: context).CustomSizedTextStyle(
+                                              10.0,
+                                              CustomTheme.of(context).buttonColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
                                         ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "0.777",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .indicatorColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        Text(
-                                          "73.755",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ),
+
+
+
                                     const SizedBox(
                                       height: 10.0,
                                     ),
@@ -1410,7 +1216,8 @@ class _SpotTradeState extends State<SpotTrade>
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       child: NestedScrollView(
-        controller: controller,
+        controller: _scrollController,
+        physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           //<-- headerSliverBuilder
           return <Widget>[
@@ -1469,19 +1276,8 @@ class _SpotTradeState extends State<SpotTrade>
                   ),
                 ),
               ),
-              Container(
-                height: 150.0,
-                child: Center(
-                  child: Text(
-                    "No Records Found....!",
-                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                        14.0,
-                        CustomTheme.of(context).buttonColor,
-                        FontWeight.w500,
-                        'FontRegular'),
-                  ),
-                ),
-              ),
+
+              orderHistoryUI(),
               Container(
                 height: 150.0,
                 child: Center(
@@ -1503,42 +1299,16 @@ class _SpotTradeState extends State<SpotTrade>
     );
   }
 
-  fillList() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    QueryMutation queryMutation = QueryMutation();
-
-    GraphQLClient _client =
-        qlapiUtils.clientToQuery(preferences.getString("token").toString());
-    QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getTickeDetails())),
-    );
-
-    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
-
-    setState(() {
-      loading = false;
-      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
-
-      allTicker
-        ..sort((a, b) =>
-            b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
-      selectPair = allTicker[0];
-      coinOne=allTicker[0].pair!.split("-")[0].toString();
-      coinTwo=allTicker[0].pair!.split("-")[1].toString();
-      searchPair.addAll(allTicker);
-    });
-  }
-
   showSheeet() {
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (contexts) {
           return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setStates) {
+            builder: (BuildContext contexts, StateSetter setStates) {
               return Container(
-                height: MediaQuery.of(context).size.height * 0.9,
-                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(contexts).size.height * 0.9,
+                width: MediaQuery.of(contexts).size.width,
                 color: Theme.of(context).backgroundColor,
                 child: Column(
                   children: <Widget>[
@@ -1566,17 +1336,17 @@ class _SpotTradeState extends State<SpotTrade>
                               onChanged: (value) {
 
                                 setStates(() {
-                                    for (int m = 0; m < allTicker.length; m++) {
-                                      if (allTicker[m]
-                                          .pair
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains(
-                                              value.toString().toLowerCase())) {
-                                        searchPair.add(allTicker[m]);
-                                      }
+                                  for (int m = 0; m < allTicker.length; m++) {
+                                    if (allTicker[m]
+                                        .pair
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(
+                                        value.toString().toLowerCase())) {
+                                      searchPair.add(allTicker[m]);
                                     }
-                                  });
+                                  }
+                                });
 
                               },
                               decoration: InputDecoration(
@@ -1594,7 +1364,7 @@ class _SpotTradeState extends State<SpotTrade>
                                     .withOpacity(0.5),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
+                                  BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1603,7 +1373,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
+                                  BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1612,7 +1382,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
+                                  BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1621,7 +1391,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
+                                  BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1630,9 +1400,9 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 errorBorder: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
+                                  BorderRadius.all(Radius.circular(5)),
                                   borderSide:
-                                      BorderSide(color: Colors.red, width: 0.0),
+                                  BorderSide(color: Colors.red, width: 0.0),
                                 ),
                               ),
                             ),
@@ -1641,20 +1411,20 @@ class _SpotTradeState extends State<SpotTrade>
                         Container(
                           child: Align(
                               child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                              setStates(() {
-                                searchController.clear();
-                                searchPair.clear();
-                                searchPair.addAll(allTicker);
-                              });
-                            },
-                            child: Icon(
-                              Icons.close,
-                              size: 20.0,
-                              color: Theme.of(context).hintColor,
-                            ),
-                          )),
+                                onTap: () {
+                                  Navigator.pop(contexts);
+                                  setStates(() {
+                                    searchController.clear();
+                                    searchPair.clear();
+                                    searchPair.addAll(allTicker);
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.close,
+                                  size: 20.0,
+                                  color: Theme.of(context).hintColor,
+                                ),
+                              )),
                         ),
                         const SizedBox(
                           width: 10.0,
@@ -1663,7 +1433,7 @@ class _SpotTradeState extends State<SpotTrade>
                     ),
                     Expanded(
                         child: ListView.builder(
-                            controller: controller,
+                            controller: _scrollController,
                             itemCount: searchPair.length,
                             itemBuilder: ((BuildContext context, int index) {
                               String coinImage = searchPair[index]
@@ -1675,14 +1445,17 @@ class _SpotTradeState extends State<SpotTrade>
                                   InkWell(
                                     onTap: () {
 
-
-                                      setStates(() {
+                                      setState(() {
                                         selectPair=searchPair[index];
                                         coinOne=selectPair!.pair!.split("-")[0].toString();
                                         coinTwo=selectPair!.pair!.split("-")[1].toString();
+                                        getOpenOrders();
+                                        getTradeHistory();
+                                        getToken();
+
                                       });
 
-                                      Navigator.pop(context);
+                                      Navigator.pop(contexts);
                                     },
                                     child: Row(
                                       children: [
@@ -1706,10 +1479,10 @@ class _SpotTradeState extends State<SpotTrade>
                                           searchPair[index].pair.toString(),
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
-                                                  16.0,
-                                                  Theme.of(context).primaryColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
+                                              16.0,
+                                              Theme.of(context).primaryColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
                                         ),
                                       ],
                                     ),
@@ -1721,7 +1494,7 @@ class _SpotTradeState extends State<SpotTrade>
                                     height: 1.0,
                                     width: MediaQuery.of(context).size.width,
                                     color:
-                                        CustomTheme.of(context).backgroundColor,
+                                    CustomTheme.of(context).backgroundColor,
                                   ),
                                   const SizedBox(
                                     height: 5.0,
@@ -1735,5 +1508,375 @@ class _SpotTradeState extends State<SpotTrade>
             },
           );
         });
+  }
+    Widget orderHistoryUI(){
+      orderHistory=orderHistory.reversed.toList();
+    return Container(
+      child:    Column(
+        children: [
+          Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+               "Price",
+                style: CustomWidget(context: context)
+                    .CustomSizedTextStyle(
+                    12.0,
+                    CustomTheme.of(context)
+                        .canvasColor,
+                    FontWeight.w400,
+                    'FontRegular'),
+              ),
+              Text(
+               "Quantity",
+                style: CustomWidget(context: context)
+                    .CustomSizedTextStyle(
+                    12.0,
+                    CustomTheme.of(context)
+                        .canvasColor,
+                    FontWeight.w400,
+                    'FontRegular'),
+              ),
+              Text(
+                "Date",
+                style: CustomWidget(context: context)
+                    .CustomSizedTextStyle(
+                    12.0,
+                    CustomTheme.of(context)
+                        .canvasColor,
+                    FontWeight.w400,
+                    'FontRegular'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10.0,),
+          Expanded(
+              child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: orderHistory.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: ((BuildContext context, int index) {
+
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              orderHistory[index].price.toString(),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  orderHistory[index].side.toString()=="1"?  CustomTheme.of(context)
+                                      .indicatorColor:  CustomTheme.of(context)
+                                      .scaffoldBackgroundColor,
+                                  FontWeight.w400,
+                                  'FontRegular'),
+                            ),
+                            Text(
+                              orderHistory[index].qty.toString(),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  CustomTheme.of(context)
+                                      .canvasColor,
+                                  FontWeight.w400,
+                                  'FontRegular'),
+                              textAlign: TextAlign.right,
+                            ),
+                            Text(
+                              orderHistory[index].time.toString().substring(10,19),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  CustomTheme.of(context)
+                                      .canvasColor,
+                                  FontWeight.w400,
+                                  'FontRegular'),
+                            ),
+                          ],
+                        ),
+
+
+                        const SizedBox(
+                          height: 5.0,
+                        ),
+                      ],
+                    );
+                  })))
+        ],
+      ),
+    );
+    }
+  coinList() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    QueryMutation queryMutation = QueryMutation();
+
+    GraphQLClient _client =
+        qlapiUtils.clientToQuery(preferences.getString("token").toString());
+    QueryResult result = await _client.query(
+      QueryOptions(document: gql(queryMutation.getTickeDetails())),
+    );
+
+    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+
+    setState(() {
+      loading = false;
+      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
+
+      allTicker
+        ..sort((a, b) =>
+            b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
+      selectPair = allTicker[0];
+      coinOne=allTicker[0].pair!.split("-")[0].toString();
+      coinTwo=allTicker[0].pair!.split("-")[1].toString();
+      searchPair.addAll(allTicker);
+    });
+    getOpenOrders();
+    getTradeHistory();
+  }
+
+  getOpenOrders() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    QueryMutation queryMutation = QueryMutation();
+
+    GraphQLClient _client =
+    qlapiUtils.clientToQuery(preferences.getString("token").toString());
+    QueryResult result = await _client.query(
+      QueryOptions(document: gql(queryMutation.getOrderBook(selectPair!.pair.toString()))),
+    );
+
+    List<dynamic> listData = result.data!["getOrderBookV2"]["items"][0]["asks"];
+    List<dynamic> listData1 = result.data!["getOrderBookV2"]["items"][0]["bids"];
+
+    setState(() {
+      loading = false;
+      buyData.clear();
+      sellData.clear();
+      buyData=  (listData).map((item) => OrderBookData.fromJson(item)).toList();
+      sellData=  (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+    });
+  }
+
+  getTradeHistory() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    QueryMutation queryMutation = QueryMutation();
+    GraphQLClient _client =
+    qlapiUtils.clientToQuery(preferences.getString("token").toString());
+    QueryResult result = await _client.query(
+      QueryOptions(document: gql(queryMutation.getTradeHistory(selectPair!.pair.toString()))),
+    );
+
+    List<dynamic> listData = result.data!["getTradeItemsV2"]["items"];
+    setState(() {
+      loading = false;
+
+      orderHistory.clear();
+      orderHistory=  (listData).map((item) => OpenOrdersHistory.fromJson(item)).toList();
+
+    });
+  }
+
+  getToken() {
+    apiUtils
+        .generateToken()
+        .then((dynamic loginData) {
+
+
+
+
+
+      setState(() {
+        token=loginData["header"];
+
+        String coin=selectPair!.pair.toString();
+
+        channelOpenOrder = IOWebSocketChannel.connect(
+            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {
+              "Sec-WebSocket-Protocol":"graphql-ws"
+            },
+            pingInterval: Duration(seconds: 30));
+
+        channelOpenOrder!.sink.add(json.encode({
+          "id": num1,
+          "payload": {
+            "data": "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
+            "extensions": {
+              "authorization": {
+                "Authorization": "Bearer $bearer",
+                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+              }
+            }
+          },
+          "type": "start"
+        }));
+
+        channelTradeHistory = IOWebSocketChannel.connect(
+            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {
+              "Sec-WebSocket-Protocol":"graphql-ws"
+            },
+            pingInterval: Duration(seconds: 30));
+
+
+        channelTradeHistory!.sink.add(json.encode({
+          "id": num2+"asd",
+          "payload": {
+            "data": "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+            "extensions": {
+              "authorization": {
+                "Authorization": "Bearer $bearer",
+                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+              }
+            }
+          },
+          "type": "start"
+        }));
+
+
+      });
+      socketData();
+      socketHistoryData();
+
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
+  socketData() {
+    setState(() {
+
+    });
+
+
+    channelOpenOrder!.stream.listen(
+          (data) {
+
+        if (data != null || data != "null") {
+
+
+
+          var decode = jsonDecode(data);
+          List<dynamic> listData = decode["payload"]["data"]["updatedOrderBookV2"]["asks"];
+          List<dynamic> listData1 = decode["payload"]["data"]["updatedOrderBookV2"]["bids"];
+
+        if(mounted)
+          {
+            setState(() {
+              loading = false;
+              buyData.clear();
+              sellData.clear();
+              buyData=  (listData).map((item) => OrderBookData.fromJson(item)).toList();
+              sellData=  (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+            });
+          }
+
+
+          // print("Mano");
+
+
+        }
+
+      },
+
+      onDone: () async {
+        await Future.delayed(Duration(seconds: 10));
+        getRand();
+        String coin=selectPair!.pair.toString();
+        channelOpenOrder = IOWebSocketChannel.connect(
+            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {
+              "Sec-WebSocket-Protocol":"graphql-ws"
+            },
+            pingInterval: Duration(seconds: 30));
+        channelOpenOrder!.sink.add(json.encode({
+          "id": num1,
+          "payload": {
+            "data": "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
+            "extensions": {
+              "authorization": {
+                "Authorization": "Bearer $bearer",
+                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+              }
+            }
+          },
+          "type": "start"
+        }));
+        socketData();
+      },
+      onError: (error) => print("Err" + error),
+    );
+  }
+  socketHistoryData() {
+    setState(() {
+
+    });
+
+
+    channelTradeHistory!.stream.listen(
+          (data) {
+
+            print(data);
+        if (data != null || data != "null") {
+
+
+
+          var decode = jsonDecode(data);
+          print("Mano");
+          print(decode);
+
+
+          if(mounted)
+          {
+            setState(() {
+              orderHistory.add(OpenOrdersHistory.fromJson(decode["payload"]["data"]["updatedTradeItemV2"]));
+
+
+
+            });
+          }
+
+
+          // print("Mano");
+
+
+        }
+
+      },
+
+      onDone: () async {
+        await Future.delayed(Duration(seconds: 10));
+        getRand1();
+        String coin=selectPair!.pair.toString();
+        channelTradeHistory = IOWebSocketChannel.connect(
+            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {
+              "Sec-WebSocket-Protocol":"graphql-ws"
+            },
+            pingInterval: Duration(seconds: 30));
+
+        channelTradeHistory!.sink.add(json.encode({
+          "id": num2+"asss",
+          "payload": {
+            "data": "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+            "extensions": {
+              "authorization": {
+                "Authorization": "Bearer $bearer",
+                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+              }
+            }
+          },
+          "type": "start"
+        }));
+        socketHistoryData();
+      },
+      onError: (error) => print("Err" + error),
+    );
   }
 }

@@ -23,4 +23,47 @@ class QueryMutation {
 
     """;
   }
+
+  String getOrderBook(String pair) {
+    return """ 
+     query GetOrderBookV2 {
+         getOrderBookV2(system: "global", pair: "$pair") {
+            nextToken
+            items {
+                pair
+                system
+                  asks {
+                    amount
+                    price
+                  }
+                  bids {
+                     amount
+                      price
+                  }
+            }
+         }
+     }
+
+    """;
+  }
+
+  String getTradeHistory(String pair) {
+    return """ 
+query GetTradeItemsV2 {
+    getTradeItemsV2(pair: "$pair", system: "global") {
+        items {
+            qty
+            price
+            time
+            pair
+            side
+            trans_id
+            system
+        }
+    }
+}
+
+
+    """;
+  }
 }

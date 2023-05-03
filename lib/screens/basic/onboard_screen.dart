@@ -47,7 +47,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
       // ),
       trailingFunction: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => Sign_In_Screen()));
+            MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false,)));
       },
       controllerColor: Theme.of(context).focusColor,
       totalPage: 3,
@@ -213,7 +213,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               setState(() {
                 storeData();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => Sign_In_Screen()));
+                    builder: (context) => Home_Screen(loginStatus: false,)));
               });
             },
             child: Container(
@@ -244,7 +244,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
                 storeData();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => Sign_In_Screen()));
+                    builder: (context) => Home_Screen(loginStatus: false,)));
               });
             },
             child: Container(

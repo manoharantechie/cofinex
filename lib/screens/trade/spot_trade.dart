@@ -322,42 +322,6 @@ class _SpotTradeState extends State<SpotTrade>
                                       children: [
                                         Flexible(
                                             child: InkWell(
-                                              onTap: (){
-                                                setState(() {
-                                                  tradeOption=false;
-                                                });
-
-                                              },
-                                              child: Container(
-                                                width:
-                                                MediaQuery.of(context).size.width,
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    borderRadius:
-                                                    BorderRadius.circular(5.0)),
-                                                padding: EdgeInsets.only(
-                                                    top: 7.0, bottom: 7.0),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Sell",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .focusColor,
-                                                        FontWeight.w600,
-                                                        'FontRegular'),
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Flexible(
-                                            child: InkWell(
 
                                               onTap: (){
 
@@ -389,7 +353,45 @@ class _SpotTradeState extends State<SpotTrade>
                                                   ),
                                                 ),
                                               ),
-                                            ))
+                                            )),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Flexible(
+                                            child: InkWell(
+                                              onTap: (){
+                                                setState(() {
+                                                  tradeOption=false;
+                                                });
+
+                                              },
+                                              child: Container(
+                                                width:
+                                                MediaQuery.of(context).size.width,
+                                                decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                    BorderRadius.circular(5.0)),
+                                                padding: EdgeInsets.only(
+                                                    top: 7.0, bottom: 7.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    "Sell",
+                                                    style: CustomWidget(
+                                                        context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                  ),
+                                                ),
+                                              ),
+                                            )),
+
+
                                       ],
                                     ),
                                     const SizedBox(
@@ -960,8 +962,9 @@ class _SpotTradeState extends State<SpotTrade>
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                                   14.0,
-                                                  CustomTheme.of(context)
-                                                      .errorColor,
+                                              tradeOption? CustomTheme.of(context)
+                                                      .errorColor:CustomTheme.of(context)
+                                                  .focusColor,
                                                   FontWeight.w600,
                                                   'FontRegular'),
                                         ),
@@ -1233,7 +1236,6 @@ class _SpotTradeState extends State<SpotTrade>
               bottom: TabBar(
                 isScrollable: false,
                 labelColor: CustomTheme.of(context).buttonColor,
-
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,
                 //<-- selected text color

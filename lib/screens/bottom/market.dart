@@ -25,7 +25,7 @@ class _MarketScreenState extends State<MarketScreen>
 
   ScrollController _scrollController = ScrollController();
   APIUtils apiUtils = APIUtils();
-  List list_name = ["Bitcoin", "Binance USD", "Ethereum", "Ripple", "Dogecoin"];
+
 
   bool loading = false;
   List<AllTicker> allTicker = [];
@@ -407,8 +407,8 @@ class _MarketScreenState extends State<MarketScreen>
                                     width: 10.0,
                                   ),
                                   Container(
-                                    width: 50,
-                                    height: 50,
+                                    width: 40,
+                                    height: 40,
                                     padding: EdgeInsets.all(8.0),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Theme
@@ -464,7 +464,7 @@ class _MarketScreenState extends State<MarketScreen>
                                 ],
                               ),
                             ),
-                            flex: 3,
+                            flex: 2,
                           ),
                           Flexible(
                             child: Text(
@@ -483,6 +483,7 @@ class _MarketScreenState extends State<MarketScreen>
                                   'FontRegular'),
                               textAlign: TextAlign.center,
                             ),
+                            flex: 1,
                           ),
                           const SizedBox(width: 10.0,),
                           Container(
@@ -736,9 +737,9 @@ class _MarketScreenState extends State<MarketScreen>
 
       allTicker
         ..sort((a, b) =>
-        ((double.parse(b.marketPrice.toString()) *
+        ((double.parse(b.marketPrice.toString())+
             (double.parse(b.volumeTotal24Hr.toString())))
-            .compareTo ((double.parse(a.marketPrice.toString()) *
+            .compareTo ((double.parse(a.marketPrice.toString()) +
           (double.parse(a.volumeTotal24Hr.toString()))))));
     });
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/data_model/api_utils.dart';
+import 'package:cofinex/screens/basic/forgot_password.dart';
 import 'package:cofinex/screens/basic/home.dart';
 import 'package:cofinex/screens/basic/register.dart';
 import 'package:cofinex/screens/basic/verification.dart';
@@ -15,7 +16,8 @@ import '../../common/localization/localizations.dart';
 import '../../common/textformfield_custom.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  final String email;
+  const Login({Key? key, required this.email}) : super(key: key);
 
   @override
   State<Login> createState() => _Sign_Up_screenState();
@@ -25,21 +27,47 @@ class _Sign_Up_screenState extends State<Login> {
 
   bool loading = false;
   bool passVisible = false;
-  FocusNode emailFocus = FocusNode();
+
   FocusNode passFocus = FocusNode();
-  TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
   final List<Locale> systemLocales = WidgetsBinding.instance.window.locales;
   String isoCountryCode ="";
   final _formKey = GlobalKey<FormState>();
   APIUtils apiUtils=APIUtils();
 
+  String splitFirst="";
+  String splitSecond="";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
  isoCountryCode = systemLocales.first.countryCode.toString();
+ splitFirst=widget.email.toString().split("@")[0];
+    splitSecond=widget.email.toString().split("@")[1];
 
+
+
+    getData();
+
+
+  }
+  getData(){
+
+    setState(() {
+
+
+      int r=splitFirst.length;
+      splitFirst=splitFirst[0]+splitFirst[1];
+
+      for(int m=0;m<r-2;m++)
+      {
+
+        print(m);
+        splitFirst=splitFirst+"*";
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -86,6 +114,7 @@ class _Sign_Up_screenState extends State<Login> {
           children: [
             Container(
 
+
                 child: Center(
                   child: SingleChildScrollView(
                     child: Form(
@@ -95,73 +124,37 @@ class _Sign_Up_screenState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
 
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                              child: Text(
-                                AppLocalizations.instance.text("loc_sign_acc"),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    27.0,
-                                    Theme.of(context).primaryColor,
-                                    FontWeight.w700,
-                                    'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 15.0,),
-                          Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
                             child: Text(
-                              AppLocalizations.instance.text("loc_email_phone"),
+                              "Welcome back!",
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).accentColor,
+                                  27.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w700,
+                                  'FontRegular'),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                            child: Text(
+                              splitFirst+"@"+splitSecond,
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  14.0,
+                                  Theme.of(context).primaryColor,
                                   FontWeight.w500,
                                   'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),),
-                          SizedBox(height: 5.0,),
-                          TextFormFieldCustom(
-                            onEditComplete: () {
-                              emailFocus.unfocus();
-                              // FocusScope.of(context).requestFocus(snameFocus);
-                            },
-                            radius: 5.0,
-                            error: "Enter Email or Phone Number",
-                            textColor: Theme.of(context).bottomAppBarColor,
-                            borderColor: Theme.of(context).accentColor.withOpacity(0.5),
-                            fillColor: Theme.of(context).splashColor,
-                            hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                12.0, Theme.of(context).bottomAppBarColor.withOpacity(0.5), FontWeight.w600, 'FontRegular'),
-                            textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                16.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
-                            textInputAction: TextInputAction.next,
-                            focusNode: emailFocus,
-                            maxlines: 1,
-                            text: '',
-                            hintText: "Email address",
-                            obscureText: false,
-                            textChanged: (value) {},
-                            onChanged: () {},
-                            suffix: Container(
-                              width: 0.0,
+                              textAlign: TextAlign.start,
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter Email";
-                              } else if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                                return "Please enter valid Email";
-                              }
-
-                              return null;
-                            },
-                            enabled: true,
-                            textInputType: TextInputType.name,
-                            controller: emailController,
                           ),
+
+
                           SizedBox(height: 25.0,),
                           Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
                             child: Text(
@@ -169,7 +162,8 @@ class _Sign_Up_screenState extends State<Login> {
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context)
+                                      .bottomAppBarColor,
                                   FontWeight.w500,
                                   'FontRegular'),
                               textAlign: TextAlign.center,
@@ -180,7 +174,7 @@ class _Sign_Up_screenState extends State<Login> {
                             textInputAction: TextInputAction.next,
                             textColor: Theme.of(context).bottomAppBarColor,
                             borderColor: Theme.of(context).splashColor,
-                            fillColor: Theme.of(context).splashColor,
+                            fillColor: Theme.of(context).shadowColor,
                             hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                                 12.0, Theme.of(context).bottomAppBarColor.withOpacity(0.5), FontWeight.w600, 'FontRegular'),
                             textStyle: CustomWidget(context: context).CustomSizedTextStyle(
@@ -226,7 +220,7 @@ class _Sign_Up_screenState extends State<Login> {
                           InkWell(
                             onTap: (){
                               setState(() {
-                                FocusScope.of(context).unfocus();
+                                FocusScope.of(context).requestFocus(FocusNode());
 
                                 if(_formKey.currentState!.validate())
                                 {
@@ -245,7 +239,7 @@ class _Sign_Up_screenState extends State<Login> {
                               ),
                               child: Center(
                                 child: Text(
-                                  AppLocalizations.instance.text("loc_signin"),
+                                  "Login",
                                   style: CustomWidget(context: context)
                                       .CustomSizedTextStyle(
                                       14.0,
@@ -255,6 +249,28 @@ class _Sign_Up_screenState extends State<Login> {
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(height: 15.0,),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ForgotPassword()));
+                              },
+                              child: Text(
+                                "Forgot password?",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),
+                            )
                           ),
 
                         ],
@@ -327,7 +343,7 @@ class _Sign_Up_screenState extends State<Login> {
   doLogin() {
     apiUtils
         .doLoginEmail(
-    emailController.text.toString(),
+    widget.email,
         passwordController.text.toString())
         .then((dynamic loginData) {
 

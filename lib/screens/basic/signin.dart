@@ -1,5 +1,6 @@
 import 'package:cofinex/common/localization/localizations.dart';
 import 'package:cofinex/screens/basic/login.dart';
+import 'package:cofinex/screens/basic/login_first.dart';
 import 'package:cofinex/screens/basic/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                       onTap: (){
 
                           Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) => Login()));
+                              .push(MaterialPageRoute(builder: (context) => LoginFirst()));
 
                       },
                       child: Container(

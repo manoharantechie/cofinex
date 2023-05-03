@@ -2,7 +2,7 @@ class QueryMutation {
   String getTickeDetails() {
     return """ 
      query GetAllTickerInfoV2 {
-         getAllTickerInfoV2(system: "global") {
+         getAllTickerInfoV2(system: "global",limit: 100) {
               nextToken
               items {
                   high24hr

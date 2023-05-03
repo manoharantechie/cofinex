@@ -4,6 +4,7 @@ import 'package:cofinex/common/custom_switch.dart';
 import 'package:cofinex/common/theme/themes.dart';
 import 'package:cofinex/screens/basic/aml_check.dart';
 import 'package:cofinex/screens/basic/login.dart';
+import 'package:cofinex/screens/basic/login_first.dart';
 import 'package:cofinex/screens/basic/register.dart';
 import 'package:cofinex/screens/dashboard/airdrop.dart';
 import 'package:cofinex/screens/basic/future_trade.dart';
@@ -32,6 +33,7 @@ class Profile_Screen extends StatefulWidget {
 class _Profile_ScreenState extends State<Profile_Screen> {
 
   bool light=false;
+  bool cofinex=false;
   String themeType="";
 
   bool loginStatus=false;
@@ -248,6 +250,80 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           )
                         ],
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    height: 1.0,
+                    color: Theme.of(context).splashColor,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/profile/dark.svg",
+                              height: 18.0,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              "Cofinex India",
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                            ),
+                          ],
+                        ),
+                        CustomSwitch(
+                          value: cofinex,
+                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          circleColor:  Theme.of(context).focusColor,
+                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          activeTextColor: Theme.of(context).focusColor,
+                          chanegStatus: light,
+                          onChanged: (val){
+                            setState(() {
+
+                              print(val);
+
+                              if(!val)
+                              {
+
+
+                                cofinex=val;
+
+                              }
+                              else{
+
+
+
+                                cofinex=val;
+
+
+                              }
+
+
+
+                            });
+                          },
+                        ),
+
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -727,12 +803,14 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   FontWeight.w600,
                   'FontRegular'),
             ),
-
+            SizedBox(
+              height: 10.0,
+            ),
             Text(
-              "Join with US",
+              "Join the world's fastest-growing crypto exchange",
               style: CustomWidget(context: context)
                   .CustomSizedTextStyle(
-                  14.0,
+                  12.0,
                   Theme.of(context).primaryColor,
                   FontWeight.w600,
                   'FontRegular'),
@@ -740,44 +818,48 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             SizedBox(
               height: 15.0,
             ),
-            Row(
-              children: [
-               InkWell(
-                 onTap: (){
 
-                   Navigator.of(context)
-                       .push(MaterialPageRoute(builder: (context) => Register()));
+           Row(
+             children: [
+               Flexible(child:  InkWell(
+                   onTap: (){
 
-                 },
-                 child:  Container(
-                   padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 5.0,bottom: 5.0),
-                   decoration: BoxDecoration(
-                     color:  Theme.of(context).bottomAppBarColor,
-                     borderRadius: BorderRadius.circular(5.0),
+                     Navigator.of(context)
+                         .push(MaterialPageRoute(builder: (context) => Register()));
 
-                   ),
-                   child: Center(
-                     child:  Text(
-                       AppLocalizations.instance.text("loc_signup"),
-                       style: CustomWidget(context: context)
-                           .CustomSizedTextStyle(
-                           14.0,
-                           Theme.of(context).focusColor,
-                           FontWeight.w600,
-                           'FontRegular'),
+                   },
+                   child:  Container(
+
+
+                     padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
+                     decoration: BoxDecoration(
+                       color:  Theme.of(context).bottomAppBarColor,
+                       borderRadius: BorderRadius.circular(5.0),
+
                      ),
-                   ),
-                 ),
-               ),
-                const SizedBox(width: 25.0,),
-               InkWell(
+                     child: Center(
+                       child:  Text(
+                         AppLocalizations.instance.text("loc_signup"),
+                         style: CustomWidget(context: context)
+                             .CustomSizedTextStyle(
+                             14.0,
+                             Theme.of(context).focusColor,
+                             FontWeight.w600,
+                             'FontRegular'),
+                       ),
+                     ),
+                   )
+               ),flex: 1,),
+               const SizedBox(width: 15.0,),
+               Flexible(child:     InkWell(
                  onTap: (){
                    Navigator.of(context)
-                       .push(MaterialPageRoute(builder: (context) => Login()));
+                       .push(MaterialPageRoute(builder: (context) => LoginFirst()));
 
                  },
-                 child:  Container(
-                   padding: EdgeInsets.only(left: 25.0,right: 25.0,top: 5.0,bottom: 5.0),
+                 child:Container(
+
+                   padding: EdgeInsets.only(left: 25.0,right: 25.0,top: 10.0,bottom: 10.0),
                    decoration: BoxDecoration(
                      color:  Theme.of(context).buttonColor,
                      borderRadius: BorderRadius.circular(5.0),
@@ -795,10 +877,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                      ),
                    ),
                  ),
-               )
+               ),flex: 1,),
+             ],
+           ),
 
-              ],
-            ),
             SizedBox(
               height: 15.0,
             ),
@@ -817,6 +899,80 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     height: 10.0,
                   ),
 
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/profile/dark.svg",
+                              height: 18.0,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              "Cofinex India",
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                            ),
+                          ],
+                        ),
+                        CustomSwitch(
+                          value: cofinex,
+                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          circleColor:  Theme.of(context).focusColor,
+                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          activeTextColor: Theme.of(context).focusColor,
+                          chanegStatus: light,
+                          onChanged: (val){
+                            setState(() {
+
+                              print(val);
+
+                              if(!val)
+                              {
+
+
+                                cofinex=val;
+
+                              }
+                              else{
+
+
+
+                                cofinex=val;
+
+
+                              }
+
+
+
+                            });
+                          },
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    height: 1.0,
+                    color: Theme.of(context).splashColor,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),

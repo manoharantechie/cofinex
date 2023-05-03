@@ -337,8 +337,8 @@ class _TradeScreenState extends State<TradeScreen>
                                   Container(
                                     height: 25.0,
                                     padding: const EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
+                                        left: 5.0,
+                                        right: 5.0,
                                         top: 0.0,
                                         bottom: 0.0),
                                     decoration: BoxDecoration(
@@ -400,8 +400,8 @@ class _TradeScreenState extends State<TradeScreen>
                                   Container(
                                     height: 25.0,
                                     padding: const EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
+                                        left: 5.0,
+                                        right:5.0,
                                         top: 0.0,
                                         bottom: 0.0),
                                     decoration: BoxDecoration(
@@ -437,6 +437,31 @@ class _TradeScreenState extends State<TradeScreen>
                                 children: [
                                   Flexible(
                                       child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context).buttonColor,
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                        padding:
+                                        EdgeInsets.only(top: 7.0, bottom: 7.0),
+                                        child: Center(
+                                          child: Text(
+                                            "Buy",
+                                            style: CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                10.0,
+                                                CustomTheme.of(context)
+                                                    .primaryColor,
+                                                FontWeight.w600,
+                                                'FontRegular'),
+                                          ),
+                                        ),
+                                      )),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Flexible(
+                                      child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
@@ -457,31 +482,8 @@ class _TradeScreenState extends State<TradeScreen>
                                       ),
                                     ),
                                   )),
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Flexible(
-                                      child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).buttonColor,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    padding:
-                                        EdgeInsets.only(top: 7.0, bottom: 7.0),
-                                    child: Center(
-                                      child: Text(
-                                        "Buy",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .primaryColor,
-                                                FontWeight.w600,
-                                                'FontRegular'),
-                                      ),
-                                    ),
-                                  ))
+
+
                                 ],
                               ),
                               const SizedBox(
@@ -1767,8 +1769,8 @@ class _TradeScreenState extends State<TradeScreen>
                                   Container(
                                     height: 25.0,
                                     padding: const EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
+                                        left: 5.0,
+                                        right: 5.0,
                                         top: 0.0,
                                         bottom: 0.0),
                                     decoration: BoxDecoration(
@@ -1830,8 +1832,8 @@ class _TradeScreenState extends State<TradeScreen>
                                   Container(
                                     height: 25.0,
                                     padding: const EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
+                                        left: 5.0,
+                                        right: 5.0,
                                         top: 0.0,
                                         bottom: 0.0),
                                     decoration: BoxDecoration(
@@ -1865,31 +1867,8 @@ class _TradeScreenState extends State<TradeScreen>
                               ),
                               Row(
                                 children: [
-                                  Flexible(
-                                      child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    padding:
-                                        EdgeInsets.only(top: 7.0, bottom: 7.0),
-                                    child: Center(
-                                      child: Text(
-                                        "Sell",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .focusColor,
-                                                FontWeight.w600,
-                                                'FontRegular'),
-                                      ),
-                                    ),
-                                  )),
-                                  const SizedBox(
-                                    width: 10.0,
-                                  ),
+
+
                                   Flexible(
                                       child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -1911,7 +1890,32 @@ class _TradeScreenState extends State<TradeScreen>
                                                 'FontRegular'),
                                       ),
                                     ),
-                                  ))
+                                  )),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Flexible(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context).primaryColor,
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                        padding:
+                                        EdgeInsets.only(top: 7.0, bottom: 7.0),
+                                        child: Center(
+                                          child: Text(
+                                            "Sell",
+                                            style: CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                10.0,
+                                                CustomTheme.of(context)
+                                                    .focusColor,
+                                                FontWeight.w600,
+                                                'FontRegular'),
+                                          ),
+                                        ),
+                                      )),
                                 ],
                               ),
                               const SizedBox(

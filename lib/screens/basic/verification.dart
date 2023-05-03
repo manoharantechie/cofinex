@@ -4,6 +4,7 @@ import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/model/get_otp_model.dart';
 import 'package:cofinex/screens/basic/home.dart';
 import 'package:cofinex/screens/basic/login.dart';
+import 'package:cofinex/screens/basic/login_first.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -156,7 +157,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                         textColor: Theme.of(context).bottomAppBarColor,
                         borderColor:
                         Theme.of(context).accentColor.withOpacity(0.5),
-                        fillColor: Theme.of(context).splashColor,
+                        fillColor: Theme.of(context).shadowColor,
                         hintStyle: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             12.0,
@@ -347,7 +348,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
         setState(() {
           loading = false;
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Login()));
+              MaterialPageRoute(builder: (context) => LoginFirst()));
         });
 
       }

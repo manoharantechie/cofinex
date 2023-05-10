@@ -122,6 +122,25 @@ class CustomWidget {
       child:  Center(
         child: Container(
           child: Center(
+            child:  Image.asset(
+              'assets/icon/loader.gif',
+              width: 250,
+              height: 250
+            )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget loadingIndicator1(Color color) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      // color:  Color(0xFF1d0068),
+      child:  Center(
+        child: Container(
+          child: Center(
             child: SpinKitFadingCube(
               color: color,
             ),
@@ -130,7 +149,6 @@ class CustomWidget {
       ),
     );
   }
-
   CustomTextStyle(Color color, FontWeight weight, String family) {
     return TextStyle(
       fontFamily: family,

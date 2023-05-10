@@ -600,7 +600,7 @@ class _MarketScreenState extends State<MarketScreen>
                         .of(context)
                         .size
                         .width,
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: Theme
@@ -622,6 +622,31 @@ class _MarketScreenState extends State<MarketScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
 
+
+                      Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Theme
+                                  .of(context)
+                                  .splashColor, width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Theme
+                                  .of(context)
+                                  .highlightColor,
+                            ),
+                            child: SvgPicture.network(
+                              "https://images.cofinex.io/crypto/ico/" +
+                                  coinImage.toLowerCase() + ".svg",
+                              height: 15.0,),
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+
                           Text(
                             allTicker[index].pair.toString(),
                             style: CustomWidget(context: context)
@@ -634,6 +659,8 @@ class _MarketScreenState extends State<MarketScreen>
                                 'FontRegular'),
                             textAlign: TextAlign.center,
                           ),
+                        ],
+                      ),
                           Column(
                             children: [
                               Text(

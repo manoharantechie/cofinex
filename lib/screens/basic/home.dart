@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/common/theme/themes.dart';
+import 'package:cofinex/data_model/graph_ql_utils.dart';
+import 'package:cofinex/data_model/model/ticker_data_model.dart';
+import 'package:cofinex/data_model/query_utils.dart';
 import 'package:cofinex/screens/basic/invite.dart';
 import 'package:cofinex/screens/basic/register.dart';
 import 'package:cofinex/screens/bottom/assets.dart';
@@ -23,6 +26,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/custom_widget.dart';
@@ -88,6 +92,8 @@ class _Home_ScreenState extends State<Home_Screen> {
   ];
   Widget screen = MarketScreen();
 
+  List<AllTicker> allTicker = [];
+  GraphAPIUtils qlapiUtils = GraphAPIUtils();
   @override
   void initState() {
     // TODO: implement initState
@@ -100,6 +106,13 @@ class _Home_ScreenState extends State<Home_Screen> {
   storeData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("login", widget.loginStatus);
+
+    if(widget.loginStatus)
+    {
+
+
+      fillList();
+    }
   }
 
   getDetails() async {
@@ -259,7 +272,7 @@ class _Home_ScreenState extends State<Home_Screen> {
           iconStyle: IconStyle(
             color: Color(0xFF848484),
             onSelectColor: CustomTheme.of(context).errorColor,
-            size: 25.0,
+            size: 22.0,
           ),
           bgStyle: BgStyle(
             color: Color(0xFF01081E),
@@ -268,7 +281,7 @@ class _Home_ScreenState extends State<Home_Screen> {
           labelStyle: LabelStyle(
             visible: true,
             textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                12.0,
+                10.0,
                 Color(0xFF848484),
                 FontWeight.normal,
                 'FontRegular'),
@@ -601,8 +614,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                               padding: EdgeInsets.only(
                                   top: 5.0,
                                   bottom: 5.0,
-                                  right: 12.0,
-                                  left: 12.0),
+                              ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).focusColor,
                                 border: Border.all(
@@ -624,7 +636,6 @@ class _Home_ScreenState extends State<Home_Screen> {
                                     height: 10.0,
                                   ),
                                   Text(
-                                    // AppLocalizations.instance.text("loc_widthdraw"),
                                     grid_name[index].toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
@@ -735,16 +746,26 @@ class _Home_ScreenState extends State<Home_Screen> {
                 ),
                 Column(
                   children: [
-                    Text(
+                  InkWell(
+                    onTap: (){
+                      onSelectItem(1);
+                      setState(() {
+                        selectedIndex=1;
+                        dashview=false;
+                        currentIndex=1;
+                      });
+                    },
+                    child:   Text(
                       "See All",
                       style: CustomWidget(context: context)
                           .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context).accentColor,
-                              FontWeight.w600,
-                              'FontRegular'),
+                          12.0,
+                          Theme.of(context).accentColor,
+                          FontWeight.w600,
+                          'FontRegular'),
                       textAlign: TextAlign.center,
                     ),
+                  ),
                     const SizedBox(
                       height: 3.0,
                     ),
@@ -773,12 +794,21 @@ class _Home_ScreenState extends State<Home_Screen> {
                   ),
                   color: Theme.of(context).highlightColor,
                 ),
-                child: ListView.builder(
+                child: allTicker.length>0?ListView.builder(
                   physics: ScrollPhysics(),
-                  itemCount: list_name.length,
+                  itemCount: 5,
                   shrinkWrap: true,
                   controller: _scrollController,
                   itemBuilder: (BuildContext context, int index) {
+                    bool test = false;
+                    String coinImage = allTicker[index].pair!.split("-")[0].toString();
+                    if (double.parse(
+                        allTicker[index].priceChangePercent24Hr.toString()) >
+                        0) {
+                      test = true;
+                    } else {
+                      test = false;
+                    }
                     return Column(
                       children: [
                         Container(
@@ -799,22 +829,22 @@ class _Home_ScreenState extends State<Home_Screen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              15.0, 12.0, 15.0, 12.0),
+                                          width: 40,
+                                          height: 40,
+                                          padding: EdgeInsets.all(8.0),
                                           decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Theme.of(context)
-                                                    .splashColor,
-                                                width: 1.0),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            color: Theme.of(context)
+                                            border: Border.all(color: Theme
+                                                .of(context)
+                                                .splashColor, width: 1.0),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: Theme
+                                                .of(context)
                                                 .highlightColor,
                                           ),
-                                          child: SvgPicture.asset(
-                                            "assets/images/bit.svg",
-                                            height: 25.0,
-                                          ),
+                                          child: SvgPicture.network(
+                                            "https://images.cofinex.io/crypto/ico/" +
+                                                coinImage.toLowerCase() + ".svg",
+                                            height: 15.0,),
                                         ),
                                         SizedBox(
                                           width: 5.0,
@@ -826,30 +856,31 @@ class _Home_ScreenState extends State<Home_Screen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              list_name[index].toString(),
+                                              allTicker[index].pair.toString(),
                                               style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                              CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  13.0,
+                                                  Theme
+                                                      .of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
                                               textAlign: TextAlign.center,
                                             ),
                                             SizedBox(
                                               height: 8.0,
                                             ),
                                             Text(
-                                              "BTC",
-                                              style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                          12.0,
-                                                          Theme.of(context)
-                                                              .canvasColor,
-                                                          FontWeight.w500,
-                                                          'FontRegular'),
+                                              coinImage,
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme
+                                                      .of(context)
+                                                      .canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                               textAlign: TextAlign.center,
                                             ),
                                           ],
@@ -857,7 +888,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                       ],
                                     ),
                                   ),
-                                  SvgPicture.asset(index % 2 == 0
+                                  SvgPicture.asset(test
                                       ? 'assets/icon/graph_success.svg'
                                       : 'assets/icon/graph_fail.svg'),
                                   Container(
@@ -868,7 +899,10 @@ class _Home_ScreenState extends State<Home_Screen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "0.1832",
+                                          double.parse(allTicker[index]
+                                              .marketPrice
+                                              .toString())
+                                              .toStringAsFixed(4),
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                                   14.0,
@@ -884,12 +918,13 @@ class _Home_ScreenState extends State<Home_Screen> {
                                         Row(
                                           children: [
                                             Text(
-                                              "1.0%",
+                                              double.parse(allTicker[index]
+                                                  .priceChangePercent24Hr.toString()).toStringAsFixed(2),
                                               style: CustomWidget(
                                                       context: context)
                                                   .CustomSizedTextStyle(
                                                       12.0,
-                                                      index % 2 == 0
+                                                      test
                                                           ? Theme.of(context)
                                                               .indicatorColor
                                                           : Theme.of(context)
@@ -918,7 +953,42 @@ class _Home_ScreenState extends State<Home_Screen> {
                       ],
                     );
                   },
-                )),
+                ):Container(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height*0.1,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            // Add one stop for each color
+                            // Values should increase from 0.0 to 1.0
+                            stops: [
+                              0.1,
+                              0.5,
+                              0.9,
+                            ],
+                            colors: [
+                              Theme
+                                  .of(context)
+                                  .backgroundColor,
+                              Theme
+                                  .of(context)
+                                  .backgroundColor,
+                              Theme
+                                  .of(context)
+                                  .backgroundColor,
+                            ])),
+                    child: Center(
+                      child: Text(
+                        " No records Found..!",
+                        style: CustomWidget(context: context).CustomSizedTextStyle(16.0,
+                            Theme
+                                .of(context)
+                                .primaryColor, FontWeight.w500, 'FontRegular'),
+                      ),
+                    ))),
             SizedBox(
               height: 30.0,
             ),
@@ -927,6 +997,30 @@ class _Home_ScreenState extends State<Home_Screen> {
       ),
     );
   }
+  fillList() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    QueryMutation queryMutation = QueryMutation();
+
+    GraphQLClient _client =
+    qlapiUtils.clientToQuery(preferences.getString("token").toString());
+    QueryResult result = await _client.query(
+      QueryOptions(document: gql(queryMutation.getTickeDetails())),
+    );
+
+    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+
+    setState(() {
+      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
+
+      allTicker
+        ..sort((a, b) =>
+        ((double.parse(b.marketPrice.toString())+
+            (double.parse(b.volumeTotal24Hr.toString())))
+            .compareTo ((double.parse(a.marketPrice.toString()) +
+            (double.parse(a.volumeTotal24Hr.toString()))))));
+    });
+  }
+
 }
 
 class testWidget extends StatefulWidget {

@@ -1,5 +1,7 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/data_model/api_utils.dart';
+import 'package:cofinex/data_model/model/currency_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,14 +15,17 @@ class Assets extends StatefulWidget {
 class _AssetsState extends State<Assets> {
 
   ScrollController _scrollController = ScrollController();
-  List list_name=[
-    "Bitcoin","Binance USD","Ethereum","Ripple","Dogecoin"
-  ];
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
+
+  List<CurrencyList> cyrptoCurrecy = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loading = true;
+    getCurrency();
   }
 
   @override
@@ -30,13 +35,16 @@ class _AssetsState extends State<Assets> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: CustomTheme.of(context).backgroundColor,
-          child: Padding(
+          child:  loading
+              ? CustomWidget(context: context).loadingIndicator(
+            CustomTheme.of(context).buttonColor,
+          ):Padding(
             padding: EdgeInsets.only(left: 20.0,right: 20.0),
             child:  Container(
 
                 child: ListView.builder(
                   physics: ScrollPhysics(),
-                  itemCount: list_name.length,
+                  itemCount: cyrptoCurrecy.length,
                   shrinkWrap: true,
                   controller: _scrollController,
                   itemBuilder: (BuildContext context, int index) {
@@ -52,22 +60,35 @@ class _AssetsState extends State<Assets> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
 
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
-                                borderRadius:BorderRadius.circular(10.0),
-                                color:  Theme.of(context).buttonColor,
+                              Container(
+                                width: 40,
+                                height: 40,
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Theme.of(context).splashColor,
+                                      width: 1.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                                child: SvgPicture.network(
+                                  "https://images.cofinex.io/crypto/ico/" +
+                                      cyrptoCurrecy[index]
+                                          .symbol
+                                          .toString()
+                                          .toLowerCase() +
+                                      ".svg",
+                                  height: 15.0,
+                                ),
                               ),
-                              padding: EdgeInsets.all(10.0),
-                              child:   SvgPicture.asset('assets/icon/btc.svg'),
-                            ),const SizedBox(width: 15.0,),
+                              const SizedBox(width: 15.0,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 15.0,),
                                   Text(
-                                    list_name[index].toString()+" (BTC)",
+                                    cyrptoCurrecy[index].networktype.toString()+" ("+cyrptoCurrecy[index].symbol.toString() + ")",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         14.0,
@@ -174,5 +195,32 @@ class _AssetsState extends State<Assets> {
 
       ),
     );
+  }
+
+  getCurrency() {
+    apiUtils.getAllCurrency().then((CurrencyListModel loginData) {
+      setState(() {
+        if (loginData.status!) {
+          loading = false;
+          List<CurrencyList> listV = loginData.data!;
+          for (int m = 0; m < listV.length; m++) {
+
+              cyrptoCurrecy.add(listV[m]);
+
+          }
+          print(cyrptoCurrecy.length);
+          cyrptoCurrecy=cyrptoCurrecy.toSet().toList();
+          print(cyrptoCurrecy.length);
+        } else {
+
+          loading = false;
+          cyrptoCurrecy = [];
+        }
+      });
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }

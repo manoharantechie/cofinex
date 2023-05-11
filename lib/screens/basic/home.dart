@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cofinex/common/bottom_nav.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/common/theme/themes.dart';
+import 'package:cofinex/common/web_loader.dart';
 import 'package:cofinex/data_model/graph_ql_utils.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
 import 'package:cofinex/data_model/query_utils.dart';
@@ -700,7 +701,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Register()));
+                                builder: (context) => LiveWidget()));
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.25,

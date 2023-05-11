@@ -1,17 +1,23 @@
 import 'dart:convert';
 
+import 'package:cofinex/data_model/model/currency_list_model.dart';
+import 'package:cofinex/data_model/model/deposit_details.dart';
 import 'package:cofinex/data_model/model/get_otp_model.dart';
+import 'package:cofinex/data_model/model/network_list_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIUtils {
   final appName = 'Cofinex';
-  static const baseURL = "https://letswinsports.io/service";
   static const initURL = "https://dataapi.cofinex.io/";
   static const authURL = "https://auth.cofinex.io/";
   static const registerURL = "users/createUser";
   static const sentOTPURL = "users/generateOTP";
   static const fetchOTPURL = "users/getOTP";
   static const verifyEmailURL = "users/emailVerified";
+  static const currencyURL = "currency/currency";
+  static const networkURL = "currency/networks";
+  static const addressURL = "users/getaddress";
   static const getTokenURL = "https://api.cofinex.in/encodewsheader";
 
   Future<dynamic> doRegisterEmail(
@@ -132,6 +138,46 @@ class APIUtils {
       getTokenURL,
     ));
 
+    return json.decode(response.body);
+  }
+
+  Future<CurrencyListModel> getAllCurrency() async {
+    final response = await http.get(
+      Uri.parse(initURL + currencyURL),
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+      },
+    );
+
+    return CurrencyListModel.fromJson(json.decode(response.body));
+  }
+
+  Future<NetworkListModel> getAllNetworks() async {
+    final response = await http.get(
+      Uri.parse(initURL + networkURL),
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+      },
+    );
+    return NetworkListModel.fromJson(json.decode(response.body));
+  }
+
+  Future<dynamic> getDepositAddress(String token, String network) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    var emailbodyData = {
+      'token': token,
+      'network': network,
+    };
+
+    final response = await http.post(
+      Uri.parse(initURL + addressURL),
+      body: emailbodyData,
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+    print(response.body);
     return json.decode(response.body);
   }
 }

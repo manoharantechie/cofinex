@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 class GraphAPIUtils {
   final appName = 'Cofinex';
   static const initURL = "https://yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com/graphql";
+  static const secondURL = "https://sy7c3na66zexteenmkbksb6dc4.appsync-api.us-east-1.amazonaws.com/graphql";
 
 
   final HttpLink httpLink = HttpLink(
@@ -30,11 +31,22 @@ class GraphAPIUtils {
   }
 
 
-  Future<dynamic> _query(GraphQLClient client, QueryOptions options) async {
-    final result = await client.query(options);
+  GraphQLClient clientSecondToQuery(String token) {
 
-    return result.data;
+    return GraphQLClient(
+      cache: GraphQLCache(),
+      link: HttpLink(
+        secondURL,
+
+        defaultHeaders: {
+          'Authorization': "Bearer "+token
+        },
+      ),
+
+
+    );
   }
+
 
 
 

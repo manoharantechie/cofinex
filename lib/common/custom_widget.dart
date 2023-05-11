@@ -10,6 +10,8 @@ import 'package:flutter/widgets.dart';
 
 
 class CustomWidget {
+
+
   final BuildContext context;
 
   CustomWidget({required this.context});
@@ -127,6 +129,25 @@ class CustomWidget {
               width: 250,
               height: 250
             )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget loadingIndicatorWeb(Color color) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      // color:  Color(0xFF1d0068),
+      child:  Center(
+        child: Container(
+          child: Center(
+              child:  Image.asset(
+                  'assets/icon/loader.gif',
+                  width: 250,
+                  height: 250
+              )
           ),
         ),
       ),

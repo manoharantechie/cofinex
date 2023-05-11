@@ -45,6 +45,8 @@ dependencies:
   provider:
   graphql_flutter: ^5.1.2
   web_socket_channel:
+  barcode_scan2:
+  webview_flutter:
 
 
 
@@ -85,6 +87,7 @@ flutter:
     - assets/icon/
     - assets/profile/
     - assets/icon/logo.gif
+    - assets/loading.hmtl
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:

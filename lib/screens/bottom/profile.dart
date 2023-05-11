@@ -53,7 +53,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
 
       loginStatus=preferences.getBool("login")!;
       themeType=preferences.getString('theme').toString();
-      print(themeType);
+
 
       if(themeType==null || themeType=="null")
       {
@@ -1055,7 +1055,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           onChanged: (val){
                             setState(() {
 
-                              print(val);
+
 
                               if(!val)
                               {

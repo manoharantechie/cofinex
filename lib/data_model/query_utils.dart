@@ -66,4 +66,36 @@ query GetTradeItemsV2 {
 
     """;
   }
+
+  String getWalletBalance() {
+    return """ 
+     query GetAllWalletBalances {
+    getAllWalletBalances {
+        nextToken
+        items {
+            balance
+            created_by
+            date_created
+            date_updated
+            token
+            type
+            updated_by
+        }
+    }
+}
+
+    """;
+  }
+
+  String withdrawRequest(String from,String to,String amount,String token ) {
+    return """ 
+mutation TransferWalletBalance {
+    transferWalletBalance(token: "$token", amount: "$amount", toType: "$to", fromType: "$from") {
+        status
+    }
+}
+
+    """;
+  }
+
 }

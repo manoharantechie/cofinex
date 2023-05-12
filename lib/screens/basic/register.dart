@@ -67,7 +67,7 @@ class _Sign_Up_screenState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -101,324 +101,58 @@ class _Sign_Up_screenState extends State<Register> {
               Container(
                   child: SingleChildScrollView(
                       child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 5.0),
-                        child: Text(
-                          AppLocalizations.instance.text("loc_sign_up"),
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                                  27.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w700,
-                                  'FontRegular'),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        "First Name",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                12.0,
-                        Theme.of(context)
-                              .bottomAppBarColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    TextFormFieldCustom(
-                      onEditComplete: () {
-                        firstNFocus.unfocus();
-                        FocusScope.of(context).requestFocus(lasttNFocus);
-                      },
-                      radius: 10.0,
-                      error: "Enter FirstName",
-                      textColor: Theme.of(context).bottomAppBarColor,
-                      borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
-                      fillColor: Theme.of(context).shadowColor,
-                      hintStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context)
-                                  .bottomAppBarColor
-                                  .withOpacity(0.5),
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              16.0,
-                              Theme.of(context).bottomAppBarColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textInputAction: TextInputAction.next,
-                      focusNode: firstNFocus,
-                      maxlines: 1,
-                      text: '',
-                      hintText: "First Name",
-                      obscureText: false,
-                      textChanged: (value) {},
-                      onChanged: () {},
-                      suffix: Container(
-                        width: 0.0,
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter FirstName";
-                        }
-                      },
-                      enabled: true,
-                      textInputType: TextInputType.name,
-                      controller: FirstNameController,
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        "Last Name",
-                      style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                12.0,
-                        Theme.of(context)
-                              .bottomAppBarColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    TextFormFieldCustom(
-                      onEditComplete: () {
-                        lasttNFocus.unfocus();
-                        FocusScope.of(context).requestFocus(emailFocus);
-                      },
-                      radius: 10.0,
-                      error: "Enter LastName",
-                      textColor: Theme.of(context).bottomAppBarColor,
-                      borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
-                     fillColor: Theme.of(context).shadowColor,
-                      hintStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context)
-                                  .bottomAppBarColor
-                                  .withOpacity(0.5),
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              16.0,
-                              Theme.of(context).bottomAppBarColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textInputAction: TextInputAction.next,
-                      focusNode: lasttNFocus,
-                      maxlines: 1,
-                      text: '',
-                      hintText: "Last Name",
-                      obscureText: false,
-                      textChanged: (value) {},
-                      onChanged: () {},
-                      suffix: Container(
-                        width: 0.0,
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter LastName";
-                        }
-                      },
-                      enabled: true,
-                      textInputType: TextInputType.name,
-                      controller: LastNameController,
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        AppLocalizations.instance.text("loc_email_phone"),
-                      style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                12.0,
-                        Theme.of(context)
-                              .bottomAppBarColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    TextFormFieldCustom(
-                      onEditComplete: () {
-                        emailFocus.unfocus();
-                         FocusScope.of(context).requestFocus(mobileFocus);
-                      },
-                      radius: 10.0,
-                      error: "Enter Email address",
-                      textColor: Theme.of(context).bottomAppBarColor,
-                      borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
-                     fillColor: Theme.of(context).shadowColor,
-                      hintStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context)
-                                  .bottomAppBarColor
-                                  .withOpacity(0.5),
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              16.0,
-                              Theme.of(context).bottomAppBarColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textInputAction: TextInputAction.next,
-                      focusNode: emailFocus,
-                      maxlines: 1,
-                      text: '',
-                      hintText: "Email address",
-                      obscureText: false,
-                      textChanged: (value) {},
-                      onChanged: () {},
-                      suffix: Container(
-                        width: 0.0,
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter Email";
-                        } else if (!RegExp(
-                                r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value)) {
-                          return "Please enter valid Email";
-                        }
-
-                        return null;
-                      },
-                      enabled: true,
-                      textInputType: TextInputType.name,
-                      controller: emailController,
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        "Mobile number",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            12.0,
-                            Theme.of(context)
-                                .bottomAppBarColor,
-                            FontWeight.w500,
-                            'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-
-                    Row(
-                      children: [
-                        Container(
-                            padding: const EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: CustomTheme.of(context)
-                                      .accentColor
-                                      .withOpacity(0.5),
-                                  width: 1.0),
-                              color: CustomTheme.of(context)
-                                  .shadowColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                bottomLeft: Radius.circular(10.0),
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 5.0),
+                                child: Text(
+                                  AppLocalizations.instance.text("loc_sign_up"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      27.0,
+                                      Theme.of(context).primaryColor,
+                                      FontWeight.w700,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: _onPressedShowBottomSheet,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        countryB
-                                            ? _selectedCountry!.callingCode.toString()
-                                            : "+1",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                          12.0,
-                                            Theme.of(context).bottomAppBarColor,
-                                            FontWeight.normal,
-                                            'FontRegular'),
-                                      ),
-                                      const SizedBox(
-                                        width: 3.0,
-                                      ),
-                                       Icon(
-                                        Icons.keyboard_arrow_down_outlined,
-                                        size: 15.0,
-                                        color:  Theme.of(context).bottomAppBarColor,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
-                              ],
-                            )),
-                        Flexible(
-                          child: TextFormField(
-                            controller: mobileController,
-                            focusNode: mobileFocus,
-                            maxLines: 1,
-                            enabled: true,
-                            textInputAction: TextInputAction.next,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                16.0,
-                                Theme.of(context).bottomAppBarColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(
-                                  left: 12, right: 0, top: 2, bottom: 2),
-                              hintText:"Mobile number",
-
-
-                              hintStyle:  CustomWidget(context: context)
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                "First Name",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            TextFormFieldCustom(
+                              onEditComplete: () {
+                                firstNFocus.unfocus();
+                                FocusScope.of(context).requestFocus(lasttNFocus);
+                              },
+                              radius: 10.0,
+                              error: "Enter FirstName",
+                              textColor: Theme.of(context).bottomAppBarColor,
+                              borderColor:
+                              Theme.of(context).accentColor.withOpacity(0.5),
+                              fillColor: Theme.of(context).shadowColor,
+                              hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
                                   Theme.of(context)
@@ -426,356 +160,622 @@ class _Sign_Up_screenState extends State<Register> {
                                       .withOpacity(0.5),
                                   FontWeight.w600,
                                   'FontRegular'),
-                              filled: true,
-                              fillColor: CustomTheme.of(context)
-                                  .shadowColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                                borderSide: BorderSide(
-                                    color: CustomTheme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.5),
-                                    width: 1.0),
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).bottomAppBarColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textInputAction: TextInputAction.next,
+                              focusNode: firstNFocus,
+                              maxlines: 1,
+                              text: '',
+                              hintText: "First Name",
+                              obscureText: false,
+                              textChanged: (value) {},
+                              onChanged: () {},
+                              suffix: Container(
+                                width: 0.0,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                                borderSide: BorderSide(
-                                    color: CustomTheme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.5),
-                                    width: 1.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                                borderSide: BorderSide(
-                                    color: CustomTheme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.5),
-                                    width: 1.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                                borderSide: BorderSide(
-                                    color: CustomTheme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.5),
-                                    width: 1.0),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter FirstName";
+                                }
+                              },
+                              enabled: true,
+                              textInputType: TextInputType.name,
+                              controller: FirstNameController,
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                "Last Name",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // TextFormFieldCustom(
-                    //   onEditComplete: () {
-                    //     mobileFocus.unfocus();
-                    //      FocusScope.of(context).requestFocus(passFocus);
-                    //   },
-                    //   radius: 10.0,
-                    //   error: "Enter Email address",
-                    //   textColor: Theme.of(context).bottomAppBarColor,
-                    //   borderColor:
-                    //   Theme.of(context).accentColor.withOpacity(0.5),
-                    //  fillColor: Theme.of(context).shadowColor,
-                    //   hintStyle: CustomWidget(context: context)
-                    //       .CustomSizedTextStyle(
-                    //       12.0,
-                    //       Theme.of(context)
-                    //           .bottomAppBarColor
-                    //           .withOpacity(0.5),
-                    //       FontWeight.w600,
-                    //       'FontRegular'),
-                    //   textStyle: CustomWidget(context: context)
-                    //       .CustomSizedTextStyle(
-                    //       16.0,
-                    //       Theme.of(context).bottomAppBarColor,
-                    //       FontWeight.w600,
-                    //       'FontRegular'),
-                    //   textInputAction: TextInputAction.next,
-                    //   focusNode: mobileFocus,
-                    //   maxlines: 1,
-                    //   text: '',
-                    //   hintText: "Mobile number",
-                    //   obscureText: false,
-                    //   textChanged: (value) {},
-                    //   onChanged: () {},
-                    //   suffix: Container(
-                    //     width: 0.0,
-                    //   ),
-                    //   validator: (value) {
-                    //     int va=int.parse(value!.length.toString());
-                    //     print(value.length);
-                    //     if (value.isEmpty) {
-                    //       return "Please enter Mobile number";
-                    //     } else if (va <= 10) {
-                    //       return "Please enter valid Mobile number";
-                    //     }
-                    //
-                    //     return null;
-                    //   },
-                    //   enabled: true,
-                    //   textInputType: TextInputType.name,
-                    //   controller: mobileController,
-                    // ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        AppLocalizations.instance.text("loc_pass"),
-                      style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                12.0,
-                        Theme.of(context)
-                              .bottomAppBarColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    TextFormFieldCustom(
-                      obscureText: !passVisible,
-                      textInputAction: TextInputAction.next,
-                      textColor: Theme.of(context).bottomAppBarColor,
-                      borderColor: Theme.of(context).accentColor.withOpacity(0.5),
-                     fillColor: Theme.of(context).shadowColor,
-                      hintStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context)
-                                  .bottomAppBarColor
-                                  .withOpacity(0.5),
-                              FontWeight.w600,
-                              'FontRegular'),
-                      textStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                              16.0,
-                              Theme.of(context).bottomAppBarColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                      radius: 10.0,
-                      focusNode: passFocus,
-                      suffix: IconButton(
-                        icon: Icon(
-                          passVisible ? Icons.visibility : Icons.visibility_off,
-                          color: Theme.of(context)
-                              .bottomAppBarColor
-                              .withOpacity(0.5),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            passVisible = !passVisible;
-                          });
-                        },
-                      ),
-                      controller: passwordController,
-                      enabled: true,
-                      onChanged: () {},
-                      hintText: "************",
-                      textChanged: (value) {},
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter Password";
-                        }
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            TextFormFieldCustom(
+                              onEditComplete: () {
+                                lasttNFocus.unfocus();
+                                FocusScope.of(context).requestFocus(emailFocus);
+                              },
+                              radius: 10.0,
+                              error: "Enter LastName",
+                              textColor: Theme.of(context).bottomAppBarColor,
+                              borderColor:
+                              Theme.of(context).accentColor.withOpacity(0.5),
+                              fillColor: Theme.of(context).shadowColor,
+                              hintStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context)
+                                      .bottomAppBarColor
+                                      .withOpacity(0.5),
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).bottomAppBarColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textInputAction: TextInputAction.next,
+                              focusNode: lasttNFocus,
+                              maxlines: 1,
+                              text: '',
+                              hintText: "Last Name",
+                              obscureText: false,
+                              textChanged: (value) {},
+                              onChanged: () {},
+                              suffix: Container(
+                                width: 0.0,
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter LastName";
+                                }
+                              },
+                              enabled: true,
+                              textInputType: TextInputType.name,
+                              controller: LastNameController,
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                AppLocalizations.instance.text("loc_email_phone"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            TextFormFieldCustom(
+                              onEditComplete: () {
+                                emailFocus.unfocus();
+                                FocusScope.of(context).requestFocus(mobileFocus);
+                              },
+                              radius: 10.0,
+                              error: "Enter Email address",
+                              textColor: Theme.of(context).bottomAppBarColor,
+                              borderColor:
+                              Theme.of(context).accentColor.withOpacity(0.5),
+                              fillColor: Theme.of(context).shadowColor,
+                              hintStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context)
+                                      .bottomAppBarColor
+                                      .withOpacity(0.5),
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).bottomAppBarColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textInputAction: TextInputAction.next,
+                              focusNode: emailFocus,
+                              maxlines: 1,
+                              text: '',
+                              hintText: "Email address",
+                              obscureText: false,
+                              textChanged: (value) {},
+                              onChanged: () {},
+                              suffix: Container(
+                                width: 0.0,
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter Email";
+                                } else if (!RegExp(
+                                    r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value)) {
+                                  return "Please enter valid Email";
+                                }
 
-                        return null;
-                      },
-                      maxlines: 1,
-                      error: "Enter Valid Password",
-                      text: "",
-                      onEditComplete: () {
-                        passFocus.unfocus();
-                       FocusScope.of(context).requestFocus(referralFocus);
-                      },
-                      textInputType: TextInputType.visiblePassword,
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        "Referral ID",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            12.0,
-                            Theme.of(context)
-                                .bottomAppBarColor,
-                            FontWeight.w500,
-                            'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    TextFormFieldCustom(
-                      onEditComplete: () {
-                        referralFocus.unfocus();
-                        // FocusScope.of(context).requestFocus(snameFocus);
-                      },
-                      radius: 10.0,
-                      error: "Enter Email address",
-                      textColor: Theme.of(context).bottomAppBarColor,
-                      borderColor:
-                      Theme.of(context).accentColor.withOpacity(0.5),
-                     fillColor: Theme.of(context).shadowColor,
-                      hintStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          12.0,
-                          Theme.of(context)
-                              .bottomAppBarColor
-                              .withOpacity(0.5),
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textStyle: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          16.0,
-                          Theme.of(context).bottomAppBarColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textInputAction: TextInputAction.next,
-                      focusNode: referralFocus,
-                      maxlines: 1,
-                      text: '',
-                      hintText: "Referral ID",
-                      obscureText: false,
-                      textChanged: (value) {},
-                      onChanged: () {},
-                      suffix: Container(
-                        width: 0.0,
-                      ),
-                      validator: (value) {
+                                return null;
+                              },
+                              enabled: true,
+                              textInputType: TextInputType.name,
+                              controller: emailController,
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                "Mobile number",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+
+                            Row(
+                              children: [
+                                Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: CustomTheme.of(context)
+                                              .accentColor
+                                              .withOpacity(0.5),
+                                          width: 1.0),
+                                      color: CustomTheme.of(context)
+                                          .shadowColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10.0),
+                                        bottomLeft: Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: _onPressedShowBottomSheet,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                countryB
+                                                    ? _selectedCountry!.callingCode.toString()
+                                                    : "+1",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    12.0,
+                                                    Theme.of(context).bottomAppBarColor,
+                                                    FontWeight.normal,
+                                                    'FontRegular'),
+                                              ),
+                                              const SizedBox(
+                                                width: 3.0,
+                                              ),
+                                              Icon(
+                                                Icons.keyboard_arrow_down_outlined,
+                                                size: 15.0,
+                                                color:  Theme.of(context).bottomAppBarColor,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                      ],
+                                    )),
+                                Flexible(
+                                  child: TextFormField(
+                                    controller: mobileController,
+                                    focusNode: mobileFocus,
+                                    maxLines: 1,
+                                    enabled: true,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                    ],
+                                    keyboardType: TextInputType.number,
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        16.0,
+                                        Theme.of(context).bottomAppBarColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 12, right: 0, top: 2, bottom: 2),
+                                      hintText:"Mobile number",
 
 
-                        return null;
-                      },
-                      enabled: true,
-                      textInputType: TextInputType.name,
-                      controller: referralController,
-                    ),
+                                      hintStyle:  CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          12.0,
+                                          Theme.of(context)
+                                              .bottomAppBarColor
+                                              .withOpacity(0.5),
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      filled: true,
+                                      fillColor: CustomTheme.of(context)
+                                          .shadowColor,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: CustomTheme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.5),
+                                            width: 1.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: CustomTheme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.5),
+                                            width: 1.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: CustomTheme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.5),
+                                            width: 1.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                        borderSide: BorderSide(
+                                            color: CustomTheme.of(context)
+                                                .accentColor
+                                                .withOpacity(0.5),
+                                            width: 1.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // TextFormFieldCustom(
+                            //   onEditComplete: () {
+                            //     mobileFocus.unfocus();
+                            //      FocusScope.of(context).requestFocus(passFocus);
+                            //   },
+                            //   radius: 10.0,
+                            //   error: "Enter Email address",
+                            //   textColor: Theme.of(context).bottomAppBarColor,
+                            //   borderColor:
+                            //   Theme.of(context).accentColor.withOpacity(0.5),
+                            //  fillColor: Theme.of(context).shadowColor,
+                            //   hintStyle: CustomWidget(context: context)
+                            //       .CustomSizedTextStyle(
+                            //       12.0,
+                            //       Theme.of(context)
+                            //           .bottomAppBarColor
+                            //           .withOpacity(0.5),
+                            //       FontWeight.w600,
+                            //       'FontRegular'),
+                            //   textStyle: CustomWidget(context: context)
+                            //       .CustomSizedTextStyle(
+                            //       16.0,
+                            //       Theme.of(context).bottomAppBarColor,
+                            //       FontWeight.w600,
+                            //       'FontRegular'),
+                            //   textInputAction: TextInputAction.next,
+                            //   focusNode: mobileFocus,
+                            //   maxlines: 1,
+                            //   text: '',
+                            //   hintText: "Mobile number",
+                            //   obscureText: false,
+                            //   textChanged: (value) {},
+                            //   onChanged: () {},
+                            //   suffix: Container(
+                            //     width: 0.0,
+                            //   ),
+                            //   validator: (value) {
+                            //     int va=int.parse(value!.length.toString());
+                            //     print(value.length);
+                            //     if (value.isEmpty) {
+                            //       return "Please enter Mobile number";
+                            //     } else if (va <= 10) {
+                            //       return "Please enter valid Mobile number";
+                            //     }
+                            //
+                            //     return null;
+                            //   },
+                            //   enabled: true,
+                            //   textInputType: TextInputType.name,
+                            //   controller: mobileController,
+                            // ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                AppLocalizations.instance.text("loc_pass"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            TextFormFieldCustom(
+                              obscureText: !passVisible,
+                              textInputAction: TextInputAction.next,
+                              textColor: Theme.of(context).bottomAppBarColor,
+                              borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                              fillColor: Theme.of(context).shadowColor,
+                              hintStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context)
+                                      .bottomAppBarColor
+                                      .withOpacity(0.5),
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).bottomAppBarColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              radius: 10.0,
+                              focusNode: passFocus,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  passVisible ? Icons.visibility : Icons.visibility_off,
+                                  color: Theme.of(context)
+                                      .bottomAppBarColor
+                                      .withOpacity(0.5),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    passVisible = !passVisible;
+                                  });
+                                },
+                              ),
+                              controller: passwordController,
+                              enabled: true,
+                              onChanged: () {},
+                              hintText: "************",
+                              textChanged: (value) {},
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter Password";
+                                }
 
-                    SizedBox(
-                      height: 25.0,
-                    ),
+                                return null;
+                              },
+                              maxlines: 1,
+                              error: "Enter Valid Password",
+                              text: "",
+                              onEditComplete: () {
+                                passFocus.unfocus();
+                                FocusScope.of(context).requestFocus(referralFocus);
+                              },
+                              textInputType: TextInputType.visiblePassword,
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                "Referral ID",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            TextFormFieldCustom(
+                              onEditComplete: () {
+                                referralFocus.unfocus();
+                                // FocusScope.of(context).requestFocus(snameFocus);
+                              },
+                              radius: 10.0,
+                              error: "Enter Email address",
+                              textColor: Theme.of(context).bottomAppBarColor,
+                              borderColor:
+                              Theme.of(context).accentColor.withOpacity(0.5),
+                              fillColor: Theme.of(context).shadowColor,
+                              hintStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context)
+                                      .bottomAppBarColor
+                                      .withOpacity(0.5),
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).bottomAppBarColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textInputAction: TextInputAction.next,
+                              focusNode: referralFocus,
+                              maxlines: 1,
+                              text: '',
+                              hintText: "Referral ID",
+                              obscureText: false,
+                              textChanged: (value) {},
+                              onChanged: () {},
+                              suffix: Container(
+                                width: 0.0,
+                              ),
+                              validator: (value) {
 
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          FocusScope.of(context).requestFocus(FocusNode());
 
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              loading = true;
+                                return null;
+                              },
+                              enabled: true,
+                              textInputType: TextInputType.name,
+                              controller: referralController,
+                            ),
 
-                              if (loading) {
-                                doRegisterFunc();
-                              }
-                            });
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).buttonColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: Theme.of(context).backgroundColor,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.instance.text("loc_crt_acc"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
+                            SizedBox(
+                              height: 25.0,
+                            ),
+
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  FocusScope.of(context).requestFocus(FocusNode());
+
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      loading = true;
+
+                                      if (loading) {
+                                        doRegisterFunc();
+                                      }
+                                    });
+                                  }
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).buttonColor,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: Theme.of(context).backgroundColor,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.instance.text("loc_crt_acc"),
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        14.0,
+                                        Theme.of(context).primaryColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 35.0,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+
+                              child: Text(
+                                AppLocalizations.instance.text("loc_not_acc"),
+                                textAlign: TextAlign.center,
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
                                     14.0,
-                                    Theme.of(context).primaryColor,
+                                    Theme.of(context).canvasColor,
                                     FontWeight.w600,
                                     'FontRegular'),
-                          ),
-                        ),
-                      ),
-                    ),
+                              ),
+                            ),
+                            const SizedBox(height: 10.0,),
 
-                    SizedBox(
-                      height: 35.0,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-
-                      child: Text(
-                        AppLocalizations.instance.text("loc_not_acc"),
-                        textAlign: TextAlign.center,
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            14.0,
-                            Theme.of(context).canvasColor,
-                            FontWeight.w600,
-                            'FontRegular'),
-                      ),
-                    ),
-                    const SizedBox(height: 10.0,),
-
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => LoginFirst()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 15.0),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: Theme.of(context).backgroundColor,
-                          ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => LoginFirst()));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 15.0),
+                                padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: Theme.of(context).backgroundColor,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    AppLocalizations.instance.text("loc_signin"),
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        14.0,
+                                        Theme.of(context).backgroundColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25.0,
+                            ),
+                          ],
                         ),
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.instance.text("loc_signin"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).backgroundColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.0,
-                    ),
-                  ],
-                ),
-              ))),
+                      ))),
 
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                      CustomTheme.of(context).buttonColor,
-                    )
+                CustomTheme.of(context).buttonColor,
+              )
                   : Container()
             ],
           )),
-    );
+    ));
   }
 
   doRegisterFunc() {

@@ -25,7 +25,7 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -67,15 +67,15 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(padding: EdgeInsets.only(left: 10.0),
-                        child: Text(
-                      AppLocalizations.instance.text("loc_amt"),
-                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                          10.0,
-                          Theme.of(context).canvasColor,
-                          FontWeight.w500,
-                          'FontRegular'),
-                      textAlign: TextAlign.center,
-                    ),),
+                      child: Text(
+                        AppLocalizations.instance.text("loc_amt"),
+                        style: CustomWidget(context: context).CustomSizedTextStyle(
+                            10.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w500,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -171,39 +171,39 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
                                   });
                                 },
                                 hint: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            8.0, 5.0, 8.0, 5.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          color:
-                                              Theme.of(context).backgroundColor,
-                                        ),
-                                        child: SvgPicture.asset(
-                                          "assets/images/bit.svg",
-                                          height: 20.0,
-                                        ),
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(
+                                          8.0, 5.0, 8.0, 5.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                        color:
+                                        Theme.of(context).backgroundColor,
                                       ),
-                                      SizedBox(
-                                        width: 8.0,
+                                      child: SvgPicture.asset(
+                                        "assets/images/bit.svg",
+                                        height: 20.0,
                                       ),
-                                      Text(
-                                        "USD",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                                12.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w600,
-                                                'FontRegular'),
-                                      )
-                                    ],
-                                  ),
-                                  isExpanded: true,
+                                    ),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(
+                                      "USD",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          12.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                    )
+                                  ],
+                                ),
+                                isExpanded: true,
                                 value: selectedValue,
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_outlined,
@@ -388,6 +388,6 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

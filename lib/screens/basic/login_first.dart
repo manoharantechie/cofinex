@@ -44,7 +44,7 @@ class _LoginFirstState extends State<LoginFirst> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -86,214 +86,214 @@ class _LoginFirstState extends State<LoginFirst> {
               Container(
                   child: Center(
                       child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
-                        child: Text(
-                          "Cofinex Login",
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                                  27.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w700,
-                                  'FontRegular'),
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          AppLocalizations.instance.text("loc_email_phone"),
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context)
-                                  .bottomAppBarColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextFormFieldCustom(
-                        onEditComplete: () {
-                          emailFocus.unfocus();
-                          // FocusScope.of(context).requestFocus(snameFocus);
-                        },
-                        radius: 5.0,
-                        error: "Enter Email or Phone Number",
-                        textColor: Theme.of(context).bottomAppBarColor,
-                        borderColor:
-                            Theme.of(context).accentColor.withOpacity(0.5),
-                        fillColor: Theme.of(context).shadowColor,
-                        hintStyle: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context)
-                                    .bottomAppBarColor
-                                    .withOpacity(0.5),
-                                FontWeight.w600,
-                                'FontRegular'),
-                        textStyle: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                                16.0,
-                                Theme.of(context).bottomAppBarColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                        textInputAction: TextInputAction.next,
-                        focusNode: emailFocus,
-                        maxlines: 1,
-                        text: '',
-                        hintText: "Email address",
-                        obscureText: false,
-                        textChanged: (value) {},
-                        onChanged: () {},
-                        suffix: Container(
-                          width: 0.0,
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter Email";
-                          } else if (!RegExp(
-                                  r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value)) {
-                            return "Please enter valid Email";
-                          }
-
-                          return null;
-                        },
-                        enabled: true,
-                        textInputType: TextInputType.name,
-                        controller: emailController,
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          //  FocusScope.of(context).requestFocus(FocusNode());
-
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Login(email: emailController.text.toString(),)));
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).buttonColor,
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                              color: Theme.of(context).backgroundColor,
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Next",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                      14.0,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                                child: Text(
+                                  "Cofinex Login",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      27.0,
                                       Theme.of(context).primaryColor,
-                                      FontWeight.w600,
+                                      FontWeight.w700,
                                       'FontRegular'),
-                            ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  AppLocalizations.instance.text("loc_email_phone"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      12.0,
+                                      Theme.of(context)
+                                          .bottomAppBarColor,
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              TextFormFieldCustom(
+                                onEditComplete: () {
+                                  emailFocus.unfocus();
+                                  // FocusScope.of(context).requestFocus(snameFocus);
+                                },
+                                radius: 5.0,
+                                error: "Enter Email or Phone Number",
+                                textColor: Theme.of(context).bottomAppBarColor,
+                                borderColor:
+                                Theme.of(context).accentColor.withOpacity(0.5),
+                                fillColor: Theme.of(context).shadowColor,
+                                hintStyle: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context)
+                                        .bottomAppBarColor
+                                        .withOpacity(0.5),
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textStyle: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).bottomAppBarColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textInputAction: TextInputAction.next,
+                                focusNode: emailFocus,
+                                maxlines: 1,
+                                text: '',
+                                hintText: "Email address",
+                                obscureText: false,
+                                textChanged: (value) {},
+                                onChanged: () {},
+                                suffix: Container(
+                                  width: 0.0,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter Email";
+                                  } else if (!RegExp(
+                                      r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(value)) {
+                                    return "Please enter valid Email";
+                                  }
+
+                                  return null;
+                                },
+                                enabled: true,
+                                textInputType: TextInputType.name,
+                                controller: emailController,
+                              ),
+                              SizedBox(
+                                height: 40.0,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    FocusManager.instance.primaryFocus?.unfocus();
+                                    //  FocusScope.of(context).requestFocus(FocusNode());
+
+                                    if (_formKey.currentState!.validate()) {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => Login(email: emailController.text.toString(),)));
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).buttonColor,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Theme.of(context).backgroundColor,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Next",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                EdgeInsets.only(left: 5.0, right: 5.0, top: 50.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 1.0,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      flex: 1,
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text(
+                                      "or",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).canvasColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Flexible(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 1.0,
+                                        color: Theme.of(context).canvasColor,
+                                      ),
+                                      flex: 1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 40.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                  color: Theme.of(context).focusColor,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/logo-google.svg',
+                                      height: 20.0,
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text(
+                                      AppLocalizations.instance.text("loc_google_txt"),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: 5.0, right: 5.0, top: 50.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Flexible(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 1.0,
-                                color: Theme.of(context).canvasColor,
-                              ),
-                              flex: 1,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              "or",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).canvasColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Flexible(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 1.0,
-                                color: Theme.of(context).canvasColor,
-                              ),
-                              flex: 1,
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            width: 1.0,
-                            color: Theme.of(context).accentColor,
-                          ),
-                          color: Theme.of(context).focusColor,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/logo-google.svg',
-                              height: 20.0,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.instance.text("loc_google_txt"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ))),
+                      ))),
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.7),
@@ -308,10 +308,10 @@ class _LoginFirstState extends State<LoginFirst> {
                         "Create a Cofinex Account",
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
+                            14.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
                       ),
                     ),
                     InkWell(
@@ -336,10 +336,10 @@ class _LoginFirstState extends State<LoginFirst> {
                             AppLocalizations.instance.text("loc_signup"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    14.0,
-                                    Theme.of(context).backgroundColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                                14.0,
+                                Theme.of(context).backgroundColor,
+                                FontWeight.w600,
+                                'FontRegular'),
                           ),
                         ),
                       ),
@@ -352,11 +352,11 @@ class _LoginFirstState extends State<LoginFirst> {
               ),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                      CustomTheme.of(context).buttonColor,
-                    )
+                CustomTheme.of(context).buttonColor,
+              )
                   : Container()
             ],
           )),
-    );
+    ));
   }
 }

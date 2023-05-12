@@ -121,7 +121,7 @@ class _Widthdraw_ScreenState extends State<Widthdraw_Screen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -148,411 +148,411 @@ class _Widthdraw_ScreenState extends State<Widthdraw_Screen> {
         ),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color:  Theme.of(context).focusColor,
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color:  Theme.of(context).focusColor,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
 
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "From Address",
-                            style: CustomWidget(context: context).CustomSizedTextStyle(
-                                10.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        TextFormFieldCustom(
-                          onEditComplete: () {
-                            fromaddressFocus.unfocus();
-                            // FocusScope.of(context).requestFocus(snameFocus);
-                          },
-                          radius: 10.0,
-                          error: "Enter Amount",
-                          textColor: Theme.of(context).bottomAppBarColor,
-                          borderColor: Theme.of(context).splashColor,
-                          fillColor: Theme.of(context).focusColor,
-                          hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
-                          textStyle: CustomWidget(context: context).CustomTextStyle(
-                              Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
-                          textInputAction: TextInputAction.next,
-                          focusNode: fromaddressFocus,
-                          maxlines: 1,
-                          text: '',
-                          hintText: "Input or press and hold to paste the address",
-                          obscureText: false,
-                          textChanged: (value) {},
-                          onChanged: () {},
-                          suffix: InkWell(
-                            onTap: (){
-                              _scan(false);
-                            },
-                            child: Container(
-                              child: Icon(
-                                Icons.qr_code_2_outlined,
-                                color: Theme.of(context).primaryColor,
-                                size: 25.0,
-                              ),
-                            ),
+                          SizedBox(
+                            height: 10.0,
                           ),
-                          validator: (value) {
-
-                          },
-                          enabled: true,
-                          textInputType: TextInputType.text,
-                          controller: fromAddressController,
-                        ),
-
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "To Address",
-                            style: CustomWidget(context: context).CustomSizedTextStyle(
-                                10.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        TextFormFieldCustom(
-                          onEditComplete: () {
-                            addressFocus.unfocus();
-                            // FocusScope.of(context).requestFocus(snameFocus);
-                          },
-                          radius: 10.0,
-                          error: "Enter Amount",
-                          textColor: Theme.of(context).bottomAppBarColor,
-                          borderColor: Theme.of(context).splashColor,
-                          fillColor: Theme.of(context).focusColor,
-                          hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
-                          textStyle: CustomWidget(context: context).CustomTextStyle(
-                              Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
-                          textInputAction: TextInputAction.next,
-                          focusNode: addressFocus,
-                          maxlines: 1,
-                          text: '',
-                          hintText: "Input or press and hold to paste the address",
-                          obscureText: false,
-                          textChanged: (value) {},
-                          onChanged: () {},
-                          suffix: InkWell(
-                            onTap: (){
-                              _scan(true);
-                            },
-                            child: Container(
-                              child: Icon(
-                                Icons.qr_code_2_outlined,
-                                color: Theme.of(context).primaryColor,
-                                size: 25.0,
-                              ),
-                            ),
+                          Padding(padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "From Address",
+                              style: CustomWidget(context: context).CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(context).canvasColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),),
+                          SizedBox(
+                            height: 10.0,
                           ),
-                          validator: (value) {
-
-                          },
-                          enabled: true,
-                          textInputType: TextInputType.text,
-                          controller: addressController,
-                        ),
-
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            AppLocalizations.instance.text("loc_tot").toUpperCase(),
-                            style: CustomWidget(context: context).CustomSizedTextStyle(
-                                10.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(child:
-                            TextFormFieldCustom(
-                              onEditComplete: () {
-                                totamountFocus.unfocus();
-                                // FocusScope.of(context).requestFocus(snameFocus);
+                          TextFormFieldCustom(
+                            onEditComplete: () {
+                              fromaddressFocus.unfocus();
+                              // FocusScope.of(context).requestFocus(snameFocus);
+                            },
+                            radius: 10.0,
+                            error: "Enter Amount",
+                            textColor: Theme.of(context).bottomAppBarColor,
+                            borderColor: Theme.of(context).splashColor,
+                            fillColor: Theme.of(context).focusColor,
+                            hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
+                            textStyle: CustomWidget(context: context).CustomTextStyle(
+                                Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                            textInputAction: TextInputAction.next,
+                            focusNode: fromaddressFocus,
+                            maxlines: 1,
+                            text: '',
+                            hintText: "Input or press and hold to paste the address",
+                            obscureText: false,
+                            textChanged: (value) {},
+                            onChanged: () {},
+                            suffix: InkWell(
+                              onTap: (){
+                                _scan(false);
                               },
-                              radius: 10.0,
-                              error: "Enter Amount",
-                              textColor: Theme.of(context).bottomAppBarColor,
-                              borderColor: Theme.of(context).splashColor,
-                              fillColor: Theme.of(context).focusColor,
-                              hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                  12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
-                              textStyle: CustomWidget(context: context).CustomTextStyle(
-                                  Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
-                              textInputAction: TextInputAction.next,
-                              focusNode: totamountFocus,
-                              maxlines: 1,
-                              text: '',
-                              hintText: "Min. Ammount: 0.001",
-                              obscureText: false,
-                              textChanged: (value) {},
-                              onChanged: () {},
-                              suffix: Container(
-                                width: 0.0,
-                              ),
-                              validator: (value) {
-
-                              },
-                              enabled: true,
-                              textInputType: TextInputType.number,
-                              controller: totamountController,
-                            ),flex: 2,),
-                            SizedBox(width: 15.0,),
-                            Flexible(child:
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 45.0,
-                              padding: EdgeInsets.fromLTRB(8, 0.0, 5, 0.0),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Theme.of(context).splashColor,
-                                    width: 1.0),
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Theme.of(context).splashColor.withOpacity(0.5),
-                              ),
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                  canvasColor: Theme.of(context).backgroundColor,
+                              child: Container(
+                                child: Icon(
+                                  Icons.qr_code_2_outlined,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 25.0,
                                 ),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
-                                    items: allTicker
-                                        .map((value) => DropdownMenuItem(
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 25,
-                                            height: 25,
-                                            padding:
-                                            EdgeInsets
-                                                .all(
-                                                2.0),
-                                            decoration:
-                                            BoxDecoration(
-                                              border: Border.all(
-                                                  color: Theme.of(
-                                                      context)
-                                                      .splashColor,
-                                                  width:
-                                                  1.0),
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                                  10.0),
-                                              color: Theme.of(
-                                                  context)
-                                                  .highlightColor,
+                              ),
+                            ),
+                            validator: (value) {
+
+                            },
+                            enabled: true,
+                            textInputType: TextInputType.text,
+                            controller: fromAddressController,
+                          ),
+
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "To Address",
+                              style: CustomWidget(context: context).CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(context).canvasColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormFieldCustom(
+                            onEditComplete: () {
+                              addressFocus.unfocus();
+                              // FocusScope.of(context).requestFocus(snameFocus);
+                            },
+                            radius: 10.0,
+                            error: "Enter Amount",
+                            textColor: Theme.of(context).bottomAppBarColor,
+                            borderColor: Theme.of(context).splashColor,
+                            fillColor: Theme.of(context).focusColor,
+                            hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
+                            textStyle: CustomWidget(context: context).CustomTextStyle(
+                                Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                            textInputAction: TextInputAction.next,
+                            focusNode: addressFocus,
+                            maxlines: 1,
+                            text: '',
+                            hintText: "Input or press and hold to paste the address",
+                            obscureText: false,
+                            textChanged: (value) {},
+                            onChanged: () {},
+                            suffix: InkWell(
+                              onTap: (){
+                                _scan(true);
+                              },
+                              child: Container(
+                                child: Icon(
+                                  Icons.qr_code_2_outlined,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 25.0,
+                                ),
+                              ),
+                            ),
+                            validator: (value) {
+
+                            },
+                            enabled: true,
+                            textInputType: TextInputType.text,
+                            controller: addressController,
+                          ),
+
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              AppLocalizations.instance.text("loc_tot").toUpperCase(),
+                              style: CustomWidget(context: context).CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(context).canvasColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(child:
+                              TextFormFieldCustom(
+                                onEditComplete: () {
+                                  totamountFocus.unfocus();
+                                  // FocusScope.of(context).requestFocus(snameFocus);
+                                },
+                                radius: 10.0,
+                                error: "Enter Amount",
+                                textColor: Theme.of(context).bottomAppBarColor,
+                                borderColor: Theme.of(context).splashColor,
+                                fillColor: Theme.of(context).focusColor,
+                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
+                                textStyle: CustomWidget(context: context).CustomTextStyle(
+                                    Theme.of(context).bottomAppBarColor, FontWeight.w500, 'FontRegular'),
+                                textInputAction: TextInputAction.next,
+                                focusNode: totamountFocus,
+                                maxlines: 1,
+                                text: '',
+                                hintText: "Min. Ammount: 0.001",
+                                obscureText: false,
+                                textChanged: (value) {},
+                                onChanged: () {},
+                                suffix: Container(
+                                  width: 0.0,
+                                ),
+                                validator: (value) {
+
+                                },
+                                enabled: true,
+                                textInputType: TextInputType.number,
+                                controller: totamountController,
+                              ),flex: 2,),
+                              SizedBox(width: 15.0,),
+                              Flexible(child:
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 45.0,
+                                padding: EdgeInsets.fromLTRB(8, 0.0, 5, 0.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Theme.of(context).splashColor,
+                                      width: 1.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Theme.of(context).splashColor.withOpacity(0.5),
+                                ),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    canvasColor: Theme.of(context).backgroundColor,
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
+                                      items: allTicker
+                                          .map((value) => DropdownMenuItem(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 25,
+                                              height: 25,
+                                              padding:
+                                              EdgeInsets
+                                                  .all(
+                                                  2.0),
+                                              decoration:
+                                              BoxDecoration(
+                                                border: Border.all(
+                                                    color: Theme.of(
+                                                        context)
+                                                        .splashColor,
+                                                    width:
+                                                    1.0),
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                                    10.0),
+                                                color: Theme.of(
+                                                    context)
+                                                    .highlightColor,
+                                              ),
+                                              child: SvgPicture
+                                                  .network(
+                                                "https://images.cofinex.io/crypto/ico/" +
+                                                    value.token.toString()
+                                                        .toLowerCase() +
+                                                    ".svg",
+                                                height: 15.0,
+                                              ),
                                             ),
-                                            child: SvgPicture
-                                                .network(
-                                              "https://images.cofinex.io/crypto/ico/" +
-                                                  value.token.toString()
-                                                      .toLowerCase() +
-                                                  ".svg",
-                                              height: 15.0,
+                                            SizedBox(width: 3.0,),
+                                            Text(
+                                              value.token.toString(),
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  10.0,
+                                                  Theme.of(context).primaryColor,
+                                                  FontWeight.w700,
+                                                  'FontRegular'),
                                             ),
-                                          ),
-                                          SizedBox(width: 3.0,),
-                                          Text(
-                                            value.token.toString(),
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                10.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w700,
-                                                'FontRegular'),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
+                                        value: value,
+                                      ))
+                                          .toList(),
+                                      onChanged: (value) async {
+                                        setState(() {
+                                          selectedValue = value;
+                                          loading=true;
+
+                                        });
+                                      },
+
+                                      isExpanded: true,
+                                      value: selectedValue,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_outlined,
+                                        color: Theme.of(context).accentColor,
+                                        // color: Them,
+                                        // color: AppColors.otherTextColor,
                                       ),
-                                      value: value,
-                                    ))
-                                        .toList(),
-                                    onChanged: (value) async {
-                                      setState(() {
-                                        selectedValue = value;
-                                        loading=true;
-
-                                      });
-                                    },
-
-                                    isExpanded: true,
-                                    value: selectedValue,
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_outlined,
-                                      color: Theme.of(context).accentColor,
-                                      // color: Them,
-                                      // color: AppColors.otherTextColor,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),flex: 1,)
-                          ],
-                        ),
-                        SizedBox(
-                          height: 25.0,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(child: Text(
-                              AppLocalizations.instance.text("loc_fee")+" :",
-                              style: CustomWidget(context: context).CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),flex: 1,),
-                            Flexible(child: Text(
-                              "0.1%",
-                              style: CustomWidget(context: context).CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),flex: 1,)
-                          ],
-                        ),
-                        SizedBox(height: 10.0,),
-                        Container(
-                          height: 1.0,
-                          color: Theme.of(context).splashColor,
-                        ),
-                        SizedBox(height: 10.0,),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(child: Text(
-                              AppLocalizations.instance.text("loc_amt_receive"),
-                              style: CustomWidget(context: context).CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),flex: 1,),
-                            Flexible(child: Text(
-                              "0 USD",
-                              style: CustomWidget(context: context).CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),flex: 1,)
-                          ],
-                        ),
+                              ),flex: 1,)
+                            ],
+                          ),
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(child: Text(
+                                AppLocalizations.instance.text("loc_fee")+" :",
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).canvasColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),flex: 1,),
+                              Flexible(child: Text(
+                                "0.1%",
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),flex: 1,)
+                            ],
+                          ),
+                          SizedBox(height: 10.0,),
+                          Container(
+                            height: 1.0,
+                            color: Theme.of(context).splashColor,
+                          ),
+                          SizedBox(height: 10.0,),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(child: Text(
+                                AppLocalizations.instance.text("loc_amt_receive"),
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).canvasColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),flex: 1,),
+                              Flexible(child: Text(
+                                "0 USD",
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),flex: 1,)
+                            ],
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    child: InkWell(
-                      onTap: (){
-                        setState(() {
-                          if(fromAddressController.text.isEmpty)
-                          {
-                            CustomWidget(context: context).showSnackBar(
-                                context, "Enter From Address", false);
-                          }
-                       else   if(addressController.text.isEmpty)
+                    Container(
+                      child: InkWell(
+                        onTap: (){
+                          setState(() {
+                            if(fromAddressController.text.isEmpty)
+                            {
+                              CustomWidget(context: context).showSnackBar(
+                                  context, "Enter From Address", false);
+                            }
+                            else   if(addressController.text.isEmpty)
                             {
                               CustomWidget(context: context).showSnackBar(
                                   context, "Enter To Address", false);
                             }
-                          else if(totamountController.text.isEmpty)
+                            else if(totamountController.text.isEmpty)
                             {
 
                               CustomWidget(context: context).showSnackBar(
                                   context, "Enter Withdraw Amount", false);
                             }
-                          else{
-                            setState(() {
-                              loading=true;
-                              doWithdraw();
-                            });
-                          }
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 15.0),
-                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).buttonColor,
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(color: Theme.of(context).backgroundColor, ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.instance.text("loc_widthdraw"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
+                            else{
+                              setState(() {
+                                loading=true;
+                                doWithdraw();
+                              });
+                            }
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 15.0),
+                          padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).buttonColor,
+                            borderRadius: BorderRadius.circular(15.0),
+                            border: Border.all(color: Theme.of(context).backgroundColor, ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.instance.text("loc_widthdraw"),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  14.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
+                    )
 
-                ],
+                  ],
+                ),
               ),
-            ),
-            loading
-                ? CustomWidget(context: context).loadingIndicator(
-              CustomTheme.of(context).buttonColor,
-            )
-                : Container()
-          ],
-        )
+              loading
+                  ? CustomWidget(context: context).loadingIndicator(
+                CustomTheme.of(context).buttonColor,
+              )
+                  : Container()
+            ],
+          )
       ),
-    );
+    ));
   }
   fillList() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

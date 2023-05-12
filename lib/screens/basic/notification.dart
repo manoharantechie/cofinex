@@ -18,7 +18,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).highlightColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -27,15 +27,15 @@ class _Notification_ScreenState extends State<Notification_Screen> {
         leading: Padding(
             padding: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 10.0),
             child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Center(
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: Theme.of(context).bottomAppBarColor,
-                  ),
-                ),)),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Theme.of(context).bottomAppBarColor,
+                ),
+              ),)),
 
         title: Text(
           AppLocalizations.instance
@@ -74,10 +74,10 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                   SizedBox(height: 10.0,),
                   Container(
                     padding: EdgeInsets.only(left: 15.0,right: 15.0, top: 18.0, bottom: 18.0),
-                   decoration: BoxDecoration(
-                     color: Theme.of(context).highlightColor,
-                     borderRadius: BorderRadius.circular(15.0)
-                   ),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).highlightColor,
+                        borderRadius: BorderRadius.circular(15.0)
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -129,6 +129,6 @@ class _Notification_ScreenState extends State<Notification_Screen> {
 
         ),
       ),
-    );
+    ));
   }
 }

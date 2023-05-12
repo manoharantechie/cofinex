@@ -16,7 +16,7 @@ class ProfileVerification_Screen extends StatefulWidget {
 class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -170,8 +170,8 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                      AppLocalizations.instance
-                          .text("loc_current_services"),
+                            AppLocalizations.instance
+                                .text("loc_current_services"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 10.0,
@@ -315,7 +315,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                       ),),
                     Padding(padding: EdgeInsets.fromLTRB(15.0,0.0,15.0,10.0),
                       child: Text(
-                       "Lorem ipsum dolor sit amet consectetur. Vivamus pellentesque urna ut.",
+                        "Lorem ipsum dolor sit amet consectetur. Vivamus pellentesque urna ut.",
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             10.0,
@@ -484,6 +484,6 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
           ),
         ),
       ),
-    );
+    ));
   }
 }

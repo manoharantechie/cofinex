@@ -72,7 +72,7 @@ class _TradeScreenState extends State<TradeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -101,7 +101,7 @@ class _TradeScreenState extends State<TradeScreen>
                 labelColor: CustomTheme.of(context).primaryColor,
                 //<-- selected text color
                 unselectedLabelColor:
-                    CustomTheme.of(context).primaryColor.withOpacity(0.5),
+                CustomTheme.of(context).primaryColor.withOpacity(0.5),
                 // isScrollable: true,
                 indicatorColor: CustomTheme.of(context).cardColor,
                 indicator: BoxDecoration(
@@ -152,7 +152,7 @@ class _TradeScreenState extends State<TradeScreen>
           ],
         ),
       ),
-    );
+    ));
   }
 
 

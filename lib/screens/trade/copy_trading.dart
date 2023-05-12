@@ -51,14 +51,14 @@ class _CopyTradingState extends State<CopyTrading>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: CustomTheme.of(context).backgroundColor,
         child: tradeUI(),
       ),
-    );
+    ));
   }
 
   Widget tradeUI() {

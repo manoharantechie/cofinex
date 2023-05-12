@@ -71,7 +71,7 @@ class _Sign_Up_screenState extends State<Login> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
 
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -106,238 +106,238 @@ class _Sign_Up_screenState extends State<Login> {
         // ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color:  Theme.of(context).backgroundColor,
-        child: Stack(
-          children: [
-            Container(
+          padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color:  Theme.of(context).backgroundColor,
+          child: Stack(
+            children: [
+              Container(
 
 
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                  child: Center(
+                      child: SingleChildScrollView(
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
 
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
-                            child: Text(
-                              "Welcome back!",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  27.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w700,
-                                  'FontRegular'),
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
-                            child: Text(
-                              splitFirst+"@"+splitSecond,
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-
-
-                          SizedBox(height: 25.0,),
-                          Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              AppLocalizations.instance.text("loc_pass"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context)
-                                      .bottomAppBarColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),),
-                          SizedBox(height: 5.0,),
-                          TextFormFieldCustom(
-                            obscureText: !passVisible,
-                            textInputAction: TextInputAction.next,
-                            textColor: Theme.of(context).bottomAppBarColor,
-                            borderColor: Theme.of(context).splashColor,
-                            fillColor: Theme.of(context).shadowColor,
-                            hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                12.0, Theme.of(context).bottomAppBarColor.withOpacity(0.5), FontWeight.w600, 'FontRegular'),
-                            textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                16.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
-                            radius: 5.0,
-                            focusNode: passFocus,
-                            suffix: IconButton(
-                              icon: Icon(
-                                passVisible ? Icons.visibility : Icons.visibility_off,
-                                color:  Theme.of(context)
-                                    .bottomAppBarColor
-                                    .withOpacity(0.5),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  passVisible = !passVisible;
-                                });
-                              },
-                            ),
-                            controller: passwordController,
-                            enabled: true,
-                            onChanged: () {},
-                            hintText: "************",
-                            textChanged: (value) {},
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter Password";
-                              }
-
-                              return null;
-                            },
-                            maxlines: 1,
-                            error: "Enter Valid Password",
-                            text: "",
-                            onEditComplete: () {
-                              passFocus.unfocus();
-                            },
-                            textInputType: TextInputType.visiblePassword,
-                          ),
-                          SizedBox(height: 15.0,),
-
-                          SizedBox(height: 40.0,),
-                          InkWell(
-                            onTap: (){
-                              setState(() {
-                                FocusScope.of(context).requestFocus(FocusNode());
-
-                                if(_formKey.currentState!.validate())
-                                {
-                                  setState(() {
-                                    loading=true;doLogin();
-                                  });
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).buttonColor,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(color: Theme.of(context).backgroundColor, ),
-                              ),
-                              child: Center(
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
                                 child: Text(
-                                  "Login",
+                                  "Welcome back!",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      27.0,
+                                      Theme.of(context).primaryColor,
+                                      FontWeight.w700,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                                child: Text(
+                                  splitFirst+"@"+splitSecond,
                                   style: CustomWidget(context: context)
                                       .CustomSizedTextStyle(
                                       14.0,
                                       Theme.of(context).primaryColor,
-                                      FontWeight.w600,
+                                      FontWeight.w500,
                                       'FontRegular'),
+                                  textAlign: TextAlign.start,
                                 ),
                               ),
-                            ),
-                          ),
-                          SizedBox(height: 15.0,),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
-                            child: InkWell(
-                              onTap: (){
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ForgotPassword()));
-                              },
-                              child: Text(
-                                "Forgot password?",
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    14.0,
-                                    Theme.of(context).primaryColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
-                                textAlign: TextAlign.start,
-                              ),
-                            )
-                          ),
 
-                        ],
-                      ),
-                    ),
+
+                              SizedBox(height: 25.0,),
+                              Padding(padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  AppLocalizations.instance.text("loc_pass"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      12.0,
+                                      Theme.of(context)
+                                          .bottomAppBarColor,
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.center,
+                                ),),
+                              SizedBox(height: 5.0,),
+                              TextFormFieldCustom(
+                                obscureText: !passVisible,
+                                textInputAction: TextInputAction.next,
+                                textColor: Theme.of(context).bottomAppBarColor,
+                                borderColor: Theme.of(context).splashColor,
+                                fillColor: Theme.of(context).shadowColor,
+                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    12.0, Theme.of(context).bottomAppBarColor.withOpacity(0.5), FontWeight.w600, 'FontRegular'),
+                                textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    16.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
+                                radius: 5.0,
+                                focusNode: passFocus,
+                                suffix: IconButton(
+                                  icon: Icon(
+                                    passVisible ? Icons.visibility : Icons.visibility_off,
+                                    color:  Theme.of(context)
+                                        .bottomAppBarColor
+                                        .withOpacity(0.5),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      passVisible = !passVisible;
+                                    });
+                                  },
+                                ),
+                                controller: passwordController,
+                                enabled: true,
+                                onChanged: () {},
+                                hintText: "************",
+                                textChanged: (value) {},
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter Password";
+                                  }
+
+                                  return null;
+                                },
+                                maxlines: 1,
+                                error: "Enter Valid Password",
+                                text: "",
+                                onEditComplete: () {
+                                  passFocus.unfocus();
+                                },
+                                textInputType: TextInputType.visiblePassword,
+                              ),
+                              SizedBox(height: 15.0,),
+
+                              SizedBox(height: 40.0,),
+                              InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    FocusScope.of(context).requestFocus(FocusNode());
+
+                                    if(_formKey.currentState!.validate())
+                                    {
+                                      setState(() {
+                                        loading=true;doLogin();
+                                      });
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).buttonColor,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(color: Theme.of(context).backgroundColor, ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Login",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 15.0,),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0.0, 5.0, 15.0, 5.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ForgotPassword()));
+                                    },
+                                    child: Text(
+                                      "Forgot password?",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  )
+                              ),
+
+                            ],
+                          ),
+                        ),
+                      )
                   )
-                )
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.7),
-              child:Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
-                    child: Text(
-                      AppLocalizations.instance.text("loc_not_acc"),
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          14.0,
-                          Theme.of(context).canvasColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      setState(() {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) => Register()));
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 15.0),
-                      padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Theme.of(context).backgroundColor, ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.7),
+                child:Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
+                      child: Text(
+                        AppLocalizations.instance.text("loc_not_acc"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
                       ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.instance.text("loc_signup"),
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                              14.0,
-                              Theme.of(context).backgroundColor,
-                              FontWeight.w600,
-                              'FontRegular'),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) => Register()));
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 15.0),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Theme.of(context).backgroundColor, ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.instance.text("loc_signup"),
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                14.0,
+                                Theme.of(context).backgroundColor,
+                                FontWeight.w600,
+                                'FontRegular'),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 15.0,)
-                ],
+                    SizedBox(height: 15.0,)
+                  ],
+                ),
               ),
-            ),
-       loading   ? CustomWidget(context: context).loadingIndicator(
-        CustomTheme.of(context).buttonColor,
-      )
-            : Container()
-          ],
-        )
+              loading   ? CustomWidget(context: context).loadingIndicator(
+                CustomTheme.of(context).buttonColor,
+              )
+                  : Container()
+            ],
+          )
       ),
-    );
+    ));
   }
 
   doLogin() {

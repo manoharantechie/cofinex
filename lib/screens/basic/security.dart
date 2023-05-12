@@ -19,7 +19,7 @@ class Security_Screen extends StatefulWidget {
 class _Security_ScreenState extends State<Security_Screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -678,6 +678,6 @@ class _Security_ScreenState extends State<Security_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

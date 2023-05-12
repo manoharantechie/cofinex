@@ -35,7 +35,7 @@ class _Wallet_AddressState extends State<Wallet_Address> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -109,8 +109,8 @@ class _Wallet_AddressState extends State<Wallet_Address> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                    borderRadius: BorderRadius.circular(15.0),
+                    border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
                 ),
                 padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
                 child: Row(
@@ -156,7 +156,7 @@ class _Wallet_AddressState extends State<Wallet_Address> {
                         ),
                         padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
                         child: Text(
-                            AppLocalizations.instance.text("loc_copy"),
+                          AppLocalizations.instance.text("loc_copy"),
                           style: CustomWidget(context: context).CustomSizedTextStyle(
                               12.0,
                               Theme.of(context).focusColor,
@@ -173,44 +173,44 @@ class _Wallet_AddressState extends State<Wallet_Address> {
               SizedBox(
                 height: 10.0,
               ),
-          widget.coin=="XRP" ?   Container(
-            width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
-                ),
-                padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Memo Number",
-                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                          8.0,
-                          Theme.of(context).canvasColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 5.0,),
-                    Text(
-                      memo,
-                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                          12.0,
-                          Theme.of(context).primaryColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                )
+              widget.coin=="XRP" ?   Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all(width: 1.0,color: Theme.of(context).splashColor,)
+                  ),
+                  padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Memo Number",
+                        style: CustomWidget(context: context).CustomSizedTextStyle(
+                            8.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 5.0,),
+                      Text(
+                        memo,
+                        style: CustomWidget(context: context).CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
+                  )
               ):Container()
             ],
           ),
         ),
       ),
-    );
+    ));
   }
 
   getCurrency() {

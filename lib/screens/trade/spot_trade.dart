@@ -125,7 +125,7 @@ class _SpotTradeState extends State<SpotTrade>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       body: Container(
           color: CustomTheme.of(context).focusColor,
           height: MediaQuery.of(context).size.height,
@@ -135,32 +135,32 @@ class _SpotTradeState extends State<SpotTrade>
                   controller: _scrollController,
                   child: Padding(
                     padding:
-                        EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                    EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                     child: Column(
                       children: [
                         Column(
                           children: [
-                        selectPair !=null?    Row(
+                            selectPair !=null?    Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                   InkWell(
+                                    InkWell(
 
-                                     child:   Text(
-                                       coinOne+coinTwo,
-                                       style: CustomWidget(context: context)
-                                           .CustomSizedTextStyle(
-                                           18.0,
-                                           Theme.of(context).primaryColor,
-                                           FontWeight.w600,
-                                           'FontRegular'),
-                                       textAlign: TextAlign.center,
-                                     ),
-                                     onTap: (){
-                                       showSheeet();
-                                     },
-                                   ),
+                                      child:   Text(
+                                        coinOne+coinTwo,
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            18.0,
+                                            Theme.of(context).primaryColor,
+                                            FontWeight.w600,
+                                            'FontRegular'),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      onTap: (){
+                                        showSheeet();
+                                      },
+                                    ),
 
                                     const SizedBox(
                                       width: 10.0,
@@ -169,13 +169,13 @@ class _SpotTradeState extends State<SpotTrade>
                                       double.parse(selectPair!.priceChangePercent24Hr.toString()).toStringAsFixed(2),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
+                                          12.0,
                                           double.parse(
                                               selectPair!.priceChangePercent24Hr.toString()) >
                                               0?  Theme.of(context).indicatorColor:Theme.of(context)
                                               .scaffoldBackgroundColor,
-                                              FontWeight.w700,
-                                              'FontRegular'),
+                                          FontWeight.w700,
+                                          'FontRegular'),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -191,7 +191,7 @@ class _SpotTradeState extends State<SpotTrade>
                                                 color: Theme.of(context)
                                                     .buttonColor),
                                             borderRadius:
-                                                BorderRadius.circular(10.0)),
+                                            BorderRadius.circular(10.0)),
                                         padding: EdgeInsets.only(
                                             left: 7.0,
                                             right: 7.0,
@@ -201,13 +201,13 @@ class _SpotTradeState extends State<SpotTrade>
                                           child: Text(
                                             "10x",
                                             style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        12.0,
-                                                        Theme.of(context)
-                                                            .buttonColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                            CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                12.0,
+                                                Theme.of(context)
+                                                    .buttonColor,
+                                                FontWeight.w500,
+                                                'FontRegular'),
                                             textAlign: TextAlign.center,
                                           ),
                                         )),
@@ -234,10 +234,10 @@ class _SpotTradeState extends State<SpotTrade>
                               "Candlestick",
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                      10.0,
-                                      CustomTheme.of(context).canvasColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
+                                  10.0,
+                                  CustomTheme.of(context).canvasColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
                             ),
 
                             // SvgPicture.asset(
@@ -271,24 +271,24 @@ class _SpotTradeState extends State<SpotTrade>
                                       )),
                                   child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         collapse ? "Collapes" : "Expand",
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                10.0,
-                                                Theme.of(context).hintColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
+                                            10.0,
+                                            Theme.of(context).hintColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
                                       ),
                                       Icon(
                                         collapse
                                             ? Icons.arrow_drop_up_sharp
                                             : Icons.arrow_drop_down,
                                         color:
-                                            CustomTheme.of(context).hintColor,
+                                        CustomTheme.of(context).hintColor,
                                         size: 15.0,
                                       ),
                                     ],
@@ -301,12 +301,12 @@ class _SpotTradeState extends State<SpotTrade>
                         ),
                         collapse
                             ? Image.asset(
-                                'assets/icon/graph.png',
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fill,
-                              )
+                          'assets/icon/graph.png',
+                          height:
+                          MediaQuery.of(context).size.height * 0.4,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fill,
+                        )
                             : Container(),
                         SizedBox(
                           height: collapse ? 15.0 : 1.0,
@@ -406,7 +406,7 @@ class _SpotTradeState extends State<SpotTrade>
                                           bottom: 0.0),
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           color: CustomTheme.of(context)
                                               .errorColor,
                                           border: Border.all(
@@ -424,23 +424,23 @@ class _SpotTradeState extends State<SpotTrade>
                                             child: DropdownButton(
                                               items: orderType
                                                   .map((value) =>
-                                                      DropdownMenuItem(
-                                                        child: Text(
-                                                          value,
-                                                          style: CustomWidget(
-                                                                  context:
-                                                                      context)
-                                                              .CustomSizedTextStyle(
-                                                                  10.0,
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .hintColor,
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  'FontRegular'),
-                                                        ),
-                                                        value: value,
-                                                      ))
+                                                  DropdownMenuItem(
+                                                    child: Text(
+                                                      value,
+                                                      style: CustomWidget(
+                                                          context:
+                                                          context)
+                                                          .CustomSizedTextStyle(
+                                                          10.0,
+                                                          Theme.of(
+                                                              context)
+                                                              .hintColor,
+                                                          FontWeight
+                                                              .w500,
+                                                          'FontRegular'),
+                                                    ),
+                                                    value: value,
+                                                  ))
                                                   .toList(),
                                               onChanged: (value) {
                                                 setState(() {});
@@ -471,14 +471,14 @@ class _SpotTradeState extends State<SpotTrade>
                                                   .withOpacity(0.5),
                                               width: 1.0),
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           color: CustomTheme.of(context)
                                               .errorColor),
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           InkWell(
                                             onTap: () {},
@@ -493,55 +493,55 @@ class _SpotTradeState extends State<SpotTrade>
                                                   child: Text(
                                                     "-",
                                                     style: CustomWidget(
-                                                            context: context)
+                                                        context: context)
                                                         .CustomSizedTextStyle(
-                                                            20.0,
-                                                            Theme.of(context)
-                                                                .hintColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
+                                                        20.0,
+                                                        Theme.of(context)
+                                                            .hintColor,
+                                                        FontWeight.w500,
+                                                        'FontRegular'),
                                                   ),
                                                 )),
                                           ),
                                           Flexible(
                                               child: Container(
-                                            height: 30.0,
-                                            child: TextField(
-                                              enabled: true,
-                                              controller: priceController,
-                                              keyboardType: const TextInputType
+                                                height: 30.0,
+                                                child: TextField(
+                                                  enabled: true,
+                                                  controller: priceController,
+                                                  keyboardType: const TextInputType
                                                       .numberWithOptions(
-                                                  decimal: true),
-                                              style:
+                                                      decimal: true),
+                                                  style:
                                                   CustomWidget(context: context)
                                                       .CustomSizedTextStyle(
-                                                          13.0,
-                                                          Theme.of(context)
-                                                              .hintColor,
-                                                          FontWeight.w500,
-                                                          'FontRegular'),
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .allow(RegExp(r'[0-9.]')),
-                                              ],
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  contentPadding:
+                                                      13.0,
+                                                      Theme.of(context)
+                                                          .hintColor,
+                                                      FontWeight.w500,
+                                                      'FontRegular'),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(r'[0-9.]')),
+                                                  ],
+                                                  onChanged: (value) {},
+                                                  decoration: InputDecoration(
+                                                      contentPadding:
                                                       EdgeInsets.only(
                                                           bottom: 17.0),
-                                                  hintText: "Price",
-                                                  hintStyle: CustomWidget(
+                                                      hintText: "Price",
+                                                      hintStyle: CustomWidget(
                                                           context: context)
-                                                      .CustomSizedTextStyle(
+                                                          .CustomSizedTextStyle(
                                                           12.0,
                                                           Theme.of(context)
                                                               .hintColor,
                                                           FontWeight.w500,
                                                           'FontRegular'),
-                                                  border: InputBorder.none),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          )),
+                                                      border: InputBorder.none),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )),
                                           const SizedBox(
                                             width: 2.0,
                                           ),
@@ -558,13 +558,13 @@ class _SpotTradeState extends State<SpotTrade>
                                                   child: Text(
                                                     "+",
                                                     style: CustomWidget(
-                                                            context: context)
+                                                        context: context)
                                                         .CustomSizedTextStyle(
-                                                            20.0,
-                                                            Theme.of(context)
-                                                                .hintColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
+                                                        20.0,
+                                                        Theme.of(context)
+                                                            .hintColor,
+                                                        FontWeight.w500,
+                                                        'FontRegular'),
                                                   ),
                                                 )),
                                           ),
@@ -577,14 +577,14 @@ class _SpotTradeState extends State<SpotTrade>
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
-                                    selectPair !=null?  "= "+  selectPair!.marketPrice.toString()+coinTwo:"",
+                                        selectPair !=null?  "= "+  selectPair!.marketPrice.toString()+coinTwo:"",
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .canvasColor,
-                                                FontWeight.w600,
-                                                'FontRegular'),
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w600,
+                                            'FontRegular'),
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
@@ -601,14 +601,14 @@ class _SpotTradeState extends State<SpotTrade>
                                                   .withOpacity(0.5),
                                               width: 1.0),
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           color: CustomTheme.of(context)
                                               .errorColor),
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           InkWell(
                                             onTap: () {
@@ -625,55 +625,55 @@ class _SpotTradeState extends State<SpotTrade>
                                                   child: Text(
                                                     "-",
                                                     style: CustomWidget(
-                                                            context: context)
+                                                        context: context)
                                                         .CustomSizedTextStyle(
-                                                            20.0,
-                                                            Theme.of(context)
-                                                                .hintColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
+                                                        20.0,
+                                                        Theme.of(context)
+                                                            .hintColor,
+                                                        FontWeight.w500,
+                                                        'FontRegular'),
                                                   ),
                                                 )),
                                           ),
                                           Flexible(
                                               child: Container(
-                                            height: 30.0,
-                                            child: TextField(
-                                              enabled: true,
-                                              controller: amtController,
-                                              keyboardType: const TextInputType
+                                                height: 30.0,
+                                                child: TextField(
+                                                  enabled: true,
+                                                  controller: amtController,
+                                                  keyboardType: const TextInputType
                                                       .numberWithOptions(
-                                                  decimal: true),
-                                              style:
+                                                      decimal: true),
+                                                  style:
                                                   CustomWidget(context: context)
                                                       .CustomSizedTextStyle(
-                                                          13.0,
-                                                          Theme.of(context)
-                                                              .hintColor,
-                                                          FontWeight.w500,
-                                                          'FontRegular'),
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .allow(RegExp(r'[0-9.]')),
-                                              ],
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  contentPadding:
+                                                      13.0,
+                                                      Theme.of(context)
+                                                          .hintColor,
+                                                      FontWeight.w500,
+                                                      'FontRegular'),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(RegExp(r'[0-9.]')),
+                                                  ],
+                                                  onChanged: (value) {},
+                                                  decoration: InputDecoration(
+                                                      contentPadding:
                                                       EdgeInsets.only(
                                                           bottom: 20.0),
-                                                  hintText: "Amount(BTC)",
-                                                  hintStyle: CustomWidget(
+                                                      hintText: "Amount(BTC)",
+                                                      hintStyle: CustomWidget(
                                                           context: context)
-                                                      .CustomSizedTextStyle(
+                                                          .CustomSizedTextStyle(
                                                           10.0,
                                                           Theme.of(context)
                                                               .hintColor,
                                                           FontWeight.w500,
                                                           'FontRegular'),
-                                                  border: InputBorder.none),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          )),
+                                                      border: InputBorder.none),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )),
                                           const SizedBox(
                                             width: 2.0,
                                           ),
@@ -690,13 +690,13 @@ class _SpotTradeState extends State<SpotTrade>
                                                   child: Text(
                                                     "+",
                                                     style: CustomWidget(
-                                                            context: context)
+                                                        context: context)
                                                         .CustomSizedTextStyle(
-                                                            20.0,
-                                                            Theme.of(context)
-                                                                .hintColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
+                                                        20.0,
+                                                        Theme.of(context)
+                                                            .hintColor,
+                                                        FontWeight.w500,
+                                                        'FontRegular'),
                                                   ),
                                                 )),
                                           ),
@@ -708,12 +708,12 @@ class _SpotTradeState extends State<SpotTrade>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: CustomTheme.of(context)
                                                     .errorColor,
                                                 border: Border.all(
@@ -730,20 +730,20 @@ class _SpotTradeState extends State<SpotTrade>
                                               child: Text(
                                                 "25%",
                                                 style: CustomWidget(
-                                                        context: context)
+                                                    context: context)
                                                     .CustomSizedTextStyle(
-                                                        8.0,
-                                                        Theme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
                                                 textAlign: TextAlign.center,
                                               ),
                                             )),
                                         Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: CustomTheme.of(context)
                                                     .errorColor,
                                                 border: Border.all(
@@ -760,20 +760,20 @@ class _SpotTradeState extends State<SpotTrade>
                                               child: Text(
                                                 "50%",
                                                 style: CustomWidget(
-                                                        context: context)
+                                                    context: context)
                                                     .CustomSizedTextStyle(
-                                                        8.0,
-                                                        Theme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
                                                 textAlign: TextAlign.center,
                                               ),
                                             )),
                                         Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: CustomTheme.of(context)
                                                     .errorColor,
                                                 border: Border.all(
@@ -790,20 +790,20 @@ class _SpotTradeState extends State<SpotTrade>
                                               child: Text(
                                                 "75%",
                                                 style: CustomWidget(
-                                                        context: context)
+                                                    context: context)
                                                     .CustomSizedTextStyle(
-                                                        8.0,
-                                                        Theme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
                                                 textAlign: TextAlign.center,
                                               ),
                                             )),
                                         Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: CustomTheme.of(context)
                                                     .errorColor,
                                                 border: Border.all(
@@ -820,13 +820,13 @@ class _SpotTradeState extends State<SpotTrade>
                                               child: Text(
                                                 "100%",
                                                 style: CustomWidget(
-                                                        context: context)
+                                                    context: context)
                                                     .CustomSizedTextStyle(
-                                                        8.0,
-                                                        Theme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .canvasColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
                                                 textAlign: TextAlign.center,
                                               ),
                                             )),
@@ -844,7 +844,7 @@ class _SpotTradeState extends State<SpotTrade>
                                           bottom: 0.0),
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           color: CustomTheme.of(context)
                                               .errorColor,
                                           border: Border.all(
@@ -862,23 +862,23 @@ class _SpotTradeState extends State<SpotTrade>
                                             child: DropdownButton(
                                               items: volType
                                                   .map((value) =>
-                                                      DropdownMenuItem(
-                                                        child: Text(
-                                                          value,
-                                                          style: CustomWidget(
-                                                                  context:
-                                                                      context)
-                                                              .CustomSizedTextStyle(
-                                                                  10.0,
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .hintColor,
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  'FontRegular'),
-                                                        ),
-                                                        value: value,
-                                                      ))
+                                                  DropdownMenuItem(
+                                                    child: Text(
+                                                      value,
+                                                      style: CustomWidget(
+                                                          context:
+                                                          context)
+                                                          .CustomSizedTextStyle(
+                                                          10.0,
+                                                          Theme.of(
+                                                              context)
+                                                              .hintColor,
+                                                          FontWeight
+                                                              .w500,
+                                                          'FontRegular'),
+                                                    ),
+                                                    value: value,
+                                                  ))
                                                   .toList(),
                                               onChanged: (value) {
                                                 setState(() {});
@@ -905,11 +905,11 @@ class _SpotTradeState extends State<SpotTrade>
                                         selectPair !=null?  "= "+  selectPair!.marketPrice.toString()+coinTwo:"",
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .canvasColor,
-                                                FontWeight.w600,
-                                                'FontRegular'),
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w600,
+                                            'FontRegular'),
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
@@ -918,28 +918,28 @@ class _SpotTradeState extends State<SpotTrade>
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Avail",
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
+                                              10.0,
+                                              CustomTheme.of(context)
+                                                  .canvasColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
                                           textAlign: TextAlign.start,
                                         ),
                                         Text(
                                           "=0.00 USD",
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .buttonColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
+                                              10.0,
+                                              CustomTheme.of(context)
+                                                  .buttonColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
                                           textAlign: TextAlign.start,
                                         ),
                                       ],
@@ -953,7 +953,7 @@ class _SpotTradeState extends State<SpotTrade>
                                           color:tradeOption? Theme.of(context).buttonColor:Theme.of(context)
                                               .primaryColor,
                                           borderRadius:
-                                              BorderRadius.circular(10.0)),
+                                          BorderRadius.circular(10.0)),
                                       padding: EdgeInsets.only(
                                           top: 7.0, bottom: 7.0),
                                       child: Center(
@@ -961,12 +961,12 @@ class _SpotTradeState extends State<SpotTrade>
                                           tradeOption?"Buy "+coinOne:"Sell "+coinTwo,
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
-                                                  14.0,
+                                              14.0,
                                               tradeOption? CustomTheme.of(context)
-                                                      .errorColor:CustomTheme.of(context)
+                                                  .errorColor:CustomTheme.of(context)
                                                   .focusColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
+                                              FontWeight.w600,
+                                              'FontRegular'),
                                         ),
                                       ),
                                     )
@@ -983,31 +983,31 @@ class _SpotTradeState extends State<SpotTrade>
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                           children: [
                                             Text(
                                               "Price",
                                               style: CustomWidget(
-                                                      context: context)
+                                                  context: context)
                                                   .CustomSizedTextStyle(
-                                                      14.0,
-                                                      CustomTheme.of(context)
-                                                          .canvasColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
+                                                  14.0,
+                                                  CustomTheme.of(context)
+                                                      .canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                             ),
                                             Text(
-                                            "("+  coinTwo+")",
+                                              "("+  coinTwo+")",
                                               style: CustomWidget(
-                                                      context: context)
+                                                  context: context)
                                                   .CustomSizedTextStyle(
-                                                      10.0,
-                                                      CustomTheme.of(context)
-                                                          .canvasColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
+                                                  10.0,
+                                                  CustomTheme.of(context)
+                                                      .canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                             ),
                                           ],
                                         ),
@@ -1016,24 +1016,24 @@ class _SpotTradeState extends State<SpotTrade>
                                             Text(
                                               "Total",
                                               style: CustomWidget(
-                                                      context: context)
+                                                  context: context)
                                                   .CustomSizedTextStyle(
-                                                      14.0,
-                                                      CustomTheme.of(context)
-                                                          .canvasColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
+                                                  14.0,
+                                                  CustomTheme.of(context)
+                                                      .canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                             ),
                                             Text(
                                               "("+  coinOne+")",
                                               style: CustomWidget(
-                                                      context: context)
+                                                  context: context)
                                                   .CustomSizedTextStyle(
-                                                      10.0,
-                                                      CustomTheme.of(context)
-                                                          .canvasColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
+                                                  10.0,
+                                                  CustomTheme.of(context)
+                                                      .canvasColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                             ),
                                           ],
                                         )
@@ -1042,58 +1042,58 @@ class _SpotTradeState extends State<SpotTrade>
                                     const SizedBox(
                                       height: 10.0,
                                     ),
-                                     Container(
-                                       height: MediaQuery.of(context).size.height*0.15,
-                                       child: sellData.length>0?ListView.builder(
-                                         physics: ScrollPhysics(),
-                                         itemCount: sellData.length,
-                                         shrinkWrap: true,
-                                         controller: _scrollController,
-                                         itemBuilder: (BuildContext context, int index) {
-                                           return Column(
-                                             children: [
-                                               Row(
-                                                 mainAxisAlignment:
-                                                 MainAxisAlignment.spaceBetween,
-                                                 children: [
-                                                   Text(
-                                                     sellData[index].price.toString(),
-                                                     style: CustomWidget(context: context)
-                                                         .CustomSizedTextStyle(
-                                                         10.0,
-                                                         CustomTheme.of(context)
-                                                             .scaffoldBackgroundColor,
-                                                         FontWeight.w400,
-                                                         'FontRegular'),
-                                                   ),
-                                                   Text(
-                                                     sellData[index].amount.toString(),
-                                                     style: CustomWidget(context: context)
-                                                         .CustomSizedTextStyle(
-                                                         10.0,
-                                                         CustomTheme.of(context)
-                                                             .canvasColor,
-                                                         FontWeight.w400,
-                                                         'FontRegular'),
-                                                   ),
-                                                 ],
-                                               ),
-                                               const SizedBox(height: 5.0,)
+                                    Container(
+                                      height: MediaQuery.of(context).size.height*0.15,
+                                      child: sellData.length>0?ListView.builder(
+                                        physics: ScrollPhysics(),
+                                        itemCount: sellData.length,
+                                        shrinkWrap: true,
+                                        controller: _scrollController,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    sellData[index].price.toString(),
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .scaffoldBackgroundColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                  ),
+                                                  Text(
+                                                    sellData[index].amount.toString(),
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .canvasColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 5.0,)
 
-                                             ],
-                                           );
-                                         },
-                                       ):Center(
-                                         child: Text(
-                                           "No Records Found....!",
-                                           style: CustomWidget(context: context).CustomSizedTextStyle(
-                                               10.0,
-                                               CustomTheme.of(context).buttonColor,
-                                               FontWeight.w500,
-                                               'FontRegular'),
-                                         ),
-                                       ),
-                                     ),
+                                            ],
+                                          );
+                                        },
+                                      ):Center(
+                                        child: Text(
+                                          "No Records Found....!",
+                                          style: CustomWidget(context: context).CustomSizedTextStyle(
+                                              10.0,
+                                              CustomTheme.of(context).buttonColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                        ),
+                                      ),
+                                    ),
 
                                     const SizedBox(
                                       height: 10.0,
@@ -1104,11 +1104,11 @@ class _SpotTradeState extends State<SpotTrade>
                                         selectPair!.low24Hr.toString(),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .indicatorColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .indicatorColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
@@ -1118,11 +1118,11 @@ class _SpotTradeState extends State<SpotTrade>
                                         "= "+selectPair!.marketPrice.toString()+coinTwo,
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                10.0,
-                                                CustomTheme.of(context)
-                                                    .canvasColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
+                                            10.0,
+                                            CustomTheme.of(context)
+                                                .canvasColor,
+                                            FontWeight.w500,
+                                            'FontRegular'),
                                         textAlign: TextAlign.start,
                                       ),
                                     ),
@@ -1207,12 +1207,12 @@ class _SpotTradeState extends State<SpotTrade>
                   )),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                      CustomTheme.of(context).buttonColor,
-                    )
+                CustomTheme.of(context).buttonColor,
+              )
                   : Container()
             ],
           )),
-    );
+    ));
   }
 
   Widget tradeOpenUI() {

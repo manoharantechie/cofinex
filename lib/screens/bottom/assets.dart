@@ -45,187 +45,187 @@ class _AssetsState extends State<Assets> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color: CustomTheme.of(context).backgroundColor,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: CustomTheme.of(context).backgroundColor,
           child:  loading
               ? CustomWidget(context: context).loadingIndicator(
             CustomTheme.of(context).buttonColor,
           ):Padding(
-            padding: EdgeInsets.only(left: 20.0,right: 20.0),
-            child:  Container(
+              padding: EdgeInsets.only(left: 20.0,right: 20.0),
+              child:  Container(
 
-                child:  cyrptoCurrecy.length > 0?ListView.builder(
-                  physics: ScrollPhysics(),
-                  itemCount: cyrptoCurrecy.length,
-                  shrinkWrap: true,
-                  controller: _scrollController,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        
-                        Container(
+                  child:  cyrptoCurrecy.length > 0?ListView.builder(
+                    physics: ScrollPhysics(),
+                    itemCount: cyrptoCurrecy.length,
+                    shrinkWrap: true,
+                    controller: _scrollController,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
 
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                          Container(
 
-                              Container(
-                                width: 40,
-                                height: 40,
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Theme.of(context).splashColor,
-                                      width: 1.0),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Theme.of(context).highlightColor,
-                                ),
-                                child: SvgPicture.network(
-                                  "https://images.cofinex.io/crypto/ico/" +
-                                      cyrptoCurrecy[index]
-                                          .symbol
-                                          .toString()
-                                          .toLowerCase() +
-                                      ".svg",
-                                  height: 15.0,
-                                ),
-                              ),
-                              const SizedBox(width: 15.0,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 15.0,),
-                                  Text(
-                                    cyrptoCurrecy[index].networktype.toString()+" ("+cyrptoCurrecy[index].symbol.toString() + ")",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                        14.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
-                                    textAlign: TextAlign.center,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Theme.of(context).splashColor,
+                                        width: 1.0),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Theme.of(context).highlightColor,
                                   ),
-                                  const SizedBox(height: 15.0,),
-                                  Container(
-
-                                    width: MediaQuery.of(context).size.width*0.7,
-                                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15.0),
-                                        topRight: Radius.circular(15.0),
-                                        bottomRight: Radius.circular(15.0),
-                                        bottomLeft: Radius.circular(15.0),
-                                      ),
-                                      color:   Theme.of(context).focusColor,
+                                  child: SvgPicture.network(
+                                    "https://images.cofinex.io/crypto/ico/" +
+                                        cyrptoCurrecy[index]
+                                            .symbol
+                                            .toString()
+                                            .toLowerCase() +
+                                        ".svg",
+                                    height: 15.0,
+                                  ),
+                                ),
+                                const SizedBox(width: 15.0,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 15.0,),
+                                    Text(
+                                      cyrptoCurrecy[index].networktype.toString()+" ("+cyrptoCurrecy[index].symbol.toString() + ")",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    child:   Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
+                                    const SizedBox(height: 15.0,),
+                                    Container(
 
-
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              " \$35,574.00",
-                                              style: CustomWidget(context: context)
-                                                  .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context).primaryColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            SizedBox(height: 8.0,),
-                                            Text(
-                                              "+%14.82",
-                                              style: CustomWidget(context: context)
-                                                  .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context).buttonColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
+                                      width: MediaQuery.of(context).size.width*0.7,
+                                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15.0),
+                                          topRight: Radius.circular(15.0),
+                                          bottomRight: Radius.circular(15.0),
+                                          bottomLeft: Radius.circular(15.0),
                                         ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              " \$50,000",
-                                              style: CustomWidget(context: context)
-                                                  .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context).hoverColor.withOpacity(0.5),
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const SizedBox(height: 5.0,),
+                                        color:   Theme.of(context).focusColor,
+                                      ),
+                                      child:   Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
 
-                                            Image.asset('assets/icon/chart.png',height: 30.0,width: 120.0,),
-                                            const SizedBox(height: 5.0,),
-                                            Text(
-                                              "\$6,480",
-                                              style: CustomWidget(context: context)
-                                                  .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context).hoverColor.withOpacity(0.5),
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        )
-                                      ],
+
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                " \$35,574.00",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context).primaryColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              SizedBox(height: 8.0,),
+                                              Text(
+                                                "+%14.82",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context).buttonColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                " \$50,000",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context).hoverColor.withOpacity(0.5),
+                                                    FontWeight.w400,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 5.0,),
+
+                                              Image.asset('assets/icon/chart.png',height: 30.0,width: 120.0,),
+                                              const SizedBox(height: 5.0,),
+                                              Text(
+                                                "\$6,480",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context).hoverColor.withOpacity(0.5),
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
 
-                        const SizedBox(height: 10.0,)
+                          const SizedBox(height: 10.0,)
 
-                      ],
-                    );
-                  },
-                ) : Container(
-                    height: MediaQuery.of(context).size.height *
-                        0.3,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        " No records Found..!",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            16.0,
-                            Theme.of(context).primaryColor,
-                            FontWeight.w500,
-                            'FontRegular'),
+                        ],
+                      );
+                    },
+                  ) : Container(
+                      height: MediaQuery.of(context).size.height *
+                          0.3,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
                       ),
-                    ))
-            )
+                      child: Center(
+                        child: Text(
+                          " No records Found..!",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w500,
+                              'FontRegular'),
+                        ),
+                      ))
+              )
           )
 
       ),
-    );
+    ));
   }
 
   getCurrency() {

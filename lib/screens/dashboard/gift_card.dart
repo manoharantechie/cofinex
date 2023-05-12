@@ -42,7 +42,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: WillPopScope(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -53,19 +53,19 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
               padding: EdgeInsets.only(left: 12.0, top: 10.0, bottom: 10.0),
               child: InkWell(
                   onTap: () {
-           setState(() {
-             if(firstStage)
-             {
-               Navigator.pop(context);
-             }
-             else{
-               if(secondStage=true)
-               {
-                 firstStage=true;
-                 secondStage=false;
-               }
-             }
-           });
+                    setState(() {
+                      if(firstStage)
+                      {
+                        Navigator.pop(context);
+                      }
+                      else{
+                        if(secondStage=true)
+                        {
+                          firstStage=true;
+                          secondStage=false;
+                        }
+                      }
+                    });
                   },
                   child: Center(
                     child: Icon(
@@ -144,10 +144,10 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                 "Search...",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        13.0,
-                                        Theme.of(context).accentColor,
-                                        FontWeight.w300,
-                                        'FontRegular'),
+                                    13.0,
+                                    Theme.of(context).accentColor,
+                                    FontWeight.w300,
+                                    'FontRegular'),
                               ),
                             ],
                           ),
@@ -172,28 +172,28 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
                                     canvasColor:
-                                        Theme.of(context).backgroundColor,
+                                    Theme.of(context).backgroundColor,
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
                                       menuMaxHeight:
-                                          MediaQuery.of(context).size.height *
-                                              0.7,
+                                      MediaQuery.of(context).size.height *
+                                          0.7,
                                       items: cardlist
                                           .map((value) => DropdownMenuItem(
-                                                child: Text(
-                                                  value.toString(),
-                                                  style: CustomWidget(
-                                                          context: context)
-                                                      .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .errorColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
-                                                ),
-                                                value: value,
-                                              ))
+                                        child: Text(
+                                          value.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context)
+                                                  .errorColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        value: value,
+                                      ))
                                           .toList(),
                                       onChanged: (value) async {
                                         setState(() {
@@ -205,10 +205,10 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                         "Categories",
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                11.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w400,
-                                                'FontRegular'),
+                                            11.0,
+                                            Theme.of(context).primaryColor,
+                                            FontWeight.w400,
+                                            'FontRegular'),
                                       ),
                                       isExpanded: true,
                                       value: selectedValue,
@@ -227,7 +227,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                               ),
                               Container(
                                 padding:
-                                    EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
@@ -267,7 +267,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
 
         return false;
       },
-    );
+    ));
   }
 
   Widget listWidget() {

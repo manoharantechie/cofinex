@@ -147,7 +147,7 @@ class _Home_ScreenState extends State<Home_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: WillPopScope(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -160,7 +160,7 @@ class _Home_ScreenState extends State<Home_Screen> {
 
             // Status bar brightness (optional)
             statusBarIconBrightness:
-                Brightness.dark, // For Android (dark icons)
+            Brightness.dark, // For Android (dark icons)
             statusBarBrightness: Brightness.light, // For iOS (dark icons)
           ),
           leading: Padding(
@@ -185,51 +185,51 @@ class _Home_ScreenState extends State<Home_Screen> {
                   ))),
           title: currentIndex == 0
               ? InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 35.0,
-                    decoration: BoxDecoration(
-                        color: CustomTheme.of(context).focusColor,
-                        borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(
-                            color: CustomTheme.of(context)
-                                .canvasColor
-                                .withOpacity(0.4),
-                            width: 1)),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 5.0,
-                        ),
-                        Icon(
-                          Icons.search_rounded,
-                          color: CustomTheme.of(context).canvasColor,
-                          size: 18.0,
-                        ),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          "ETH/USDT",
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                                  13.0,
-                                  Theme.of(context).accentColor,
-                                  FontWeight.w300,
-                                  'FontRegular'),
-                        ),
-                      ],
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 35.0,
+                decoration: BoxDecoration(
+                    color: CustomTheme.of(context).focusColor,
+                    borderRadius: BorderRadius.circular(12.0),
+                    border: Border.all(
+                        color: CustomTheme.of(context)
+                            .canvasColor
+                            .withOpacity(0.4),
+                        width: 1)),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 5.0,
                     ),
-                  ))
-              : Text(
-                  AppLocalizations.instance.text(titleText[currentIndex]),
-                  style: CustomWidget(context: context).CustomSizedTextStyle(
-                      18.0,
-                      Theme.of(context).primaryColor,
-                      FontWeight.w600,
-                      'FontRegular'),
+                    Icon(
+                      Icons.search_rounded,
+                      color: CustomTheme.of(context).canvasColor,
+                      size: 18.0,
+                    ),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      "ETH/USDT",
+                      style: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          13.0,
+                          Theme.of(context).accentColor,
+                          FontWeight.w300,
+                          'FontRegular'),
+                    ),
+                  ],
                 ),
+              ))
+              : Text(
+            AppLocalizations.instance.text(titleText[currentIndex]),
+            style: CustomWidget(context: context).CustomSizedTextStyle(
+                18.0,
+                Theme.of(context).primaryColor,
+                FontWeight.w600,
+                'FontRegular'),
+          ),
           actions: [
             Padding(
                 padding: EdgeInsets.only(
@@ -265,7 +265,7 @@ class _Home_ScreenState extends State<Home_Screen> {
           ],
         ),
         body:
-            PageStorage(child: dashview ? dashBoard() : screen, bucket: bucket),
+        PageStorage(child: dashview ? dashBoard() : screen, bucket: bucket),
         bottomNavigationBar: BottomNav(
           index: currentIndex,
           selectedIndex: selectedIndex,
@@ -288,7 +288,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                 'FontRegular'),
             onSelectTextStyle: CustomWidget(context: context)
                 .CustomSizedTextStyle(12.0, Theme.of(context).errorColor,
-                    FontWeight.normal, 'FontRegular'),
+                FontWeight.normal, 'FontRegular'),
           ),
           onTap: (i) {
             setState(() {
@@ -312,7 +312,7 @@ class _Home_ScreenState extends State<Home_Screen> {
         }
         return false;
       },
-    );
+    ));
   }
 
   List<BottomNavItem> createBottomItems() {

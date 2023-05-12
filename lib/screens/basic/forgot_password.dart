@@ -44,7 +44,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       appBar: AppBar(
         backgroundColor: Theme
             .of(context)
@@ -144,11 +144,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               Container(
                 padding: EdgeInsets.only(left: 10.0,top: 10.0,bottom: 10.0),
                 decoration: BoxDecoration(
-                  color:    Theme
-                      .of(context)
-                      .buttonColor
-                      .withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(5.0)
+                    color:    Theme
+                        .of(context)
+                        .buttonColor
+                        .withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(5.0)
                 ),
 
                 child: Row(
@@ -346,6 +346,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   : Container()
             ],
           )),
-    );
+    ));
   }
 }

@@ -24,7 +24,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
 
       body: Container(
@@ -127,14 +127,14 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                           hint: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                             Container(
-                               padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                               decoration: BoxDecoration(
-                                 shape: BoxShape.circle,
-                                 color: Theme.of(context).accentColor.withOpacity(0.8),
-                               ),
-                               child:  SvgPicture.asset("assets/images/eth.svg", height: 15.0,),
-                             ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                                ),
+                                child:  SvgPicture.asset("assets/images/eth.svg", height: 15.0,),
+                              ),
                               SizedBox(width: 10.0,),
                               Text(
                                 "USD",
@@ -294,7 +294,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                       ),
                       child: Center(
                         child: Text(
-                         selOption?"Buy USDT":"Sell USDT",
+                          selOption?"Buy USDT":"Sell USDT",
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
@@ -312,6 +312,6 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

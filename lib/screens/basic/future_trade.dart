@@ -176,7 +176,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                         18.0, Theme.of(context).accentColor.withOpacity(0.8), FontWeight.w600, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         18.0,
-                        Theme.of(context).backgroundColor, FontWeight.w600, 'FontRegular'),
+                        Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
                     textInputAction: TextInputAction.next,
                     focusNode: valueFocus,
                     maxlines: 1,

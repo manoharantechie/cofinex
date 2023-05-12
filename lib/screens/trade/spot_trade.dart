@@ -1234,7 +1234,7 @@ class _SpotTradeState extends State<SpotTrade>
               forceElevated: innerBoxIsScrolled,
               //<-- forceElevated to innerBoxIsScrolled
               bottom: TabBar(
-                isScrollable: false,
+                isScrollable: true,
                 labelColor: CustomTheme.of(context).buttonColor,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,

@@ -417,7 +417,7 @@ class _MarketScreenState extends State<MarketScreen>
                                       borderRadius: BorderRadius.circular(10.0),
                                       color: Theme
                                           .of(context)
-                                          .highlightColor,
+                                          .accentColor.withOpacity(0.5),
                                     ),
                                     child: SvgPicture.network(
                                       "https://images.cofinex.io/crypto/ico/" +
@@ -475,13 +475,13 @@ class _MarketScreenState extends State<MarketScreen>
                                       .toStringAsFixed(2),
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  14.0,
+                                  12.0,
                                   Theme
                                       .of(context)
                                       .primaryColor,
                                   FontWeight.w600,
                                   'FontRegular'),
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.end,
                             ),
                             flex: 1,
                           ),

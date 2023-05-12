@@ -563,15 +563,28 @@ class _Widthdraw_ScreenState extends State<Widthdraw_Screen> {
     QueryResult result = await _client.query(
       QueryOptions(document: gql(queryMutation.getWalletBalance())),
     );
+    setState(() {
+      loading=false;
+    });
     List<dynamic> listData = result.data!["getAllWalletBalances"]["items"];
 
-    setState(() {
-      loading = false;
-      allTicker =
-          (listData).map((item) => WalletDetails.fromJson(item)).toList();
-      selectedValue=allTicker.first;
+    if(listData.length>0)
+      {
+        setState(() {
+          loading = false;
+          allTicker =
+              (listData).map((item) => WalletDetails.fromJson(item)).toList();
+          selectedValue=allTicker.first;
 
-    });
+        });
+      }
+    else
+      {
+
+        allTicker=[];
+      }
+
+
   }
 
   doWithdraw() async {

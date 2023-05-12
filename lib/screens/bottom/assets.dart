@@ -4,6 +4,7 @@ import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/model/currency_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Assets extends StatefulWidget {
   const Assets({Key? key}) : super(key: key);
@@ -20,12 +21,26 @@ class _AssetsState extends State<Assets> {
 
   List<CurrencyList> cyrptoCurrecy = [];
 
+  bool loginStatus = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    loading = true;
-    getCurrency();
+    getDetails();
+
+  }
+
+  getDetails() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+
+
+      loginStatus = preferences.getBool("login")!;
+      if (loginStatus) {
+        loading = true;
+        getCurrency();
+      }
+    });
   }
 
   @override
@@ -42,7 +57,7 @@ class _AssetsState extends State<Assets> {
             padding: EdgeInsets.only(left: 20.0,right: 20.0),
             child:  Container(
 
-                child: ListView.builder(
+                child:  cyrptoCurrecy.length > 0?ListView.builder(
                   physics: ScrollPhysics(),
                   itemCount: cyrptoCurrecy.length,
                   shrinkWrap: true,
@@ -189,7 +204,23 @@ class _AssetsState extends State<Assets> {
                       ],
                     );
                   },
-                )
+                ) : Container(
+                    height: MediaQuery.of(context).size.height *
+                        0.3,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        " No records Found..!",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            16.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w500,
+                            'FontRegular'),
+                      ),
+                    ))
             )
           )
 

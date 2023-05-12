@@ -45,14 +45,13 @@ class _LoginFirstState extends State<LoginFirst> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
-
         systemOverlayStyle: SystemUiOverlayStyle(
-          // Status bar color
+
           statusBarColor: Theme.of(context).backgroundColor,
-          // Status bar brightness (optional)
           statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
           statusBarBrightness: Brightness.light, // For iOS (dark icons)
         ),
@@ -183,7 +182,8 @@ class _LoginFirstState extends State<LoginFirst> {
                       InkWell(
                         onTap: () {
                           setState(() {
-                            FocusScope.of(context).requestFocus(FocusNode());
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          //  FocusScope.of(context).requestFocus(FocusNode());
 
                             if (_formKey.currentState!.validate()) {
                               Navigator.of(context).push(MaterialPageRoute(

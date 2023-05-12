@@ -343,7 +343,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
-                                      SizedBox(width: 15.0,),
+                                      SizedBox(width: 10.0,),
                                       Container(
                                         width: MediaQuery.of(context).size.width *0.5,
                                         child: Text(
@@ -367,7 +367,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                             .text("loc_change"),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                            12.0,
+                                            10.0,
                                             Theme.of(context).accentColor,
                                             FontWeight.w600,
                                             'FontRegular'),

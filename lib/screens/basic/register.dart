@@ -68,6 +68,7 @@ class _Sign_Up_screenState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
@@ -324,9 +325,7 @@ class _Sign_Up_screenState extends State<Register> {
                     SizedBox(
                       height: 15.0,
                     ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
+
                     Padding(
                       padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
                       child: Text(

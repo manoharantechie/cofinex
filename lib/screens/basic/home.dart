@@ -449,8 +449,14 @@ class _Home_ScreenState extends State<Home_Screen> {
                       Flexible(
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Choose_Currency()));
+                            if (widget.loginStatus) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Choose_Currency()));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Register()));
+                            }
+
                           },
                           child: Container(
                             padding:
@@ -511,8 +517,13 @@ class _Home_ScreenState extends State<Home_Screen> {
                       Flexible(
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Choose_Currency()));
+                            if (widget.loginStatus) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Choose_Currency()));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Register()));
+                            }
                           },
                           child: Container(
                             padding:
@@ -701,7 +712,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LiveWidget()));
+                                builder: (context) => Register()));
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.25,

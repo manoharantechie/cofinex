@@ -47,6 +47,7 @@ dependencies:
   web_socket_channel:
   barcode_scan2:
   webview_flutter:
+  flutter_html: ^3.0.0-alpha.6
 
 
 
@@ -87,7 +88,7 @@ flutter:
     - assets/icon/
     - assets/profile/
     - assets/icon/logo.gif
-    - assets/loading.hmtl
+    - assets/profile/loader.gif
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:

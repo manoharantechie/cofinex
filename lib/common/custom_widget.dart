@@ -125,9 +125,9 @@ class CustomWidget {
         child: Container(
           child: Center(
             child:  Image.asset(
-              'assets/icon/loader.gif',
-              width: 250,
-              height: 250
+              'assets/profile/loader.gif',
+              width: 60,
+              height: 60
             )
           ),
         ),

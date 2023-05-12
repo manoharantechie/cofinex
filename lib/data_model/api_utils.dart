@@ -18,6 +18,7 @@ class APIUtils {
   static const currencyURL = "currency/currency";
   static const networkURL = "currency/networks";
   static const addressURL = "users/getaddress";
+  static const kycURL = "users/initKyc";
   static const getTokenURL = "https://api.cofinex.in/encodewsheader";
 
   Future<dynamic> doRegisterEmail(
@@ -177,7 +178,40 @@ class APIUtils {
         'Authorization': "Bearer "+preferences.getString("token").toString()
       },
     );
-    print(response.body);
+
+    return json.decode(response.body);
+  }
+
+  Future<dynamic> doChangePassword(String currentPassword, String newPassword,String confirmation) async {
+    var emailbodyData = {
+      'currentPassword': currentPassword,
+      'password': currentPassword,
+
+    };
+
+    final response = await http.post(
+      Uri.parse(authURL + "realms/{{realm}}/account/credentials/password"),
+      body: emailbodyData,
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+  Future<dynamic> getInitKYC() async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+
+    final response = await http.get(
+      Uri.parse(initURL + kycURL),
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
     return json.decode(response.body);
   }
 }

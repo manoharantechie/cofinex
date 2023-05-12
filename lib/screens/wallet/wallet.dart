@@ -3,6 +3,7 @@ import 'package:cofinex/data_model/graph_ql_utils.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
 import 'package:cofinex/data_model/model/wallet_details.dart';
 import 'package:cofinex/data_model/query_utils.dart';
+import 'package:cofinex/screens/basic/register.dart';
 import 'package:cofinex/screens/basic/signin.dart';
 import 'package:cofinex/screens/dashboard/exchange.dart';
 import 'package:cofinex/screens/profile/choose_currency.dart';
@@ -48,7 +49,9 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       loginStatus = preferences.getBool("login")!;
+      print(loginStatus);
       if (loginStatus) {
+
         loading = true;
 
         fillList();
@@ -170,7 +173,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                       builder: (context) => Choose_Currency()));
                                 } else {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Sign_In_Screen()));
+                                      builder: (context) => Register()));
                                 }
                               },
                               child: Container(
@@ -320,9 +323,8 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
+
+                    const SizedBox(height: 10.0,),
                     Row(
                       children: [
                         Theme(
@@ -347,7 +349,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                                   10.0,
-                                  Theme.of(context).canvasColor,
+                                  Theme.of(context).primaryColor,
                                   FontWeight.w500,
                                   'FontRegular'),
                           textAlign: TextAlign.center,
@@ -369,7 +371,8 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
+                        allTicker.length > 0
+                            ?      Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     color: allTicker.length > 0
@@ -383,8 +386,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                   bottomLeft: Radius.circular(15.0),
                                 ),
                                 color: Theme.of(context).focusColor),
-                            child: allTicker.length > 0
-                                ? ListView.builder(
+                            child:  ListView.builder(
                                     physics: ScrollPhysics(),
                                     itemCount: allTicker.length,
                                     shrinkWrap: true,
@@ -585,23 +587,24 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                       );
                                     },
                                   )
-                                : Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).backgroundColor,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        " No records Found..!",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                                16.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                      ),
-                                    ))),
+                                ): Container(
+                            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
+                            height: MediaQuery.of(context).size.height *
+                                0.3,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                            ),
+                            child: Center(
+                              child: Text(
+                                " No records Found..!",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                              ),
+                            )),
                         SizedBox(
                           height: 10.0,
                         ),
@@ -627,12 +630,9 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
     QueryResult result = await _client.query(
       QueryOptions(document: gql(queryMutation.getWalletBalance())),
     );
-
-    print("Mano");
-
-    print(result.data!["getAllWalletBalances"]);
     List<dynamic> listData = result.data!["getAllWalletBalances"]["items"];
 
+    print(listData.length);
     setState(() {
       loading = false;
       allTicker =

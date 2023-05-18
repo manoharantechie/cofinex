@@ -51,7 +51,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
         color: Theme.of(context).backgroundColor,
         child: Stack(
           children: [
-            rubyCard(),
+            cardSetup(),
 
             Align(
               alignment: Alignment.bottomCenter,
@@ -97,11 +97,28 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
           Container(
             child: Column(
               children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(80.0, 10.0, 80.0, 10.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor.withOpacity(0.2),
+                  ),
+                  child: Text(
+                    "NEO",
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                        20.0,
+                        Theme.of(context).primaryColor,
+                        FontWeight.w700,
+                        'FontRegular'),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 15.0,),
                 Text(
                   "Cofinex Card Design",
                   style: CustomWidget(context: context)
                       .CustomSizedTextStyle(
-                      20.0,
+                      16.0,
                       Theme.of(context).cardColor,
                       FontWeight.w600,
                       'FontRegular'),
@@ -148,10 +165,12 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            // decoration: BoxDecoration(
-            //   color: Theme.of(context).focusColor,
-            // ),
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.24),
+            padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 15.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -40,7 +40,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
               ),
             )),
         title: Text(
-          "Your'e Applying For",
+          "Your'e Applied for",
           style: CustomWidget(context: context).CustomSizedTextStyle(18.0,
               Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
         ),
@@ -115,7 +115,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                 ),
                 const SizedBox(height: 15.0,),
                 Text(
-                  "Cofinex Card Design",
+                  "View or Upgrade",
                   style: CustomWidget(context: context)
                       .CustomSizedTextStyle(
                       16.0,
@@ -125,8 +125,8 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 15.0,),
-                Padding(padding: EdgeInsets.fromLTRB(25.0, 5.0, 25.0, 5.0), child: Container(
-                  padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 20.0),
+                Padding(padding: EdgeInsets.fromLTRB(35.0, 5.0, 35.0, 5.0), child: Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
                     gradient: LinearGradient(
@@ -140,9 +140,20 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                     ),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 15.0,),
+                      Text(
+                        "Cofinex Card Design",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            16.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10.0,),
                       Align(
                         alignment: Alignment.center,
                         child: SvgPicture.asset("assets/images/crypto_currency.svg", color: Theme.of(context).backgroundColor, height: 100.0,),

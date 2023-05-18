@@ -24,7 +24,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -151,29 +151,29 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                 ],
                               ),
                               SizedBox(height: 8.0,),
-                             InkWell(
-                               onTap: (){
-                                 Navigator.of(context)
-                                     .push(MaterialPageRoute(builder: (context) => ProfileVerification_Screen()));
-                               },
-                               child:  Container(
-                                 decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(5.0),
-                                   color: Theme.of(context).toggleableActiveColor.withOpacity(0.2),
-                                 ),
-                                 padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                                 child: Text(
-                                   AppLocalizations.instance
-                                       .text("loc_unverified"),
-                                   style: CustomWidget(context: context)
-                                       .CustomSizedTextStyle(
-                                       8.0,
-                                       Theme.of(context).dialogBackgroundColor,
-                                       FontWeight.w600,
-                                       'FontRegular'),
-                                 ),
-                               ),
-                             )
+                              InkWell(
+                                onTap: (){
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute(builder: (context) => ProfileVerification_Screen()));
+                                },
+                                child:  Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Theme.of(context).toggleableActiveColor.withOpacity(0.2),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                                  child: Text(
+                                    AppLocalizations.instance
+                                        .text("loc_unverified"),
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        8.0,
+                                        Theme.of(context).dialogBackgroundColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                  ),
+                                ),
+                              )
                             ],
                           ),flex: 1,)
                         ],
@@ -542,6 +542,6 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

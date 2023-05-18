@@ -32,6 +32,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../dashboard/card_details.dart';
 
 class Home_Screen extends StatefulWidget {
   final bool loginStatus;
@@ -608,7 +609,10 @@ class _Home_ScreenState extends State<Home_Screen> {
                             } else if (index == 2) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Staking()));
-                            } else if (index == 4) {
+                            } else if (index == 3) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Card_Details_Screen()));
+                            }else if (index == 4) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Leader_Board_Screen()));
                             } else if (index == 5) {

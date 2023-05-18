@@ -33,7 +33,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -103,10 +103,10 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                             AppLocalizations.instance.text("loc_old_pass"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    10.0,
-                                    Theme.of(context).canvasColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
+                                10.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w500,
+                                'FontRegular'),
                           ),
                         ),
                         SizedBox(
@@ -121,20 +121,20 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter Old Password",
                           textColor: Theme.of(context).primaryColor,
                           borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).accentColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).bottomAppBarColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textInputAction: TextInputAction.next,
                           focusNode: oldPassFocus,
                           maxlines: 1,
@@ -166,10 +166,10 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                             AppLocalizations.instance.text("loc_new_pass"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    10.0,
-                                    Theme.of(context).canvasColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
+                                10.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w500,
+                                'FontRegular'),
                           ),
                         ),
                         SizedBox(
@@ -185,20 +185,20 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter New Password ",
                           textColor: Theme.of(context).backgroundColor,
                           borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).accentColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).bottomAppBarColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textInputAction: TextInputAction.next,
                           focusNode: newPassFocus,
                           maxlines: 1,
@@ -230,10 +230,10 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                             AppLocalizations.instance.text("loc_confirm_pass"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    10.0,
-                                    Theme.of(context).canvasColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
+                                10.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w500,
+                                'FontRegular'),
                           ),
                         ),
                         SizedBox(
@@ -248,20 +248,20 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter Confirm Password",
                           textColor: Theme.of(context).backgroundColor,
                           borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).accentColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).bottomAppBarColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).bottomAppBarColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  12.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                              12.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w600,
+                              'FontRegular'),
                           textInputAction: TextInputAction.next,
                           focusNode: confirmPassFocus,
                           maxlines: 1,
@@ -299,17 +299,17 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                                 color: Theme.of(context).buttonColor,
                               ),
                               padding:
-                                  EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
+                              EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Center(
                                 child: Text(
                                   AppLocalizations.instance.text("loc_change"),
                                   style: CustomWidget(context: context)
                                       .CustomSizedTextStyle(
-                                          13.0,
-                                          Theme.of(context).focusColor,
-                                          FontWeight.w600,
-                                          'FontRegular'),
+                                      13.0,
+                                      Theme.of(context).focusColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
                                 ),
                               ),
                             ),
@@ -320,11 +320,11 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                   )),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                      CustomTheme.of(context).buttonColor,
-                    )
+                CustomTheme.of(context).buttonColor,
+              )
                   : Container()
             ],
           )),
-    );
+    ));
   }
 }

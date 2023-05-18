@@ -19,7 +19,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return OnBoardingSlider(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),child: OnBoardingSlider(
       finishButtonText: '',
 
       onFinish: () {
@@ -55,13 +55,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
       pageBackgroundColor: Theme.of(context).primaryColor,
       background: [
         SizedBox(
-          height: MediaQuery.of(context).size.height*0.5
+            height: MediaQuery.of(context).size.height*0.5
         ),
         SizedBox(
-          height:MediaQuery.of(context).size.height*0.5
+            height:MediaQuery.of(context).size.height*0.5
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height*0.5
+            height: MediaQuery.of(context).size.height*0.5
         ),
       ],
       speed: 0.1,
@@ -81,7 +81,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 CustomWidget(context: context)
                     .CustomSizedTextStyle(
                     32.0,
-                 Colors.white,
+                    Colors.white,
                     FontWeight.w700,
                     'FontRegular'),
               ),
@@ -102,7 +102,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               SizedBox(
                 height: 30,
               ),
-            bottomSkip(),
+              bottomSkip(),
               SizedBox(
                 height:30,
               ),
@@ -124,7 +124,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 CustomWidget(context: context)
                     .CustomSizedTextStyle(
                     30.0,
-                   Colors.white,
+                    Colors.white,
                     FontWeight.w700,
                     'FontRegular'),
               ),
@@ -146,7 +146,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               SizedBox(
                 height: 50,
               ),
-             bottomSkip(),
+              bottomSkip(),
               SizedBox(
                 height: 10,
               ),
@@ -199,7 +199,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   Widget bottomSkip(){

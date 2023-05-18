@@ -41,7 +41,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
@@ -96,7 +96,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
         color: CustomTheme.of(context).backgroundColor,
         child: tradeUI(),
       ),
-    );
+    ));
   }
 
   Widget tradeUI() {

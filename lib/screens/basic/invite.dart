@@ -15,7 +15,7 @@ class Invite_Screen extends StatefulWidget {
 class _Invite_ScreenState extends State<Invite_Screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -162,7 +162,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
                                 border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                              color: Theme.of(context).focusColor
+                                color: Theme.of(context).focusColor
 
                             ),
                             padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0,bottom: 10.0),
@@ -338,7 +338,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   showInviteFriends() {

@@ -22,7 +22,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -80,10 +80,10 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                         child: Container(
                           decoration: BoxDecoration(
 
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(width: 1.0,color: Theme.of(context).splashColor,
-                            ),
-                            color: selIndex==index? Theme.of(context).primaryColor:Theme.of(context).focusColor
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(width: 1.0,color: Theme.of(context).splashColor,
+                              ),
+                              color: selIndex==index? Theme.of(context).primaryColor:Theme.of(context).focusColor
                           ),
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 5.0),
@@ -138,7 +138,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                      AppLocalizations.instance.text("loc_wallet_increase"),
+                                        AppLocalizations.instance.text("loc_wallet_increase"),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             10.0,
@@ -150,9 +150,9 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                                       SizedBox(width: 5.0,),
                                       Container(
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
-                                            color: Theme.of(context).indicatorColor,
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          border: Border.all(width: 1.0,color: Theme.of(context).splashColor,),
+                                          color: Theme.of(context).indicatorColor,
                                         ),
                                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                                         child: Text(
@@ -187,6 +187,6 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

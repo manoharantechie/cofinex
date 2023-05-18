@@ -19,7 +19,7 @@ class Sign_In_Screen extends StatefulWidget {
 class _Sign_In_ScreenState extends State<Sign_In_Screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -172,27 +172,27 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
-                      child: GestureDetector(
-                        onTap: (){
+                        padding:const EdgeInsets.only(left: 25.0, right: 25.0,bottom: 20.0),
+                        child: GestureDetector(
+                          onTap: (){
 
-                        },
-                        child: Text(
-                          AppLocalizations.instance.text("loc_all_account"),
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                              14.0,
-                              Theme.of(context).canvasColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-                        ),
-                      )
+                          },
+                          child: Text(
+                            AppLocalizations.instance.text("loc_all_account"),
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                14.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w600,
+                                'FontRegular'),
+                          ),
+                        )
                     ),
                     InkWell(
                       onTap: (){
 
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) => LoginFirst()));
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) => LoginFirst()));
 
                       },
                       child: Container(
@@ -225,6 +225,6 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
             ],
           )
       ),
-    );
+    ));
   }
 }

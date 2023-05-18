@@ -61,7 +61,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
           padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
@@ -90,10 +90,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                             AppLocalizations.instance.text("loc_tot_asset"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
-                                    12.0,
-                                    Theme.of(context).errorColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                                12.0,
+                                Theme.of(context).errorColor,
+                                FontWeight.w600,
+                                'FontRegular'),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
@@ -105,10 +105,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 "0.000000",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        22.0,
-                                        Theme.of(context).errorColor,
-                                        FontWeight.w700,
-                                        'FontRegular'),
+                                    22.0,
+                                    Theme.of(context).errorColor,
+                                    FontWeight.w700,
+                                    'FontRegular'),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
@@ -118,10 +118,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 "USD",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        12.0,
-                                        Theme.of(context).accentColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
+                                    12.0,
+                                    Theme.of(context).accentColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -135,10 +135,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 "0.000000",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        14.0,
-                                        Theme.of(context).errorColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
+                                    14.0,
+                                    Theme.of(context).errorColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
@@ -148,10 +148,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 "BTC",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                        12.0,
-                                        Theme.of(context).accentColor,
-                                        FontWeight.w600,
-                                        'FontRegular'),
+                                    12.0,
+                                    Theme.of(context).accentColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -179,7 +179,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 padding:
-                                    EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                                EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   border: Border.all(
@@ -194,7 +194,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                       "assets/images/deposite.svg",
                                       height: 25.0,
                                       color:
-                                          Theme.of(context).bottomAppBarColor,
+                                      Theme.of(context).bottomAppBarColor,
                                     ),
                                     SizedBox(
                                       height: 10.0,
@@ -204,10 +204,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                           .text("loc_deposite"),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
+                                          12.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -233,7 +233,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                               },
                               child: Container(
                                 padding:
-                                    EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                                EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -249,7 +249,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                       "assets/images/withdraw.svg",
                                       height: 25.0,
                                       color:
-                                          Theme.of(context).bottomAppBarColor,
+                                      Theme.of(context).bottomAppBarColor,
                                     ),
                                     SizedBox(
                                       height: 10.0,
@@ -259,10 +259,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                           .text("loc_widthdraw"),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
+                                          12.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -283,7 +283,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 padding:
-                                    EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
+                                EdgeInsets.fromLTRB(5.0, 12.0, 5.0, 12.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   border: Border.all(
@@ -298,7 +298,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                       "assets/images/exchange.svg",
                                       height: 25.0,
                                       color:
-                                          Theme.of(context).bottomAppBarColor,
+                                      Theme.of(context).bottomAppBarColor,
                                     ),
                                     SizedBox(
                                       height: 10.0,
@@ -308,10 +308,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                           .text("loc_exchange"),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
+                                          12.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
                                       textAlign: TextAlign.center,
                                     ),
                                   ],
@@ -348,10 +348,10 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                           AppLocalizations.instance.text("loc_hide_bal"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  10.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
+                              10.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w500,
+                              'FontRegular'),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -387,207 +387,207 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 ),
                                 color: Theme.of(context).focusColor),
                             child:  ListView.builder(
-                                    physics: ScrollPhysics(),
-                                    itemCount: allTicker.length,
-                                    shrinkWrap: true,
-                                    controller: _scrollController,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      String coinImage =
-                                          allTicker[index].token.toString();
-                                      return Column(
-                                        children: [
-                                          Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    15.0, 10.0, 15.0, 0.0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Row(
+                              physics: ScrollPhysics(),
+                              itemCount: allTicker.length,
+                              shrinkWrap: true,
+                              controller: _scrollController,
+                              itemBuilder:
+                                  (BuildContext context, int index) {
+                                String coinImage =
+                                allTicker[index].token.toString();
+                                return Column(
+                                  children: [
+                                    Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width,
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              15.0, 10.0, 15.0, 0.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    child: Row(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
+                                                      CrossAxisAlignment
+                                                          .start,
                                                       children: [
                                                         Container(
-                                                          child: Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Container(
-                                                                width: 40,
-                                                                height: 40,
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            8.0),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  border: Border.all(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .splashColor,
-                                                                      width:
-                                                                          1.0),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10.0),
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .highlightColor,
-                                                                ),
-                                                                child: SvgPicture
-                                                                    .network(
-                                                                  "https://images.cofinex.io/crypto/ico/" +
-                                                                      coinImage
-                                                                          .toLowerCase() +
-                                                                      ".svg",
-                                                                  height: 15.0,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5.0,
-                                                              ),
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    coinImage,
-                                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                                                                        14.0,
-                                                                        Theme.of(context)
-                                                                            .primaryColor,
-                                                                        FontWeight
-                                                                            .w600,
-                                                                        'FontRegular'),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 8.0,
-                                                                  ),
-                                                                  Text(
-                                                                    coinImage,
-                                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                                                                        12.0,
-                                                                        Theme.of(context)
-                                                                            .canvasColor,
-                                                                        FontWeight
-                                                                            .w500,
-                                                                        'FontRegular'),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                ],
-                                                              )
-                                                            ],
+                                                          width: 40,
+                                                          height: 40,
+                                                          padding:
+                                                          EdgeInsets
+                                                              .all(
+                                                              8.0),
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Theme.of(
+                                                                    context)
+                                                                    .splashColor,
+                                                                width:
+                                                                1.0),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                10.0),
+                                                            color: Theme.of(
+                                                                context)
+                                                                .highlightColor,
+                                                          ),
+                                                          child: SvgPicture
+                                                              .network(
+                                                            "https://images.cofinex.io/crypto/ico/" +
+                                                                coinImage
+                                                                    .toLowerCase() +
+                                                                ".svg",
+                                                            height: 15.0,
                                                           ),
                                                         ),
-                                                        Container(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                allTicker[index]
-                                                                    .balance
-                                                                    .toString(),
-                                                                style: CustomWidget(
-                                                                        context:
-                                                                            context)
-                                                                    .CustomSizedTextStyle(
-                                                                        14.0,
-                                                                        Theme.of(context)
-                                                                            .primaryColor,
-                                                                        FontWeight
-                                                                            .w600,
-                                                                        'FontRegular'),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              SizedBox(
-                                                                height: 8.0,
-                                                              ),
-                                                              // Row(
-                                                              //   children: [
-                                                              //     Text(
-                                                              //       " \$ " +
-                                                              //           double.parse(
-                                                              //               allTicker[index]
-                                                              //                   .marketPrice
-                                                              //                   .toString())
-                                                              //               .toStringAsFixed(2),
-                                                              //       style: CustomWidget(
-                                                              //           context: context)
-                                                              //           .CustomSizedTextStyle(
-                                                              //           12.0,
-                                                              //           Theme.of(context)
-                                                              //               .canvasColor,
-                                                              //           FontWeight.w500,
-                                                              //           'FontRegular'),
-                                                              //       textAlign: TextAlign.center,
-                                                              //     ),
-                                                              //     SizedBox(
-                                                              //       width: 2.0,
-                                                              //     ),
-                                                              //     Text(
-                                                              //       coinImage1,
-                                                              //       style: CustomWidget(
-                                                              //           context: context)
-                                                              //           .CustomSizedTextStyle(
-                                                              //           12.0,
-                                                              //           Theme.of(context)
-                                                              //               .canvasColor,
-                                                              //           FontWeight.w500,
-                                                              //           'FontRegular'),
-                                                              //       textAlign: TextAlign.center,
-                                                              //     ),
-                                                              //   ],
-                                                              // )
-                                                            ],
-                                                          ),
+                                                        SizedBox(
+                                                          width: 5.0,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            Text(
+                                                              coinImage,
+                                                              style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                  14.0,
+                                                                  Theme.of(context)
+                                                                      .primaryColor,
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  'FontRegular'),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .center,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 8.0,
+                                                            ),
+                                                            Text(
+                                                              coinImage,
+                                                              style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                  12.0,
+                                                                  Theme.of(context)
+                                                                      .canvasColor,
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  'FontRegular'),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .center,
+                                                            ),
+                                                          ],
                                                         )
                                                       ],
                                                     ),
-                                                    SizedBox(
-                                                      height: 10.0,
+                                                  ),
+                                                  Container(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .end,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                      children: [
+                                                        Text(
+                                                          allTicker[index]
+                                                              .balance
+                                                              .toString(),
+                                                          style: CustomWidget(
+                                                              context:
+                                                              context)
+                                                              .CustomSizedTextStyle(
+                                                              14.0,
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                              FontWeight
+                                                                  .w600,
+                                                              'FontRegular'),
+                                                          textAlign:
+                                                          TextAlign
+                                                              .center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 8.0,
+                                                        ),
+                                                        // Row(
+                                                        //   children: [
+                                                        //     Text(
+                                                        //       " \$ " +
+                                                        //           double.parse(
+                                                        //               allTicker[index]
+                                                        //                   .marketPrice
+                                                        //                   .toString())
+                                                        //               .toStringAsFixed(2),
+                                                        //       style: CustomWidget(
+                                                        //           context: context)
+                                                        //           .CustomSizedTextStyle(
+                                                        //           12.0,
+                                                        //           Theme.of(context)
+                                                        //               .canvasColor,
+                                                        //           FontWeight.w500,
+                                                        //           'FontRegular'),
+                                                        //       textAlign: TextAlign.center,
+                                                        //     ),
+                                                        //     SizedBox(
+                                                        //       width: 2.0,
+                                                        //     ),
+                                                        //     Text(
+                                                        //       coinImage1,
+                                                        //       style: CustomWidget(
+                                                        //           context: context)
+                                                        //           .CustomSizedTextStyle(
+                                                        //           12.0,
+                                                        //           Theme.of(context)
+                                                        //               .canvasColor,
+                                                        //           FontWeight.w500,
+                                                        //           'FontRegular'),
+                                                        //       textAlign: TextAlign.center,
+                                                        //     ),
+                                                        //   ],
+                                                        // )
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              )),
-                                          Container(
-                                            height: 1.0,
-                                            color:
-                                                Theme.of(context).splashColor,
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  )
-                                ): Container(
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 10.0,
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                    Container(
+                                      height: 1.0,
+                                      color:
+                                      Theme.of(context).splashColor,
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                        ): Container(
                             margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
                             height: MediaQuery.of(context).size.height *
                                 0.3,
@@ -613,12 +613,12 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   )),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                      CustomTheme.of(context).buttonColor,
-                    )
+                CustomTheme.of(context).buttonColor,
+              )
                   : Container()
             ],
           )),
-    );
+    ));
   }
 
   fillList() async {

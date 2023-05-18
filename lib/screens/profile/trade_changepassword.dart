@@ -20,7 +20,7 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -114,19 +114,19 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
                 textChanged: (value) {},
                 onChanged: () {},
                 suffix: Container(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 5.0),
-                    child: Text(
-                      AppLocalizations.instance
-                          .text("loc_send"),
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          12.0,
-                          Theme.of(context).buttonColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                    ),
-                  )
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 5.0),
+                      child: Text(
+                        AppLocalizations.instance
+                            .text("loc_send"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).buttonColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                      ),
+                    )
                 ),
                 validator: (value) {
 
@@ -181,6 +181,6 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

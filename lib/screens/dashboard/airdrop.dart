@@ -17,7 +17,7 @@ class _Airdrop_ScreenState extends State<Airdrop_Screen> {
   ScrollController _scrollController=ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -85,116 +85,116 @@ class _Airdrop_ScreenState extends State<Airdrop_Screen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10.0,),
-                 InkWell(
-                   onTap: (){
-                     Navigator.of(context).push(MaterialPageRoute(
-                         builder: (context) => AirdropDetails()));
-                   },
-                   child:  Container(
-                     padding: EdgeInsets.only(
-                         top: 10.0, right: 15.0, left: 15.0, bottom: 10.0),
-                     decoration: BoxDecoration(
-                       borderRadius: BorderRadius.circular(15.0),
-                       image: DecorationImage(
-                         image: AssetImage("assets/images/back2.png"),
-                         fit: BoxFit.cover,
-                       ),
-                       color: Theme.of(context).primaryColor,
-                     ),
-                     child: Row(
-                       children: [
-                         Flexible(child:  Image.asset("assets/images/airdrop.png", ),flex: 1,),
-                         Flexible(child: Container(child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: [
-                             Text(
-                               "Embark on an adventure with Arbitrum and Cofinex Wallet",
-                               style: CustomWidget(context: context)
-                                   .CustomSizedTextStyle(
-                                   12.0,
-                                   Theme.of(context).errorColor,
-                                   FontWeight.w800,
-                                   'FontRegular'),
-                             ),
-                             SizedBox(height: 3.0,),
-                             Text(
-                               "Arbitrum Airdrop Extravaganza Campaign",
-                               style: CustomWidget(context: context)
-                                   .CustomSizedTextStyle(
-                                   18.0,
-                                   Theme.of(context).errorColor,
-                                   FontWeight.w700,
-                                   'FontRegular'),
-                             ),
-                             SizedBox(height: 3.0,),
-                             Text(
-                               "On Going",
-                               style: CustomWidget(context: context)
-                                   .CustomSizedTextStyle(
-                                   8.0,
-                                   Theme.of(context).buttonColor,
-                                   FontWeight.w800,
-                                   'FontRegular'),
-                             ),
-                             SizedBox(height: 5.0,),
-                             Text(
-                               "Prize #1: Exclusive",
-                               style: CustomWidget(context: context)
-                                   .CustomSizedTextStyle(
-                                   12.0,
-                                   Theme.of(context).errorColor,
-                                   FontWeight.w800,
-                                   'FontRegular'),
-                             ),
-                             RichText(
-                               text: TextSpan(
-                                 text: 'Airdrop ',
-                                 style: CustomWidget(context: context)
-                                     .CustomSizedTextStyle(
-                                     12.0,
-                                     Theme.of(context).errorColor,
-                                     FontWeight.w800,
-                                     'FontRegular'),
-                                 children: <TextSpan>[
-                                   TextSpan(
-                                     text: '\$10000',
-                                     style: CustomWidget(context: context)
-                                         .CustomSizedTextStyle(
-                                         12.0,
-                                         Theme.of(context).buttonColor,
-                                         FontWeight.w800,
-                                         'FontRegular'),),
-                                 ],
-                               ),
-                             ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AirdropDetails()));
+                    },
+                    child:  Container(
+                      padding: EdgeInsets.only(
+                          top: 10.0, right: 15.0, left: 15.0, bottom: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/back2.png"),
+                          fit: BoxFit.cover,
+                        ),
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      child: Row(
+                        children: [
+                          Flexible(child:  Image.asset("assets/images/airdrop.png", ),flex: 1,),
+                          Flexible(child: Container(child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Embark on an adventure with Arbitrum and Cofinex Wallet",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).errorColor,
+                                    FontWeight.w800,
+                                    'FontRegular'),
+                              ),
+                              SizedBox(height: 3.0,),
+                              Text(
+                                "Arbitrum Airdrop Extravaganza Campaign",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    18.0,
+                                    Theme.of(context).errorColor,
+                                    FontWeight.w700,
+                                    'FontRegular'),
+                              ),
+                              SizedBox(height: 3.0,),
+                              Text(
+                                "On Going",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    8.0,
+                                    Theme.of(context).buttonColor,
+                                    FontWeight.w800,
+                                    'FontRegular'),
+                              ),
+                              SizedBox(height: 5.0,),
+                              Text(
+                                "Prize #1: Exclusive",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).errorColor,
+                                    FontWeight.w800,
+                                    'FontRegular'),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Airdrop ',
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      12.0,
+                                      Theme.of(context).errorColor,
+                                      FontWeight.w800,
+                                      'FontRegular'),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '\$10000',
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          12.0,
+                                          Theme.of(context).buttonColor,
+                                          FontWeight.w800,
+                                          'FontRegular'),),
+                                  ],
+                                ),
+                              ),
 
 
-                             Container(
-                               width: MediaQuery.of(context).size.width,
-                               child: Align(
-                                   alignment: Alignment.centerRight,
-                                   child:  Row(
-                                     crossAxisAlignment: CrossAxisAlignment.end,
-                                     mainAxisAlignment:MainAxisAlignment.end,
-                                     children: [
-                                       SvgPicture.asset("assets/icon/share.svg",),
-                                       const SizedBox(width: 10.0,),
-                                       SvgPicture.asset("assets/images/gift.svg"),
-                                     ],
-                                   )
-                               ),
-                             )
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child:  Row(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment:MainAxisAlignment.end,
+                                      children: [
+                                        SvgPicture.asset("assets/icon/share.svg",),
+                                        const SizedBox(width: 10.0,),
+                                        SvgPicture.asset("assets/images/gift.svg"),
+                                      ],
+                                    )
+                                ),
+                              )
 
 
 
 
-                           ],
-                         ),),flex: 2,)
-                       ],
-                     ),
-                   ),
-                 ),
+                            ],
+                          ),),flex: 2,)
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 10.0,),
                 ],
               );
@@ -202,6 +202,6 @@ class _Airdrop_ScreenState extends State<Airdrop_Screen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

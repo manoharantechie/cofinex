@@ -41,7 +41,7 @@ class _Choose_CurrencyState extends State<Choose_Currency>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -106,17 +106,17 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                     color: CustomTheme.of(context).errorColor,
                     borderRadius: BorderRadius.circular(15.0),
                     border:
-                        Border.all(color: CustomTheme.of(context).splashColor)),
+                    Border.all(color: CustomTheme.of(context).splashColor)),
                 child: TabBar(
                   controller: _tabController,
                   labelStyle: CustomWidget(context: context)
                       .CustomSizedTextStyle(13.0, Theme.of(context).splashColor,
-                          FontWeight.w600, 'FontRegular'),
+                      FontWeight.w600, 'FontRegular'),
 
                   labelColor: CustomTheme.of(context).splashColor,
                   unselectedLabelStyle: CustomWidget(context: context)
                       .CustomSizedTextStyle(13.0, Theme.of(context).splashColor,
-                          FontWeight.w600, 'FontRegular'),
+                      FontWeight.w600, 'FontRegular'),
 
                   //<-- selected text color
                   unselectedLabelColor: CustomTheme.of(context).hintColor,
@@ -145,13 +145,13 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                     children: <Widget>[
                       loading
                           ? CustomWidget(context: context).loadingIndicator(
-                              CustomTheme.of(context).buttonColor,
-                            )
+                        CustomTheme.of(context).buttonColor,
+                      )
                           : currencyWidget(),
                       loading
                           ? CustomWidget(context: context).loadingIndicator(
-                              CustomTheme.of(context).buttonColor,
-                            )
+                        CustomTheme.of(context).buttonColor,
+                      )
                           : fiatWidget()
                       // spotList()
                     ],
@@ -162,7 +162,7 @@ class _Choose_CurrencyState extends State<Choose_Currency>
           ),
         ),
       ),
-    );
+    ));
   }
 
   Widget currencyWidget() {

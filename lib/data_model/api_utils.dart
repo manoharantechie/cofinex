@@ -19,6 +19,7 @@ class APIUtils {
   static const networkURL = "currency/networks";
   static const addressURL = "users/getaddress";
   static const kycURL = "users/initKyc";
+  static const fetchUserURL = "users/fetchuser";
   static const getTokenURL = "https://api.cofinex.in/encodewsheader";
 
   Future<dynamic> doRegisterEmail(
@@ -206,6 +207,21 @@ class APIUtils {
 
     final response = await http.get(
       Uri.parse(initURL + kycURL),
+      headers: {
+        'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+    return json.decode(response.body);
+  }
+
+  Future<dynamic> getUserDetails() async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+
+    final response = await http.get(
+      Uri.parse(initURL + fetchUserURL),
       headers: {
         'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
         'Authorization': "Bearer "+preferences.getString("token").toString()

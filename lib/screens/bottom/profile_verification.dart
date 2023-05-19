@@ -451,7 +451,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                       child: InkWell(
                         onTap: (){
                           Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) => Verification_Screen1()));
+                              .push(MaterialPageRoute(builder: (context) => Verification_Screen1(url: "",)));
                         },
                         child:Container(
                           decoration: BoxDecoration(

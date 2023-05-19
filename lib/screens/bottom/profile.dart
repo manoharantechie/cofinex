@@ -38,6 +38,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
 
   bool loginStatus=false;
 
+  String  name="";
+  String  email="";
+  String  kycStatus="";
+  String  kycLink="";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -52,6 +57,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
     setState(() {
 
       loginStatus=preferences.getBool("login")!;
+      name=preferences.getString("name").toString();
+      email=preferences.getString("name").toString();
+      kycLink=preferences.getString("kycLink").toString();
+
+      kycStatus=preferences.getString("kyc").toString();
       themeType=preferences.getString('theme').toString();
 
 
@@ -181,7 +191,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       width: 10.0,
                     ),
                     Text(
-                      "Dan Tourlan",
+                     name,
                       style: CustomWidget(context: context)
                           .CustomSizedTextStyle(
                           14.0,
@@ -212,8 +222,14 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   ),
                   InkWell(
                     onTap: (){
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) => Verification_Screen1()));
+                      print(kycStatus);
+                      if(kycStatus.toString().toUpperCase()=="PENDING")
+                        {
+
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) => Verification_Screen1(url: kycLink,)));
+                        }
+
                     },
                     child: Padding(
                       padding: EdgeInsets.only(

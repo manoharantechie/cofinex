@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../common/custom_button.dart';
 import '../../common/custom_switch.dart';
 import '../../common/custom_widget.dart';
 import '../../common/theme/custom_theme.dart';
 import 'dart:math' as math;
+
+import '../cards/add_card.dart';
 
 class Card_Details_Screen extends StatefulWidget {
   const Card_Details_Screen({Key? key}) : super(key: key);
@@ -222,7 +225,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
               alignment: Alignment.bottomCenter,
               child: InkWell(
                 onTap: () {
-
+                  purchesDialog();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -5216,6 +5219,789 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           );
         });
     // show the dialog
+  }
+
+  purchesDialog() {
+    showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).focusColor,
+      elevation: 10,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.6,
+              padding: EdgeInsets.all(10.0),
+              child: Stack(
+                children: [
+                 Container(
+                   child:  Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Container(
+                         padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+                         child: Row(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Text(
+                               "Purchase & Hold Reqired",
+                               style: CustomWidget(context: context)
+                                   .CustomSizedTextStyle(
+                                   12.0,
+                                   Theme.of(context).primaryColor,
+                                   FontWeight.w600,
+                                   'FontRegular'),
+                               textAlign: TextAlign.center,
+                             ),
+
+                             Column(
+                               crossAxisAlignment: CrossAxisAlignment.end,
+                               children: [
+                                 Text(
+                                   "\$500"+ " SGD",
+                                   style: CustomWidget(context: context)
+                                       .CustomSizedTextStyle(
+                                       12.0,
+                                       Theme.of(context).primaryColor,
+                                       FontWeight.w600,
+                                       'FontRegular'),
+                                   textAlign: TextAlign.center,
+                                 ),
+                                 const SizedBox(height: 5.0,),
+                                 Text(
+                                   "worth of CNX",
+                                   style: CustomWidget(context: context)
+                                       .CustomSizedTextStyle(
+                                       12.0,
+                                       Theme.of(context).accentColor,
+                                       FontWeight.w600,
+                                       'FontRegular'),
+                                   textAlign: TextAlign.center,
+                                 ),
+                               ],
+                             )
+                           ],
+                         ),
+                       ),
+                       Container(
+                         width: MediaQuery.of(context).size.width,
+                         color: Theme.of(context).accentColor.withOpacity(0.5),
+                         height: 1.0,
+                       ),
+                       Container(
+                         padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+                         child: Row(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(
+                                   "Holding Period",
+                                   style: CustomWidget(context: context)
+                                       .CustomSizedTextStyle(
+                                       12.0,
+                                       Theme.of(context).primaryColor,
+                                       FontWeight.w600,
+                                       'FontRegular'),
+                                   textAlign: TextAlign.start,
+                                 ),
+                                 const SizedBox(height: 5.0,),
+                                 Container(
+                                   width: MediaQuery.of(context).size.width * 0.6,
+                                   child: Text(
+                                     "After 180 days, you can transfer your tokens back to your wallet, no string attached.",
+                                     style: CustomWidget(context: context)
+                                         .CustomSizedTextStyle(
+                                         12.0,
+                                         Theme.of(context).accentColor,
+                                         FontWeight.w600,
+                                         'FontRegular'),
+                                     textAlign: TextAlign.start,
+                                   ),
+                                 ),
+                               ],
+                             ),
+
+                             Text(
+                               "180 Days",
+                               style: CustomWidget(context: context)
+                                   .CustomSizedTextStyle(
+                                   12.0,
+                                   Theme.of(context).primaryColor,
+                                   FontWeight.w600,
+                                   'FontRegular'),
+                               textAlign: TextAlign.center,
+                             ),
+
+
+                           ],
+                         ),
+                       ),
+                       Container(
+                         width: MediaQuery.of(context).size.width,
+                         color: Theme.of(context).accentColor.withOpacity(0.5),
+                         height: 1.0,
+                       ),
+                     ],
+                   ),
+                 ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        purchesDetailsDialog();
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).buttonColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          "Purchase & Hold CNX for 180 Days",
+                          // "This is Your Current Card",
+                          // "Upgrade to Ruby Steel",
+                          // "Continue",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context).focusColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ));
+      },
+    );
+  }
+
+  purchesDetailsDialog() {
+    showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).focusColor,
+      elevation: 10,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              // padding: EdgeInsets.all(10.0),
+              child: Stack(
+                children: [
+                  Container(
+                    child:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Purchase & Hold Amount",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+
+                             InkWell(
+                               onTap: (){
+                                 Navigator.pop(context);
+                               },
+                               child:  Icon(
+                                 Icons.close,
+                                 size: 20.0,
+                                 color: Theme.of(context).primaryColor,
+                               ),
+                             )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 35.0),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor.withOpacity(0.2),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1.0, color: Theme.of(context).accentColor),
+                                  borderRadius: BorderRadius.circular(10.0)
+                                ),
+                                child: Text(
+                                  "€ 500.00 = SGD",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context).primaryColor.withOpacity(0.5),
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              const SizedBox(height: 10.0,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "5726",
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        22.0,
+                                        Theme.of(context).primaryColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                  const SizedBox(width: 10.0,),
+                                  Text(
+                                    "CNX",
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        16.0,
+                                        Theme.of(context).canvasColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10.0,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                 Icon(
+                                   Icons.lock_outline_rounded,
+                                   size: 20.0,
+                                   color: Theme.of(context).canvasColor,
+                                 ),
+                                  const SizedBox(width: 10.0,),
+                                  Text(
+                                    "180 Days Deposit",
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        13.0,
+                                        Theme.of(context).canvasColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ],
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Weekly Limit(USD):"+" ",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),
+
+                              Text(
+                                "\$0.00/\$25000.00",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).accentColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10.0,),
+                        Container(
+                          margin: EdgeInsets.only(left: 20.0,right: 20.0),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(15.0)
+                          ),
+                          height: 10.0,
+                        ),
+                        const SizedBox(height: 15.0,),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          color: Theme.of(context).accentColor.withOpacity(0.5),
+                          height: 1.0,
+                        ),
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => AddCardDetails()));
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+
+                                Icon(
+                                  Icons.add, size: 20.0,color: Theme.of(context).buttonColor,
+                                ),
+                                const SizedBox(width: 10.0,),
+                                Text(
+                                  "Add Credit or Debit Card",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context).buttonColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          width: MediaQuery.of(context).size.width,
+                          color: Theme.of(context).accentColor.withOpacity(0.2),
+                          child:Text(
+                            "Other Methods".toUpperCase(),
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                12.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w600,
+                                'FontRegular'),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+
+                                    Icon(
+                                      Icons.qr_code_2_outlined, size: 25.0,color: Theme.of(context).accentColor,
+                                    ),
+                                    const SizedBox(width: 10.0,),
+                                    Text(
+                                      "External CNX Wallet",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).buttonColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 22.0,
+                                color: Theme.of(context).accentColor,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          width: MediaQuery.of(context).size.width,
+                          color: Theme.of(context).accentColor.withOpacity(0.2),
+                          child:Text(
+                            "Wallet".toUpperCase(),
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                12.0,
+                                Theme.of(context).canvasColor,
+                                FontWeight.w600,
+                                'FontRegular'),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+
+                                    Container(
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context).accentColor.withOpacity(0.5),shape: BoxShape.circle
+                                      ),
+                                      child: Text(
+                                        "C",
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            14.0,
+                                            Theme.of(context).focusColor,
+                                            FontWeight.w600,
+                                            'FontRegular'),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10.0,),
+                                    Text(
+                                      "Cofinex(CNX)",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "0 "+"CNX",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).accentColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        depositDetailsDialog();
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).buttonColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          "Insufficient balance to Lock up",
+                          // "This is Your Current Card",
+                          // "Upgrade to Ruby Steel",
+                          // "Continue",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context).focusColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ));
+      },
+    );
+  }
+
+  depositDetailsDialog() {
+    showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).focusColor,
+      elevation: 10,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              // padding: EdgeInsets.all(10.0),
+              child: Stack(
+                children: [
+                  Container(
+                    child:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.pop(context);
+                                      },
+                                      child:  Icon(
+                                        Icons.arrow_back_outlined,
+                                        size: 24.0,
+                                        color: Theme.of(context).accentColor,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 25.0,),
+                                    Text(
+                                      "Deposit CNX",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          16.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              InkWell(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child:  Icon(
+                                  Icons.close,
+                                  size: 20.0,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 35.0, 20.0, 20.0),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor.withOpacity(0.2),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Select Network".toUpperCase(),
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        12.0,
+                                        Theme.of(context).canvasColor,
+                                        FontWeight.w600,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(width: 10.0,),
+                                  Icon(
+                                    Icons.info_outline,
+                                    size: 22.0,
+                                    color: Theme.of(context).buttonColor,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 15.0,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                 Flexible(child:  Container(
+                                   padding: EdgeInsets.all(8.0),
+                                   decoration: BoxDecoration(
+                                       border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5)),
+                                       borderRadius: BorderRadius.circular(5.0)
+                                   ),
+                                   child: Text(
+                                     "Cofinex CNX-20",
+                                     style: CustomWidget(context: context)
+                                         .CustomSizedTextStyle(
+                                         14.0,
+                                         Theme.of(context).buttonColor,
+                                         FontWeight.w600,
+                                         'FontRegular'),
+                                     textAlign: TextAlign.center,
+                                   ),
+                                 ),flex: 1,),
+                                  // const SizedBox(width: 10.0,),
+                                  // Flexible(child: Container(
+                                  //   padding: EdgeInsets.all(8.0),
+                                  //   decoration: BoxDecoration(
+                                  //       border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5)),
+                                  //       borderRadius: BorderRadius.circular(5.0)
+                                  //   ),
+                                  //   child: Text(
+                                  //     "Cofinex CNX-20",
+                                  //     style: CustomWidget(context: context)
+                                  //         .CustomSizedTextStyle(
+                                  //         14.0,
+                                  //         Theme.of(context).buttonColor,
+                                  //         FontWeight.w600,
+                                  //         'FontRegular'),
+                                  //     textAlign: TextAlign.center,
+                                  //   ),
+                                  // ),flex: 1,),
+
+                                ],
+                              ),
+                              const SizedBox(height: 10.0,),
+                              Text(
+                                "Only Deposit Cofinex CNX on the Cofinex network. any tokens sent toa non Cofinex compatible address will be lost.",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).canvasColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),
+                              const SizedBox(height: 15.0,),
+                              Text(
+                                "CNX wallet address".toUpperCase(),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    13.0,
+                                    Theme.of(context).canvasColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(child: Text(
+                                "Cnx12sdgs54f2d4sxd1cx74cgfcgcdh451fs1s741",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              ),flex: 5,),
+
+                              Flexible(child: Icon(Icons.qr_code_2_outlined, size: 30.0, color: Theme.of(context).buttonColor,), flex: 1,),
+
+                              Flexible(child: Icon(Icons.copy_outlined, size: 25.0, color: Theme.of(context).buttonColor,), flex: 1,)
+
+
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10.0,),
+
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
+                        padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).buttonColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          "Share Address & Memo",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context).focusColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ));
+      },
+    );
   }
 
 

@@ -15,6 +15,7 @@ import 'package:cofinex/screens/bottom/profile.dart';
 
 import 'package:cofinex/screens/bottom/market.dart';
 import 'package:cofinex/screens/bottom/trade.dart';
+import 'package:cofinex/screens/cards/apply_cards.dart';
 import 'package:cofinex/screens/dashboard/airdrop.dart';
 import 'package:cofinex/screens/dashboard/exchange.dart';
 import 'package:cofinex/screens/dashboard/gift_card.dart';
@@ -611,7 +612,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                   builder: (context) => Staking()));
                             } else if (index == 3) {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Card_Details_Screen()));
+                                  builder: (context) => ApplyCard()));
                             }else if (index == 4) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Leader_Board_Screen()));

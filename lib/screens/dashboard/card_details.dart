@@ -14,13 +14,21 @@ class Card_Details_Screen extends StatefulWidget {
   State<Card_Details_Screen> createState() => _Card_Details_ScreenState();
 }
 
-class _Card_Details_ScreenState extends State<Card_Details_Screen> {
+class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerProviderStateMixin {
 
   bool light= false;
   bool cofinex= false;
   bool green= true;
   bool purple = false;
 
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController = TabController(vsync: this, length: 5);
+  }
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -55,13 +63,164 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
         color: Theme.of(context).backgroundColor,
         child: Stack(
           children: [
+            Column(
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  isScrollable: true,
+                  labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                      13.0,
+                      Theme.of(context).accentColor,
+                      FontWeight.w600,
+                      'FontRegular'),
 
-            buyDetails(),
+                  labelColor: CustomTheme.of(context).primaryColor,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  //<-- selected text color
+                  unselectedLabelColor:
+                  CustomTheme.of(context).primaryColor.withOpacity(0.5),
+                  // isScrollable: true,
+                  indicatorColor: CustomTheme.of(context).buttonColor,
+                  padding: EdgeInsets.only(bottom: 5.0),
+
+
+                  tabs: <Widget>[
+                    Tab(
+
+                        child:Container(
+
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/icon/card_icon.svg',height: 40.0,width: 40.0,color: Colors.red,),
+
+                              const SizedBox(width: 5.0,),
+                              Text(
+                                "Midnight\n Blue",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).cardColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.start,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Tab(
+
+                        child:Container(
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/icon/card_icon.svg',height: 40.0,width: 40.0,),
+                              const SizedBox(width: 5.0,),
+                              Text(
+                                "Ruby\nSteel",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).cardColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Tab(
+
+                        child:Container(
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/icon/card_icon.svg',height: 40.0,width: 40.0,),
+                              const SizedBox(width: 5.0,),
+                              Text(
+                                "Jade Green/\nRoyal Indigo",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).cardColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Tab(
+
+                        child:Container(
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/icon/card_icon.svg',height: 40.0,width: 40.0,),
+                              const SizedBox(width: 5.0,),
+                              Text(
+                                "Icy White/\nRose Gold",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    16.0,
+                                    Theme.of(context).cardColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Tab(
+
+                      child:Container(
+                        child: Row(
+                          children: [
+                            SvgPicture.asset('assets/icon/card_icon.svg',height: 40.0,width: 40.0,),
+                            const SizedBox(width: 5.0,),
+                            Text(
+                              "Obsidian",
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  16.0,
+                                  Theme.of(context).cardColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10.0),
+                    color: CustomTheme.of(context).backgroundColor,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        normalCard(),
+                        rubyCard(),
+                        jadeGreen(),
+                        normalCard(),
+                        normalCard(),
+
+                        // spotList()
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
 
             Align(
               alignment: Alignment.bottomCenter,
               child: InkWell(
                 onTap: () {
+
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -95,127 +254,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
     );
   }
 
-  Widget cardSetup(){
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          Container(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(80.0, 10.0, 80.0, 10.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor.withOpacity(0.2),
-                  ),
-                  child: Text(
-                    "NEO",
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        20.0,
-                        Theme.of(context).primaryColor,
-                        FontWeight.w700,
-                        'FontRegular'),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 15.0,),
-                Text(
-                  "View or Upgrade",
-                  style: CustomWidget(context: context)
-                      .CustomSizedTextStyle(
-                      16.0,
-                      Theme.of(context).cardColor,
-                      FontWeight.w600,
-                      'FontRegular'),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 15.0,),
-                Padding(padding: EdgeInsets.fromLTRB(35.0, 5.0, 35.0, 5.0), child: Container(
-                  padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    gradient: LinearGradient(
-                      begin: Alignment.center,
-                      end: Alignment.centerRight,
-                      colors: <Color>[
-                        Color(0xff000000),
-                        Color(0xff146b98),
-                      ],
-                      tileMode: TileMode.mirror,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 15.0,),
-                      Text(
-                        "Cofinex Card Design",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            16.0,
-                            Theme.of(context).focusColor,
-                            FontWeight.w600,
-                            'FontRegular'),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 10.0,),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SvgPicture.asset("assets/images/crypto_currency.svg", color: Theme.of(context).backgroundColor, height: 100.0,),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SvgPicture.asset(
-                          "assets/images/visaCard.svg",
-                          height: 22.0,
-                          width: 22.0,
-                          alignment: Alignment.center,
-                          matchTextDirection: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),),
-                const SizedBox(height: 30.0,),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.24),
-            padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 15.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10.0,),
-               Container(
-                 padding: EdgeInsets.all(10.0),
-                 decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(8.0),
-                   color: Theme.of(context).accentColor.withOpacity(0.3),
-                 ),
-                 child:  Text(
-                   "We appreciate your interest and support. Our team is dedicated to making the cofinex.io when Visa/Mastercard available in your market. Rest assured, we will inform you as soon as there is an update on its status.",
-                   style: CustomWidget(context: context)
-                       .CustomSizedTextStyle(
-                       12.0,
-                       Theme.of(context).primaryColor,
-                       FontWeight.w600,
-                       'FontRegular'),
-                   textAlign: TextAlign.start,
-                 ),
-               ),
 
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget normalCard() {
     return SingleChildScrollView(
@@ -935,40 +974,40 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                     Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text(
-                           "Card Cashback",
-                           style: CustomWidget(context: context)
-                               .CustomSizedTextStyle(
-                               14.0,
-                               Theme.of(context).primaryColor,
-                               FontWeight.w600,
-                               'FontRegular'),
-                           textAlign: TextAlign.start,
-                         ),
-                         cofinex ? Text(
-                           "(Up to €25.00 USD equiv every month )",
-                           style: CustomWidget(context: context)
-                               .CustomSizedTextStyle(
-                               12.0,
-                               Theme.of(context).accentColor,
-                               FontWeight.w400,
-                               'FontRegular'),
-                           textAlign: TextAlign.start,
-                         ): Text(
-                           "(Up to €0.00 USD equiv every month )",
-                           style: CustomWidget(context: context)
-                               .CustomSizedTextStyle(
-                               12.0,
-                               Theme.of(context).accentColor,
-                               FontWeight.w400,
-                               'FontRegular'),
-                           textAlign: TextAlign.start,
-                         )
-                       ],
-                     ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Card Cashback",
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                14.0,
+                                Theme.of(context).primaryColor,
+                                FontWeight.w600,
+                                'FontRegular'),
+                            textAlign: TextAlign.start,
+                          ),
+                          cofinex ? Text(
+                            "(Up to €25.00 USD equiv every month )",
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                12.0,
+                                Theme.of(context).accentColor,
+                                FontWeight.w400,
+                                'FontRegular'),
+                            textAlign: TextAlign.start,
+                          ): Text(
+                            "(Up to €0.00 USD equiv every month )",
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                12.0,
+                                Theme.of(context).accentColor,
+                                FontWeight.w400,
+                                'FontRegular'),
+                            textAlign: TextAlign.start,
+                          )
+                        ],
+                      ),
                       cofinex ? Text(
                         "1%",
                         style: CustomWidget(context: context)
@@ -1007,18 +1046,18 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                             textAlign: TextAlign.start,
                           ),
                           cofinex  ? Container(
-                           width: MediaQuery.of(context).size.width * 0.7,
-                           child:  Text(
-                             "(Up to €25.00 USD equiv every month for 6 months)",
-                             style: CustomWidget(context: context)
-                                 .CustomSizedTextStyle(
-                                 12.0,
-                                 Theme.of(context).accentColor,
-                                 FontWeight.w400,
-                                 'FontRegular'),
-                             textAlign: TextAlign.start,
-                           ),
-                         ) : Container(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child:  Text(
+                              "(Up to €25.00 USD equiv every month for 6 months)",
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).accentColor,
+                                  FontWeight.w400,
+                                  'FontRegular'),
+                              textAlign: TextAlign.start,
+                            ),
+                          ) : Container(
                             width: MediaQuery.of(context).size.width * 0.7,
                             child:  Text(
                               "(Up to €13.99 USD equiv every month for 6 months)",
@@ -1082,223 +1121,223 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                   ),
                 ),
                 const SizedBox(height: 50.0,),
-                    Align(alignment: Alignment.center,child: Text(
-                      "Other Information",
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          16.0,
-                          Theme.of(context).cardColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textAlign: TextAlign.center,
-                    ),),
-                    const SizedBox(height: 10.0,),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Fees",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            " ",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).accentColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                Align(alignment: Alignment.center,child: Text(
+                  "Other Information",
+                  style: CustomWidget(context: context)
+                      .CustomSizedTextStyle(
+                      16.0,
+                      Theme.of(context).cardColor,
+                      FontWeight.w600,
+                      'FontRegular'),
+                  textAlign: TextAlign.center,
+                ),),
+                const SizedBox(height: 10.0,),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Fees",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Monthly Fee",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "No Charge",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).buttonColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                      Text(
+                        " ",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Annual Fee",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "No Charge",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).buttonColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Monthly Fee",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
+                      Text(
+                        "No Charge",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).buttonColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Annual Fee",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                      Text(
+                        "No Charge",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).buttonColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
 
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Delivery Fee",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "No Charge",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).buttonColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Delivery Fee",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "CNX Token Purchase Required",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            " ",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).accentColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                      Text(
+                        "No Charge",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).buttonColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Purchase and hold €500 SGD worth of CNX tokens for 180 days to receive the Ruby Steel card.",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          const SizedBox(height: 10.0,),
-                          GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                showSuccessAlertDialog();
-                              });
-                            },
-                            child: Text(
-                              "Learn More",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  Theme.of(context).buttonColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
-                              textAlign: TextAlign.start,
-                            ),
-                          )
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "CNX Token Purchase Required",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
+                      Text(
+                        " ",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Purchase and hold €500 SGD worth of CNX tokens for 180 days to receive the Ruby Steel card.",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                      const SizedBox(height: 10.0,),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            showSuccessAlertDialog();
+                          });
+                        },
+                        child: Text(
+                          "Learn More",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context).buttonColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+                          textAlign: TextAlign.start,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
                   child: Row(
@@ -1362,211 +1401,211 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                     ],
                   ),
                 ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Card",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            " ",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).accentColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Card",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Card Type",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "Platinum",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                      Text(
+                        " ",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Material",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "Metal",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Card Type",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Contactless Payment",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Icon(Icons.check, color: Theme.of(context).indicatorColor, size: 20.0,),
-                        ],
+                      Text(
+                        "Platinum",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Pay anywhere VISA is accepted",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Icon(Icons.check, color: Theme.of(context).indicatorColor, size: 20.0,),
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Material",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Crypto.com Visa Card Terms & Conditions",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                12.0,
-                                Theme.of(context).canvasColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            " ",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).accentColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
+                      Text(
+                        "Metal",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      height: 1.0,width: MediaQuery.of(context).size.width,
-                      color: Theme.of(context).accentColor.withOpacity(0.3),
-                    ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Terms & Conditions",
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).primaryColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.start,
-                          ),
-                          Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Contactless Payment",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
                       ),
-                    ),
+                      Icon(Icons.check, color: Theme.of(context).indicatorColor, size: 20.0,),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Pay anywhere VISA is accepted",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                      Icon(Icons.check, color: Theme.of(context).indicatorColor, size: 20.0,),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Crypto.com Visa Card Terms & Conditions",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            12.0,
+                            Theme.of(context).canvasColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                      Text(
+                        " ",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 1.0,width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                ),
+                Container(
+                  color: Theme.of(context).focusColor,
+                  padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Terms & Conditions",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -1651,8 +1690,8 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           color: Theme.of(context).cardColor.withOpacity(0.3),
                           border: Border.all(width: 1.0, color: Color(0xff034a01).withOpacity(0.5),)
                       ) :BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Theme.of(context).cardColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Theme.of(context).cardColor.withOpacity(0.3),
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -1695,8 +1734,8 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                           color: Theme.of(context).cardColor.withOpacity(0.3),
                           border: Border.all(width: 1.0, color: Color(0xff0e014a).withOpacity(0.5),)
                       ) : BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: Theme.of(context).cardColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Theme.of(context).cardColor.withOpacity(0.3),
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -2070,16 +2109,16 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                    Text(
-                    "Airport Lounge",
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        14.0,
-                        Theme.of(context).primaryColor,
-                        FontWeight.w600,
-                        'FontRegular'),
-                    textAlign: TextAlign.start,
-                    ),
+                      Text(
+                        "Airport Lounge",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).primaryColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.start,
+                      ),
                       cofinex ? Icon(Icons.check, color: Theme.of(context).indicatorColor, size: 20.0,): Icon(Icons.close, size: 20.0, color: Theme.of(context).primaryColor,),
                     ],
                   ),
@@ -2980,7 +3019,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
                 borderRadius: BorderRadius.circular(15.0)), //this right here
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(15.0),
                 gradient: LinearGradient(
                     colors: [CustomTheme.of(context).splashColor, CustomTheme.of(context).splashColor],
                     begin: Alignment.topRight,
@@ -3049,6 +3088,11 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> {
         });
     // show the dialog
   }
+
+
+
+
+
 }
 
 

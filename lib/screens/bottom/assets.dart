@@ -52,7 +52,7 @@ class _AssetsState extends State<Assets> {
           color: CustomTheme.of(context).backgroundColor,
           child:  loading
               ? CustomWidget(context: context).loadingIndicator(
-            CustomTheme.of(context).buttonColor,
+            CustomTheme.of(context).primaryColorLight,
           ):Padding(
               padding: EdgeInsets.only(left: 20.0,right: 20.0),
               child:  Container(
@@ -153,7 +153,7 @@ class _AssetsState extends State<Assets> {
                                                 style: CustomWidget(context: context)
                                                     .CustomSizedTextStyle(
                                                     14.0,
-                                                    Theme.of(context).buttonColor,
+                                                    Theme.of(context).primaryColorLight,
                                                     FontWeight.w500,
                                                     'FontRegular'),
                                                 textAlign: TextAlign.center,

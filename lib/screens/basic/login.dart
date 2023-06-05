@@ -233,7 +233,7 @@ class _Sign_Up_screenState extends State<Login> {
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     borderRadius: BorderRadius.circular(10.0),
                                     border: Border.all(color: Theme.of(context).backgroundColor, ),
                                   ),
@@ -331,7 +331,7 @@ class _Sign_Up_screenState extends State<Login> {
                 ),
               ),
               loading   ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).buttonColor,
+                CustomTheme.of(context).primaryColorLight,
               )
                   : Container()
             ],

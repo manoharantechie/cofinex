@@ -129,7 +129,7 @@ class _LoginFirstState extends State<LoginFirst> {
                             error: "Enter Email or Phone Number",
                             textColor: Theme.of(context).bottomAppBarColor,
                             borderColor:
-                                Theme.of(context).accentColor.withOpacity(0.5),
+                                Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             fillColor: Theme.of(context).shadowColor,
                             hintStyle: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
@@ -193,7 +193,7 @@ class _LoginFirstState extends State<LoginFirst> {
                               padding:
                                   EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).buttonColor,
+                                color: Theme.of(context).primaryColorLight,
                                 borderRadius: BorderRadius.circular(10.0),
                                 border: Border.all(
                                   color: Theme.of(context).backgroundColor,
@@ -263,7 +263,7 @@ class _LoginFirstState extends State<LoginFirst> {
                               borderRadius: BorderRadius.circular(10.0),
                               border: Border.all(
                                 width: 1.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                               ),
                               color: Theme.of(context).focusColor,
                             ),
@@ -353,7 +353,7 @@ class _LoginFirstState extends State<LoginFirst> {
                   ),
                   loading
                       ? CustomWidget(context: context).loadingIndicator(
-                          CustomTheme.of(context).buttonColor,
+                          CustomTheme.of(context).primaryColorLight,
                         )
                       : Container()
                 ],

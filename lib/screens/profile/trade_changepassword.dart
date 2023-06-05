@@ -99,7 +99,7 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
                 radius: 10.0,
                 error: "Enter verification code",
                 textColor: Theme.of(context).backgroundColor,
-                borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                 fillColor: Theme.of(context).focusColor,
                 hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                     12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -122,7 +122,7 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                       ),
@@ -147,7 +147,7 @@ class _Trade_Change_ScreenState extends State<Trade_Change_Screen> {
                     margin: EdgeInsets.only(bottom: 15.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).buttonColor,
+                      color: Theme.of(context).primaryColorLight,
                     ),
                     padding: EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
                     width: MediaQuery.of(context).size.width * 0.5,

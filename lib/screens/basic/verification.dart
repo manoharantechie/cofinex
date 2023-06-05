@@ -156,7 +156,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                           error: "Enter Code",
                           textColor: Theme.of(context).bottomAppBarColor,
                           borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           fillColor: Theme.of(context).shadowColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
@@ -263,7 +263,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
                             margin: EdgeInsets.only(bottom: 15.0),
                             padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorLight,
                               borderRadius: BorderRadius.circular(10.0),
                               border: Border.all(
                                 color: Theme.of(context).backgroundColor,
@@ -292,7 +292,7 @@ class _Verification_ScreenState extends State<Verification_Screen> {
               ),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).buttonColor,
+                CustomTheme.of(context).primaryColorLight,
               )
                   : Container()
             ],

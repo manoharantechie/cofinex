@@ -219,7 +219,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
             child: Container(
               padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).buttonColor,
+                color: Theme.of(context).primaryColorLight,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(

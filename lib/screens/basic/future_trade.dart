@@ -131,7 +131,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                                 padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.8),
                                 ),
                                 child:  SvgPicture.asset("assets/images/eth.svg", height: 15.0,),
                               ),
@@ -151,7 +151,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                           icon: Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 15.0,
-                            // color: Theme.of(context).buttonColor,
+                            // color: Theme.of(context).primaryColorLight,
                             // color: Them,
                             // color: AppColors.otherTextColor,
                           ),
@@ -173,7 +173,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                     borderColor: Theme.of(context).backgroundColor,
                     fillColor: Theme.of(context).backgroundColor,
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                        18.0, Theme.of(context).accentColor.withOpacity(0.8), FontWeight.w600, 'FontRegular'),
+                        18.0, Theme.of(context).unselectedWidgetColor.withOpacity(0.8), FontWeight.w600, 'FontRegular'),
                     textStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         18.0,
                         Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -198,7 +198,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                             "USDT",
                             style: CustomWidget(context: context).CustomSizedTextStyle(
                                 10.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w500,
                                 'FontRegular'),
                             textAlign: TextAlign.center,
@@ -218,7 +218,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                   ),
                   Container(
                     height: 1.0,
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).primaryColorLight,
                   ),
                   SizedBox(
                     height: 15.0,
@@ -231,7 +231,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                         "You are buying =",
                         style: CustomWidget(context: context).CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w500,
                             'FontRegular'),
                         textAlign: TextAlign.center,
@@ -240,7 +240,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                         "0 USD",
                         style: CustomWidget(context: context).CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w500,
                             'FontRegular'),
                         textAlign: TextAlign.center,
@@ -258,7 +258,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                         "Pay with",
                         style: CustomWidget(context: context).CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.center,
@@ -288,7 +288,7 @@ class _Future_Trade_ScreenState extends State<Future_Trade_Screen> {
                       margin: EdgeInsets.only(bottom: 15.0),
                       padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).buttonColor,
+                        color: Theme.of(context).primaryColorLight,
                         borderRadius: BorderRadius.circular(15.0),
                         border: Border.all(color: Theme.of(context).backgroundColor, ),
                       ),

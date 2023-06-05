@@ -307,9 +307,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ),
                         CustomSwitch(
                           value: cofinex,
-                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          activeColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           circleColor:  Theme.of(context).focusColor,
-                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           activeTextColor: Theme.of(context).focusColor,
                           chanegStatus: light,
                           onChanged: (val){
@@ -543,9 +543,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ),
                         CustomSwitch(
                           value: light,
-                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          activeColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           circleColor:  Theme.of(context).focusColor,
-                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           activeTextColor: Theme.of(context).focusColor,
                           chanegStatus: light,
                           onChanged: (val){
@@ -607,7 +607,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               SvgPicture.asset(
                                 "assets/images/notification.svg",
                                 height: 18.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                               ),
                               SizedBox(
                                 width: 10.0,
@@ -677,7 +677,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w600,
                                   'FontRegular'),
                             ),
@@ -877,7 +877,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
 
                    padding: EdgeInsets.only(left: 25.0,right: 25.0,top: 10.0,bottom: 10.0),
                    decoration: BoxDecoration(
-                     color:  Theme.of(context).buttonColor,
+                     color:  Theme.of(context).primaryColorLight,
                      borderRadius: BorderRadius.circular(5.0),
 
                    ),
@@ -944,9 +944,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ),
                         CustomSwitch(
                           value: cofinex,
-                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          activeColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           circleColor:  Theme.of(context).focusColor,
-                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           activeTextColor: Theme.of(context).focusColor,
                           chanegStatus: light,
                           onChanged: (val){
@@ -1063,9 +1063,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ),
                         CustomSwitch(
                           value: light,
-                          activeColor: Theme.of(context).accentColor.withOpacity(0.5),
+                          activeColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           circleColor:  Theme.of(context).focusColor,
-                          inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                          inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           activeTextColor: Theme.of(context).focusColor,
                           chanegStatus: light,
                           onChanged: (val){
@@ -1127,7 +1127,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               SvgPicture.asset(
                                 "assets/images/notification.svg",
                                 height: 18.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                               ),
                               SizedBox(
                                 width: 10.0,
@@ -1197,7 +1197,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w600,
                                   'FontRegular'),
                             ),

@@ -95,7 +95,7 @@ class _MarketScreenState extends State<MarketScreen>
                             border: Border.all(
                                 color: CustomTheme
                                     .of(context)
-                                    .accentColor,
+                                    .unselectedWidgetColor,
                                 width: 1.0)),
                         child: TabBar(
                           controller: _tabController,
@@ -104,7 +104,7 @@ class _MarketScreenState extends State<MarketScreen>
                               13.0,
                               Theme
                                   .of(context)
-                                  .accentColor,
+                                  .unselectedWidgetColor,
                               FontWeight.w600,
                               'FontRegular'),
 
@@ -125,7 +125,7 @@ class _MarketScreenState extends State<MarketScreen>
                             // Creates border
                             color: CustomTheme
                                 .of(context)
-                                .buttonColor,
+                                .primaryColorLight,
                           ),
                           tabs: <Widget>[
                             Tab(
@@ -163,7 +163,7 @@ class _MarketScreenState extends State<MarketScreen>
                       ? CustomWidget(context: context).loadingIndicator(
                     CustomTheme
                         .of(context)
-                        .buttonColor,
+                        .primaryColorLight,
                   )
                       : Container()
                 ],
@@ -417,7 +417,7 @@ class _MarketScreenState extends State<MarketScreen>
                                       borderRadius: BorderRadius.circular(10.0),
                                       color: Theme
                                           .of(context)
-                                          .accentColor.withOpacity(0.5),
+                                          .unselectedWidgetColor.withOpacity(0.5),
                                     ),
                                     child: SvgPicture.network(
                                       "https://images.cofinex.io/crypto/ico/" +

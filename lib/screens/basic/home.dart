@@ -195,7 +195,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         margin: EdgeInsets.only(left: 5.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).primaryColorLight,
                         ),
                         child: Center(
                           child: SvgPicture.asset(
@@ -236,7 +236,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                       13.0,
-                                      Theme.of(context).accentColor,
+                                      Theme.of(context).unselectedWidgetColor,
                                       FontWeight.w300,
                                       'FontRegular'),
                             ),
@@ -376,7 +376,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                     AppLocalizations.instance.text("loc_tot_asset"),
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         12.0,
-                        Theme.of(context).accentColor,
+                        Theme.of(context).unselectedWidgetColor,
                         FontWeight.w600,
                         'FontRegular'),
                     textAlign: TextAlign.center,
@@ -404,7 +404,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                         textAlign: TextAlign.center,
@@ -434,7 +434,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                         textAlign: TextAlign.center,
@@ -521,7 +521,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: 15.0,
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                 ),
                               ],
                             ),
@@ -588,7 +588,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: 15.0,
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                 ),
                               ],
                             ),
@@ -740,7 +740,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                             padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorLight,
                             ),
                             child: Center(
                               child: Text(
@@ -793,7 +793,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                         textAlign: TextAlign.center,

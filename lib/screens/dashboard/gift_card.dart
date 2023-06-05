@@ -135,7 +135,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                               SvgPicture.asset(
                                 "assets/images/search.svg",
                                 height: 18.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                               ),
                               const SizedBox(
                                 width: 10.0,
@@ -145,7 +145,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     13.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w300,
                                     'FontRegular'),
                               ),
@@ -214,7 +214,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                       value: selectedValue,
                                       icon: Icon(
                                         Icons.keyboard_arrow_down_outlined,
-                                        color: Theme.of(context).accentColor,
+                                        color: Theme.of(context).unselectedWidgetColor,
                                         // color: Them,
                                         // color: AppColors.otherTextColor,
                                       ),
@@ -233,7 +233,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                   border: Border.all(
                                     width: 1.0,
                                     color: Theme.of(context)
-                                        .accentColor
+                                        .unselectedWidgetColor
                                         .withOpacity(0.5),
                                   ),
                                   color: Theme.of(context).focusColor,
@@ -241,7 +241,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                                 child: SvgPicture.asset(
                                   "assets/images/adjus.svg",
                                   height: 20.0,
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                 ),
                               )
                             ],
@@ -338,7 +338,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Theme.of(context)
-                                          .accentColor
+                                          .unselectedWidgetColor
                                           .withOpacity(0.2),
                                       width: 1.0),
                                   borderRadius: BorderRadius.circular(5.0)),
@@ -365,7 +365,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Theme.of(context)
-                                          .accentColor
+                                          .unselectedWidgetColor
                                           .withOpacity(0.2),
                                       width: 1.0),
                                   borderRadius: BorderRadius.circular(5.0)),
@@ -396,7 +396,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                             borderRadius: BorderRadius.circular(5.0),
                             border: Border.all(
                               width: 1.0,
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorLight,
                             ),
                             color: Theme.of(context).focusColor,
                           ),
@@ -406,7 +406,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                       12.0,
-                                      Theme.of(context).buttonColor,
+                                      Theme.of(context).primaryColorLight,
                                       FontWeight.w400,
                                       'FontRegular'),
                               textAlign: TextAlign.start,
@@ -477,7 +477,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                     decoration: BoxDecoration(
                         border: Border.all(
                             color:
-                                Theme.of(context).accentColor.withOpacity(0.2),
+                                Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                             width: 1.0),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: Text(
@@ -503,7 +503,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                     decoration: BoxDecoration(
                         border: Border.all(
                             color:
-                                Theme.of(context).accentColor.withOpacity(0.2),
+                                Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                             width: 1.0),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: Text(
@@ -564,7 +564,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                   style: CustomWidget(context: context)
                       .CustomSizedTextStyle(
                       10.0,
-                      Theme.of(context).buttonColor,
+                      Theme.of(context).primaryColorLight,
                       FontWeight.w400,
                       'FontRegular'),
                   textAlign: TextAlign.start,
@@ -599,7 +599,7 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                   style: CustomWidget(context: context)
                       .CustomSizedTextStyle(
                       10.0,
-                      Theme.of(context).buttonColor,
+                      Theme.of(context).primaryColorLight,
                       FontWeight.w400,
                       'FontRegular'),
                   textAlign: TextAlign.start,
@@ -625,9 +625,9 @@ class _GiftCard_DetailsState extends State<GiftCard_Details> {
                   borderRadius: BorderRadius.circular(5.0),
                   border: Border.all(
                     width: 1.0,
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).primaryColorLight,
                   ),
-                  color: Theme.of(context).buttonColor,
+                  color: Theme.of(context).primaryColorLight,
                 ),
                 child: Center(
                   child: Text(

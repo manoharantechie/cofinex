@@ -208,7 +208,7 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
                           value: selectedValue,
                           icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).unselectedWidgetColor,
                             size: 15.0,
                             // color: Them,
                             // color: AppColors.otherTextColor,
@@ -285,7 +285,7 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,),
-                                    color: id ? Theme.of(context).buttonColor : Theme.of(context).focusColor ,
+                                    color: id ? Theme.of(context).primaryColorLight : Theme.of(context).focusColor ,
                                   ),
                                 ),flex: 1,)
 
@@ -335,7 +335,7 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(width: 1.0, color:  Theme.of(context).dividerColor),
-                                    color: pass ? Theme.of(context).buttonColor : Theme.of(context).focusColor ,
+                                    color: pass ? Theme.of(context).primaryColorLight : Theme.of(context).focusColor ,
                                   ),
                                 ),flex: 1,)
 
@@ -385,7 +385,7 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,),
-                                    color: drive ? Theme.of(context).buttonColor : Theme.of(context).focusColor ,
+                                    color: drive ? Theme.of(context).primaryColorLight : Theme.of(context).focusColor ,
                                   ),
                                 ),flex: 1,)
 
@@ -415,7 +415,7 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
                         margin: EdgeInsets.only(bottom: 15.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).primaryColorLight,
                         ),
                         padding: EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
                         width: MediaQuery.of(context).size.width * 0.5,

@@ -68,7 +68,7 @@ class _ApplyCardState extends State<ApplyCard> {
                   margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
                   padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Text(
@@ -105,7 +105,7 @@ class _ApplyCardState extends State<ApplyCard> {
                 Container(
                   padding: EdgeInsets.fromLTRB(80.0, 10.0, 80.0, 10.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor.withOpacity(0.2),
+                    color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                   ),
                   child: Text(
                     "NEO",
@@ -195,7 +195,7 @@ class _ApplyCardState extends State<ApplyCard> {
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    color: Theme.of(context).accentColor.withOpacity(0.3),
+                    color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                   ),
                   child:  Text(
                     "We appreciate your interest and support. Our team is dedicated to making the cofinex.io when Visa/Mastercard available in your market. Rest assured, we will inform you as soon as there is an update on its status.",

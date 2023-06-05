@@ -124,7 +124,7 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                   indicatorColor: CustomTheme.of(context).cardColor,
                   indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(15), // Creates border
-                    color: CustomTheme.of(context).buttonColor,
+                    color: CustomTheme.of(context).primaryColorLight,
                   ),
                   tabs: <Widget>[
                     Tab(
@@ -145,12 +145,12 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                     children: <Widget>[
                       loading
                           ? CustomWidget(context: context).loadingIndicator(
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                       )
                           : currencyWidget(),
                       loading
                           ? CustomWidget(context: context).loadingIndicator(
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                       )
                           : fiatWidget()
                       // spotList()
@@ -268,7 +268,7 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                             InkWell(
                               child: Icon(
                                 Icons.arrow_forward_ios,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                                 size: 15.0,
                               ),
                             )
@@ -394,7 +394,7 @@ class _Choose_CurrencyState extends State<Choose_Currency>
                             InkWell(
                               child: Icon(
                                 Icons.arrow_forward_ios,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                                 size: 15.0,
                               ),
                             )

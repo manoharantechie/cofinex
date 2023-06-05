@@ -251,7 +251,7 @@ class _StakingState extends State<Staking> {
                                   value: selectedValue,
                                   icon: Icon(
                                     Icons.keyboard_arrow_down_outlined,
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).unselectedWidgetColor,
                                     // color: Them,
                                     // color: AppColors.otherTextColor,
                                   ),
@@ -308,7 +308,7 @@ class _StakingState extends State<Staking> {
                     margin: EdgeInsets.only(bottom: 15.0),
                     padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).buttonColor,
+                      color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(
                         color: Theme.of(context).backgroundColor,
@@ -395,7 +395,7 @@ class _StakingState extends State<Staking> {
                               grid_name[index].toString(),
                               style: CustomWidget(context: context).CustomSizedTextStyle(
                                   18.0,
-                                  selIndex==index?Theme.of(context).buttonColor: Theme.of(context).primaryColor,
+                                  selIndex==index?Theme.of(context).primaryColorLight: Theme.of(context).primaryColor,
                                   FontWeight.w600,
                                   'FontRegular'),
                               textAlign: TextAlign.center,

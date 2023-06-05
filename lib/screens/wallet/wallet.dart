@@ -119,7 +119,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w600,
                                     'FontRegular'),
                                 textAlign: TextAlign.center,
@@ -149,7 +149,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w600,
                                     'FontRegular'),
                                 textAlign: TextAlign.center,
@@ -613,7 +613,7 @@ class _Wallet_ScreenState extends State<Wallet_Screen> {
                   )),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).buttonColor,
+                CustomTheme.of(context).primaryColorLight,
               )
                   : Container()
             ],

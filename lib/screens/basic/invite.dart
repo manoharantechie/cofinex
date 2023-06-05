@@ -85,7 +85,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           22.0,
-                                          Theme.of(context).buttonColor,
+                                          Theme.of(context).primaryColorLight,
                                           FontWeight.w700,
                                           'FontRegular'),
                                     ),
@@ -108,7 +108,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w600,
                                     'FontRegular'),
                                 textAlign: TextAlign.start,
@@ -121,7 +121,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -316,7 +316,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                     margin: EdgeInsets.only(bottom: 15.0),
                     padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).buttonColor,
+                      color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(color: Theme.of(context).backgroundColor, ),
                     ),
@@ -433,7 +433,7 @@ class _Invite_ScreenState extends State<Invite_Screen> {
                               // margin: EdgeInsets.only(bottom: 15.0),
                               padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).buttonColor,
+                                color: Theme.of(context).primaryColorLight,
                                 borderRadius: BorderRadius.circular(15.0),
                                 border: Border.all(color: Theme.of(context).backgroundColor, ),
                               ),

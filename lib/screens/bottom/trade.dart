@@ -88,13 +88,13 @@ class _TradeScreenState extends State<TradeScreen>
                   color: CustomTheme.of(context).focusColor,
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
-                      color: CustomTheme.of(context).accentColor, width: 1.0)),
+                      color: CustomTheme.of(context).unselectedWidgetColor, width: 1.0)),
               child: TabBar(
                 controller: _tabController,
                 isScrollable: true,
                 labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                     13.0,
-                    Theme.of(context).accentColor,
+                    Theme.of(context).unselectedWidgetColor,
                     FontWeight.w600,
                     'FontRegular'),
 
@@ -106,7 +106,7 @@ class _TradeScreenState extends State<TradeScreen>
                 indicatorColor: CustomTheme.of(context).cardColor,
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(12), // Creates border
-                  color: CustomTheme.of(context).buttonColor,
+                  color: CustomTheme.of(context).primaryColorLight,
                 ),
                 tabs: <Widget>[
                   Tab(
@@ -206,10 +206,10 @@ class _TradeScreenState extends State<TradeScreen>
                               Container(
                                   decoration: BoxDecoration(
                                       color: Theme.of(context)
-                                          .buttonColor
+                                          .primaryColorLight
                                           .withOpacity(0.1),
                                       border: Border.all(
-                                          color: Theme.of(context).buttonColor),
+                                          color: Theme.of(context).primaryColorLight),
                                       borderRadius:
                                           BorderRadius.circular(10.0)),
                                   padding: EdgeInsets.only(
@@ -223,7 +223,7 @@ class _TradeScreenState extends State<TradeScreen>
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                               12.0,
-                                              Theme.of(context).buttonColor,
+                                              Theme.of(context).primaryColorLight,
                                               FontWeight.w500,
                                               'FontRegular'),
                                       textAlign: TextAlign.center,
@@ -408,11 +408,11 @@ class _TradeScreenState extends State<TradeScreen>
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         color: CustomTheme.of(context)
-                                            .accentColor
+                                            .unselectedWidgetColor
                                             .withOpacity(0.5),
                                         border: Border.all(
                                           color: CustomTheme.of(context)
-                                              .accentColor
+                                              .unselectedWidgetColor
                                               .withOpacity(0.5),
                                         )),
                                     child: Center(
@@ -439,7 +439,7 @@ class _TradeScreenState extends State<TradeScreen>
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
-                                            color: Theme.of(context).buttonColor,
+                                            color: Theme.of(context).primaryColorLight,
                                             borderRadius:
                                             BorderRadius.circular(5.0)),
                                         padding:
@@ -987,7 +987,7 @@ class _TradeScreenState extends State<TradeScreen>
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                             10.0,
-                                            CustomTheme.of(context).buttonColor,
+                                            CustomTheme.of(context).primaryColorLight,
                                             FontWeight.w600,
                                             'FontRegular'),
                                     textAlign: TextAlign.start,
@@ -1000,7 +1000,7 @@ class _TradeScreenState extends State<TradeScreen>
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     borderRadius: BorderRadius.circular(10.0)),
                                 padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                                 child: Center(
@@ -1568,7 +1568,7 @@ class _TradeScreenState extends State<TradeScreen>
               //<-- forceElevated to innerBoxIsScrolled
               bottom: TabBar(
                 isScrollable: false,
-                labelColor: CustomTheme.of(context).buttonColor,
+                labelColor: CustomTheme.of(context).primaryColorLight,
 
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,
@@ -1577,7 +1577,7 @@ class _TradeScreenState extends State<TradeScreen>
                 // isScrollable: true,
                 indicatorPadding:
                     EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                indicatorColor: CustomTheme.of(context).buttonColor,
+                indicatorColor: CustomTheme.of(context).primaryColorLight,
                 tabs: <Tab>[
                   Tab(
                     text: "Position",
@@ -1601,7 +1601,7 @@ class _TradeScreenState extends State<TradeScreen>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -1614,7 +1614,7 @@ class _TradeScreenState extends State<TradeScreen>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -1840,11 +1840,11 @@ class _TradeScreenState extends State<TradeScreen>
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         color: CustomTheme.of(context)
-                                            .accentColor
+                                            .unselectedWidgetColor
                                             .withOpacity(0.5),
                                         border: Border.all(
                                           color: CustomTheme.of(context)
-                                              .accentColor
+                                              .unselectedWidgetColor
                                               .withOpacity(0.5),
                                         )),
                                     child: Center(
@@ -1873,7 +1873,7 @@ class _TradeScreenState extends State<TradeScreen>
                                       child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context).buttonColor,
+                                        color: Theme.of(context).primaryColorLight,
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
                                     padding:
@@ -2419,7 +2419,7 @@ class _TradeScreenState extends State<TradeScreen>
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                             10.0,
-                                            CustomTheme.of(context).buttonColor,
+                                            CustomTheme.of(context).primaryColorLight,
                                             FontWeight.w600,
                                             'FontRegular'),
                                     textAlign: TextAlign.start,
@@ -2432,7 +2432,7 @@ class _TradeScreenState extends State<TradeScreen>
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     borderRadius: BorderRadius.circular(10.0)),
                                 padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                                 child: Center(
@@ -3066,7 +3066,7 @@ class _TradeScreenState extends State<TradeScreen>
                                             MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                             color: !fiatOption
-                                                ? Theme.of(context).buttonColor
+                                                ? Theme.of(context).primaryColorLight
                                                 : Theme.of(context)
                                                     .primaryColor,
                                             borderRadius:
@@ -3108,7 +3108,7 @@ class _TradeScreenState extends State<TradeScreen>
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           color: fiatOption
-                                              ? Theme.of(context).buttonColor
+                                              ? Theme.of(context).primaryColorLight
                                               : Theme.of(context).primaryColor,
                                           borderRadius:
                                               BorderRadius.circular(5.0)),
@@ -3144,7 +3144,7 @@ class _TradeScreenState extends State<TradeScreen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                         20.0,
-                                        Theme.of(context).buttonColor,
+                                        Theme.of(context).primaryColorLight,
                                         FontWeight.w500,
                                         'FontRegular'),
                               ),
@@ -3567,7 +3567,7 @@ class _TradeScreenState extends State<TradeScreen>
                         Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorLight,
                               borderRadius: BorderRadius.circular(10.0)),
                           padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                           child: Center(
@@ -3613,7 +3613,7 @@ class _TradeScreenState extends State<TradeScreen>
               //<-- forceElevated to innerBoxIsScrolled
               bottom: TabBar(
                 isScrollable: false,
-                labelColor: CustomTheme.of(context).buttonColor,
+                labelColor: CustomTheme.of(context).primaryColorLight,
 
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,
@@ -3622,7 +3622,7 @@ class _TradeScreenState extends State<TradeScreen>
                 // isScrollable: true,
                 indicatorPadding:
                     EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                indicatorColor: CustomTheme.of(context).buttonColor,
+                indicatorColor: CustomTheme.of(context).primaryColorLight,
                 tabs: <Tab>[
                   Tab(
                     text: "Current Strategies",
@@ -3645,7 +3645,7 @@ class _TradeScreenState extends State<TradeScreen>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -3658,7 +3658,7 @@ class _TradeScreenState extends State<TradeScreen>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -3671,7 +3671,7 @@ class _TradeScreenState extends State<TradeScreen>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),

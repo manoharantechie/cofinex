@@ -104,7 +104,7 @@ class _Leader_Board_ScreenState extends State<Leader_Board_Screen> {
                                           decoration: BoxDecoration(
                                             // border: Border.all(color: Theme.of(context).splashColor, width: 1.0),
                                             // borderRadius: BorderRadius.circular(15.0),
-                                            color: Theme.of(context).buttonColor,
+                                            color: Theme.of(context).primaryColorLight,
                                             shape: BoxShape.circle,
                                           ),
                                           child: Text(

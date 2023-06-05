@@ -226,7 +226,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                 radius: 10.0,
                                 error: "",
                                 textColor: Theme.of(context).backgroundColor,
-                                borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                                borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                                 fillColor: Theme.of(context).focusColor,
                                 hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                                     12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -271,7 +271,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                 radius: 10.0,
                                 error: "",
                                 textColor: Theme.of(context).backgroundColor,
-                                borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                                borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                                 fillColor: Theme.of(context).focusColor,
                                 hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                                     12.0, Theme.of(context).canvasColor, FontWeight.w500, 'FontRegular'),
@@ -317,7 +317,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                 radius: 10.0,
                                 error: "",
                                 textColor: Theme.of(context).backgroundColor,
-                                borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                                borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                                 fillColor: Theme.of(context).focusColor,
                                 hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                                     12.0, Theme.of(context).primaryColor, FontWeight.w600, 'FontRegular'),
@@ -448,7 +448,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                           value: selectedValue,
                                           icon: Icon(
                                             Icons.keyboard_arrow_down_outlined,
-                                            color: Theme.of(context).accentColor,
+                                            color: Theme.of(context).unselectedWidgetColor,
                                             // color: Them,
                                             // color: AppColors.otherTextColor,
                                           ),
@@ -565,7 +565,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
               ),
             ),
             loading   ? CustomWidget(context: context).loadingIndicator(
-              CustomTheme.of(context).buttonColor,
+              CustomTheme.of(context).primaryColorLight,
             )
                 : Container()
           ],

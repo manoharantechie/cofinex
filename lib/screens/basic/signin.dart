@@ -66,7 +66,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                         padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                          border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor,),
                           color: Theme.of(context).focusColor,
                         ),
                         child: Row(
@@ -90,7 +90,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                         padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                          border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor,),
                           color: Theme.of(context).focusColor,
                         ),
                         child: Row(
@@ -114,7 +114,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                         padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor,),
+                          border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor,),
                           color: Theme.of(context).focusColor,
                         ),
                         child: Row(
@@ -144,7 +144,7 @@ class _Sign_In_ScreenState extends State<Sign_In_Screen> {
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).buttonColor,
+                            color: Theme.of(context).primaryColorLight,
                             borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(color: Theme.of(context).backgroundColor, ),
                           ),

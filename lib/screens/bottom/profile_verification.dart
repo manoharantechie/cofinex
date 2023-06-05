@@ -208,7 +208,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -244,7 +244,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -280,7 +280,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -358,7 +358,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -394,7 +394,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -430,7 +430,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                               ),)
@@ -456,7 +456,7 @@ class _ProfileVerification_ScreenState extends State<ProfileVerification_Screen>
                         child:Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Theme.of(context).buttonColor,
+                            color: Theme.of(context).primaryColorLight,
                           ),
                           padding: EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
                           width: MediaQuery.of(context).size.width * 0.5,

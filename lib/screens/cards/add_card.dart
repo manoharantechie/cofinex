@@ -33,10 +33,10 @@ class _AddCardDetailsState extends State<AddCardDetails> {
                       padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Theme.of(context).buttonColor.withOpacity(0.2),
+                        color: Theme.of(context).primaryColorLight.withOpacity(0.2),
                       ),
                       child: Icon(
-                        Icons.credit_card_rounded, size: 50.0, color: Theme.of(context).buttonColor,
+                        Icons.credit_card_rounded, size: 50.0, color: Theme.of(context).primaryColorLight,
                       ),
                     ),
                     const SizedBox(height: 15.0,),

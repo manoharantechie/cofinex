@@ -645,7 +645,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
               //<-- forceElevated to innerBoxIsScrolled
               bottom: TabBar(
                 isScrollable: false,
-                labelColor: CustomTheme.of(context).buttonColor,
+                labelColor: CustomTheme.of(context).primaryColorLight,
 
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,
@@ -654,7 +654,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
                 // isScrollable: true,
                 indicatorPadding:
                 EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                indicatorColor: CustomTheme.of(context).buttonColor,
+                indicatorColor: CustomTheme.of(context).primaryColorLight,
                 tabs: <Tab>[
                   Tab(
                     text: "Open Orders",
@@ -683,7 +683,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -696,7 +696,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -709,7 +709,7 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),

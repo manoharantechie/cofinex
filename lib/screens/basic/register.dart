@@ -150,7 +150,7 @@ class _Sign_Up_screenState extends State<Register> {
                               error: "Enter FirstName",
                               textColor: Theme.of(context).bottomAppBarColor,
                               borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                              Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                               fillColor: Theme.of(context).shadowColor,
                               hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
@@ -215,7 +215,7 @@ class _Sign_Up_screenState extends State<Register> {
                               error: "Enter LastName",
                               textColor: Theme.of(context).bottomAppBarColor,
                               borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                              Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                               fillColor: Theme.of(context).shadowColor,
                               hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
@@ -280,7 +280,7 @@ class _Sign_Up_screenState extends State<Register> {
                               error: "Enter Email address",
                               textColor: Theme.of(context).bottomAppBarColor,
                               borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                              Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                               fillColor: Theme.of(context).shadowColor,
                               hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
@@ -352,7 +352,7 @@ class _Sign_Up_screenState extends State<Register> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: CustomTheme.of(context)
-                                              .accentColor
+                                              .unselectedWidgetColor
                                               .withOpacity(0.5),
                                           width: 1.0),
                                       color: CustomTheme.of(context)
@@ -436,7 +436,7 @@ class _Sign_Up_screenState extends State<Register> {
                                         ),
                                         borderSide: BorderSide(
                                             color: CustomTheme.of(context)
-                                                .accentColor
+                                                .unselectedWidgetColor
                                                 .withOpacity(0.5),
                                             width: 1.0),
                                       ),
@@ -447,7 +447,7 @@ class _Sign_Up_screenState extends State<Register> {
                                         ),
                                         borderSide: BorderSide(
                                             color: CustomTheme.of(context)
-                                                .accentColor
+                                                .unselectedWidgetColor
                                                 .withOpacity(0.5),
                                             width: 1.0),
                                       ),
@@ -458,7 +458,7 @@ class _Sign_Up_screenState extends State<Register> {
                                         ),
                                         borderSide: BorderSide(
                                             color: CustomTheme.of(context)
-                                                .accentColor
+                                                .unselectedWidgetColor
                                                 .withOpacity(0.5),
                                             width: 1.0),
                                       ),
@@ -469,7 +469,7 @@ class _Sign_Up_screenState extends State<Register> {
                                         ),
                                         borderSide: BorderSide(
                                             color: CustomTheme.of(context)
-                                                .accentColor
+                                                .unselectedWidgetColor
                                                 .withOpacity(0.5),
                                             width: 1.0),
                                       ),
@@ -487,7 +487,7 @@ class _Sign_Up_screenState extends State<Register> {
                             //   error: "Enter Email address",
                             //   textColor: Theme.of(context).bottomAppBarColor,
                             //   borderColor:
-                            //   Theme.of(context).accentColor.withOpacity(0.5),
+                            //   Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             //  fillColor: Theme.of(context).shadowColor,
                             //   hintStyle: CustomWidget(context: context)
                             //       .CustomSizedTextStyle(
@@ -553,7 +553,7 @@ class _Sign_Up_screenState extends State<Register> {
                               obscureText: !passVisible,
                               textInputAction: TextInputAction.next,
                               textColor: Theme.of(context).bottomAppBarColor,
-                              borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                              borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                               fillColor: Theme.of(context).shadowColor,
                               hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
@@ -634,7 +634,7 @@ class _Sign_Up_screenState extends State<Register> {
                               error: "Enter Email address",
                               textColor: Theme.of(context).bottomAppBarColor,
                               borderColor:
-                              Theme.of(context).accentColor.withOpacity(0.5),
+                              Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                               fillColor: Theme.of(context).shadowColor,
                               hintStyle: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
@@ -694,7 +694,7 @@ class _Sign_Up_screenState extends State<Register> {
                               child: Container(
                                 padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).buttonColor,
+                                  color: Theme.of(context).primaryColorLight,
                                   borderRadius: BorderRadius.circular(10.0),
                                   border: Border.all(
                                     color: Theme.of(context).backgroundColor,
@@ -770,7 +770,7 @@ class _Sign_Up_screenState extends State<Register> {
 
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).buttonColor,
+                CustomTheme.of(context).primaryColorLight,
               )
                   : Container()
             ],

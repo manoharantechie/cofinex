@@ -163,7 +163,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         8.0,
-                                        Theme.of(context).buttonColor,
+                                        Theme.of(context).primaryColorLight,
                                         FontWeight.w600,
                                         'FontRegular'),
                                   ),
@@ -220,7 +220,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             12.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
@@ -279,7 +279,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             12.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
@@ -368,7 +368,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             10.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
@@ -445,7 +445,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             12.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
@@ -504,7 +504,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             12.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),
@@ -563,7 +563,7 @@ class _Security_ScreenState extends State<Security_Screen> {
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             12.0,
-                                            Theme.of(context).accentColor,
+                                            Theme.of(context).unselectedWidgetColor,
                                             FontWeight.w600,
                                             'FontRegular'),
                                       ),

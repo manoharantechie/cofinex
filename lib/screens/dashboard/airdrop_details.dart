@@ -132,7 +132,7 @@ class _AirdropDetailsState extends State<AirdropDetails> {
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         8.0,
-                                        Theme.of(context).buttonColor,
+                                        Theme.of(context).primaryColorLight,
                                         FontWeight.w800,
                                         'FontRegular'),
                                   ),
@@ -163,7 +163,7 @@ class _AirdropDetailsState extends State<AirdropDetails> {
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                               12.0,
-                                              Theme.of(context).buttonColor,
+                                              Theme.of(context).primaryColorLight,
                                               FontWeight.w800,
                                               'FontRegular'),
                                         ),
@@ -369,10 +369,10 @@ class _AirdropDetailsState extends State<AirdropDetails> {
                                                           10.0),
                                                       border: Border.all(
                                                         color: Theme.of(context)
-                                                            .buttonColor,
+                                                            .primaryColorLight,
                                                       ),
                                                       color: Theme.of(context)
-                                                          .buttonColor),
+                                                          .primaryColorLight),
                                                   width: MediaQuery.of(context).size.width*0.5,
                                                 ),
                                                 onTap: () {

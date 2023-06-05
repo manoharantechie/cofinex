@@ -146,7 +146,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 decoration: BoxDecoration(
                     color:    Theme
                         .of(context)
-                        .buttonColor
+                        .primaryColorLight
                         .withOpacity(0.2),
                     borderRadius: BorderRadius.circular(5.0)
                 ),
@@ -157,7 +157,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   children: [
                     Icon(Icons.info_outlined,size: 20.0,color:    Theme
                         .of(context)
-                        .buttonColor,),
+                        .primaryColorLight,),
                     const SizedBox(width: 5.0,),
                     Expanded(child: Text(
                       "In order to protect your account,withdrawals, P2P, selling, payments, service  and cofinex card applications will be disabled for 24 hours after you change password  ",
@@ -166,7 +166,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           10.0,
                           Theme
                               .of(context)
-                              .buttonColor,
+                              .primaryColorLight,
                           FontWeight.w400,
                           'FontRegular'),softWrap: true,
 
@@ -236,7 +236,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 borderColor:
                                 Theme
                                     .of(context)
-                                    .accentColor
+                                    .unselectedWidgetColor
                                     .withOpacity(0.5),
                                 fillColor: Theme
                                     .of(context)
@@ -308,7 +308,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   decoration: BoxDecoration(
                                     color: Theme
                                         .of(context)
-                                        .buttonColor,
+                                        .primaryColorLight,
                                     borderRadius: BorderRadius.circular(10.0),
                                     border: Border.all(
                                       color: Theme
@@ -341,7 +341,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ? CustomWidget(context: context).loadingIndicator(
                 CustomTheme
                     .of(context)
-                    .buttonColor,
+                    .primaryColorLight,
               )
                   : Container()
             ],

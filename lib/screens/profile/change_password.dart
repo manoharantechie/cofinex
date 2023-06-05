@@ -121,7 +121,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter Old Password",
                           textColor: Theme.of(context).primaryColor,
                           borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
@@ -185,7 +185,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter New Password ",
                           textColor: Theme.of(context).backgroundColor,
                           borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
@@ -248,7 +248,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                           error: "Enter Confirm Password",
                           textColor: Theme.of(context).backgroundColor,
                           borderColor:
-                          Theme.of(context).accentColor.withOpacity(0.5),
+                          Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           fillColor: Theme.of(context).focusColor,
                           hintStyle: CustomWidget(context: context)
                               .CustomSizedTextStyle(
@@ -296,7 +296,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                               margin: EdgeInsets.only(bottom: 15.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Theme.of(context).buttonColor,
+                                color: Theme.of(context).primaryColorLight,
                               ),
                               padding:
                               EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
@@ -320,7 +320,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
                   )),
               loading
                   ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).buttonColor,
+                CustomTheme.of(context).primaryColorLight,
               )
                   : Container()
             ],

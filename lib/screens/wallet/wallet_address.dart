@@ -67,7 +67,7 @@ class _Wallet_AddressState extends State<Wallet_Address> {
         color:  Theme.of(context).focusColor,
         child:  loading
             ? CustomWidget(context: context).loadingIndicator(
-          CustomTheme.of(context).buttonColor,
+          CustomTheme.of(context).primaryColorLight,
         )
             :Padding(
           padding: EdgeInsets.fromLTRB(20.0, 0.0,20.0,0.0),

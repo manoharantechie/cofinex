@@ -115,7 +115,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       radius: 10.0,
                       error: "Enter First Name",
                       textColor: Theme.of(context).backgroundColor,
-                      borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                      borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -159,7 +159,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       radius: 10.0,
                       error: "Enter Last Name",
                       textColor: Theme.of(context).backgroundColor,
-                      borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                      borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -203,7 +203,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       radius: 10.0,
                       error: "Enter ID Number",
                       textColor: Theme.of(context).backgroundColor,
-                      borderColor: Theme.of(context).accentColor.withOpacity(0.5),
+                      borderColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                       fillColor: Theme.of(context).focusColor,
                       hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                           12.0, Theme.of(context).bottomAppBarColor, FontWeight.w600, 'FontRegular'),
@@ -256,7 +256,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           margin: EdgeInsets.only(bottom: 15.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Theme.of(context).buttonColor,
+                            color: Theme.of(context).primaryColorLight,
                           ),
                           padding: EdgeInsets.fromLTRB(35.0, 10.0, 35.0, 10.0),
                           width: MediaQuery.of(context).size.width * 0.5,

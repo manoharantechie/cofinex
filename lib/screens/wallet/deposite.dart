@@ -207,7 +207,7 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
                                 value: selectedValue,
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_outlined,
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                   // color: Them,
                                   // color: AppColors.otherTextColor,
                                 ),
@@ -284,7 +284,7 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
                             value: selectedValue,
                             icon: Icon(
                               Icons.keyboard_arrow_down_outlined,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).unselectedWidgetColor,
                               // color: Them,
                               // color: AppColors.otherTextColor,
                             ),
@@ -365,7 +365,7 @@ class _Deposite_ScreenState extends State<Deposite_Screen> {
                     margin: EdgeInsets.only(bottom: 15.0),
                     padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).buttonColor,
+                      color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(15.0),
                       border: Border.all(color: Theme.of(context).backgroundColor, ),
                     ),

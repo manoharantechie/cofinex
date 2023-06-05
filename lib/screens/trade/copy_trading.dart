@@ -415,7 +415,7 @@ class _CopyTradingState extends State<CopyTrading>
                                                     .CustomSizedTextStyle(
                                                         16.0,
                                                         Theme.of(context)
-                                                            .buttonColor,
+                                                            .primaryColorLight,
                                                         FontWeight.w400,
                                                         'FontRegular'),
                                           ),
@@ -739,7 +739,7 @@ class _CopyTradingState extends State<CopyTrading>
               //<-- forceElevated to innerBoxIsScrolled
               bottom: TabBar(
                 isScrollable: false,
-                labelColor: CustomTheme.of(context).buttonColor,
+                labelColor: CustomTheme.of(context).primaryColorLight,
 
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 3.0,
@@ -748,7 +748,7 @@ class _CopyTradingState extends State<CopyTrading>
                 // isScrollable: true,
                 indicatorPadding:
                     EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                indicatorColor: CustomTheme.of(context).buttonColor,
+                indicatorColor: CustomTheme.of(context).primaryColorLight,
                 tabs: <Tab>[
                   Tab(
                     text: "Open Orders",
@@ -777,7 +777,7 @@ class _CopyTradingState extends State<CopyTrading>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -790,7 +790,7 @@ class _CopyTradingState extends State<CopyTrading>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),
@@ -803,7 +803,7 @@ class _CopyTradingState extends State<CopyTrading>
                     "No Records Found....!",
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        CustomTheme.of(context).buttonColor,
+                        CustomTheme.of(context).primaryColorLight,
                         FontWeight.w500,
                         'FontRegular'),
                   ),

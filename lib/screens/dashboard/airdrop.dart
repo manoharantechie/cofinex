@@ -133,7 +133,7 @@ class _Airdrop_ScreenState extends State<Airdrop_Screen> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     8.0,
-                                    Theme.of(context).buttonColor,
+                                    Theme.of(context).primaryColorLight,
                                     FontWeight.w800,
                                     'FontRegular'),
                               ),
@@ -162,7 +162,7 @@ class _Airdrop_ScreenState extends State<Airdrop_Screen> {
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           12.0,
-                                          Theme.of(context).buttonColor,
+                                          Theme.of(context).primaryColorLight,
                                           FontWeight.w800,
                                           'FontRegular'),),
                                   ],

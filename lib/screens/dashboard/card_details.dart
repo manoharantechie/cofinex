@@ -75,7 +75,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                   isScrollable: true,
                   labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                       13.0,
-                      Theme.of(context).accentColor,
+                      Theme.of(context).unselectedWidgetColor,
                       FontWeight.w600,
                       'FontRegular'),
 
@@ -85,7 +85,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                   unselectedLabelColor:
                   CustomTheme.of(context).primaryColor.withOpacity(0.5),
                   // isScrollable: true,
-                  indicatorColor: CustomTheme.of(context).buttonColor,
+                  indicatorColor: CustomTheme.of(context).primaryColorLight,
                   padding: EdgeInsets.only(bottom: 5.0),
 
 
@@ -232,7 +232,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                   margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
                   padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Text(
@@ -304,7 +304,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           const SizedBox(height: 30.0,),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
+              color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,7 +342,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -352,7 +352,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -376,7 +376,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -386,7 +386,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -410,7 +410,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -420,7 +420,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
 
                 Container(
@@ -445,7 +445,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -455,7 +455,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -468,7 +468,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -478,7 +478,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -488,7 +488,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -531,7 +531,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -541,7 +541,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -551,7 +551,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -585,7 +585,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -619,7 +619,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -644,7 +644,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -669,7 +669,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -682,7 +682,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             12.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -692,7 +692,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -702,7 +702,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -721,7 +721,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             'FontRegular'),
                         textAlign: TextAlign.start,
                       ),
-                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).unselectedWidgetColor, size: 22.0,),
                     ],
                   ),
                 ),
@@ -794,7 +794,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           const SizedBox(height: 30.0,),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
+              color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -825,7 +825,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
+                                cofinex ? Theme.of(context).unselectedWidgetColor : Theme.of(context).primaryColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.end,
@@ -835,7 +835,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             value: cofinex,
                             activeColor: Theme.of(context).cardColor.withOpacity(0.5),
                             circleColor:  Theme.of(context).focusColor,
-                            inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                            inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             activeTextColor: Theme.of(context).focusColor,
                             chanegStatus: light,
                             onChanged: (val){
@@ -856,7 +856,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+                                cofinex ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -898,7 +898,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             ),
                           ),
                           Container(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).unselectedWidgetColor,
                             height: MediaQuery.of(context).size.height* 0.18,
                             width: 2.0,
                           ),
@@ -960,7 +960,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -970,7 +970,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -997,7 +997,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -1006,7 +1006,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -1028,7 +1028,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1057,7 +1057,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -1069,7 +1069,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -1158,7 +1158,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1168,7 +1168,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1192,7 +1192,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1202,7 +1202,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1226,7 +1226,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1236,7 +1236,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
 
                 Container(
@@ -1261,7 +1261,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1271,7 +1271,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -1294,7 +1294,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1304,7 +1304,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1334,7 +1334,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).buttonColor,
+                              Theme.of(context).primaryColorLight,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.start,
@@ -1364,7 +1364,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1374,7 +1374,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1427,7 +1427,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1437,7 +1437,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1471,7 +1471,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1505,7 +1505,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1530,7 +1530,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1555,7 +1555,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -1578,7 +1578,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -1588,7 +1588,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -1607,7 +1607,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             'FontRegular'),
                         textAlign: TextAlign.start,
                       ),
-                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).unselectedWidgetColor, size: 22.0,),
                     ],
                   ),
                 ),
@@ -1775,7 +1775,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           const SizedBox(height: 30.0,),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
+              color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1806,7 +1806,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
+                                cofinex ? Theme.of(context).unselectedWidgetColor : Theme.of(context).primaryColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.end,
@@ -1816,7 +1816,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             value: cofinex,
                             activeColor: Theme.of(context).cardColor.withOpacity(0.5),
                             circleColor:  Theme.of(context).focusColor,
-                            inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                            inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             activeTextColor: Theme.of(context).focusColor,
                             chanegStatus: light,
                             onChanged: (val){
@@ -1837,7 +1837,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex?  Theme.of(context).primaryColor : Theme.of(context).accentColor,
+                                cofinex?  Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -1882,7 +1882,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   ),
                                 ),
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                   height: MediaQuery.of(context).size.height* 0.18,
                                   width: 2.0,
                                 ),
@@ -1938,7 +1938,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height: 1.0,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).unselectedWidgetColor,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1972,7 +1972,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   ),
                                 ),
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                   height: MediaQuery.of(context).size.height* 0.18,
                                   width: 2.0,
                                 ),
@@ -2036,7 +2036,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2046,7 +2046,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2074,7 +2074,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -2083,7 +2083,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -2105,7 +2105,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2130,7 +2130,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context)  .accentColor.withOpacity(0.3),
+                  color: Theme.of(context)  .unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2160,7 +2160,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -2172,7 +2172,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -2186,7 +2186,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context)  .accentColor.withOpacity(0.3),
+                  color: Theme.of(context)  .unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2216,7 +2216,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -2228,7 +2228,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -2262,7 +2262,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2272,7 +2272,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2302,7 +2302,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -2400,7 +2400,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2410,7 +2410,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2434,7 +2434,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2444,7 +2444,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2468,7 +2468,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2478,7 +2478,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
 
                 Container(
@@ -2503,7 +2503,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2513,7 +2513,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -2536,7 +2536,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2546,7 +2546,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2576,7 +2576,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).buttonColor,
+                              Theme.of(context).primaryColorLight,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.start,
@@ -2606,7 +2606,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2616,7 +2616,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2669,7 +2669,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2679,7 +2679,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2713,7 +2713,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2747,7 +2747,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2772,7 +2772,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2797,7 +2797,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -2820,7 +2820,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -2830,7 +2830,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -2849,7 +2849,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             'FontRegular'),
                         textAlign: TextAlign.start,
                       ),
-                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).unselectedWidgetColor, size: 22.0,),
                     ],
                   ),
                 ),
@@ -3016,7 +3016,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           const SizedBox(height: 30.0,),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
+              color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -3047,7 +3047,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
+                                cofinex ? Theme.of(context).unselectedWidgetColor : Theme.of(context).primaryColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.end,
@@ -3057,7 +3057,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             value: cofinex,
                             activeColor: Theme.of(context).cardColor.withOpacity(0.5),
                             circleColor:  Theme.of(context).focusColor,
-                            inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                            inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             activeTextColor: Theme.of(context).focusColor,
                             chanegStatus: light,
                             onChanged: (val){
@@ -3078,7 +3078,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex?  Theme.of(context).primaryColor : Theme.of(context).accentColor,
+                                cofinex?  Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -3123,7 +3123,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   ),
                                 ),
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                   height: MediaQuery.of(context).size.height* 0.18,
                                   width: 2.0,
                                 ),
@@ -3179,7 +3179,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height: 1.0,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).unselectedWidgetColor,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -3213,7 +3213,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   ),
                                 ),
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).unselectedWidgetColor,
                                   height: MediaQuery.of(context).size.height* 0.18,
                                   width: 2.0,
                                 ),
@@ -3277,7 +3277,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3287,7 +3287,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3315,7 +3315,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -3324,7 +3324,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -3346,7 +3346,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3371,7 +3371,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context)  .accentColor.withOpacity(0.3),
+                  color: Theme.of(context)  .unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3401,7 +3401,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -3413,7 +3413,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -3427,7 +3427,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context)  .accentColor.withOpacity(0.3),
+                  color: Theme.of(context)  .unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3457,7 +3457,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -3469,7 +3469,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -3503,7 +3503,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3513,7 +3513,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3543,7 +3543,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -3641,7 +3641,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3651,7 +3651,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3675,7 +3675,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3685,7 +3685,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3709,7 +3709,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3719,7 +3719,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
 
                 Container(
@@ -3744,7 +3744,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3754,7 +3754,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -3777,7 +3777,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3787,7 +3787,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3817,7 +3817,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).buttonColor,
+                              Theme.of(context).primaryColorLight,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.start,
@@ -3847,7 +3847,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3857,7 +3857,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3910,7 +3910,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -3920,7 +3920,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3954,7 +3954,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -3988,7 +3988,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4013,7 +4013,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4038,7 +4038,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -4061,7 +4061,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4071,7 +4071,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4090,7 +4090,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             'FontRegular'),
                         textAlign: TextAlign.start,
                       ),
-                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).unselectedWidgetColor, size: 22.0,),
                     ],
                   ),
                 ),
@@ -4161,7 +4161,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
           const SizedBox(height: 30.0,),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.2),
+              color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -4192,7 +4192,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
+                                cofinex ? Theme.of(context).unselectedWidgetColor : Theme.of(context).primaryColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.end,
@@ -4202,7 +4202,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             value: cofinex,
                             activeColor: Theme.of(context).cardColor.withOpacity(0.5),
                             circleColor:  Theme.of(context).focusColor,
-                            inactiveColor:  Theme.of(context).accentColor.withOpacity(0.5),
+                            inactiveColor:  Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             activeTextColor: Theme.of(context).focusColor,
                             chanegStatus: light,
                             onChanged: (val){
@@ -4223,7 +4223,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                cofinex ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+                                cofinex ? Theme.of(context).primaryColor : Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w600,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -4265,7 +4265,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             ),
                           ),
                           Container(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).unselectedWidgetColor,
                             height: MediaQuery.of(context).size.height* 0.18,
                             width: 2.0,
                           ),
@@ -4327,7 +4327,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4337,7 +4337,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4364,7 +4364,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -4373,7 +4373,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 12.0,
-                                Theme.of(context).accentColor,
+                                Theme.of(context).unselectedWidgetColor,
                                 FontWeight.w400,
                                 'FontRegular'),
                             textAlign: TextAlign.start,
@@ -4395,7 +4395,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4424,7 +4424,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -4436,7 +4436,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
                                   12.0,
-                                  Theme.of(context).accentColor,
+                                  Theme.of(context).unselectedWidgetColor,
                                   FontWeight.w400,
                                   'FontRegular'),
                               textAlign: TextAlign.start,
@@ -4525,7 +4525,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4535,7 +4535,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4559,7 +4559,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4569,7 +4569,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4593,7 +4593,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4603,7 +4603,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
 
                 Container(
@@ -4628,7 +4628,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).buttonColor,
+                            Theme.of(context).primaryColorLight,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4638,7 +4638,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -4661,7 +4661,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4671,7 +4671,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4701,7 +4701,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               14.0,
-                              Theme.of(context).buttonColor,
+                              Theme.of(context).primaryColorLight,
                               FontWeight.w600,
                               'FontRegular'),
                           textAlign: TextAlign.start,
@@ -4731,7 +4731,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4741,7 +4741,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4794,7 +4794,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4804,7 +4804,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4838,7 +4838,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4872,7 +4872,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4897,7 +4897,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4922,7 +4922,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
@@ -4945,7 +4945,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             14.0,
-                            Theme.of(context).accentColor,
+                            Theme.of(context).unselectedWidgetColor,
                             FontWeight.w600,
                             'FontRegular'),
                         textAlign: TextAlign.start,
@@ -4955,7 +4955,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                 ),
                 Container(
                   height: 1.0,width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
                 ),
                 Container(
                   color: Theme.of(context).focusColor,
@@ -4974,7 +4974,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                             'FontRegular'),
                         textAlign: TextAlign.start,
                       ),
-                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).accentColor, size: 22.0,),
+                      Icon(Icons.chevron_right_rounded, color: Theme.of(context).unselectedWidgetColor, size: 22.0,),
                     ],
                   ),
                 ),
@@ -5280,7 +5280,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                    style: CustomWidget(context: context)
                                        .CustomSizedTextStyle(
                                        12.0,
-                                       Theme.of(context).accentColor,
+                                       Theme.of(context).unselectedWidgetColor,
                                        FontWeight.w600,
                                        'FontRegular'),
                                    textAlign: TextAlign.center,
@@ -5292,7 +5292,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                        ),
                        Container(
                          width: MediaQuery.of(context).size.width,
-                         color: Theme.of(context).accentColor.withOpacity(0.5),
+                         color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                          height: 1.0,
                        ),
                        Container(
@@ -5322,7 +5322,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                      style: CustomWidget(context: context)
                                          .CustomSizedTextStyle(
                                          12.0,
-                                         Theme.of(context).accentColor,
+                                         Theme.of(context).unselectedWidgetColor,
                                          FontWeight.w600,
                                          'FontRegular'),
                                      textAlign: TextAlign.start,
@@ -5348,7 +5348,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                        ),
                        Container(
                          width: MediaQuery.of(context).size.width,
-                         color: Theme.of(context).accentColor.withOpacity(0.5),
+                         color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                          height: 1.0,
                        ),
                      ],
@@ -5365,7 +5365,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
                         padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Text(
@@ -5447,7 +5447,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         Container(
                           padding: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 35.0),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor.withOpacity(0.2),
+                            color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -5455,7 +5455,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               Container(
                                 padding: EdgeInsets.all(10.0),
                                 decoration: BoxDecoration(
-                                  border: Border.all(width: 1.0, color: Theme.of(context).accentColor),
+                                  border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor),
                                   borderRadius: BorderRadius.circular(10.0)
                                 ),
                                 child: Text(
@@ -5548,7 +5548,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     14.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w600,
                                     'FontRegular'),
                                 textAlign: TextAlign.center,
@@ -5563,7 +5563,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                           margin: EdgeInsets.only(left: 20.0,right: 20.0),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor.withOpacity(0.5),
+                            color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(15.0)
                           ),
                           height: 10.0,
@@ -5571,7 +5571,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         const SizedBox(height: 15.0,),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).accentColor.withOpacity(0.5),
+                          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),
                           height: 1.0,
                         ),
                         InkWell(
@@ -5589,7 +5589,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               children: [
 
                                 Icon(
-                                  Icons.add, size: 20.0,color: Theme.of(context).buttonColor,
+                                  Icons.add, size: 20.0,color: Theme.of(context).primaryColorLight,
                                 ),
                                 const SizedBox(width: 10.0,),
                                 Text(
@@ -5597,7 +5597,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   style: CustomWidget(context: context)
                                       .CustomSizedTextStyle(
                                       14.0,
-                                      Theme.of(context).buttonColor,
+                                      Theme.of(context).primaryColorLight,
                                       FontWeight.w600,
                                       'FontRegular'),
                                   textAlign: TextAlign.start,
@@ -5609,7 +5609,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         Container(
                           padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).accentColor.withOpacity(0.2),
+                          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                           child:Text(
                             "Other Methods".toUpperCase(),
                             style: CustomWidget(context: context)
@@ -5634,7 +5634,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   children: [
 
                                     Icon(
-                                      Icons.qr_code_2_outlined, size: 25.0,color: Theme.of(context).accentColor,
+                                      Icons.qr_code_2_outlined, size: 25.0,color: Theme.of(context).unselectedWidgetColor,
                                     ),
                                     const SizedBox(width: 10.0,),
                                     Text(
@@ -5642,7 +5642,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           14.0,
-                                          Theme.of(context).buttonColor,
+                                          Theme.of(context).primaryColorLight,
                                           FontWeight.w600,
                                           'FontRegular'),
                                       textAlign: TextAlign.start,
@@ -5653,7 +5653,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                               Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 size: 22.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).unselectedWidgetColor,
                               )
                             ],
                           ),
@@ -5661,7 +5661,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         Container(
                           padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).accentColor.withOpacity(0.2),
+                          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                           child:Text(
                             "Wallet".toUpperCase(),
                             style: CustomWidget(context: context)
@@ -5688,7 +5688,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                     Container(
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context).accentColor.withOpacity(0.5),shape: BoxShape.circle
+                                          color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5),shape: BoxShape.circle
                                       ),
                                       child: Text(
                                         "C",
@@ -5720,7 +5720,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     14.0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).unselectedWidgetColor,
                                     FontWeight.w600,
                                     'FontRegular'),
                                 textAlign: TextAlign.start,
@@ -5742,7 +5742,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
                         padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Text(
@@ -5809,7 +5809,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                       child:  Icon(
                                         Icons.arrow_back_outlined,
                                         size: 24.0,
-                                        color: Theme.of(context).accentColor,
+                                        color: Theme.of(context).unselectedWidgetColor,
                                       ),
                                     ),
                                     const SizedBox(width: 25.0,),
@@ -5843,7 +5843,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         Container(
                           padding: EdgeInsets.fromLTRB(20.0, 35.0, 20.0, 20.0),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor.withOpacity(0.2),
+                            color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -5866,7 +5866,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   Icon(
                                     Icons.info_outline,
                                     size: 22.0,
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context).primaryColorLight,
                                   )
                                 ],
                               ),
@@ -5877,7 +5877,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                  Flexible(child:  Container(
                                    padding: EdgeInsets.all(8.0),
                                    decoration: BoxDecoration(
-                                       border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5)),
+                                       border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5)),
                                        borderRadius: BorderRadius.circular(5.0)
                                    ),
                                    child: Text(
@@ -5885,7 +5885,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                      style: CustomWidget(context: context)
                                          .CustomSizedTextStyle(
                                          14.0,
-                                         Theme.of(context).buttonColor,
+                                         Theme.of(context).primaryColorLight,
                                          FontWeight.w600,
                                          'FontRegular'),
                                      textAlign: TextAlign.center,
@@ -5895,7 +5895,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   // Flexible(child: Container(
                                   //   padding: EdgeInsets.all(8.0),
                                   //   decoration: BoxDecoration(
-                                  //       border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5)),
+                                  //       border: Border.all(width: 1.0, color: Theme.of(context).unselectedWidgetColor.withOpacity(0.5)),
                                   //       borderRadius: BorderRadius.circular(5.0)
                                   //   ),
                                   //   child: Text(
@@ -5903,7 +5903,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                   //     style: CustomWidget(context: context)
                                   //         .CustomSizedTextStyle(
                                   //         14.0,
-                                  //         Theme.of(context).buttonColor,
+                                  //         Theme.of(context).primaryColorLight,
                                   //         FontWeight.w600,
                                   //         'FontRegular'),
                                   //     textAlign: TextAlign.center,
@@ -5957,9 +5957,9 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                                 textAlign: TextAlign.start,
                               ),flex: 5,),
 
-                              Flexible(child: Icon(Icons.qr_code_2_outlined, size: 30.0, color: Theme.of(context).buttonColor,), flex: 1,),
+                              Flexible(child: Icon(Icons.qr_code_2_outlined, size: 30.0, color: Theme.of(context).primaryColorLight,), flex: 1,),
 
-                              Flexible(child: Icon(Icons.copy_outlined, size: 25.0, color: Theme.of(context).buttonColor,), flex: 1,)
+                              Flexible(child: Icon(Icons.copy_outlined, size: 25.0, color: Theme.of(context).primaryColorLight,), flex: 1,)
 
 
                             ],
@@ -5981,7 +5981,7 @@ class _Card_Details_ScreenState extends State<Card_Details_Screen> with TickerPr
                         margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
                         padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Text(

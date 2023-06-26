@@ -11,6 +11,7 @@ class APIUtils {
   final appName = 'Cofinex';
   static const initURL = "https://dataapi.cofinex.io/";
   static const authURL = "https://auth.cofinex.io/";
+  static const newAuthURL = "https://q30l60g1ej.execute-api.us-east-1.amazonaws.com/prod/";
   static const registerURL = "users/createUser";
   static const sentOTPURL = "users/generateOTP";
   static const fetchOTPURL = "users/getOTP";
@@ -20,7 +21,10 @@ class APIUtils {
   static const addressURL = "users/getaddress";
   static const kycURL = "users/initKyc";
   static const fetchUserURL = "users/fetchuser";
+  static const spotTradeURL = "orders/okx/place";
   static const getTokenURL = "https://api.cofinex.in/encodewsheader";
+  static const getCopyTrade = "https://q30l60g1ej.execute-api.us-east-1.amazonaws.com/prod/copytrade/getTraderList";
+  static const getPairURL = "marketdata/getTickerInfo?productType=UMCBL";
 
   Future<dynamic> doRegisterEmail(
       String firstName,
@@ -40,7 +44,7 @@ class APIUtils {
       'referralCode': referralCode
     };
 
-    print("testiomg");
+
 
     final response = await http.post(
       Uri.parse(initURL + registerURL),
@@ -114,6 +118,7 @@ class APIUtils {
   }
 
   Future<dynamic> doLoginEmail(String email, String password) async {
+    print("test<an");
     var emailbodyData = {
       'username': email,
       'password': password,
@@ -128,6 +133,7 @@ class APIUtils {
       body: emailbodyData,
     );
 
+    print(response.body);
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -224,6 +230,70 @@ class APIUtils {
       Uri.parse(initURL + fetchUserURL),
       headers: {
         'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+    return json.decode(response.body);
+  }
+  Future<dynamic> getCopyTradeData(String type,String page) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+    var emailbodyData = {
+      'sortRule': type,
+      'sortFlag': 'desc',
+      'pageNo': page,
+      'pageSize': '20',
+
+    };
+
+
+    final response = await http.post(
+      Uri.parse(getCopyTrade),
+      body: json.encode(emailbodyData),
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+    return json.decode(response.body);
+  }
+  Future<dynamic> postSpotTrade(String instId,String side,String orderType,String px,String sz) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+    var emailbodyData = {
+      'instId': instId,
+      'tdMode': 'cash',
+      'side': side,
+      'orderType': orderType,
+      'px': px,
+      'sz': sz,
+
+
+    };
+
+
+    final response = await http.post(
+      Uri.parse(initURL + spotTradeURL),
+      body: json.encode(emailbodyData),
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+    return json.decode(response.body);
+  }
+
+  Future<dynamic> getAllpaitList() async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+
+
+
+    final response = await http.get(
+      Uri.parse(newAuthURL + getPairURL),
+
+      headers: {
         'Authorization': "Bearer "+preferences.getString("token").toString()
       },
     );

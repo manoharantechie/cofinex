@@ -1,11 +1,12 @@
 import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
+import 'package:cofinex/data_model/model/copy_trade_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CopyTradeDetails extends StatefulWidget {
-  final String textVal;
-  const CopyTradeDetails({Key? key, required this.textVal}) : super(key: key);
+ final CopyTrade copyTradelist;
+  const CopyTradeDetails({Key? key, required this.copyTradelist}) : super(key: key);
 
   @override
   State<CopyTradeDetails> createState() => _CopyTradeDetailsState();
@@ -14,30 +15,16 @@ class CopyTradeDetails extends StatefulWidget {
 class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProviderStateMixin{
 
   ScrollController _scrollController = ScrollController();
-  ScrollController controller = ScrollController();
-  TextEditingController amtController = TextEditingController();
-  TextEditingController coinController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  List<String> options = ["collapes"];
-  List<String> borrows = ["Manual Borrow", "Auto Borrow"];
-  List<String> orderType = ["Limit", "Market"];
-  List<String> volType = ["Vol(USDT)"];
-  String selectedOption = "";
-  String selectedBorrow = "";
-  String selectedType = "";
-  String selectedVol = "";
-  List<String> textTrade=["Life is Good","Small Goals","All in Crypto","Be Cool","Making Money","Intro World"];
+
   bool collapse = false;
-  late TabController  _tabTradeController;
+  CopyTrade? copyTradelist;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedOption = options.first;
-    selectedBorrow = borrows.first;
-    selectedType = orderType.first;
-    selectedVol = volType.first;
-    _tabTradeController = TabController(vsync: this, length: 3);
+    copyTradelist=widget.copyTradelist;
+
+
   }
   @override
   Widget build(BuildContext context) {
@@ -385,13 +372,15 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
 
                   Image.asset(
                     'assets/icon/graph.png',
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.fill,
                   ),
                   SizedBox(
                     height:  10.0,
                   ),
+
+
 
                   Container(
                     padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
@@ -404,217 +393,338 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
                         )),
                     child: Column(
                       children: [
-                        Row(
+                        Padding(padding: EdgeInsets.only(left: 20.0,right: 20.0),child: Row(
                           mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
+                          MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(
-                              "assets/profile/Icon.svg",
-                            ),
-                            const SizedBox(
-                              width: 15.0,
-                            ),
-                            Text(
-                              widget.textVal,
-                              style: CustomWidget(
-                                  context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  Theme.of(context)
-                                      .primaryColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
+                            CircleAvatar(
+                              maxRadius: 30.0,
+                              backgroundImage:NetworkImage(
+                                copyTradelist!.traderHeadPic.toString(),
 
+
+                              ),
                             ),
+
+                            Column(
+                              children: [
+                                Text(
+                                  copyTradelist!.traderNickName.toString(),
+                                  style: CustomWidget(
+                                      context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context)
+                                          .primaryColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 5.0,),
+                                Text(
+                                  copyTradelist!.columnList![0].value.toString()+"%",
+                                  style:
+                                  CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0,
+
+                                      double.parse( copyTradelist!.columnList![0].value.toString())>0?    Theme.of(context)
+                                          .primaryColorLight: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
+                                ),
+                                Text(
+                                  copyTradelist!.columnList![0].describe.toString(),
+                                  style:
+                                  CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      14.0, Theme.of(context)
+                                      .canvasColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
+                                ),
+                              ],
+                            )
                           ],
-                        ),
+                        ),),
+
+                        const SizedBox(height: 10.0,),
                         Column(
                           children: [
-
                             Row(
                               children: [
                                 Column(
                                   children: [
-                                    Text(
-                                      "PnL% in 30days",
-                                      style: CustomWidget(
-                                          context: context)
-                                          .CustomTextStyle(
-                                          Theme.of(context)
-                                              .canvasColor,
-                                          FontWeight.w400,
-                                          'FontRegular'),
-                                      softWrap: true,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 5.0,),
+
                                     Row(
                                       children: [
                                         Text(
-                                          "30d PnL",
+                                          copyTradelist!.columnList![1].describe.toString(),
                                           style: CustomWidget(
-                                              context: context)
+                                              context:
+                                              context)
                                               .CustomTextStyle(
-                                              Theme.of(context)
+                                              Theme.of(
+                                                  context)
                                                   .canvasColor,
-                                              FontWeight.w400,
+                                              FontWeight
+                                                  .w400,
                                               'FontRegular'),
                                           softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow
+                                              .ellipsis,
                                         ),
-                                        const SizedBox(width: 10.0,),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
                                         Text(
-                                          "\$4522.085",
+                                          "\$"+  copyTradelist!.columnList![1].value.toString(),
                                           style: CustomWidget(
-                                              context: context)
+                                              context:
+                                              context)
                                               .CustomTextStyle(
-                                              Theme.of(context)
+                                              Theme.of(
+                                                  context)
                                                   .primaryColor,
-                                              FontWeight.w400,
+                                              FontWeight
+                                                  .w400,
                                               'FontRegular'),
                                           softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow
+                                              .ellipsis,
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 5.0,),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          copyTradelist!.columnList![2].describe.toString(),
+                                          style: CustomWidget(
+                                              context:
+                                              context)
+                                              .CustomTextStyle(
+                                              Theme.of(
+                                                  context)
+                                                  .canvasColor,
+                                              FontWeight
+                                                  .w400,
+                                              'FontRegular'),
+                                          softWrap: true,
+                                          overflow: TextOverflow
+                                              .ellipsis,
+                                        ),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                          "\$"+  copyTradelist!.columnList![2].value.toString(),
+                                          style: CustomWidget(
+                                              context:
+                                              context)
+                                              .CustomTextStyle(
+                                              Theme.of(
+                                                  context)
+                                                  .primaryColor,
+                                              FontWeight
+                                                  .w400,
+                                              'FontRegular'),
+                                          softWrap: true,
+                                          overflow: TextOverflow
+                                              .ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
                                     Row(
                                       children: [
                                         Text(
                                           "Win rate",
                                           style: CustomWidget(
-                                              context: context)
+                                              context:
+                                              context)
                                               .CustomTextStyle(
-                                              Theme.of(context)
+                                              Theme.of(
+                                                  context)
                                                   .canvasColor,
-                                              FontWeight.w400,
+                                              FontWeight
+                                                  .w400,
                                               'FontRegular'),
                                           softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow
+                                              .ellipsis,
                                         ),
-                                        const SizedBox(width: 10.0,),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
                                         Text(
-                                          "98.05%",
+                                          copyTradelist!.averageWinRate.toString()+ "%",
                                           style: CustomWidget(
-                                              context: context)
+                                              context:
+                                              context)
                                               .CustomTextStyle(
-                                              Theme.of(context)
+                                              Theme.of(
+                                                  context)
                                                   .primaryColor,
-                                              FontWeight.w400,
+                                              FontWeight
+                                                  .w400,
                                               'FontRegular'),
                                           softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow
+                                              .ellipsis,
                                         ),
                                       ],
                                     )
                                   ],
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                                 ),
-                                SvgPicture.asset('assets/icon/graph_success.svg'),
+                                SvgPicture.asset( 'assets/icon/graph_success.svg'
+                                   ),
                               ],
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceAround,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
                             ),
-                            const SizedBox(height: 8.0,),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
                             Container(
-                              margin: EdgeInsets.only(left:20.0,right:20.0),
+                              margin: EdgeInsets.only(
+                                  left: 20.0, right: 20.0),
                               height: 0.5,
-                              width: MediaQuery.of(context).size.width,
-                              color:     Theme.of(context)
-                                  .canvasColor,
+                              width: MediaQuery.of(context)
+                                  .size
+                                  .width,
+                              color:
+                              Theme.of(context).canvasColor,
                             ),
-                            const SizedBox(height: 8.0,),
-                            Padding(padding: EdgeInsets.only(left: 20.0),child: Row(
-                              children: [
-                                Text(
-                                  "AUM",
-                                  style: CustomWidget(
-                                      context: context)
-                                      .CustomTextStyle(
-                                      Theme.of(context)
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            Padding(
+                              padding:
+                              EdgeInsets.only(left: 20.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "AUM",
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomTextStyle(
+                                        Theme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                    softWrap: true,
+                                    overflow:
+                                    TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    copyTradelist!.columnList![5].value.toString()+"%",
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomTextStyle(
+                                        Theme.of(context)
+                                            .primaryColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                    softWrap: true,
+                                    overflow:
+                                    TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            Padding(
+                              padding:
+                              EdgeInsets.only(left: 20.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Total Followers",
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomTextStyle(
+                                        Theme.of(context)
+                                            .canvasColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                    softWrap: true,
+                                    overflow:
+                                    TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    copyTradelist!.totalFollowers.toString(),
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomTextStyle(
+                                        Theme.of(context)
+                                            .primaryColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                    softWrap: true,
+                                    overflow:
+                                    TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            InkWell(
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 15.0, right: 15.0),
+                                padding: EdgeInsets.only(
+                                    top: 8.0, bottom: 8.0),
+                                child: Center(
+                                  child: Text("Copy",
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomSizedTextStyle(
+                                        18.0, Theme.of(
+                                        context)
+                                        .canvasColor,
+                                        FontWeight.w500,
+                                        'FontRegular'),
+                                    softWrap: true,
+                                    overflow:
+                                    TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        25.0),
+                                    border: Border.all(
+                                      color: Theme.of(context)
                                           .canvasColor,
-                                      FontWeight.w400,
-                                      'FontRegular'),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(width: 10.0,),
-                                Text(
-                                  "\$15022.8503",
-                                  style: CustomWidget(
-                                      context: context)
-                                      .CustomTextStyle(
-                                      Theme.of(context)
-                                          .primaryColor,
-                                      FontWeight.w400,
-                                      'FontRegular'),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),),
-                            const SizedBox(height: 8.0,),
-                            Padding(padding: EdgeInsets.only(left: 20.0),child: Row(
-                              children: [
-                                Text(
-                                  "Copy Trade PnL",
-                                  style: CustomWidget(
-                                      context: context)
-                                      .CustomTextStyle(
-                                      Theme.of(context)
-                                          .canvasColor,
-                                      FontWeight.w400,
-                                      'FontRegular'),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(width: 10.0,),
-                                Text(
-                                  "\$1020.8503",
-                                  style: CustomWidget(
-                                      context: context)
-                                      .CustomTextStyle(
-                                      Theme.of(context)
-                                          .primaryColor,
-                                      FontWeight.w400,
-                                      'FontRegular'),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),),
-                            const SizedBox(height: 10.0,),
-                            Container(
-                              margin: EdgeInsets.only(left: 15.0,right: 15.0),
-                              padding:EdgeInsets.only(top: 8.0,bottom: 8.0),
+                                    ),
+                                    color:  Theme.of(context)
+                                        .errorColor),
+                              ),
+                              onTap: () {
 
-                              child: Center(
-                                child: Text(
-                                  "Copy",
-                                  style: CustomWidget(
-                                      context: context)
-                                      .CustomSizedTextStyle(
-                                      18.0,Theme.of(context)
-                                      .canvasColor,
-                                      FontWeight.w500,
-                                      'FontRegular'),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  border: Border.all(color: Theme.of(context)
-                                      .canvasColor,),
-                                  color:  Theme.of(context)
-                                      .errorColor
-                              ),
+                              },
                             )
-
                           ],
                         ),
                       ],
@@ -626,100 +736,5 @@ class _CopyTradeDetailsState extends State<CopyTradeDetails> with TickerProvider
               ),
             )));
   }
-  Widget tradeOpenUI() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      child: NestedScrollView(
-        controller: controller,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          //<-- headerSliverBuilder
-          return <Widget>[
-            SliverAppBar(
-              backgroundColor: CustomTheme.of(context).focusColor,
-              pinned: true,
-              //<-- pinned to true
-              floating: true,
-              //<-- floating to true
-              expandedHeight: 30.0,
-              forceElevated: innerBoxIsScrolled,
-              //<-- forceElevated to innerBoxIsScrolled
-              bottom: TabBar(
-                isScrollable: false,
-                labelColor: CustomTheme.of(context).primaryColorLight,
 
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorWeight: 3.0,
-                //<-- selected text color
-                unselectedLabelColor: CustomTheme.of(context).primaryColor,
-                // isScrollable: true,
-                indicatorPadding:
-                EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-                indicatorColor: CustomTheme.of(context).primaryColorLight,
-                tabs: <Tab>[
-                  Tab(
-                    text: "Open Orders",
-                  ),
-                  Tab(
-                    text: "Last Trades",
-                  ),
-                  Tab(
-                    text: "Info",
-                  ),
-                ],
-                controller: _tabTradeController,
-              ),
-            ),
-          ];
-        },
-        body: Container(
-          color: CustomTheme.of(context).focusColor,
-          height: MediaQuery.of(context).size.height * 0.5,
-          child: TabBarView(
-            children: <Widget>[
-              Container(
-                height: 150.0,
-                child: Center(
-                  child: Text(
-                    "No Records Found....!",
-                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                        14.0,
-                        CustomTheme.of(context).primaryColorLight,
-                        FontWeight.w500,
-                        'FontRegular'),
-                  ),
-                ),
-              ),
-              Container(
-                height: 150.0,
-                child: Center(
-                  child: Text(
-                    "No Records Found....!",
-                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                        14.0,
-                        CustomTheme.of(context).primaryColorLight,
-                        FontWeight.w500,
-                        'FontRegular'),
-                  ),
-                ),
-              ),
-              Container(
-                height: 150.0,
-                child: Center(
-                  child: Text(
-                    "No Records Found....!",
-                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                        14.0,
-                        CustomTheme.of(context).primaryColorLight,
-                        FontWeight.w500,
-                        'FontRegular'),
-                  ),
-                ),
-              ),
-            ],
-            controller: _tabTradeController,
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -47,7 +47,7 @@ class _Sign_Up_screenState extends State<Login> {
  splitFirst=widget.email.toString().split("@")[0];
     splitSecond=widget.email.toString().split("@")[1];
 
-
+passwordController.text="Avanzar@1234";
 
     getData();
 
@@ -72,7 +72,7 @@ class _Sign_Up_screenState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
-
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
@@ -370,6 +370,8 @@ class _Sign_Up_screenState extends State<Login> {
       });
 
     }).catchError((Object error) {
+      print("Mano");
+      print(error);
       setState(() {
         loading = false;
       });

@@ -4,6 +4,8 @@ import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/graph_ql_utils.dart';
+import 'package:cofinex/data_model/model/all_pair_list_model.dart';
+import 'package:cofinex/data_model/model/socket_market_model.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
 import 'package:cofinex/data_model/query_utils.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,7 @@ class _MarketScreenState extends State<MarketScreen>
 
 
   bool loading = false;
-  List<AllTicker> allTicker = [];
+  List<AllPairListModel> allTicker = [];
 
   GraphAPIUtils qlapiUtils = GraphAPIUtils();
 
@@ -42,6 +44,11 @@ class _MarketScreenState extends State<MarketScreen>
     super.initState();
     _tabController = TabController(vsync: this, length: 3);
 
+    channelOpenOrder = IOWebSocketChannel.connect(
+        Uri.parse(
+            "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+
+        pingInterval: Duration(seconds: 30));
     getDetails();
 
 
@@ -55,7 +62,7 @@ class _MarketScreenState extends State<MarketScreen>
         {
           loading = true;
 
-          fillList();
+          getPairList();
         }
 
     });
@@ -355,7 +362,13 @@ class _MarketScreenState extends State<MarketScreen>
           controller: _scrollController,
           itemBuilder: (BuildContext context, int index) {
             bool test = false;
-            String coinImage = allTicker[index].pair!.split("-")[0].toString();
+            String coinImage = allTicker[index].pair!.split("_")[0].toString();
+            String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
+            coinImage=coinImage.replaceAll("USDT", "-USDT");
+            coinImage=coinImage.replaceAll("10000", "");
+
+            String coinName=coinImage1.replaceAll("USDT", "");
+            coinName=coinName.replaceAll("10000", "");
             if (double.parse(
                 allTicker[index].priceChangePercent24Hr.toString()) >
                 0) {
@@ -421,7 +434,7 @@ class _MarketScreenState extends State<MarketScreen>
                                     ),
                                     child: SvgPicture.network(
                                       "https://images.cofinex.io/crypto/ico/" +
-                                          coinImage.toLowerCase() + ".svg",
+                                          coinName.toLowerCase() + ".svg",
                                       height: 15.0,),
                                   ),
                                   SizedBox(
@@ -434,11 +447,11 @@ class _MarketScreenState extends State<MarketScreen>
                                     MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        allTicker[index].pair.toString(),
+                                        coinImage,
                                         style:
                                         CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                            13.0,
+                                            11.0,
                                             Theme
                                                 .of(context)
                                                 .primaryColor,
@@ -448,10 +461,10 @@ class _MarketScreenState extends State<MarketScreen>
                                       ),
 
                                       Text(
-                                        coinImage,
+                                        coinName,
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                            12.0,
+                                            10.0,
                                             Theme
                                                 .of(context)
                                                 .canvasColor,
@@ -487,6 +500,7 @@ class _MarketScreenState extends State<MarketScreen>
                           ),
                           const SizedBox(width: 10.0,),
                           Container(
+                            width: 60,
                               decoration: BoxDecoration(
                                   color: test
                                       ? Theme
@@ -498,8 +512,7 @@ class _MarketScreenState extends State<MarketScreen>
                                   borderRadius:
                                   BorderRadius.circular(5.0)),
                               padding: EdgeInsets.only(
-                                  left: 10.0,
-                                  right: 10.0,
+
                                   top: 5.0,
                                   bottom: 5.0),
                               child: Center(
@@ -592,7 +605,14 @@ class _MarketScreenState extends State<MarketScreen>
             } else {
               test = false;
             }
-            String coinImage = allTicker[index].pair!.split("-")[0].toString();
+
+            String coinImage = allTicker[index].pair!.split("_")[0].toString();
+            String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
+            coinImage=coinImage.replaceAll("USDT", "-USDT");
+            coinImage=coinImage.replaceAll("10000", "");
+
+            String coinName=coinImage1.replaceAll("USDT", "");
+            coinName=coinName.replaceAll("10000", "");
             return Column(
               children: [
                 Container(
@@ -640,7 +660,7 @@ class _MarketScreenState extends State<MarketScreen>
                             ),
                             child: SvgPicture.network(
                               "https://images.cofinex.io/crypto/ico/" +
-                                  coinImage.toLowerCase() + ".svg",
+                                  coinName.toLowerCase() + ".svg",
                               height: 15.0,),
                           ),
                           SizedBox(
@@ -648,7 +668,7 @@ class _MarketScreenState extends State<MarketScreen>
                           ),
 
                           Text(
-                            allTicker[index].pair.toString(),
+                            coinImage,
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 14.0,
@@ -662,9 +682,10 @@ class _MarketScreenState extends State<MarketScreen>
                         ],
                       ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                coinImage,
+                                coinName,
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     14.0,
@@ -676,9 +697,9 @@ class _MarketScreenState extends State<MarketScreen>
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                allTicker[index]
+                                double.parse(allTicker[index]
                                     .priceChangePercent24Hr
-                                    .toString(),
+                                    .toString()).toStringAsFixed(2),
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     12.0,
@@ -746,29 +767,103 @@ class _MarketScreenState extends State<MarketScreen>
             )));
   }
 
-  fillList() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    QueryMutation queryMutation = QueryMutation();
+  // fillList() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   QueryMutation queryMutation = QueryMutation();
+  //
+  //   GraphQLClient _client =
+  //   qlapiUtils.clientToQuery(preferences.getString("token").toString());
+  //   QueryResult result = await _client.query(
+  //     QueryOptions(document: gql(queryMutation.getTickeDetails())),
+  //   );
+  //
+  //   List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+  //
+  //   setState(() {
+  //     loading = false;
+  //     allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
+  //
+  //     allTicker
+  //       ..sort((a, b) =>
+  //       ((double.parse(b.marketPrice.toString())+
+  //           (double.parse(b.volumeTotal24Hr.toString())))
+  //           .compareTo ((double.parse(a.marketPrice.toString()) +
+  //         (double.parse(a.volumeTotal24Hr.toString()))))));
+  //
+  //
+  //     print(allTicker[0].pair);
+  //     channelOpenOrder!.sink.add(json.encode({
+  //       "action": "ticker-subscribe",
+  //     }));
+  //     socketData();
+  //   });
+  // }
 
-    GraphQLClient _client =
-    qlapiUtils.clientToQuery(preferences.getString("token").toString());
-    QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getTickeDetails())),
+  socketData() {
+    setState(() {});
+
+    channelOpenOrder!.stream.listen(
+          (data) {
+        if (data != null || data != "null") {
+          var decode = jsonDecode(data);
+
+          if (mounted) {
+            setState(() {
+              SocketDataModel ss = SocketDataModel.fromJson(decode);
+              for (int m = 0; m < allTicker.length; m++) {
+
+                String pair = allTicker[m].pair!.split("_")[0].toString();
+
+                pair=pair.replaceAll("10000", "");
+
+                if (pair.toLowerCase() ==
+                    ss.pair.toString().toLowerCase()) {
+                  allTicker[m].marketPrice = ss.marketPrice.toString();
+                  allTicker[m].priceChangePercent24Hr =ss.priceChangePercent24Hr.toString();
+                }
+              }
+            });
+          }
+        }
+      },
+      onDone: () async {
+        await Future.delayed(Duration(seconds: 10));
+
+        channelOpenOrder!.sink.add(json.encode({
+          "action": "ticker-subscribe",
+        }));
+        socketData();
+      },
+      onError: (error) => {},
     );
-
-    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
-
-    setState(() {
-      loading = false;
-      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
-
-      allTicker
-        ..sort((a, b) =>
-        ((double.parse(b.marketPrice.toString())+
-            (double.parse(b.volumeTotal24Hr.toString())))
-            .compareTo ((double.parse(a.marketPrice.toString()) +
-          (double.parse(a.volumeTotal24Hr.toString()))))));
-    });
   }
 
+  getPairList() {
+
+    apiUtils.getAllpaitList().then((dynamic loginData) {
+      setState(() {
+        loading=false;
+      });
+
+      List<dynamic> listData = loginData;
+
+      setState(() {
+        allTicker=[];
+        loading = false;
+
+        List<AllPairListModel>       copyTradelistN =
+        (listData).map((item) => AllPairListModel.fromJson(item)).toList();
+        allTicker.addAll(copyTradelistN);
+
+      });
+      channelOpenOrder!.sink.add(json.encode({
+        "action": "ticker-subscribe",
+      }));
+      socketData();
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 }

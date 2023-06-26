@@ -27,17 +27,16 @@ class _SpotTradeState extends State<SpotTrade>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
 
-
   List<String> orderType = ["Limit", "Market"];
   List<String> volType = ["Vol(USDT)"];
   List<AllTicker> allTicker = [];
   List<AllTicker> searchPair = [];
   AllTicker? selectPair;
-  APIUtils apiUtils=APIUtils();
+  APIUtils apiUtils = APIUtils();
 
-  List<OrderBookData> buyData=[];
-  List<OrderBookData> sellData=[];
-  List<OpenOrdersHistory> orderHistory=[];
+  List<OrderBookData> buyData = [];
+  List<OrderBookData> sellData = [];
+  List<OpenOrdersHistory> orderHistory = [];
 
   TextEditingController searchController = TextEditingController();
   FocusNode searchFocus = FocusNode();
@@ -57,14 +56,17 @@ class _SpotTradeState extends State<SpotTrade>
 
   String coinTwo = "";
   String token = "";
-  String bearer="";
+  String bearer = "";
 
-  String num1="";
-  String num2="";
+  String num1 = "";
+  String num2 = "";
 
-  IOWebSocketChannel? channelOpenOrder,channelTradeHistory;
+  IOWebSocketChannel? channelOpenOrder, channelTradeHistory;
 
-  bool loginStatus=false;
+  bool loginStatus = false;
+  String tradeAmount = "0.00";
+  String totalAmount = "0.00";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -74,10 +76,9 @@ class _SpotTradeState extends State<SpotTrade>
     _tabTradeController = TabController(vsync: this, length: 3);
 
     channelOpenOrder = IOWebSocketChannel.connect(
-        Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-        headers: {
-          "Sec-WebSocket-Protocol":"graphql-ws"
-        },
+        Uri.parse(
+            "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+        headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
         pingInterval: Duration(seconds: 30));
     channelOpenOrder!.sink.close();
 
@@ -86,1133 +87,1522 @@ class _SpotTradeState extends State<SpotTrade>
     getRand1();
   }
 
-
-  getRand(){
+  getRand() {
     var rng = Random();
     for (var i = 0; i < 10; i++) {
-
       setState(() {
-        num1=(rng.nextInt(1150000)).toString()+DateTime.now().toString();
+        num1 = (rng.nextInt(1150000)).toString() + DateTime.now().toString();
       });
     }
   }
 
-  getRand1(){
+  getRand1() {
     var rng = Random();
     for (var i = 0; i < 10; i++) {
       setState(() {
-        num1=(rng.nextInt(2150000)).toString()+DateTime.now().toString();
+        num1 = (rng.nextInt(2150000)).toString() + DateTime.now().toString();
       });
-
     }
   }
-  getBearer()async{
-    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+  getBearer() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      bearer=preferences.getString("token").toString();
+      bearer = preferences.getString("token").toString();
 
-      loginStatus=preferences.getBool("login")!;
-     if(loginStatus)
-       {
-         getToken();
-         loading = true;
+      loginStatus = preferences.getBool("login")!;
+      if (loginStatus) {
+        getToken();
+        loading = true;
 
-         coinList();
-       }
+        coinList();
+      }
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: Scaffold(
-      body: Container(
-          color: CustomTheme.of(context).focusColor,
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Padding(
-                    padding:
-                    EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-                    child: Column(
-                      children: [
-                        Column(
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: Scaffold(
+          body: Container(
+              color: CustomTheme.of(context).focusColor,
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                        child: Column(
                           children: [
-                            selectPair !=null?    Row(
+                            Column(
+                              children: [
+                                selectPair != null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              InkWell(
+                                                child: Text(
+                                                  coinOne + coinTwo,
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          18.0,
+                                                          Theme.of(context)
+                                                              .primaryColor,
+                                                          FontWeight.w600,
+                                                          'FontRegular'),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                onTap: () {
+                                                  showSheeet();
+                                                },
+                                              ),
+                                              const SizedBox(
+                                                width: 10.0,
+                                              ),
+                                              Text(
+                                                double.parse(selectPair!
+                                                        .priceChangePercent24Hr
+                                                        .toString())
+                                                    .toStringAsFixed(2),
+                                                style: CustomWidget(
+                                                        context: context)
+                                                    .CustomSizedTextStyle(
+                                                        12.0,
+                                                        double.parse(selectPair!
+                                                                    .priceChangePercent24Hr
+                                                                    .toString()) >
+                                                                0
+                                                            ? Theme.of(context)
+                                                                .indicatorColor
+                                                            : Theme.of(context)
+                                                                .scaffoldBackgroundColor,
+                                                        FontWeight.w700,
+                                                        'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColorLight
+                                                          .withOpacity(0.1),
+                                                      border: Border.all(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColorLight),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 7.0,
+                                                      right: 7.0,
+                                                      top: 5.0,
+                                                      bottom: 5.0),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "10x",
+                                                      style: CustomWidget(
+                                                              context: context)
+                                                          .CustomSizedTextStyle(
+                                                              12.0,
+                                                              Theme.of(context)
+                                                                  .primaryColorLight,
+                                                              FontWeight.w500,
+                                                              'FontRegular'),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  )),
+                                              const SizedBox(
+                                                width: 25.0,
+                                              ),
+                                              SvgPicture.asset(
+                                                'assets/icon/togle.svg',
+                                                height: 25.0,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    : Container()
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    InkWell(
-
-                                      child:   Text(
-                                        coinOne+coinTwo,
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            18.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w600,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      onTap: (){
-                                        showSheeet();
-                                      },
-                                    ),
-
-                                    const SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Text(
-                                      double.parse(selectPair!.priceChangePercent24Hr.toString()).toStringAsFixed(2),
-                                      style: CustomWidget(context: context)
-                                          .CustomSizedTextStyle(
-                                          12.0,
-                                          double.parse(
-                                              selectPair!.priceChangePercent24Hr.toString()) >
-                                              0?  Theme.of(context).indicatorColor:Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                          FontWeight.w700,
+                                Text(
+                                  "Candlestick",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                          10.0,
+                                          CustomTheme.of(context).canvasColor,
+                                          FontWeight.w500,
                                           'FontRegular'),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .primaryColorLight
-                                                .withOpacity(0.1),
-                                            border: Border.all(
-                                                color: Theme.of(context)
-                                                    .primaryColorLight),
-                                            borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                        padding: EdgeInsets.only(
-                                            left: 7.0,
-                                            right: 7.0,
-                                            top: 5.0,
-                                            bottom: 5.0),
-                                        child: Center(
-                                          child: Text(
-                                            "10x",
-                                            style:
-                                            CustomWidget(context: context)
+
+                                // SvgPicture.asset(
+                                //   'assets/icon/togle.svg',
+                                //   height: 25.0,
+                                // ),
+
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      if (collapse) {
+                                        collapse = false;
+                                      } else {
+                                        collapse = true;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0,
+                                          right: 10.0,
+                                          top: 3.0,
+                                          bottom: 3.0),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          color: CustomTheme.of(context)
+                                              .errorColor,
+                                          border: Border.all(
+                                            color: CustomTheme.of(context)
+                                                .canvasColor
+                                                .withOpacity(0.5),
+                                          )),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            collapse ? "Collapes" : "Expand",
+                                            style: CustomWidget(
+                                                    context: context)
                                                 .CustomSizedTextStyle(
-                                                12.0,
-                                                Theme.of(context)
-                                                    .primaryColorLight,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                            textAlign: TextAlign.center,
+                                                    10.0,
+                                                    Theme.of(context).hintColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
                                           ),
-                                        )),
-                                    const SizedBox(
-                                      width: 25.0,
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/icon/togle.svg',
-                                      height: 25.0,
-                                    ),
-                                  ],
+                                          Icon(
+                                            collapse
+                                                ? Icons.arrow_drop_up_sharp
+                                                : Icons.arrow_drop_down,
+                                            color: CustomTheme.of(context)
+                                                .hintColor,
+                                            size: 15.0,
+                                          ),
+                                        ],
+                                      )),
                                 )
                               ],
-                            ):Container()
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Candlestick",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  10.0,
-                                  CustomTheme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
                             ),
-
-                            // SvgPicture.asset(
-                            //   'assets/icon/togle.svg',
-                            //   height: 25.0,
-                            // ),
-
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  if (collapse) {
-                                    collapse = false;
-                                  } else {
-                                    collapse = true;
-                                  }
-                                });
-                              },
-                              child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 10.0,
-                                      right: 10.0,
-                                      top: 3.0,
-                                      bottom: 3.0),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: CustomTheme.of(context).errorColor,
-                                      border: Border.all(
-                                        color: CustomTheme.of(context)
-                                            .canvasColor
-                                            .withOpacity(0.5),
-                                      )),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        collapse ? "Collapes" : "Expand",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).hintColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                      ),
-                                      Icon(
-                                        collapse
-                                            ? Icons.arrow_drop_up_sharp
-                                            : Icons.arrow_drop_down,
-                                        color:
-                                        CustomTheme.of(context).hintColor,
-                                        size: 15.0,
-                                      ),
-                                    ],
-                                  )),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        collapse
-                            ? Image.asset(
-                          'assets/icon/graph.png',
-                          height:
-                          MediaQuery.of(context).size.height * 0.4,
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.fill,
-                        )
-                            : Container(),
-                        SizedBox(
-                          height: collapse ? 15.0 : 1.0,
-                        ),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  children: [
-                                    Row(
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            collapse
+                                ? Image.asset(
+                                    'assets/icon/graph.png',
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: collapse ? 15.0 : 1.0,
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Column(
                                       children: [
-                                        Flexible(
-                                            child: InkWell(
-
-                                              onTap: (){
-
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                                child: InkWell(
+                                              onTap: () {
                                                 setState(() {
-                                                  tradeOption=true;
+                                                  tradeOption = true;
                                                 });
                                               },
                                               child: Container(
-                                                width:
-                                                MediaQuery.of(context).size.width,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
                                                 decoration: BoxDecoration(
-                                                    color:
-                                                    Theme.of(context).primaryColorLight,
+                                                    color: Theme.of(context)
+                                                        .primaryColorLight,
                                                     borderRadius:
-                                                    BorderRadius.circular(5.0)),
+                                                        BorderRadius.circular(
+                                                            5.0)),
                                                 padding: EdgeInsets.only(
                                                     top: 7.0, bottom: 7.0),
                                                 child: Center(
                                                   child: Text(
                                                     "Buy",
                                                     style: CustomWidget(
-                                                        context: context)
+                                                            context: context)
                                                         .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w600,
-                                                        'FontRegular'),
+                                                            10.0,
+                                                            CustomTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                            FontWeight.w600,
+                                                            'FontRegular'),
                                                   ),
                                                 ),
                                               ),
                                             )),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Flexible(
-                                            child: InkWell(
-                                              onTap: (){
+                                            const SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            Flexible(
+                                                child: InkWell(
+                                              onTap: () {
                                                 setState(() {
-                                                  tradeOption=false;
+                                                  tradeOption = false;
                                                 });
-
                                               },
                                               child: Container(
-                                                width:
-                                                MediaQuery.of(context).size.width,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
                                                 decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .primaryColor,
                                                     borderRadius:
-                                                    BorderRadius.circular(5.0)),
+                                                        BorderRadius.circular(
+                                                            5.0)),
                                                 padding: EdgeInsets.only(
                                                     top: 7.0, bottom: 7.0),
                                                 child: Center(
                                                   child: Text(
                                                     "Sell",
                                                     style: CustomWidget(
-                                                        context: context)
+                                                            context: context)
                                                         .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .focusColor,
-                                                        FontWeight.w600,
-                                                        'FontRegular'),
+                                                            10.0,
+                                                            CustomTheme.of(
+                                                                    context)
+                                                                .focusColor,
+                                                            FontWeight.w600,
+                                                            'FontRegular'),
                                                   ),
                                                 ),
                                               ),
                                             )),
-
-
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      height: 30.0,
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0,
-                                          right: 10.0,
-                                          top: 0.0,
-                                          bottom: 0.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          color: CustomTheme.of(context)
-                                              .errorColor,
-                                          border: Border.all(
-                                            color: CustomTheme.of(context)
-                                                .canvasColor
-                                                .withOpacity(0.5),
-                                          )),
-                                      child: Center(
-                                        child: Theme(
-                                          data: Theme.of(context).copyWith(
-                                            canvasColor: CustomTheme.of(context)
-                                                .focusColor,
-                                          ),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              items: orderType
-                                                  .map((value) =>
-                                                  DropdownMenuItem(
-                                                    child: Text(
-                                                      value,
-                                                      style: CustomWidget(
-                                                          context:
-                                                          context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
-                                                          Theme.of(
-                                                              context)
-                                                              .hintColor,
-                                                          FontWeight
-                                                              .w500,
-                                                          'FontRegular'),
-                                                    ),
-                                                    value: value,
-                                                  ))
-                                                  .toList(),
-                                              onChanged: (value) {
-                                                setState(() {});
-                                              },
-                                              isExpanded: true,
-                                              value: selectedType,
-                                              icon: Icon(
-                                                Icons.arrow_drop_down,
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Container(
+                                          height: 30.0,
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0,
+                                              right: 10.0,
+                                              top: 0.0,
+                                              bottom: 0.0),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: CustomTheme.of(context)
+                                                  .errorColor,
+                                              border: Border.all(
                                                 color: CustomTheme.of(context)
-                                                    .hintColor,
-                                                size: 15.0,
+                                                    .canvasColor
+                                                    .withOpacity(0.5),
+                                              )),
+                                          child: Center(
+                                            child: Theme(
+                                              data: Theme.of(context).copyWith(
+                                                canvasColor:
+                                                    CustomTheme.of(context)
+                                                        .focusColor,
+                                              ),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  items: orderType
+                                                      .map(
+                                                          (value) =>
+                                                              DropdownMenuItem(
+                                                                child: Text(
+                                                                  value,
+                                                                  style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .hintColor,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                      'FontRegular'),
+                                                                ),
+                                                                value: value,
+                                                              ))
+                                                      .toList(),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      selectedType = value!;
+                                                      priceController.clear();
+                                                      amtController.clear();
+                                                      totalAmount = "0.00";
+                                                    });
+                                                  },
+                                                  isExpanded: true,
+                                                  value: selectedType,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .hintColor,
+                                                    size: 15.0,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: CustomTheme.of(context)
-                                                  .splashColor
-                                                  .withOpacity(0.5),
-                                              width: 1.0),
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          color: CustomTheme.of(context)
-                                              .errorColor),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                height: 30.0,
-                                                width: 35.0,
-                                                padding: const EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "-",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        20.0,
-                                                        Theme.of(context)
-                                                            .hintColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                  ),
-                                                )),
-                                          ),
-                                          Flexible(
-                                              child: Container(
-                                                height: 30.0,
-                                                child: TextField(
-                                                  enabled: true,
-                                                  controller: priceController,
-                                                  keyboardType: const TextInputType
-                                                      .numberWithOptions(
-                                                      decimal: true),
-                                                  style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      13.0,
-                                                      Theme.of(context)
-                                                          .hintColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(r'[0-9.]')),
-                                                  ],
-                                                  onChanged: (value) {},
-                                                  decoration: InputDecoration(
-                                                      contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 17.0),
-                                                      hintText: "Price",
-                                                      hintStyle: CustomWidget(
-                                                          context: context)
-                                                          .CustomSizedTextStyle(
-                                                          12.0,
-                                                          Theme.of(context)
-                                                              .hintColor,
-                                                          FontWeight.w500,
-                                                          'FontRegular'),
-                                                      border: InputBorder.none),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )),
-                                          const SizedBox(
-                                            width: 2.0,
-                                          ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                height: 30.0,
-                                                width: 35.0,
-                                                padding: const EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "+",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        20.0,
-                                                        Theme.of(context)
-                                                            .hintColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        selectPair !=null?  "= "+  selectPair!.marketPrice.toString()+coinTwo:"",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            CustomTheme.of(context)
-                                                .canvasColor,
-                                            FontWeight.w600,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: CustomTheme.of(context)
-                                                  .splashColor
-                                                  .withOpacity(0.5),
-                                              width: 1.0),
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          color: CustomTheme.of(context)
-                                              .errorColor),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        selectedType.toString() == "Market"
+                                            ? Container()
+                                            : Container(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: CustomTheme.of(
+                                                                context)
+                                                            .splashColor
+                                                            .withOpacity(0.5),
+                                                        width: 1.0),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .errorColor),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (selectedType
+                                                                  .toLowerCase() ==
+                                                              "limit") {
+                                                            tradeAmount =
+                                                                "0.00";
 
-                                            },
-                                            child: Container(
-                                                height: 30.0,
-                                                width: 35.0,
-                                                padding: const EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
+                                                            if (priceController
+                                                                .text
+                                                                .isNotEmpty) {
+                                                              double amount =
+                                                                  double.parse(
+                                                                      priceController
+                                                                          .text);
+
+                                                              if (amount > 0) {
+                                                                amount =
+                                                                    amount -
+                                                                        0.01;
+                                                                priceController
+                                                                        .text =
+                                                                    amount
+                                                                        .toStringAsFixed(
+                                                                            2);
+
+                                                                if (amtController
+                                                                    .text
+                                                                    .isNotEmpty) {
+                                                                  tradeAmount =
+                                                                      amtController
+                                                                          .text
+                                                                          .toString();
+                                                                } else {
+                                                                  totalAmount =
+                                                                      "0.00";
+                                                                }
+                                                              } else {
+                                                                priceController
+                                                                    .clear();
+                                                                totalAmount =
+                                                                    "0.00";
+                                                              }
+                                                            }
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                          height: 30.0,
+                                                          width: 35.0,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            left: 10.0,
+                                                            right: 10.0,
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "-",
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      20.0,
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .hintColor,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                      'FontRegular'),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                    Flexible(
+                                                        child: Container(
+                                                      height: 30.0,
+                                                      child: TextField(
+                                                        enabled: true,
+                                                        controller:
+                                                            priceController,
+                                                        keyboardType:
+                                                            const TextInputType
+                                                                    .numberWithOptions(
+                                                                decimal: true),
+                                                        style: CustomWidget(
+                                                                context:
+                                                                    context)
+                                                            .CustomSizedTextStyle(
+                                                                13.0,
+                                                                Theme.of(
+                                                                        context)
+                                                                    .hintColor,
+                                                                FontWeight.w500,
+                                                                'FontRegular'),
+                                                        inputFormatters: [
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9.]')),
+                                                        ],
+                                                        onChanged: (value) {},
+                                                        decoration: InputDecoration(
+                                                            contentPadding:
+                                                                EdgeInsets.only(
+                                                                    bottom:
+                                                                        17.0),
+                                                            hintText: "Price",
+                                                            hintStyle: CustomWidget(
+                                                                    context:
+                                                                        context)
+                                                                .CustomSizedTextStyle(
+                                                                    12.0,
+                                                                    Theme.of(
+                                                                            context)
+                                                                        .hintColor,
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    'FontRegular'),
+                                                            border: InputBorder
+                                                                .none),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    )),
+                                                    const SizedBox(
+                                                      width: 2.0,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (selectedType
+                                                                  .toLowerCase() ==
+                                                              "limit") {
+                                                            if (priceController
+                                                                .text
+                                                                .isNotEmpty) {
+                                                              double amount =
+                                                                  double.parse(
+                                                                      priceController
+                                                                          .text);
+                                                              print(amount);
+                                                              if (amount > 0) {
+                                                                amount =
+                                                                    amount +
+                                                                        0.01;
+                                                                priceController
+                                                                        .text =
+                                                                    amount
+                                                                        .toStringAsFixed(
+                                                                            2);
+                                                                if (amtController
+                                                                    .text
+                                                                    .isNotEmpty) {
+                                                                  totalAmount = (double.parse(amtController
+                                                                              .text
+                                                                              .toString()) *
+                                                                          double.parse(priceController
+                                                                              .text
+                                                                              .toString()))
+                                                                      .toStringAsFixed(
+                                                                          8);
+                                                                  //   totalController.text=totalAmount;
+                                                                  // }
+                                                                } else {
+                                                                  tradeAmount =
+                                                                      "0.00";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              print("Mano");
+                                                              priceController
+                                                                      .text =
+                                                                  "0.01";
+                                                              totalAmount =
+                                                                  "0.00";
+                                                            }
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                          height: 30.0,
+                                                          width: 35.0,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            left: 10.0,
+                                                            right: 10.0,
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "+",
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      20.0,
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .hintColor,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                      'FontRegular'),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ],
                                                 ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "-",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        20.0,
-                                                        Theme.of(context)
-                                                            .hintColor,
-                                                        FontWeight.w500,
+                                              ),
+                                        const SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: Text(
+                                            selectPair != null
+                                                ? "= " +
+                                                    selectPair!.marketPrice
+                                                        .toString() +
+                                                    coinTwo
+                                                : "",
+                                            style:
+                                                CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .canvasColor,
+                                                        FontWeight.w600,
                                                         'FontRegular'),
-                                                  ),
-                                                )),
+                                            textAlign: TextAlign.start,
                                           ),
-                                          Flexible(
-                                              child: Container(
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.fromLTRB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: CustomTheme.of(context)
+                                                      .splashColor
+                                                      .withOpacity(0.5),
+                                                  width: 1.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: CustomTheme.of(context)
+                                                  .errorColor),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    tradeAmount = "0.0";
+                                                    totalAmount = "0.0";
+
+                                                    if (amtController
+                                                        .text.isNotEmpty) {
+                                                      double amount =
+                                                          double.parse(
+                                                              amtController
+                                                                  .text);
+                                                      if (amount > 0) {
+                                                        amount = amount - 0.01;
+                                                        amtController.text =
+                                                            amount
+                                                                .toStringAsFixed(
+                                                                    2);
+                                                        tradeAmount =
+                                                            amtController.text;
+
+                                                        if (priceController
+                                                            .text.isNotEmpty) {
+                                                          totalAmount = (double.parse(
+                                                                      amtController
+                                                                          .text
+                                                                          .toString()) *
+                                                                  double.parse(
+                                                                      priceController
+                                                                          .text
+                                                                          .toString()))
+                                                              .toStringAsFixed(
+                                                                  8);
+                                                        }
+                                                      } else {
+                                                        amtController.clear();
+                                                        tradeAmount = "0.0";
+                                                        totalAmount = "0.0";
+                                                      }
+                                                    }
+                                                  });
+                                                },
+                                                child: Container(
+                                                    height: 30.0,
+                                                    width: 35.0,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 10.0,
+                                                      right: 10.0,
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "-",
+                                                        style: CustomWidget(
+                                                                context:
+                                                                    context)
+                                                            .CustomSizedTextStyle(
+                                                                20.0,
+                                                                Theme.of(
+                                                                        context)
+                                                                    .hintColor,
+                                                                FontWeight.w500,
+                                                                'FontRegular'),
+                                                      ),
+                                                    )),
+                                              ),
+                                              Flexible(
+                                                  child: Container(
                                                 height: 30.0,
                                                 child: TextField(
                                                   enabled: true,
                                                   controller: amtController,
-                                                  keyboardType: const TextInputType
-                                                      .numberWithOptions(
-                                                      decimal: true),
-                                                  style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      13.0,
-                                                      Theme.of(context)
-                                                          .hintColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(r'[0-9.]')),
-                                                  ],
-                                                  onChanged: (value) {},
-                                                  decoration: InputDecoration(
-                                                      contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 20.0),
-                                                      hintText: "Amount(BTC)",
-                                                      hintStyle: CustomWidget(
+                                                  keyboardType:
+                                                      const TextInputType
+                                                              .numberWithOptions(
+                                                          decimal: true),
+                                                  style: CustomWidget(
                                                           context: context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
+                                                      .CustomSizedTextStyle(
+                                                          13.0,
                                                           Theme.of(context)
                                                               .hintColor,
                                                           FontWeight.w500,
                                                           'FontRegular'),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .allow(
+                                                            RegExp(r'[0-9.]')),
+                                                  ],
+                                                  onChanged: (value) {},
+                                                  decoration: InputDecoration(
+                                                      contentPadding:
+                                                          EdgeInsets.only(
+                                                              bottom: 20.0),
+                                                      hintText: "Amount(BTC)",
+                                                      hintStyle: CustomWidget(
+                                                              context: context)
+                                                          .CustomSizedTextStyle(
+                                                              10.0,
+                                                              Theme.of(context)
+                                                                  .hintColor,
+                                                              FontWeight.w500,
+                                                              'FontRegular'),
                                                       border: InputBorder.none),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               )),
-                                          const SizedBox(
-                                            width: 2.0,
+                                              const SizedBox(
+                                                width: 2.0,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    totalAmount = "0.000";
+
+                                                    if (amtController
+                                                        .text.isNotEmpty) {
+                                                      double amount =
+                                                          double.parse(
+                                                              amtController
+                                                                  .text);
+                                                      if (amount >= 0) {
+                                                        amount = amount + 0.01;
+                                                        amtController.text =
+                                                            amount
+                                                                .toStringAsFixed(
+                                                                    2);
+                                                        tradeAmount =
+                                                            amtController.text;
+                                                        if (priceController
+                                                            .text.isNotEmpty) {
+                                                          totalAmount = (double.parse(
+                                                                      amtController
+                                                                          .text
+                                                                          .toString()) *
+                                                                  double.parse(
+                                                                      priceController
+                                                                          .text
+                                                                          .toString()))
+                                                              .toStringAsFixed(
+                                                                  8);
+                                                        }
+                                                      }
+                                                    } else {
+                                                      amtController.text =
+                                                          "0.01";
+                                                      tradeAmount =
+                                                          amtController.text;
+                                                      totalAmount = "0.000";
+                                                    }
+                                                  });
+                                                },
+                                                child: Container(
+                                                    height: 30.0,
+                                                    width: 35.0,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 10.0,
+                                                      right: 10.0,
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "+",
+                                                        style: CustomWidget(
+                                                                context:
+                                                                    context)
+                                                            .CustomSizedTextStyle(
+                                                                20.0,
+                                                                Theme.of(
+                                                                        context)
+                                                                    .hintColor,
+                                                                FontWeight.w500,
+                                                                'FontRegular'),
+                                                      ),
+                                                    )),
+                                              ),
+                                            ],
                                           ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                height: 30.0,
-                                                width: 35.0,
-                                                padding: const EdgeInsets.only(
-                                                  left: 10.0,
-                                                  right: 10.0,
-                                                ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            InkWell(
+                                              onTap: (){
+                                                // setState(() {
+                                                //   priceController.clear();
+                                                //   amtController.clear();
+                                                //   totalController.clear();
+                                                //   first = false;
+                                                //   second = true;
+                                                //   third = false;
+                                                //   fourth = false;
+                                                //   priceController.text = price;
+                                                //   if (buySell) {
+                                                //     double perce = (double.parse(
+                                                //         secondBalance) *
+                                                //         25) /
+                                                //         100;
+                                                //
+                                                //     totalAmount = double.parse(
+                                                //         perce.toString())
+                                                //         .toStringAsFixed(8);
+                                                //     totalController.text =
+                                                //         totalAmount;
+                                                //     double a = double.parse(perce
+                                                //         .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
+                                                //     double b =
+                                                //     double.parse(price);
+                                                //     amtController
+                                                //         .text = double.parse(
+                                                //         (a / b).toString())
+                                                //         .toStringAsFixed(8);
+                                                //     double amount =
+                                                //     double.parse(
+                                                //         priceController.text
+                                                //             .toString());
+                                                //
+                                                //   } else {
+                                                //     double perce = (double.parse(
+                                                //         firstBalance) *
+                                                //         25) /
+                                                //         100;
+                                                //     amtController.text =
+                                                //     "0.25";
+                                                //     print(perce);
+                                                //
+                                                //     totalController
+                                                //         .text = (0.50 *
+                                                //         double.parse(price
+                                                //             .toString()))
+                                                //         .toString();
+                                                //   }
+                                                // });
+
+                                              },
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      color: CustomTheme.of(
+                                                              context)
+                                                          .errorColor,
+                                                      border: Border.all(
+                                                        color: CustomTheme.of(
+                                                                context)
+                                                            .canvasColor
+                                                            .withOpacity(0.5),
+                                                      )),
+                                                  padding: EdgeInsets.only(
+                                                      left: 7.0,
+                                                      right: 7.0,
+                                                      top: 5.0,
+                                                      bottom: 5.0),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "25%",
+                                                      style: CustomWidget(
+                                                              context: context)
+                                                          .CustomSizedTextStyle(
+                                                              8.0,
+                                                              Theme.of(context)
+                                                                  .canvasColor,
+                                                              FontWeight.w500,
+                                                              'FontRegular'),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  )),
+                                            ),
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .errorColor,
+                                                    border: Border.all(
+                                                      color: CustomTheme.of(
+                                                              context)
+                                                          .canvasColor
+                                                          .withOpacity(0.5),
+                                                    )),
+                                                padding: EdgeInsets.only(
+                                                    left: 7.0,
+                                                    right: 7.0,
+                                                    top: 5.0,
+                                                    bottom: 5.0),
                                                 child: Center(
                                                   child: Text(
-                                                    "+",
+                                                    "50%",
                                                     style: CustomWidget(
-                                                        context: context)
+                                                            context: context)
                                                         .CustomSizedTextStyle(
-                                                        20.0,
-                                                        Theme.of(context)
-                                                            .hintColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                                            8.0,
+                                                            Theme.of(context)
+                                                                .canvasColor,
+                                                            FontWeight.w500,
+                                                            'FontRegular'),
+                                                    textAlign: TextAlign.center,
                                                   ),
                                                 )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                color: CustomTheme.of(context)
-                                                    .errorColor,
-                                                border: Border.all(
-                                                  color: CustomTheme.of(context)
-                                                      .canvasColor
-                                                      .withOpacity(0.5),
-                                                )),
-                                            padding: EdgeInsets.only(
-                                                left: 7.0,
-                                                right: 7.0,
-                                                top: 5.0,
-                                                bottom: 5.0),
-                                            child: Center(
-                                              child: Text(
-                                                "25%",
-                                                style: CustomWidget(
-                                                    context: context)
-                                                    .CustomSizedTextStyle(
-                                                    8.0,
-                                                    Theme.of(context)
-                                                        .canvasColor,
-                                                    FontWeight.w500,
-                                                    'FontRegular'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )),
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                color: CustomTheme.of(context)
-                                                    .errorColor,
-                                                border: Border.all(
-                                                  color: CustomTheme.of(context)
-                                                      .canvasColor
-                                                      .withOpacity(0.5),
-                                                )),
-                                            padding: EdgeInsets.only(
-                                                left: 7.0,
-                                                right: 7.0,
-                                                top: 5.0,
-                                                bottom: 5.0),
-                                            child: Center(
-                                              child: Text(
-                                                "50%",
-                                                style: CustomWidget(
-                                                    context: context)
-                                                    .CustomSizedTextStyle(
-                                                    8.0,
-                                                    Theme.of(context)
-                                                        .canvasColor,
-                                                    FontWeight.w500,
-                                                    'FontRegular'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )),
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                color: CustomTheme.of(context)
-                                                    .errorColor,
-                                                border: Border.all(
-                                                  color: CustomTheme.of(context)
-                                                      .canvasColor
-                                                      .withOpacity(0.5),
-                                                )),
-                                            padding: EdgeInsets.only(
-                                                left: 7.0,
-                                                right: 7.0,
-                                                top: 5.0,
-                                                bottom: 5.0),
-                                            child: Center(
-                                              child: Text(
-                                                "75%",
-                                                style: CustomWidget(
-                                                    context: context)
-                                                    .CustomSizedTextStyle(
-                                                    8.0,
-                                                    Theme.of(context)
-                                                        .canvasColor,
-                                                    FontWeight.w500,
-                                                    'FontRegular'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )),
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                color: CustomTheme.of(context)
-                                                    .errorColor,
-                                                border: Border.all(
-                                                  color: CustomTheme.of(context)
-                                                      .canvasColor
-                                                      .withOpacity(0.5),
-                                                )),
-                                            padding: EdgeInsets.only(
-                                                left: 7.0,
-                                                right: 7.0,
-                                                top: 5.0,
-                                                bottom: 5.0),
-                                            child: Center(
-                                              child: Text(
-                                                "100%",
-                                                style: CustomWidget(
-                                                    context: context)
-                                                    .CustomSizedTextStyle(
-                                                    8.0,
-                                                    Theme.of(context)
-                                                        .canvasColor,
-                                                    FontWeight.w500,
-                                                    'FontRegular'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            )),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      height: 30.0,
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0,
-                                          right: 10.0,
-                                          top: 0.0,
-                                          bottom: 0.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          color: CustomTheme.of(context)
-                                              .errorColor,
-                                          border: Border.all(
-                                            color: CustomTheme.of(context)
-                                                .canvasColor
-                                                .withOpacity(0.5),
-                                          )),
-                                      child: Center(
-                                        child: Theme(
-                                          data: Theme.of(context).copyWith(
-                                            canvasColor: CustomTheme.of(context)
-                                                .focusColor,
-                                          ),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              items: volType
-                                                  .map((value) =>
-                                                  DropdownMenuItem(
-                                                    child: Text(
-                                                      value,
-                                                      style: CustomWidget(
-                                                          context:
-                                                          context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
-                                                          Theme.of(
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .errorColor,
+                                                    border: Border.all(
+                                                      color: CustomTheme.of(
                                                               context)
-                                                              .hintColor,
-                                                          FontWeight
-                                                              .w500,
-                                                          'FontRegular'),
-                                                    ),
-                                                    value: value,
-                                                  ))
-                                                  .toList(),
-                                              onChanged: (value) {
-                                                setState(() {});
-                                              },
-                                              isExpanded: true,
-                                              value: selectedVol,
-                                              icon: Icon(
-                                                Icons.arrow_drop_down,
+                                                          .canvasColor
+                                                          .withOpacity(0.5),
+                                                    )),
+                                                padding: EdgeInsets.only(
+                                                    left: 7.0,
+                                                    right: 7.0,
+                                                    top: 5.0,
+                                                    bottom: 5.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    "75%",
+                                                    style: CustomWidget(
+                                                            context: context)
+                                                        .CustomSizedTextStyle(
+                                                            8.0,
+                                                            Theme.of(context)
+                                                                .canvasColor,
+                                                            FontWeight.w500,
+                                                            'FontRegular'),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )),
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .errorColor,
+                                                    border: Border.all(
+                                                      color: CustomTheme.of(
+                                                              context)
+                                                          .canvasColor
+                                                          .withOpacity(0.5),
+                                                    )),
+                                                padding: EdgeInsets.only(
+                                                    left: 7.0,
+                                                    right: 7.0,
+                                                    top: 5.0,
+                                                    bottom: 5.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    "100%",
+                                                    style: CustomWidget(
+                                                            context: context)
+                                                        .CustomSizedTextStyle(
+                                                            8.0,
+                                                            Theme.of(context)
+                                                                .canvasColor,
+                                                            FontWeight.w500,
+                                                            'FontRegular'),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Container(
+                                          height: 30.0,
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0,
+                                              right: 10.0,
+                                              top: 0.0,
+                                              bottom: 0.0),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: CustomTheme.of(context)
+                                                  .errorColor,
+                                              border: Border.all(
                                                 color: CustomTheme.of(context)
-                                                    .hintColor,
-                                                size: 15.0,
+                                                    .canvasColor
+                                                    .withOpacity(0.5),
+                                              )),
+                                          child: Center(
+                                            child: Theme(
+                                              data: Theme.of(context).copyWith(
+                                                canvasColor:
+                                                    CustomTheme.of(context)
+                                                        .focusColor,
+                                              ),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  items: volType
+                                                      .map(
+                                                          (value) =>
+                                                              DropdownMenuItem(
+                                                                child: Text(
+                                                                  value,
+                                                                  style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      Theme.of(
+                                                                              context)
+                                                                          .hintColor,
+                                                                      FontWeight
+                                                                          .w500,
+                                                                      'FontRegular'),
+                                                                ),
+                                                                value: value,
+                                                              ))
+                                                      .toList(),
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  isExpanded: true,
+                                                  value: selectedVol,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color:
+                                                        CustomTheme.of(context)
+                                                            .hintColor,
+                                                    size: 15.0,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        selectPair !=null?  "= "+  selectPair!.marketPrice.toString()+coinTwo:"",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            CustomTheme.of(context)
-                                                .canvasColor,
-                                            FontWeight.w600,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Avail",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                              10.0,
-                                              CustomTheme.of(context)
-                                                  .canvasColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
-                                          textAlign: TextAlign.start,
+                                        const SizedBox(
+                                          height: 5.0,
                                         ),
-                                        Text(
-                                          "=0.00 USD",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                              10.0,
-                                              CustomTheme.of(context)
-                                                  .primaryColorLight,
-                                              FontWeight.w600,
-                                              'FontRegular'),
-                                          textAlign: TextAlign.start,
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: Text(
+                                            selectPair != null
+                                                ? "= " + totalAmount + coinTwo
+                                                : "",
+                                            style:
+                                                CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                        10.0,
+                                                        CustomTheme.of(context)
+                                                            .canvasColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                          color:tradeOption? Theme.of(context).primaryColorLight:Theme.of(context)
-                                              .primaryColor,
-                                          borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                      padding: EdgeInsets.only(
-                                          top: 7.0, bottom: 7.0),
-                                      child: Center(
-                                        child: Text(
-                                          tradeOption?"Buy "+coinOne:"Sell "+coinTwo,
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                              14.0,
-                                              tradeOption? CustomTheme.of(context)
-                                                  .errorColor:CustomTheme.of(context)
-                                                  .focusColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
+                                        const SizedBox(
+                                          height: 10.0,
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              flex: 1,
-                            ),
-                            const SizedBox(width: 10.0),
-                            Flexible(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Price",
+                                              "Avail",
                                               style: CustomWidget(
-                                                  context: context)
+                                                      context: context)
                                                   .CustomSizedTextStyle(
-                                                  14.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
+                                                      10.0,
+                                                      CustomTheme.of(context)
+                                                          .canvasColor,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
+                                              textAlign: TextAlign.start,
                                             ),
                                             Text(
-                                              "("+  coinTwo+")",
+                                              "=0.00 USD",
                                               style: CustomWidget(
-                                                  context: context)
+                                                      context: context)
                                                   .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
+                                                      10.0,
+                                                      CustomTheme.of(context)
+                                                          .primaryColorLight,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
+                                              textAlign: TextAlign.start,
                                             ),
                                           ],
                                         ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "Total",
-                                              style: CustomWidget(
-                                                  context: context)
-                                                  .CustomSizedTextStyle(
-                                                  14.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              color: tradeOption
+                                                  ? Theme.of(context)
+                                                      .primaryColorLight
+                                                  : Theme.of(context)
+                                                      .primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          padding: EdgeInsets.only(
+                                              top: 7.0, bottom: 7.0),
+                                          child: Center(
+                                            child: Text(
+                                              tradeOption
+                                                  ? "Buy " + coinOne
+                                                  : "Sell " + coinTwo,
+                                              style:
+                                                  CustomWidget(context: context)
+                                                      .CustomSizedTextStyle(
+                                                          14.0,
+                                                          tradeOption
+                                                              ? CustomTheme.of(
+                                                                      context)
+                                                                  .errorColor
+                                                              : CustomTheme.of(
+                                                                      context)
+                                                                  .focusColor,
+                                                          FontWeight.w600,
+                                                          'FontRegular'),
                                             ),
-                                            Text(
-                                              "("+  coinOne+")",
-                                              style: CustomWidget(
-                                                  context: context)
-                                                  .CustomSizedTextStyle(
-                                                  10.0,
-                                                  CustomTheme.of(context)
-                                                      .canvasColor,
-                                                  FontWeight.w500,
-                                                  'FontRegular'),
-                                            ),
-                                          ],
+                                          ),
                                         )
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      height: MediaQuery.of(context).size.height*0.15,
-                                      child: sellData.length>0?ListView.builder(
-                                        physics: ScrollPhysics(),
-                                        itemCount: sellData.length,
-                                        shrinkWrap: true,
-                                        controller: _scrollController,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    sellData[index].price.toString(),
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .scaffoldBackgroundColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                  ),
-                                                  Text(
-                                                    sellData[index].amount.toString(),
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 5.0,)
-
-                                            ],
-                                          );
-                                        },
-                                      ):Center(
-                                        child: Text(
-                                          "No Records Found....!",
-                                          style: CustomWidget(context: context).CustomSizedTextStyle(
-                                              10.0,
-                                              CustomTheme.of(context).primaryColorLight,
-                                              FontWeight.w500,
-                                              'FontRegular'),
-                                        ),
-                                      ),
-                                    ),
-
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    selectPair==null?Container():Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        selectPair!.low24Hr.toString(),
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            CustomTheme.of(context)
-                                                .indicatorColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    selectPair==null?Container():   Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        "= "+selectPair!.marketPrice.toString()+coinTwo,
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            CustomTheme.of(context)
-                                                .canvasColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-
-                                    Container(
-                                      height: MediaQuery.of(context).size.height*0.15,
-                                      child: buyData.length>0?ListView.builder(
-                                        physics: ScrollPhysics(),
-                                        itemCount: buyData.length,
-                                        shrinkWrap: true,
-                                        controller: _scrollController,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    buyData[index].price.toString(),
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .indicatorColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                  ),
-                                                  Text(
-                                                    buyData[index].amount.toString(),
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        10.0,
-                                                        CustomTheme.of(context)
-                                                            .canvasColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 5.0,)
-
-                                            ],
-                                          );
-                                        },
-                                      ):Center(
-                                        child: Text(
-                                          "No Records Found....!",
-                                          style: CustomWidget(context: context).CustomSizedTextStyle(
-                                              10.0,
-                                              CustomTheme.of(context).primaryColorLight,
-                                              FontWeight.w500,
-                                              'FontRegular'),
-                                        ),
-                                      ),
-                                    ),
-
-
-
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                  ],
+                                  ),
+                                  flex: 1,
                                 ),
-                              ),
-                              flex: 1,
-                            )
+                                const SizedBox(width: 10.0),
+                                Flexible(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  "Price",
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          14.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .canvasColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                ),
+                                                Text(
+                                                  "(" + coinTwo + ")",
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .canvasColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  "Total",
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          14.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .canvasColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                ),
+                                                Text(
+                                                  "(" + coinOne + ")",
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .canvasColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.15,
+                                          child: sellData.length > 0
+                                              ? ListView.builder(
+                                                  physics: ScrollPhysics(),
+                                                  itemCount: sellData.length,
+                                                  shrinkWrap: true,
+                                                  controller: _scrollController,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              sellData[index]
+                                                                  .price
+                                                                  .toString(),
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      CustomTheme.of(
+                                                                              context)
+                                                                          .scaffoldBackgroundColor,
+                                                                      FontWeight
+                                                                          .w400,
+                                                                      'FontRegular'),
+                                                            ),
+                                                            Text(
+                                                              sellData[index]
+                                                                  .amount
+                                                                  .toString(),
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      CustomTheme.of(
+                                                                              context)
+                                                                          .canvasColor,
+                                                                      FontWeight
+                                                                          .w400,
+                                                                      'FontRegular'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 5.0,
+                                                        )
+                                                      ],
+                                                    );
+                                                  },
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    "No Records Found....!",
+                                                    style: CustomWidget(
+                                                            context: context)
+                                                        .CustomSizedTextStyle(
+                                                            10.0,
+                                                            CustomTheme.of(
+                                                                    context)
+                                                                .primaryColorLight,
+                                                            FontWeight.w500,
+                                                            'FontRegular'),
+                                                  ),
+                                                ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        selectPair == null
+                                            ? Container()
+                                            : Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Text(
+                                                  selectPair!.low24Hr
+                                                      .toString(),
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .indicatorColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+                                        selectPair == null
+                                            ? Container()
+                                            : Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Text(
+                                                  "= " +
+                                                      selectPair!.marketPrice
+                                                          .toString() +
+                                                      coinTwo,
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .canvasColor,
+                                                          FontWeight.w500,
+                                                          'FontRegular'),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        const SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.15,
+                                          child: buyData.length > 0
+                                              ? ListView.builder(
+                                                  physics: ScrollPhysics(),
+                                                  itemCount: buyData.length,
+                                                  shrinkWrap: true,
+                                                  controller: _scrollController,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              buyData[index]
+                                                                  .price
+                                                                  .toString(),
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      CustomTheme.of(
+                                                                              context)
+                                                                          .indicatorColor,
+                                                                      FontWeight
+                                                                          .w400,
+                                                                      'FontRegular'),
+                                                            ),
+                                                            Text(
+                                                              buyData[index]
+                                                                  .amount
+                                                                  .toString(),
+                                                              style: CustomWidget(
+                                                                      context:
+                                                                          context)
+                                                                  .CustomSizedTextStyle(
+                                                                      10.0,
+                                                                      CustomTheme.of(
+                                                                              context)
+                                                                          .canvasColor,
+                                                                      FontWeight
+                                                                          .w400,
+                                                                      'FontRegular'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 5.0,
+                                                        )
+                                                      ],
+                                                    );
+                                                  },
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    "No Records Found....!",
+                                                    style: CustomWidget(
+                                                            context: context)
+                                                        .CustomSizedTextStyle(
+                                                            10.0,
+                                                            CustomTheme.of(
+                                                                    context)
+                                                                .primaryColorLight,
+                                                            FontWeight.w500,
+                                                            'FontRegular'),
+                                                  ),
+                                                ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  flex: 1,
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 25.0,
+                            ),
+                            tradeOpenUI()
                           ],
                         ),
-                        const SizedBox(
-                          height: 25.0,
-                        ),
-                        tradeOpenUI()
-                      ],
-                    ),
-                  )),
-              loading
-                  ? CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).primaryColorLight,
-              )
-                  : Container()
-            ],
-          )),
-    ));
+                      )),
+                  loading
+                      ? CustomWidget(context: context).loadingIndicator(
+                          CustomTheme.of(context).primaryColorLight,
+                        )
+                      : Container()
+                ],
+              )),
+        ));
   }
 
   Widget tradeOpenUI() {
@@ -1278,7 +1668,6 @@ class _SpotTradeState extends State<SpotTrade>
                   ),
                 ),
               ),
-
               orderHistoryUI(),
               Container(
                 height: 150.0,
@@ -1336,7 +1725,6 @@ class _SpotTradeState extends State<SpotTrade>
                                 });
                               },
                               onChanged: (value) {
-
                                 setStates(() {
                                   for (int m = 0; m < allTicker.length; m++) {
                                     if (allTicker[m]
@@ -1344,12 +1732,11 @@ class _SpotTradeState extends State<SpotTrade>
                                         .toString()
                                         .toLowerCase()
                                         .contains(
-                                        value.toString().toLowerCase())) {
+                                            value.toString().toLowerCase())) {
                                       searchPair.add(allTicker[m]);
                                     }
                                   }
                                 });
-
                               },
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.only(
@@ -1366,7 +1753,7 @@ class _SpotTradeState extends State<SpotTrade>
                                     .withOpacity(0.5),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                      BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1375,7 +1762,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                      BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1384,7 +1771,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                      BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1393,7 +1780,7 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
+                                      BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(
                                       color: CustomTheme.of(context)
                                           .splashColor
@@ -1402,9 +1789,9 @@ class _SpotTradeState extends State<SpotTrade>
                                 ),
                                 errorBorder: const OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
+                                      BorderRadius.all(Radius.circular(5)),
                                   borderSide:
-                                  BorderSide(color: Colors.red, width: 0.0),
+                                      BorderSide(color: Colors.red, width: 0.0),
                                 ),
                               ),
                             ),
@@ -1413,20 +1800,20 @@ class _SpotTradeState extends State<SpotTrade>
                         Container(
                           child: Align(
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(contexts);
-                                  setStates(() {
-                                    searchController.clear();
-                                    searchPair.clear();
-                                    searchPair.addAll(allTicker);
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.close,
-                                  size: 20.0,
-                                  color: Theme.of(context).hintColor,
-                                ),
-                              )),
+                            onTap: () {
+                              Navigator.pop(contexts);
+                              setStates(() {
+                                searchController.clear();
+                                searchPair.clear();
+                                searchPair.addAll(allTicker);
+                              });
+                            },
+                            child: Icon(
+                              Icons.close,
+                              size: 20.0,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          )),
                         ),
                         const SizedBox(
                           width: 10.0,
@@ -1446,15 +1833,17 @@ class _SpotTradeState extends State<SpotTrade>
                                 children: [
                                   InkWell(
                                     onTap: () {
-
                                       setState(() {
-                                        selectPair=searchPair[index];
-                                        coinOne=selectPair!.pair!.split("-")[0].toString();
-                                        coinTwo=selectPair!.pair!.split("-")[1].toString();
+                                        selectPair = searchPair[index];
+                                        coinOne = selectPair!.pair!
+                                            .split("-")[0]
+                                            .toString();
+                                        coinTwo = selectPair!.pair!
+                                            .split("-")[1]
+                                            .toString();
                                         getOpenOrders();
                                         getTradeHistory();
                                         getToken();
-
                                       });
 
                                       Navigator.pop(contexts);
@@ -1481,10 +1870,11 @@ class _SpotTradeState extends State<SpotTrade>
                                           searchPair[index].pair.toString(),
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
-                                              16.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w500,
-                                              'FontRegular'),
+                                                  16.0,
+                                                  Theme.of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
                                         ),
                                       ],
                                     ),
@@ -1496,7 +1886,7 @@ class _SpotTradeState extends State<SpotTrade>
                                     height: 1.0,
                                     width: MediaQuery.of(context).size.width,
                                     color:
-                                    CustomTheme.of(context).backgroundColor,
+                                        CustomTheme.of(context).backgroundColor,
                                   ),
                                   const SizedBox(
                                     height: 5.0,
@@ -1511,48 +1901,44 @@ class _SpotTradeState extends State<SpotTrade>
           );
         });
   }
-    Widget orderHistoryUI(){
-      orderHistory=orderHistory.reversed.toList();
+
+  Widget orderHistoryUI() {
+    orderHistory = orderHistory.reversed.toList();
     return Container(
-      child:    Column(
+      child: Column(
         children: [
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-               "Price",
-                style: CustomWidget(context: context)
-                    .CustomSizedTextStyle(
+                "Price",
+                style: CustomWidget(context: context).CustomSizedTextStyle(
                     12.0,
-                    CustomTheme.of(context)
-                        .canvasColor,
+                    CustomTheme.of(context).canvasColor,
                     FontWeight.w400,
                     'FontRegular'),
               ),
               Text(
-               "Quantity",
-                style: CustomWidget(context: context)
-                    .CustomSizedTextStyle(
+                "Quantity",
+                style: CustomWidget(context: context).CustomSizedTextStyle(
                     12.0,
-                    CustomTheme.of(context)
-                        .canvasColor,
+                    CustomTheme.of(context).canvasColor,
                     FontWeight.w400,
                     'FontRegular'),
               ),
               Text(
                 "Date",
-                style: CustomWidget(context: context)
-                    .CustomSizedTextStyle(
+                style: CustomWidget(context: context).CustomSizedTextStyle(
                     12.0,
-                    CustomTheme.of(context)
-                        .canvasColor,
+                    CustomTheme.of(context).canvasColor,
                     FontWeight.w400,
                     'FontRegular'),
               ),
             ],
           ),
-          const SizedBox(height: 10.0,),
+          const SizedBox(
+            height: 10.0,
+          ),
           Expanded(
               child: ListView.builder(
                   controller: _scrollController,
@@ -1560,49 +1946,48 @@ class _SpotTradeState extends State<SpotTrade>
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: ((BuildContext context, int index) {
-
                     return Column(
                       children: [
                         Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               orderHistory[index].price.toString(),
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  10.0,
-                                  orderHistory[index].side.toString()=="1"?  CustomTheme.of(context)
-                                      .indicatorColor:  CustomTheme.of(context)
-                                      .scaffoldBackgroundColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
+                                      10.0,
+                                      orderHistory[index].side.toString() == "1"
+                                          ? CustomTheme.of(context)
+                                              .indicatorColor
+                                          : CustomTheme.of(context)
+                                              .scaffoldBackgroundColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
                             ),
                             Text(
                               orderHistory[index].qty.toString(),
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  10.0,
-                                  CustomTheme.of(context)
-                                      .canvasColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
+                                      10.0,
+                                      CustomTheme.of(context).canvasColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
                               textAlign: TextAlign.right,
                             ),
                             Text(
-                              orderHistory[index].time.toString().substring(10,19),
+                              orderHistory[index]
+                                  .time
+                                  .toString()
+                                  .substring(10, 19),
                               style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  10.0,
-                                  CustomTheme.of(context)
-                                      .canvasColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
+                                      10.0,
+                                      CustomTheme.of(context).canvasColor,
+                                      FontWeight.w400,
+                                      'FontRegular'),
                             ),
                           ],
                         ),
-
-
                         const SizedBox(
                           height: 5.0,
                         ),
@@ -1612,7 +1997,8 @@ class _SpotTradeState extends State<SpotTrade>
         ],
       ),
     );
-    }
+  }
+
   coinList() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     QueryMutation queryMutation = QueryMutation();
@@ -1633,8 +2019,8 @@ class _SpotTradeState extends State<SpotTrade>
         ..sort((a, b) =>
             b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
       selectPair = allTicker[0];
-      coinOne=allTicker[0].pair!.split("-")[0].toString();
-      coinTwo=allTicker[0].pair!.split("-")[1].toString();
+      coinOne = allTicker[0].pair!.split("-")[0].toString();
+      coinTwo = allTicker[0].pair!.split("-")[1].toString();
       searchPair.addAll(allTicker);
     });
     getOpenOrders();
@@ -1646,20 +2032,24 @@ class _SpotTradeState extends State<SpotTrade>
     QueryMutation queryMutation = QueryMutation();
 
     GraphQLClient _client =
-    qlapiUtils.clientToQuery(preferences.getString("token").toString());
+        qlapiUtils.clientToQuery(preferences.getString("token").toString());
     QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getOrderBook(selectPair!.pair.toString()))),
+      QueryOptions(
+          document:
+              gql(queryMutation.getOrderBook(selectPair!.pair.toString()))),
     );
 
     List<dynamic> listData = result.data!["getOrderBookV2"]["items"][0]["asks"];
-    List<dynamic> listData1 = result.data!["getOrderBookV2"]["items"][0]["bids"];
+    List<dynamic> listData1 =
+        result.data!["getOrderBookV2"]["items"][0]["bids"];
 
     setState(() {
       loading = false;
       buyData.clear();
       sellData.clear();
-      buyData=  (listData).map((item) => OrderBookData.fromJson(item)).toList();
-      sellData=  (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+      buyData = (listData).map((item) => OrderBookData.fromJson(item)).toList();
+      sellData =
+          (listData1).map((item) => OrderBookData.fromJson(item)).toList();
     });
   }
 
@@ -1667,9 +2057,11 @@ class _SpotTradeState extends State<SpotTrade>
     SharedPreferences preferences = await SharedPreferences.getInstance();
     QueryMutation queryMutation = QueryMutation();
     GraphQLClient _client =
-    qlapiUtils.clientToQuery(preferences.getString("token").toString());
+        qlapiUtils.clientToQuery(preferences.getString("token").toString());
     QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getTradeHistory(selectPair!.pair.toString()))),
+      QueryOptions(
+          document:
+              gql(queryMutation.getTradeHistory(selectPair!.pair.toString()))),
     );
 
     List<dynamic> listData = result.data!["getTradeItemsV2"]["items"];
@@ -1677,40 +2069,34 @@ class _SpotTradeState extends State<SpotTrade>
       loading = false;
 
       orderHistory.clear();
-      orderHistory=  (listData).map((item) => OpenOrdersHistory.fromJson(item)).toList();
-
+      orderHistory =
+          (listData).map((item) => OpenOrdersHistory.fromJson(item)).toList();
     });
   }
 
   getToken() {
-    apiUtils
-        .generateToken()
-        .then((dynamic loginData) {
-
-
-
-
-
+    apiUtils.generateToken().then((dynamic loginData) {
       setState(() {
-        token=loginData["header"];
+        token = loginData["header"];
 
-        String coin=selectPair!.pair.toString();
+        String coin = selectPair!.pair.toString();
 
         channelOpenOrder = IOWebSocketChannel.connect(
-            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {
-              "Sec-WebSocket-Protocol":"graphql-ws"
-            },
+            Uri.parse(
+                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
             pingInterval: Duration(seconds: 30));
 
         channelOpenOrder!.sink.add(json.encode({
           "id": num1,
           "payload": {
-            "data": "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
+            "data":
+                "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
             "extensions": {
               "authorization": {
                 "Authorization": "Bearer $bearer",
-                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+                "host":
+                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
               }
             }
           },
@@ -1718,32 +2104,29 @@ class _SpotTradeState extends State<SpotTrade>
         }));
 
         channelTradeHistory = IOWebSocketChannel.connect(
-            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {
-              "Sec-WebSocket-Protocol":"graphql-ws"
-            },
+            Uri.parse(
+                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
             pingInterval: Duration(seconds: 30));
 
-
         channelTradeHistory!.sink.add(json.encode({
-          "id": num2+"asd",
+          "id": num2 + "asd",
           "payload": {
-            "data": "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+            "data":
+                "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
             "extensions": {
               "authorization": {
                 "Authorization": "Bearer $bearer",
-                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+                "host":
+                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
               }
             }
           },
           "type": "start"
         }));
-
-
       });
       socketData();
       socketHistoryData();
-
     }).catchError((Object error) {
       setState(() {
         loading = false;
@@ -1752,59 +2135,51 @@ class _SpotTradeState extends State<SpotTrade>
   }
 
   socketData() {
-    setState(() {
-
-    });
-
+    setState(() {});
 
     channelOpenOrder!.stream.listen(
-          (data) {
-
+      (data) {
         if (data != null || data != "null") {
-
-
-
           var decode = jsonDecode(data);
-          List<dynamic> listData = decode["payload"]["data"]["updatedOrderBookV2"]["asks"];
-          List<dynamic> listData1 = decode["payload"]["data"]["updatedOrderBookV2"]["bids"];
+          List<dynamic> listData =
+              decode["payload"]["data"]["updatedOrderBookV2"]["asks"];
+          List<dynamic> listData1 =
+              decode["payload"]["data"]["updatedOrderBookV2"]["bids"];
 
-        if(mounted)
-          {
+          if (mounted) {
             setState(() {
               loading = false;
               buyData.clear();
               sellData.clear();
-              buyData=  (listData).map((item) => OrderBookData.fromJson(item)).toList();
-              sellData=  (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+              buyData = (listData)
+                  .map((item) => OrderBookData.fromJson(item))
+                  .toList();
+              sellData = (listData1)
+                  .map((item) => OrderBookData.fromJson(item))
+                  .toList();
             });
           }
-
-
-          // print("Mano");
-
-
         }
-
       },
-
       onDone: () async {
         await Future.delayed(Duration(seconds: 10));
         getRand();
-        String coin=selectPair!.pair.toString();
+        String coin = selectPair!.pair.toString();
         channelOpenOrder = IOWebSocketChannel.connect(
-            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {
-              "Sec-WebSocket-Protocol":"graphql-ws"
-            },
+            Uri.parse(
+                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
             pingInterval: Duration(seconds: 30));
         channelOpenOrder!.sink.add(json.encode({
           "id": num1,
           "payload": {
-            "data": "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
+            "data":
+                "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
             "extensions": {
               "authorization": {
                 "Authorization": "Bearer $bearer",
-                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+                "host":
+                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
               }
             }
           },
@@ -1812,65 +2187,46 @@ class _SpotTradeState extends State<SpotTrade>
         }));
         socketData();
       },
-      onError: (error) => print("Err" + error),
+      onError: (error) => {},
     );
   }
+
   socketHistoryData() {
-    setState(() {
-
-    });
-
+    setState(() {});
 
     channelTradeHistory!.stream.listen(
-          (data) {
-
-            print(data);
+      (data) {
         if (data != null || data != "null") {
-
-
-
           var decode = jsonDecode(data);
-          print("Mano");
-          print(decode);
 
-
-          if(mounted)
-          {
+          if (mounted) {
             setState(() {
-              orderHistory.add(OpenOrdersHistory.fromJson(decode["payload"]["data"]["updatedTradeItemV2"]));
-
-
-
+              orderHistory.add(OpenOrdersHistory.fromJson(
+                  decode["payload"]["data"]["updatedTradeItemV2"]));
             });
           }
-
-
-          // print("Mano");
-
-
         }
-
       },
-
       onDone: () async {
         await Future.delayed(Duration(seconds: 10));
         getRand1();
-        String coin=selectPair!.pair.toString();
+        String coin = selectPair!.pair.toString();
         channelTradeHistory = IOWebSocketChannel.connect(
-            Uri.parse("wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {
-              "Sec-WebSocket-Protocol":"graphql-ws"
-            },
+            Uri.parse(
+                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
             pingInterval: Duration(seconds: 30));
 
         channelTradeHistory!.sink.add(json.encode({
-          "id": num2+"asss",
+          "id": num2 + "asss",
           "payload": {
-            "data": "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+            "data":
+                "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
             "extensions": {
               "authorization": {
                 "Authorization": "Bearer $bearer",
-                "host": "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+                "host":
+                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
               }
             }
           },
@@ -1878,7 +2234,7 @@ class _SpotTradeState extends State<SpotTrade>
         }));
         socketHistoryData();
       },
-      onError: (error) => print("Err" + error),
+      onError: (error) => {},
     );
   }
 }

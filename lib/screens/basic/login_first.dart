@@ -35,11 +35,17 @@ class _LoginFirstState extends State<LoginFirst> {
   final _formKey = GlobalKey<FormState>();
   APIUtils apiUtils = APIUtils();
 
+  bool first = false;
+  bool second = false;
+  bool third = false;
+  bool fourth = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     isoCountryCode = systemLocales.first.countryCode.toString();
+    emailController.text="santosh_padhi@yahoo.com";
   }
 
   @override
@@ -159,12 +165,12 @@ class _LoginFirstState extends State<LoginFirst> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Please enter Email";
-                              } else if (!RegExp(
-                                      r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                                return "Please enter valid Email";
+                                // } else if (!RegExp(
+                                //         r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                //     .hasMatch(value)) {
+                                //   return "Please enter valid Email";
+                                // }
                               }
-
                               return null;
                             },
                             enabled: true,

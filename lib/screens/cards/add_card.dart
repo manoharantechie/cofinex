@@ -12,6 +12,11 @@ class AddCardDetails extends StatefulWidget {
 
 class _AddCardDetailsState extends State<AddCardDetails> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

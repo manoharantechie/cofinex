@@ -5,6 +5,7 @@ import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/graph_ql_utils.dart';
+import 'package:cofinex/data_model/model/all_pair_list_model.dart';
 import 'package:cofinex/data_model/model/open_trade_model.dart';
 import 'package:cofinex/data_model/model/order_book_model.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
@@ -29,9 +30,9 @@ class _SpotTradeState extends State<SpotTrade>
 
   List<String> orderType = ["Limit", "Market"];
   List<String> volType = ["Vol(USDT)"];
-  List<AllTicker> allTicker = [];
-  List<AllTicker> searchPair = [];
-  AllTicker? selectPair;
+  List<AllPairListModel> allTicker = [];
+  List<AllPairListModel> searchPair = [];
+  AllPairListModel? selectPair;
   APIUtils apiUtils = APIUtils();
 
   List<OrderBookData> buyData = [];
@@ -66,6 +67,10 @@ class _SpotTradeState extends State<SpotTrade>
   bool loginStatus = false;
   String tradeAmount = "0.00";
   String totalAmount = "0.00";
+ bool first = false;
+  bool second = false;
+  bool third = false;
+  bool fourth = false;
 
   @override
   void initState() {
@@ -74,13 +79,12 @@ class _SpotTradeState extends State<SpotTrade>
     selectedType = orderType.first;
     selectedVol = volType.first;
     _tabTradeController = TabController(vsync: this, length: 3);
-
     channelOpenOrder = IOWebSocketChannel.connect(
         Uri.parse(
-            "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-        headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
+            "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
         pingInterval: Duration(seconds: 30));
-    channelOpenOrder!.sink.close();
+
+
 
     getBearer();
     getRand();
@@ -109,13 +113,12 @@ class _SpotTradeState extends State<SpotTrade>
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       bearer = preferences.getString("token").toString();
-
       loginStatus = preferences.getBool("login")!;
       if (loginStatus) {
-        getToken();
+        //getToken();
         loading = true;
 
-        coinList();
+        getPairList();
       }
     });
   }
@@ -961,7 +964,7 @@ class _SpotTradeState extends State<SpotTrade>
                                                 //   third = false;
                                                 //   fourth = false;
                                                 //   priceController.text = price;
-                                                //   if (buySell) {
+                                                //   if (bu) {
                                                 //     double perce = (double.parse(
                                                 //         secondBalance) *
                                                 //         25) /
@@ -1697,6 +1700,7 @@ class _SpotTradeState extends State<SpotTrade>
         builder: (contexts) {
           return StatefulBuilder(
             builder: (BuildContext contexts, StateSetter setStates) {
+
               return Container(
                 height: MediaQuery.of(contexts).size.height * 0.9,
                 width: MediaQuery.of(contexts).size.width,
@@ -1825,25 +1829,47 @@ class _SpotTradeState extends State<SpotTrade>
                             controller: _scrollController,
                             itemCount: searchPair.length,
                             itemBuilder: ((BuildContext context, int index) {
-                              String coinImage = searchPair[index]
-                                  .pair!
-                                  .split("-")[0]
-                                  .toString();
+                              String coinImage = allTicker[index].pair!.split("_")[0].toString();
+                              String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
+                              coinImage=coinImage.replaceAll("USDT", "-USDT");
+                              coinImage=coinImage.replaceAll("10000", "");
+
+                              String coinName=coinImage1.replaceAll("USDT", "");
+                              coinName=coinName.replaceAll("10000", "");
                               return Column(
                                 children: [
                                   InkWell(
                                     onTap: () {
                                       setState(() {
                                         selectPair = searchPair[index];
-                                        coinOne = selectPair!.pair!
-                                            .split("-")[0]
-                                            .toString();
-                                        coinTwo = selectPair!.pair!
-                                            .split("-")[1]
-                                            .toString();
-                                        getOpenOrders();
-                                        getTradeHistory();
-                                        getToken();
+
+                                        String coinImage1 =selectPair!.pair!.split("_")[0].toString();
+                                        coinOne = coinImage1.replaceAll("USDT", "");
+                                        coinTwo = "USDT";
+                                       // getOpenOrders();
+
+                                        channelOpenOrder!.sink.close();
+
+
+                                        buyData=[];
+                                        sellData=[];
+                                        buyData.clear();
+                                        sellData.clear();
+                                        channelOpenOrder = IOWebSocketChannel.connect(
+                                            Uri.parse(
+                                                "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+                                            pingInterval: Duration(seconds: 5));
+                                        channelOpenOrder!.sink.add(json.encode({
+                                          "action":"orderbook-subscribe",
+                                          "subscription":{
+                                            "pair":coinOne+coinTwo
+                                          }
+                                        }));
+                                        buyData.clear();
+                                        sellData.clear();
+                                       socketData();
+                                        //getTradeHistory();
+                                     //   getToken();
                                       });
 
                                       Navigator.pop(contexts);
@@ -1858,7 +1884,7 @@ class _SpotTradeState extends State<SpotTrade>
                                           width: 25.0,
                                           child: SvgPicture.network(
                                             "https://images.cofinex.io/crypto/ico/" +
-                                                coinImage.toLowerCase() +
+                                                coinName.toLowerCase() +
                                                 ".svg",
                                             height: 15.0,
                                           ),
@@ -1867,7 +1893,7 @@ class _SpotTradeState extends State<SpotTrade>
                                           width: 10.0,
                                         ),
                                         Text(
-                                          searchPair[index].pair.toString(),
+                                          coinImage,
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                                   16.0,
@@ -1999,59 +2025,94 @@ class _SpotTradeState extends State<SpotTrade>
     );
   }
 
-  coinList() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    QueryMutation queryMutation = QueryMutation();
 
-    GraphQLClient _client =
-        qlapiUtils.clientToQuery(preferences.getString("token").toString());
-    QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getTickeDetails())),
-    );
+  getPairList() {
 
-    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+    apiUtils.getAllpaitList().then((dynamic loginData) {
+      setState(() {
+        loading=false;
+      });
 
-    setState(() {
-      loading = false;
-      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
-
-      allTicker
-        ..sort((a, b) =>
-            b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
-      selectPair = allTicker[0];
-      coinOne = allTicker[0].pair!.split("-")[0].toString();
-      coinTwo = allTicker[0].pair!.split("-")[1].toString();
-      searchPair.addAll(allTicker);
-    });
-    getOpenOrders();
-    getTradeHistory();
-  }
-
-  getOpenOrders() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    QueryMutation queryMutation = QueryMutation();
-
-    GraphQLClient _client =
-        qlapiUtils.clientToQuery(preferences.getString("token").toString());
-    QueryResult result = await _client.query(
-      QueryOptions(
-          document:
-              gql(queryMutation.getOrderBook(selectPair!.pair.toString()))),
-    );
-
-    List<dynamic> listData = result.data!["getOrderBookV2"]["items"][0]["asks"];
-    List<dynamic> listData1 =
-        result.data!["getOrderBookV2"]["items"][0]["bids"];
-
-    setState(() {
-      loading = false;
-      buyData.clear();
-      sellData.clear();
-      buyData = (listData).map((item) => OrderBookData.fromJson(item)).toList();
-      sellData =
-          (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+      List<dynamic> listData = loginData;
+      setState(() {
+        allTicker=[];
+        loading = false;
+        List<AllPairListModel>      copyTradelistN = (listData).map((item) => AllPairListModel.fromJson(item)).toList();
+        allTicker.addAll(copyTradelistN);
+        allTicker..sort((a, b) => b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
+        selectPair = allTicker[0];
+        String coinImage1 = allTicker[0].pair!.split("_")[0].toString();
+        coinOne = coinImage1.replaceAll("USDT", "");
+        coinTwo = "USDT";
+        searchPair.addAll(allTicker);
+      });
+      channelOpenOrder!.sink.add(json.encode({
+        "action":"orderbook-subscribe",
+        "subscription":{
+          "pair":coinOne+coinTwo
+        }
+      }));
+      socketData();
+      //getOpenOrders();
+      getTradeHistory();
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
     });
   }
+  // coinList() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   QueryMutation queryMutation = QueryMutation();
+  //
+  //   GraphQLClient _client =
+  //       qlapiUtils.clientToQuery(preferences.getString("token").toString());
+  //   QueryResult result = await _client.query(
+  //     QueryOptions(document: gql(queryMutation.getTickeDetails())),
+  //   );
+  //
+  //   List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+  //
+  //   setState(() {
+  //     loading = false;
+  //     allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
+  //
+  //     allTicker
+  //       ..sort((a, b) =>
+  //           b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
+  //     selectPair = allTicker[0];
+  //     coinOne = allTicker[0].pair!.split("-")[0].toString();
+  //     coinTwo = allTicker[0].pair!.split("-")[1].toString();
+  //     searchPair.addAll(allTicker);
+  //   });
+  //
+  // }
+
+  // getOpenOrders() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   QueryMutation queryMutation = QueryMutation();
+  //
+  //   GraphQLClient _client =
+  //       qlapiUtils.clientToQuery(preferences.getString("token").toString());
+  //   QueryResult result = await _client.query(
+  //     QueryOptions(
+  //         document:
+  //             gql(queryMutation.getOrderBook(selectPair!.pair.toString()))),
+  //   );
+  //
+  //   List<dynamic> listData = result.data!["getOrderBookV2"]["items"][0]["asks"];
+  //   List<dynamic> listData1 =
+  //       result.data!["getOrderBookV2"]["items"][0]["bids"];
+  //
+  //   setState(() {
+  //     loading = false;
+  //     buyData.clear();
+  //     sellData.clear();
+  //     buyData = (listData).map((item) => OrderBookData.fromJson(item)).toList();
+  //     sellData =
+  //         (listData1).map((item) => OrderBookData.fromJson(item)).toList();
+  //   });
+  // }
 
   getTradeHistory() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -2125,8 +2186,8 @@ class _SpotTradeState extends State<SpotTrade>
           "type": "start"
         }));
       });
-      socketData();
-      socketHistoryData();
+
+      //socketHistoryData();
     }).catchError((Object error) {
       setState(() {
         loading = false;
@@ -2140,12 +2201,17 @@ class _SpotTradeState extends State<SpotTrade>
     channelOpenOrder!.stream.listen(
       (data) {
         if (data != null || data != "null") {
+          print("Mano");
           var decode = jsonDecode(data);
-          List<dynamic> listData =
-              decode["payload"]["data"]["updatedOrderBookV2"]["asks"];
-          List<dynamic> listData1 =
-              decode["payload"]["data"]["updatedOrderBookV2"]["bids"];
 
+          print(decode["asks"]);
+          List<dynamic> listData =
+              decode["asks"];
+          List<dynamic> listData1 =
+              decode["bids"];
+
+          print("Mano1");
+          print(listData[0]);
           if (mounted) {
             setState(() {
               loading = false;
@@ -2165,76 +2231,71 @@ class _SpotTradeState extends State<SpotTrade>
         await Future.delayed(Duration(seconds: 10));
         getRand();
         String coin = selectPair!.pair.toString();
+        String coinImage1 = coin.split("_")[0].toString();
+        coinOne = coinImage1.replaceAll("USDT", "");
+        coinTwo = "USDT";
         channelOpenOrder = IOWebSocketChannel.connect(
             Uri.parse(
-                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
+                "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
             pingInterval: Duration(seconds: 30));
         channelOpenOrder!.sink.add(json.encode({
-          "id": num1,
-          "payload": {
-            "data":
-                "{\"query\":\"subscription MySubscription {\\n  updatedOrderBookV2(pair: \\\"$coin\\\",system: \\\"global\\\") {\\n    asks {\\n      amount\\n      price\\n    }\\n    bids {\\n      amount\\n      price\\n    }\\n    pair\\n  }\\n}\",\"variables\":null}",
-            "extensions": {
-              "authorization": {
-                "Authorization": "Bearer $bearer",
-                "host":
-                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
-              }
-            }
-          },
-          "type": "start"
+          "action":"orderbook-subscribe",
+          "subscription":{
+            "pair":coinOne+coinTwo
+          }
         }));
+
+
         socketData();
       },
       onError: (error) => {},
     );
   }
 
-  socketHistoryData() {
-    setState(() {});
-
-    channelTradeHistory!.stream.listen(
-      (data) {
-        if (data != null || data != "null") {
-          var decode = jsonDecode(data);
-
-          if (mounted) {
-            setState(() {
-              orderHistory.add(OpenOrdersHistory.fromJson(
-                  decode["payload"]["data"]["updatedTradeItemV2"]));
-            });
-          }
-        }
-      },
-      onDone: () async {
-        await Future.delayed(Duration(seconds: 10));
-        getRand1();
-        String coin = selectPair!.pair.toString();
-        channelTradeHistory = IOWebSocketChannel.connect(
-            Uri.parse(
-                "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-            headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
-            pingInterval: Duration(seconds: 30));
-
-        channelTradeHistory!.sink.add(json.encode({
-          "id": num2 + "asss",
-          "payload": {
-            "data":
-                "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
-            "extensions": {
-              "authorization": {
-                "Authorization": "Bearer $bearer",
-                "host":
-                    "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
-              }
-            }
-          },
-          "type": "start"
-        }));
-        socketHistoryData();
-      },
-      onError: (error) => {},
-    );
-  }
+  // socketHistoryData() {
+  //   setState(() {});
+  //
+  //   channelTradeHistory!.stream.listen(
+  //     (data) {
+  //       if (data != null || data != "null") {
+  //         var decode = jsonDecode(data);
+  //
+  //         if (mounted) {
+  //           setState(() {
+  //             orderHistory.add(OpenOrdersHistory.fromJson(
+  //                 decode["payload"]["data"]["updatedTradeItemV2"]));
+  //           });
+  //         }
+  //       }
+  //     },
+  //     onDone: () async {
+  //       await Future.delayed(Duration(seconds: 10));
+  //       getRand1();
+  //       String coin = selectPair!.pair.toString();
+  //       channelTradeHistory = IOWebSocketChannel.connect(
+  //           Uri.parse(
+  //               "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+  //           headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
+  //           pingInterval: Duration(seconds: 30));
+  //
+  //       channelTradeHistory!.sink.add(json.encode({
+  //         "id": num2 + "asss",
+  //         "payload": {
+  //           "data":
+  //               "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+  //           "extensions": {
+  //             "authorization": {
+  //               "Authorization": "Bearer $bearer",
+  //               "host":
+  //                   "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+  //             }
+  //           }
+  //         },
+  //         "type": "start"
+  //       }));
+  //       socketHistoryData();
+  //     },
+  //     onError: (error) => {},
+  //   );
+  // }
 }

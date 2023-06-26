@@ -286,12 +286,22 @@ class APIUtils {
 
   Future<dynamic> getAllpaitList() async {
     SharedPreferences preferences=await SharedPreferences.getInstance();
-
-
-
-
     final response = await http.get(
       Uri.parse(newAuthURL + getPairURL),
+
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+    return json.decode(response.body);
+  }
+
+
+  Future<dynamic> getOrerbookList(String pair) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    final response = await http.get(
+      Uri.parse(newAuthURL + '/marketdata/getOrderBook/'+pair+'?productType=UMCBL'),
 
       headers: {
         'Authorization': "Bearer "+preferences.getString("token").toString()

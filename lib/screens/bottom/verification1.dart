@@ -440,6 +440,6 @@ class _Verification_Screen1State extends State<Verification_Screen1> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

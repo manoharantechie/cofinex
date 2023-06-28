@@ -41,7 +41,9 @@ class _AddCardDetailsState extends State<AddCardDetails> {
                         color: Theme.of(context).primaryColorLight.withOpacity(0.2),
                       ),
                       child: Icon(
-                        Icons.credit_card_rounded, size: 50.0, color: Theme.of(context).primaryColorLight,
+                        Icons.credit_card_rounded,
+                        size: 50.0,
+                        color: Theme.of(context).primaryColorLight,
                       ),
                     ),
                     const SizedBox(height: 15.0,),

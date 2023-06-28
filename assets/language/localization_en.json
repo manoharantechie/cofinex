@@ -148,6 +148,12 @@
   "loc_gift_card": "Gift Cards",
   "loc_add_cart": "Add to cart",
   "loc_future": "Future Trade",
-  "loc_air": "Airdrops"
+  "loc_air": "Airdrops",
+  "loc_login_today": "Login Today",
+  "loc_my_cpy_trade": "MY copy trades",
+  "loc_future_elite": "Future elite traders",
+  "loc_elite_trade": "Spot elite traders",
+  "loc_strategists": "Strategists",
+  "loc_aply_now": "Aply now"
 
 }

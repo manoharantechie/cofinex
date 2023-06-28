@@ -18,26 +18,17 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
 
   ScrollController _scrollController = ScrollController();
   ScrollController _scrollControll = ScrollController();
-  late TabController _tabController,
-      _tabSpotsController,
-      _tabFutureController,
-      _tabBotsController;
-  late TabController _tabControll,
-      _tabCurrentController,
-      _tabHistoryController,
-      _tabTradeController;
+  late TabController _tabController, _tabSpotsController, _tabFutureController, _tabBotsController;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _tabFutureController = TabController(vsync: this, length: 1);
-    _tabSpotsController = TabController(vsync: this, length: 2);
+    _tabSpotsController = TabController(vsync: this, length: 3);
     _tabController = TabController(vsync: this, length: 2);
-    _tabCurrentController = TabController(vsync: this, length: 1);
-    _tabHistoryController = TabController(vsync: this, length: 2);
-    _tabHistoryController = TabController(vsync: this, length: 2);
-    _tabControll = TabController(vsync: this, length: 3);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -346,7 +337,11 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
                   ),
                   const SizedBox(height: 15.0,),
 
-                  Overview()
+                 // Container(
+                 //   height: 150.0,
+                 //   child:
+                 // )
+                  Overview(),
 
 
                 ],
@@ -358,84 +353,79 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
     return Container(
         color: CustomTheme.of(context).focusColor,
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-            controller: _scrollControll,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: 35.0,
-                    width: MediaQuery.of(context).size.width,
-                    // margin: EdgeInsets.only(left: 15.0, right: 15.0),
-                    padding: EdgeInsets.only(left: 0.2, right: 0.2),
-                    decoration: BoxDecoration(
-                        color: CustomTheme.of(context).focusColor,
-                        border: Border(bottom: BorderSide(
-                          width: 2.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: 35.0,
+              width: MediaQuery.of(context).size.width,
+              // margin: EdgeInsets.only(left: 15.0, right: 15.0),
+              padding: EdgeInsets.only(left: 0.2, right: 0.2),
+              decoration: BoxDecoration(
+                  color: CustomTheme.of(context).focusColor,
+                  border: Border(bottom: BorderSide(
+                    width: 2.0,
 
-                        ))
-                    ),
-                    child: TabBar(
-                      controller: _tabControll,
-                      isScrollable: true,
-                      labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                          13.0,
-                          Theme.of(context).unselectedWidgetColor,
-                          FontWeight.w600,
-                          'FontRegular'),
+                  ))
+              ),
+              child: TabBar(
+                controller: _tabSpotsController,
+                isScrollable: true,
+                labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                    13.0,
+                    Theme.of(context).unselectedWidgetColor,
+                    FontWeight.w600,
+                    'FontRegular'),
 
-                      labelColor: CustomTheme.of(context).primaryColorLight,
-                      //<-- selected text color
-                      unselectedLabelColor:
-                      CustomTheme.of(context).primaryColor.withOpacity(0.5),
-                      // isScrollable: true,
-                      indicatorColor: CustomTheme.of(context).cardColor,
-                      indicator: BoxDecoration(
-                        // borderRadius: BorderRadius.circular(12), // Creates border
-                        border: Border(
-                          bottom: BorderSide(width: 3.0, color: CustomTheme.of(context).primaryColorLight),
-                        ),
-                        color: CustomTheme.of(context).focusColor,
-                      ),
-                      tabs: <Widget>[
-                        Tab(
-                          text: "Current",
-                        ),
-                        Tab(
-                          text: "History",
-                        ),
-                        Tab(
-                          text: "My traders",
-                        ),
-
-                      ],
-                    ),
+                labelColor: CustomTheme.of(context).primaryColorLight,
+                //<-- selected text color
+                unselectedLabelColor:
+                CustomTheme.of(context).primaryColor.withOpacity(0.5),
+                // isScrollable: true,
+                indicatorColor: CustomTheme.of(context).cardColor,
+                indicator: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(12), // Creates border
+                  border: Border(
+                    bottom: BorderSide(width: 3.0, color: CustomTheme.of(context).primaryColorLight),
                   ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10.0),
-                      color: CustomTheme.of(context).backgroundColor,
-                      child: TabBarView(
-                        controller: _tabControll,
-                        children: <Widget>[
-                          Container(),
-                          Container(),
-                          Container(),
-
-                        ],
-                      ),
-                    ),
+                  color: CustomTheme.of(context).focusColor,
+                ),
+                tabs: <Widget>[
+                  Tab(
+                    text: "Current",
                   ),
-                  const SizedBox(height: 10.0,),
+                  Tab(
+                    text: "History",
+                  ),
+                  Tab(
+                    text: "My traders",
+                  ),
 
-                  const SizedBox(height: 20.0,),
                 ],
               ),
-            )));
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(top: 10.0),
+                color: CustomTheme.of(context).backgroundColor,
+                child: TabBarView(
+                  controller: _tabSpotsController,
+                  children: <Widget>[
+                    Container(),
+                    Container(),
+                    Container(),
+
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10.0,),
+
+            const SizedBox(height: 20.0,),
+          ],
+        ),);
   }
 
   Widget SpotUI() {

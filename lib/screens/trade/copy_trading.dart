@@ -1542,14 +1542,18 @@ class _CopyTradingState extends State<CopyTrading>
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "BTC7Monitor",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      10.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width * 0.15,
+                                                  child: Text(
+                                                    "BTC7Monitor",
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context).focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                 ),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1791,14 +1795,18 @@ class _CopyTradingState extends State<CopyTrading>
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "BTC7Monitor",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      10.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width * 0.15,
+                                                  child: Text(
+                                                    "BTC7Monitor",
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context).focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                 ),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -2006,14 +2014,18 @@ class _CopyTradingState extends State<CopyTrading>
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "BTC7Monitor",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      10.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width * 0.15,
+                                                  child: Text(
+                                                    "BTC7Monitor",
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context).focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                 ),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -2995,7 +3007,7 @@ class _CopyTradingState extends State<CopyTrading>
                                 "IGU/USDT",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                    18.0,
+                                    15.0,
                                     Theme.of(context).focusColor,
                                     FontWeight.w600,
                                     'FontRegular'),
@@ -3022,7 +3034,7 @@ class _CopyTradingState extends State<CopyTrading>
                                 "+120.4%",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
-                                    17.0,
+                                    14.0,
                                     Theme.of(context).indicatorColor,
                                     FontWeight.w600,
                                     'FontRegular'),
@@ -3385,16 +3397,18 @@ class _CopyTradingState extends State<CopyTrading>
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "BTC7Monitor",
-                                                          style: CustomWidget(
-                                                              context: context)
-                                                              .CustomSizedTextStyle(
-                                                              10.0,
-                                                              Theme.of(context)
-                                                                  .focusColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
+                                                        Container(
+                                                          width: MediaQuery.of(context).size.width * 0.4,
+                                                          child: Text(
+                                                            "BTC7Monitor",
+                                                            style: CustomWidget(context: context)
+                                                                .CustomSizedTextStyle(
+                                                                10.0,
+                                                                Theme.of(context).focusColor,
+                                                                FontWeight.w600,
+                                                                'FontRegular'),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
                                                         ),
                                                         Row(
                                                           crossAxisAlignment:
@@ -3883,16 +3897,18 @@ class _CopyTradingState extends State<CopyTrading>
                                                         crossAxisAlignment:
                                                         CrossAxisAlignment.start,
                                                         children: [
-                                                          Text(
-                                                            "BTC7Monitor",
-                                                            style: CustomWidget(
-                                                                context: context)
-                                                                .CustomSizedTextStyle(
-                                                                10.0,
-                                                                Theme.of(context)
-                                                                    .focusColor,
-                                                                FontWeight.w600,
-                                                                'FontRegular'),
+                                                          Container(
+                                                            width: MediaQuery.of(context).size.width * 0.4,
+                                                            child: Text(
+                                                              "BTC7Monitor",
+                                                              style: CustomWidget(context: context)
+                                                                  .CustomSizedTextStyle(
+                                                                  10.0,
+                                                                  Theme.of(context).focusColor,
+                                                                  FontWeight.w600,
+                                                                  'FontRegular'),
+                                                              overflow: TextOverflow.ellipsis,
+                                                            ),
                                                           ),
                                                           Row(
                                                             crossAxisAlignment:
@@ -4147,14 +4163,18 @@ class _CopyTradingState extends State<CopyTrading>
                               child: Image.asset("assets/images/bg.png", height: 30.0,),
                             ),
                             const SizedBox(width: 10.0,),
-                            Text(
-                              "BTC7Monitor",
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  10.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: Text(
+                                "BTC7Monitor",
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    10.0,
+                                    Theme.of(context).focusColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ],
                         ),
@@ -4183,12 +4203,12 @@ class _CopyTradingState extends State<CopyTrading>
                                       text: '\$2,509.75 ',
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                          28.0,
+                                          18.0,
                                           Theme.of(context).focusColor,
                                           FontWeight.w700,
                                           'FontRegular'),
                                       children: const <TextSpan>[
-                                        TextSpan(text: '+9.77%', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0, color: Colors.white70,)),
+                                        TextSpan(text: '+9.77%', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.0, color: Colors.white70,)),
                                       ],
                                     ),
                                   ),
@@ -4215,7 +4235,7 @@ class _CopyTradingState extends State<CopyTrading>
                                             "\$1,618.75",
                                             style: CustomWidget(context: context)
                                                 .CustomSizedTextStyle(
-                                                18.0,
+                                                16.0,
                                                 Theme.of(context).focusColor,
                                                 FontWeight.w500,
                                                 'FontRegular'),
@@ -4244,7 +4264,7 @@ class _CopyTradingState extends State<CopyTrading>
                                             "\$1589",
                                             style: CustomWidget(context: context)
                                                 .CustomSizedTextStyle(
-                                                18.0,
+                                                16.0,
                                                 Theme.of(context).focusColor,
                                                 FontWeight.w500,
                                                 'FontRegular'),
@@ -4718,16 +4738,18 @@ class _CopyTradingState extends State<CopyTrading>
                                                     const SizedBox(
                                                       width: 10.0,
                                                     ),
-                                                    Text(
-                                                      "BTC7Monitor",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
-                                                          Theme.of(context)
-                                                              .focusColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                                    Container(
+                                                      width: MediaQuery.of(context).size.width * 0.15,
+                                                      child: Text(
+                                                        "BTC7Monitor",
+                                                        style: CustomWidget(context: context)
+                                                            .CustomSizedTextStyle(
+                                                            10.0,
+                                                            Theme.of(context).focusColor,
+                                                            FontWeight.w600,
+                                                            'FontRegular'),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
                                                     ),
 
                                                   ],

@@ -384,7 +384,7 @@ class _My_Strategies_ScreenState extends State<My_Strategies_Screen>
                                 ),
                                 Container(
                                   height: 25.0,
-                                  width: MediaQuery.of(context).size.width * 0.25,
+                                  width: MediaQuery.of(context).size.width * 0.28,
                                   padding: const EdgeInsets.only(
                                       left: 10.0,
                                       right: 10.0,
@@ -502,6 +502,45 @@ class _My_Strategies_ScreenState extends State<My_Strategies_Screen>
                     ],
                   ),
                 ),
+                const SizedBox(height: 15.0,),
+                Container(
+                  height: MediaQuery.of(context).size.height*0.3,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "There is nothing here",
+                        style: CustomWidget(
+                            context: context)
+                            .CustomSizedTextStyle(
+                            8.0,
+                            Theme.of(context)
+                                .unselectedWidgetColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                      ),
+                      const SizedBox(height: 10.0,),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.0),
+                            color: Theme.of(context).primaryColor
+                        ),
+                        child: Text(
+                          "Follow",
+                          style: CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              10.0,
+                              Theme.of(context).focusColor,
+                              FontWeight.w500,
+                              'FontRegular'),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
 
               ],
             )));

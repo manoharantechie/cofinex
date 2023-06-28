@@ -540,7 +540,7 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
                 Container(
                   padding: EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                       color: Theme.of(context).primaryColor
                   ),
                   child: Text(

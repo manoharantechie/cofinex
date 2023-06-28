@@ -48,6 +48,7 @@ dependencies:
   barcode_scan2:
   webview_flutter: ^4.2.0
   flutter_html: ^3.0.0-alpha.6
+  carousel_slider:
 
 
 

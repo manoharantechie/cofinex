@@ -519,7 +519,7 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
           const SizedBox(height: 20.0,),
 
           Container(
-            height: MediaQuery.of(context).size.height*0.3,
+            height: MediaQuery.of(context).size.height*0.4,
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -88,6 +88,7 @@ class _My_Strategies_ScreenState extends State<My_Strategies_Screen>
         width: MediaQuery.of(context).size.width,
         color: CustomTheme.of(context).focusColor,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),

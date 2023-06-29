@@ -3,13 +3,16 @@ import 'package:cofinex/common/custom_widget.dart';
 import 'package:cofinex/common/theme/custom_theme.dart';
 import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/model/copy_trade_model.dart';
+import 'package:cofinex/screens/copy%20trade/my_strategies.dart';
 import 'package:cofinex/screens/trade/copy_trade_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../common/localization/localizations.dart';
-import 'future_details.dart';
+import '../copy trade/copy_trade_overview_details.dart';
+import '../copy trade/future_details.dart';
+import '../copy trade/my_strategies_details.dart';
 
 class CopyTrading extends StatefulWidget {
   const CopyTrading({Key? key}) : super(key: key);
@@ -4136,162 +4139,170 @@ class _CopyTradingState extends State<CopyTrading>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
 
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).primaryColorLight,
-                      // image: DecorationImage(
-                      //   image: AssetImage("assets/icon/back.png"),
-                      //   fit: BoxFit.cover,
-                      // ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                  color:Theme.of(context).focusColor,
-                                  shape: BoxShape.circle
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CopyTradeOverviewDetails()));
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Theme.of(context).primaryColorLight,
+                        // image: DecorationImage(
+                        //   image: AssetImage("assets/icon/back.png"),
+                        //   fit: BoxFit.cover,
+                        // ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                    color:Theme.of(context).focusColor,
+                                    shape: BoxShape.circle
+                                ),
+                                child: Image.asset("assets/images/bg.png", height: 30.0,),
                               ),
-                              child: Image.asset("assets/images/bg.png", height: 30.0,),
-                            ),
-                            const SizedBox(width: 10.0,),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: Text(
-                                "BTC7Monitor",
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    10.0,
-                                    Theme.of(context).focusColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5.0,),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10.0,),
-                                  Text(
-                                    "Holding value",
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                        10.0,
-                                        Theme.of(context).focusColor,
-                                        FontWeight.w500,
-                                        'FontRegular'),
-                                  ),
-                                  const SizedBox(height: 10.0,),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: '\$2,509.75 ',
-                                      style: CustomWidget(context: context)
-                                          .CustomSizedTextStyle(
-                                          18.0,
-                                          Theme.of(context).focusColor,
-                                          FontWeight.w700,
-                                          'FontRegular'),
-                                      children: const <TextSpan>[
-                                        TextSpan(text: '+9.77%', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.0, color: Colors.white70,)),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20.0,),
-                                  Container(
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                          Text(
-                                            "Invested value",
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                10.0,
-                                                Theme.of(context).focusColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                          ),
-                                          const SizedBox(height: 5.0,),
-                                          Text(
-                                            "\$1,618.75",
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                16.0,
-                                                Theme.of(context).focusColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                          ),
-                                        ],), flex: 2,),
-                                        Flexible(child: Container(
-                                          height: 50.0,
-                                          width: 1.0,
-                                          color: Theme.of(context).focusColor.withOpacity(0.6),
-                                        )),
-                                        Expanded(child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                          Text(
-                                            "Profit",
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                10.0,
-                                                Theme.of(context).focusColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          const SizedBox(height: 5.0,),
-                                          Text(
-                                            "\$1589",
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                16.0,
-                                                Theme.of(context).focusColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ],), flex: 2,),
-
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              flex: 2,
-                            ),
-                            Flexible(
-                              child: Container(
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, height: 140.0, ),
+                              const SizedBox(width: 10.0,),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Text(
+                                  "BTC7Monitor",
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      10.0,
+                                      Theme.of(context).focusColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              flex: 1,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15.0,),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(height: 5.0,),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 10.0,),
+                                    Text(
+                                      "Holding value",
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          10.0,
+                                          Theme.of(context).focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                    const SizedBox(height: 10.0,),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: '\$2,509.75 ',
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            18.0,
+                                            Theme.of(context).focusColor,
+                                            FontWeight.w700,
+                                            'FontRegular'),
+                                        children: const <TextSpan>[
+                                          TextSpan(text: '+9.77%', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.0, color: Colors.white70,)),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20.0,),
+                                    Container(
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Invested value",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    10.0,
+                                                    Theme.of(context).focusColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                              ),
+                                              const SizedBox(height: 5.0,),
+                                              Text(
+                                                "\$1,618.75",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    16.0,
+                                                    Theme.of(context).focusColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                              ),
+                                            ],), flex: 2,),
+                                          Flexible(child: Container(
+                                            height: 50.0,
+                                            width: 1.0,
+                                            color: Theme.of(context).focusColor.withOpacity(0.6),
+                                          )),
+                                          Expanded(child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Profit",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    10.0,
+                                                    Theme.of(context).focusColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                              const SizedBox(height: 5.0,),
+                                              Text(
+                                                "\$1589",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    16.0,
+                                                    Theme.of(context).focusColor,
+                                                    FontWeight.w500,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ],), flex: 2,),
+
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                flex: 2,
+                              ),
+                              Flexible(
+                                child: Container(
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, height: 140.0, ),
+                                  ),
+                                ),
+                                flex: 1,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15.0,),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 15.0,),
@@ -4307,33 +4318,43 @@ class _CopyTradingState extends State<CopyTrading>
                         mainAxisSpacing: 12.0,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(img[index].toString(), height: 20.0,),
-                              const SizedBox(height: 10.0,),
-                              Text(
-                                // "My strategies",
-                                imgText[index].toString(),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    8.0,
-                                    Theme.of(context).toggleableActiveColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
+                        return InkWell(
+                          onTap: (){
+                            if(index==0){
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          My_Strategies_Details()));
+                            }
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(img[index].toString(), height: 20.0,),
+                                const SizedBox(height: 10.0,),
+                                Text(
+                                  // "My strategies",
+                                  imgText[index].toString(),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      8.0,
+                                      Theme.of(context).toggleableActiveColor,
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  textAlign: TextAlign.center,
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       }),

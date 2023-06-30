@@ -210,6 +210,7 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
                   child: TabBar(
                     controller: _tabController,
                     isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.label,
                     labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         13.0,
                         Theme.of(context).unselectedWidgetColor,
@@ -386,6 +387,7 @@ class _Future_Details_ScreenState extends State<Future_Details_Screen>
               child: TabBar(
                 controller: _tabSpotsController,
                 isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                     13.0,
                     Theme.of(context).unselectedWidgetColor,

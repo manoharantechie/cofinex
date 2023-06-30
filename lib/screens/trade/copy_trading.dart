@@ -140,6 +140,7 @@ class _CopyTradingState extends State<CopyTrading>
                   child: TabBar(
                     controller: _tabController,
                     isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.label,
                     labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         13.0,
                         Theme.of(context).unselectedWidgetColor,
@@ -2063,7 +2064,7 @@ class _CopyTradingState extends State<CopyTrading>
                                         ),
                                         const SizedBox(height: 5.0,),
                                         Text(
-                                          "ROI",
+                                          "Pnl",
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                               8.0,
@@ -3342,7 +3343,7 @@ class _CopyTradingState extends State<CopyTrading>
                   const SizedBox(height: 20.0,),
 
                   Container(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).focusColor,
                       child: SingleChildScrollView(
                           child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -3849,7 +3850,7 @@ class _CopyTradingState extends State<CopyTrading>
                   const SizedBox(height: 20.0,),
 
                   Container(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).focusColor,
                       child: SingleChildScrollView(
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
@@ -4421,11 +4422,11 @@ class _CopyTradingState extends State<CopyTrading>
                   const SizedBox(height: 20.0,),
 
                   Container(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).focusColor,
                       child: SingleChildScrollView(
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
-                            itemCount: 2,
+                            itemCount: 5,
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
                             controller: controller,
@@ -4760,7 +4761,7 @@ class _CopyTradingState extends State<CopyTrading>
                                                       width: 10.0,
                                                     ),
                                                     Container(
-                                                      width: MediaQuery.of(context).size.width * 0.15,
+                                                      width: MediaQuery.of(context).size.width * 0.4,
                                                       child: Text(
                                                         "BTC7Monitor",
                                                         style: CustomWidget(context: context)

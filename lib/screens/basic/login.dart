@@ -47,7 +47,7 @@ class _Sign_Up_screenState extends State<Login> {
  splitFirst=widget.email.toString().split("@")[0];
     splitSecond=widget.email.toString().split("@")[1];
 
-//passwordController.text="Avanzar@1234";
+    //passwordController.text="Avanzar@1234";
 
     getData();
 

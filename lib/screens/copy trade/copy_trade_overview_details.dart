@@ -257,11 +257,9 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
     return Container(
         color: CustomTheme.of(context).focusColor,
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-            controller: _scrollController,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+        child: Stack(
+          children: [
+            Column(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
@@ -404,17 +402,19 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                   ),
                 ),
                 const SizedBox(height: 15.0,),
-
-                OverviewUI()
-
               ],
-            )));
+            ),
+
+            OverviewUI()
+          ],
+        ));
   }
 
   Widget OverviewUI() {
     return Container(
       color: CustomTheme.of(context).focusColor,
       height: MediaQuery.of(context).size.height,
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -422,6 +422,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
           Container(
             alignment: Alignment.center,
             height: 35.0,
+
             width: MediaQuery.of(context).size.width,
             // margin: EdgeInsets.only(left: 15.0, right: 15.0),
             padding: EdgeInsets.only(left: 0.2, right: 0.2),
@@ -435,6 +436,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
             child: TabBar(
               controller: _tabSpotsController,
               isScrollable: true,
+              indicatorSize:TabBarIndicatorSize.label ,
               labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                   13.0,
                   Theme.of(context).unselectedWidgetColor,
@@ -455,36 +457,21 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                 color: CustomTheme.of(context).focusColor,
               ),
               tabs: <Widget>[
-               Container(
-                 width: MediaQuery.of(context).size.width * 0.11,
-                 child:  Tab(
-                   text: "Overview",
-                 ),
-               ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.11,
-                 child:  Tab(
-                   text: "Stats",
-                 ),
-               ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.11,
-                 child:  Tab(
-                   text: "Orders",
-                 ),
-               ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.11,
-                 child:  Tab(
-                   text: "Followers",
-                 ),
-               ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.11,
-                 child:  Tab(
-                   text: "Insights",
-                 ),
-               ),
+                Tab(
+                  text: "Overview",
+                ),
+                Tab(
+                  text: "Stats",
+                ),
+                Tab(
+                  text: "Orders",
+                ),
+                Tab(
+                  text: "Followers",
+                ),
+                Tab(
+                  text: "Insights",
+                ),
 
               ],
             ),
@@ -927,183 +914,186 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                               'FontRegular'),
                         ),
                         const SizedBox(height: 15.0,),
-                        // GridView.builder(
-                        //     itemCount: 10,
-                        //     shrinkWrap: true,
-                        //     controller: _scrollController,
-                        //     gridDelegate:
-                        //     SliverGridDelegateWithFixedCrossAxisCount(
-                        //       crossAxisCount: 5,
-                        //       crossAxisSpacing: 5.0,
-                        //       mainAxisSpacing: 5.0,
-                        //     ),
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       return InkWell(
-                        //         onTap: (){
-                        //
-                        //         },
-                        //         child: Container(
-                        //           padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(10.0),
-                        //             color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                        //           ),
-                        //           child: Center(
-                        //             child: Text(
-                        //               "High profit",
-                        //               style: CustomWidget(
-                        //                   context: context)
-                        //                   .CustomSizedTextStyle(
-                        //                   9.0,
-                        //                   Theme.of(context)
-                        //                       .primaryColorLight,
-                        //                   FontWeight.w500,
-                        //                   'FontRegular'),
-                        //
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }),
-                        // const SizedBox(height: 15.0,),
+                        GridView.builder(
+                            itemCount: 10,
+                            shrinkWrap: true,
+                            controller: _scrollController,
+                            gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 5,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0,
 
-                        Container(
-                            color: Theme.of(context).focusColor,
-                            child: SingleChildScrollView(
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  itemCount: 6,
-                                  shrinkWrap: true,
-                                  physics: ScrollPhysics(),
-                                  controller: controller,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: (){
+                              childAspectRatio: 3 / 1.2,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                onTap: (){
 
-                                          },
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Flexible(child: Container(
-                                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                  color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "High profit",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        9.0,
-                                                        Theme.of(context)
-                                                            .primaryColorLight,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              )),
-                                              const SizedBox(width: 5.0,),
-                                              Flexible(child: Container(
-                                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                  color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Secure",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        9.0,
-                                                        Theme.of(context)
-                                                            .primaryColorLight,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              )),
-                                              const SizedBox(width: 5.0,),
-                                              Flexible(child: Container(
-                                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                  color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Most popular",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        9.0,
-                                                        Theme.of(context)
-                                                            .primaryColorLight,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              )),
-                                              const SizedBox(width: 5.0,),
-                                              Flexible(child: Container(
-                                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                  color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Most popular",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        9.0,
-                                                        Theme.of(context)
-                                                            .primaryColorLight,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              )),
-                                              const SizedBox(width: 5.0,),
-                                              Flexible(child: Container(
-                                                padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.0),
-                                                  color: Theme.of(context).primaryColorLight.withOpacity(0.3),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "Most popular",
-                                                    style: CustomWidget(
-                                                        context: context)
-                                                        .CustomSizedTextStyle(
-                                                        9.0,
-                                                        Theme.of(context)
-                                                            .primaryColorLight,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              ))
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 20.0,),
-                                      ],
-                                    );
-                                  },
-                                ))),
+                                },
+                                child: Container(
+                                  height: 50.0,
+                                  padding: EdgeInsets.fromLTRB(10.0, 2.0, 10.0, 2.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "High profit",
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          9.0,
+                                          Theme.of(context)
+                                              .primaryColorLight,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                        const SizedBox(height: 15.0,),
+
+                        // Container(
+                        //     color: Theme.of(context).focusColor,
+                        //     child: SingleChildScrollView(
+                        //         child: ListView.builder(
+                        //           padding: EdgeInsets.zero,
+                        //           itemCount: 6,
+                        //           shrinkWrap: true,
+                        //           physics: ScrollPhysics(),
+                        //           controller: controller,
+                        //           itemBuilder: (BuildContext context, int index) {
+                        //             return Column(
+                        //               children: [
+                        //                 InkWell(
+                        //                   onTap: (){
+                        //
+                        //                   },
+                        //                   child: Row(
+                        //                     crossAxisAlignment: CrossAxisAlignment.center,
+                        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //                     children: [
+                        //                       Flexible(child: Container(
+                        //                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(10.0),
+                        //                           color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                        //                         ),
+                        //                         child: Center(
+                        //                           child: Text(
+                        //                             "High profit",
+                        //                             style: CustomWidget(
+                        //                                 context: context)
+                        //                                 .CustomSizedTextStyle(
+                        //                                 9.0,
+                        //                                 Theme.of(context)
+                        //                                     .primaryColorLight,
+                        //                                 FontWeight.w500,
+                        //                                 'FontRegular'),
+                        //                             overflow: TextOverflow.ellipsis,
+                        //                           ),
+                        //                         ),
+                        //                       )),
+                        //                       const SizedBox(width: 5.0,),
+                        //                       Flexible(child: Container(
+                        //                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(10.0),
+                        //                           color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                        //                         ),
+                        //                         child: Center(
+                        //                           child: Text(
+                        //                             "Secure",
+                        //                             style: CustomWidget(
+                        //                                 context: context)
+                        //                                 .CustomSizedTextStyle(
+                        //                                 9.0,
+                        //                                 Theme.of(context)
+                        //                                     .primaryColorLight,
+                        //                                 FontWeight.w500,
+                        //                                 'FontRegular'),
+                        //                             overflow: TextOverflow.ellipsis,
+                        //                           ),
+                        //                         ),
+                        //                       )),
+                        //                       const SizedBox(width: 5.0,),
+                        //                       Flexible(child: Container(
+                        //                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(10.0),
+                        //                           color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                        //                         ),
+                        //                         child: Center(
+                        //                           child: Text(
+                        //                             "Most popular",
+                        //                             style: CustomWidget(
+                        //                                 context: context)
+                        //                                 .CustomSizedTextStyle(
+                        //                                 9.0,
+                        //                                 Theme.of(context)
+                        //                                     .primaryColorLight,
+                        //                                 FontWeight.w500,
+                        //                                 'FontRegular'),
+                        //                             overflow: TextOverflow.ellipsis,
+                        //                           ),
+                        //                         ),
+                        //                       )),
+                        //                       const SizedBox(width: 5.0,),
+                        //                       Flexible(child: Container(
+                        //                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(10.0),
+                        //                           color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                        //                         ),
+                        //                         child: Center(
+                        //                           child: Text(
+                        //                             "Most popular",
+                        //                             style: CustomWidget(
+                        //                                 context: context)
+                        //                                 .CustomSizedTextStyle(
+                        //                                 9.0,
+                        //                                 Theme.of(context)
+                        //                                     .primaryColorLight,
+                        //                                 FontWeight.w500,
+                        //                                 'FontRegular'),
+                        //                             overflow: TextOverflow.ellipsis,
+                        //                           ),
+                        //                         ),
+                        //                       )),
+                        //                       const SizedBox(width: 5.0,),
+                        //                       Flexible(child: Container(
+                        //                         padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 7.0),
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(10.0),
+                        //                           color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                        //                         ),
+                        //                         child: Center(
+                        //                           child: Text(
+                        //                             "Most popular",
+                        //                             style: CustomWidget(
+                        //                                 context: context)
+                        //                                 .CustomSizedTextStyle(
+                        //                                 9.0,
+                        //                                 Theme.of(context)
+                        //                                     .primaryColorLight,
+                        //                                 FontWeight.w500,
+                        //                                 'FontRegular'),
+                        //                             overflow: TextOverflow.ellipsis,
+                        //                           ),
+                        //                         ),
+                        //                       ))
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //                 const SizedBox(height: 20.0,),
+                        //               ],
+                        //             );
+                        //           },
+                        //         ))),
 
                       ],
                     ),

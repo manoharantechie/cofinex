@@ -49,11 +49,7 @@ class _CopyTradingState extends State<CopyTrading>
   List<String> imgText = ["My strategies", "Bought","Subscribe","Create"];
   String selectedType = "";
 
-  late TabController _tabController,
-      _tabOverviewController,
-      _tabSpotController,
-      _tabFutureController,
-      _tabBotsController;
+  late TabController _tabController;
 
 
   @override
@@ -72,10 +68,6 @@ class _CopyTradingState extends State<CopyTrading>
     });
     getToken();
 
-    _tabSpotController = TabController(vsync: this, length: 3);
-    _tabOverviewController = TabController(vsync: this, length: 1);
-    _tabFutureController = TabController(vsync: this, length: 2);
-    _tabBotsController = TabController(vsync: this, length: 4);
     _tabController = TabController(vsync: this, length: 4);
   }
 
@@ -200,854 +192,857 @@ class _CopyTradingState extends State<CopyTrading>
         ));
   }
 
-  // Widget tradeUI() {
-  //   return Container(
-  //       color: CustomTheme.of(context).focusColor,
-  //       height: MediaQuery.of(context).size.height,
-  //       child: Stack(
-  //         children: [
-  //           SingleChildScrollView(
-  //               controller: _scrollController,
-  //               child: Padding(
-  //                 padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-  //                 child: Column(
-  //                   children: [
-  //                     // Column(
-  //                     //   crossAxisAlignment: CrossAxisAlignment.start,
-  //                     //   mainAxisAlignment: MainAxisAlignment.start,
-  //                     //   children: [
-  //                     //     const SizedBox(
-  //                     //       height: 10.0,
-  //                     //     ),
-  //                     //     Row(
-  //                     //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     //       crossAxisAlignment: CrossAxisAlignment.start,
-  //                     //       children: [
-  //                     //         Column(
-  //                     //           mainAxisAlignment: MainAxisAlignment.start,
-  //                     //           crossAxisAlignment: CrossAxisAlignment.start,
-  //                     //           children: [
-  //                     //             InkWell(
-  //                     //               onTap: () {
-  //                     //                 setState(() {
-  //                     //                   if (collapse) {
-  //                     //                     collapse = false;
-  //                     //                   } else {
-  //                     //                     collapse = true;
-  //                     //                   }
-  //                     //                 });
-  //                     //               },
-  //                     //               child: Container(
-  //                     //                   padding: const EdgeInsets.only(
-  //                     //                       right: 10.0, bottom: 3.0),
-  //                     //                   child: Row(
-  //                     //                     crossAxisAlignment:
-  //                     //                     CrossAxisAlignment.center,
-  //                     //                     mainAxisAlignment:
-  //                     //                     MainAxisAlignment.center,
-  //                     //                     children: [
-  //                     //                       Text(
-  //                     //                         collapse
-  //                     //                             ? "Current Price"
-  //                     //                             : "Last Price",
-  //                     //                         style: CustomWidget(context: context)
-  //                     //                             .CustomSizedTextStyle(
-  //                     //                             10.0,
-  //                     //                             Theme.of(context).hintColor,
-  //                     //                             FontWeight.w500,
-  //                     //                             'FontRegular'),
-  //                     //                       ),
-  //                     //                       Icon(
-  //                     //                         collapse
-  //                     //                             ? Icons.arrow_drop_up_sharp
-  //                     //                             : Icons.arrow_drop_down,
-  //                     //                         color:
-  //                     //                         CustomTheme.of(context).hintColor,
-  //                     //                         size: 15.0,
-  //                     //                       ),
-  //                     //                     ],
-  //                     //                   )),
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 8.0,
-  //                     //             ),
-  //                     //             Text(
-  //                     //               "28853.22",
-  //                     //               style: CustomWidget(context: context)
-  //                     //                   .CustomSizedTextStyle(
-  //                     //                   18.0,
-  //                     //                   Theme.of(context).indicatorColor,
-  //                     //                   FontWeight.w700,
-  //                     //                   'FontRegular'),
-  //                     //               textAlign: TextAlign.start,
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 8.0,
-  //                     //             ),
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.start,
-  //                     //               mainAxisAlignment: MainAxisAlignment.start,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "\$144444.46",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context).primaryColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "+ 1.76%",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       12.0,
-  //                     //                       Theme.of(context).indicatorColor,
-  //                     //                       FontWeight.w700,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 8.0,
-  //                     //             ),
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.start,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "Mark price",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context).primaryColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "20,0929.81",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       12.0,
-  //                     //                       Theme.of(context).primaryColor,
-  //                     //                       FontWeight.w400,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //           ],
-  //                     //         ),
-  //                     //         Column(
-  //                     //           mainAxisAlignment: MainAxisAlignment.start,
-  //                     //           crossAxisAlignment: CrossAxisAlignment.end,
-  //                     //           children: [
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.center,
-  //                     //               mainAxisAlignment:
-  //                     //               MainAxisAlignment.spaceBetween,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "24h high",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context)
-  //                     //                           .scaffoldBackgroundColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.start,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "732.32",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       8.0,
-  //                     //                       Theme.of(context).canvasColor,
-  //                     //                       FontWeight.w700,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 5.0,
-  //                     //             ),
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.center,
-  //                     //               mainAxisAlignment:
-  //                     //               MainAxisAlignment.spaceBetween,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "24h low",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context)
-  //                     //                           .scaffoldBackgroundColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.start,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "43.98",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       8.0,
-  //                     //                       Theme.of(context).canvasColor,
-  //                     //                       FontWeight.w700,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 5.0,
-  //                     //             ),
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.center,
-  //                     //               mainAxisAlignment:
-  //                     //               MainAxisAlignment.spaceBetween,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "24h vol(BTC)",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context)
-  //                     //                           .scaffoldBackgroundColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.start,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "413.09",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       8.0,
-  //                     //                       Theme.of(context).canvasColor,
-  //                     //                       FontWeight.w700,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //             const SizedBox(
-  //                     //               height: 5.0,
-  //                     //             ),
-  //                     //             Row(
-  //                     //               crossAxisAlignment: CrossAxisAlignment.center,
-  //                     //               mainAxisAlignment:
-  //                     //               MainAxisAlignment.spaceBetween,
-  //                     //               children: [
-  //                     //                 Text(
-  //                     //                   "24h vol(USDT)",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       10.0,
-  //                     //                       Theme.of(context)
-  //                     //                           .scaffoldBackgroundColor,
-  //                     //                       FontWeight.w500,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.start,
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   width: 10.0,
-  //                     //                 ),
-  //                     //                 Text(
-  //                     //                   "82.23M",
-  //                     //                   style: CustomWidget(context: context)
-  //                     //                       .CustomSizedTextStyle(
-  //                     //                       8.0,
-  //                     //                       Theme.of(context).canvasColor,
-  //                     //                       FontWeight.w700,
-  //                     //                       'FontRegular'),
-  //                     //                   textAlign: TextAlign.center,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //           ],
-  //                     //         ),
-  //                     //       ],
-  //                     //     )
-  //                     //   ],
-  //                     // ),
-  //                     // const SizedBox(
-  //                     //   height: 15.0,
-  //                     // ),
-  //                     // Container(
-  //                     //   width: MediaQuery.of(context).size.width,
-  //                     //   height: 45.0,
-  //                     //   padding: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
-  //                     //   decoration: BoxDecoration(
-  //                     //     border: Border.all(
-  //                     //         color: Theme.of(context).splashColor,
-  //                     //         width: 1.0),
-  //                     //     borderRadius: BorderRadius.circular(10.0),
-  //                     //     color: Theme.of(context).focusColor,
-  //                     //   ),
-  //                     //   child: Theme(
-  //                     //     data: Theme.of(context).copyWith(
-  //                     //       canvasColor: Theme.of(context).backgroundColor,
-  //                     //     ),
-  //                     //     child: DropdownButtonHideUnderline(
-  //                     //       child: DropdownButton(
-  //                     //         menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
-  //                     //         items: borrows
-  //                     //             .map((value) => DropdownMenuItem(
-  //                     //           child: Text(
-  //                     //             value.toString(),
-  //                     //             style: CustomWidget(context: context)
-  //                     //                 .CustomSizedTextStyle(
-  //                     //                 14.0,
-  //                     //                 Theme.of(context).primaryColor,
-  //                     //                 FontWeight.w600,
-  //                     //                 'FontRegular'),
-  //                     //           ),
-  //                     //           value: value,
-  //                     //         ))
-  //                     //             .toList(),
-  //                     //         onChanged: (value) async {
-  //                     //           setState(() {
-  //                     //             selectedBorrow = value.toString();
-  //                     //             loading=true;
-  //                     //             ["Default", "ROI", "Total PNL", "AUM"];
-  //                     //             if(selectedBorrow=="Default")
-  //                     //               {
-  //                     //                 type="composite";
-  //                     //               }
-  //                     //           else  if(selectedBorrow=="ROI")
-  //                     //             {
-  //                     //               type="roi";
-  //                     //             }
-  //                     //             else  if(selectedBorrow=="Total PNL")
-  //                     //             {
-  //                     //               type="totalPL";
-  //                     //             }
-  //                     //             else  if(selectedBorrow=="AUM")
-  //                     //             {
-  //                     //               type="aum";
-  //                     //             }
-  //                     //             copyTradelist=[];
-  //                     //             copyLoadTradelist=[];
-  //                     //             page="1";
-  //                     //             getToken();
-  //                     //
-  //                     //           });
-  //                     //         },
-  //                     //
-  //                     //         isExpanded: true,
-  //                     //         value: selectedBorrow,
-  //                     //         icon: Icon(
-  //                     //           Icons.arrow_forward_ios_rounded,
-  //                     //           size: 15.0,
-  //                     //           color: Theme.of(context).primaryColor,
-  //                     //           // color: Them,
-  //                     //           // color: AppColors.otherTextColor,
-  //                     //         ),
-  //                     //       ),
-  //                     //     ),
-  //                     //   ),
-  //                     // ),
-  //                     // const SizedBox(
-  //                     //   height: 15.0,
-  //                     // ),
-  //                     // SizedBox(
-  //                     //   height: collapse ? 15.0 : 1.0,
-  //                     // ),
-  //                     // SingleChildScrollView(
-  //                     //   child: ListView.builder(
-  //                     //     itemCount: copyTradelist.length,
-  //                     //     shrinkWrap: true,
-  //                     //     controller: controller,
-  //                     //     itemBuilder: (BuildContext context, int index) {
-  //                     //       return Column(
-  //                     //         children: [
-  //                     //           Container(
-  //                     //             decoration: BoxDecoration(
-  //                     //                 borderRadius: BorderRadius.circular(15.0),
-  //                     //                 border: Border.all(
-  //                     //                   color: Theme.of(context)
-  //                     //                       .canvasColor
-  //                     //                       .withOpacity(0.5),
-  //                     //                 )),
-  //                     //             child: Column(
-  //                     //               children: [
-  //                     //                 Theme(
-  //                     //                   data: Theme.of(context).copyWith(
-  //                     //                       dividerColor: Colors.transparent),
-  //                     //                   child: ExpansionTile(
-  //                     //                     key: PageStorageKey(index.toString()),
-  //                     //                     title: Row(
-  //                     //                       mainAxisAlignment:
-  //                     //                       MainAxisAlignment.spaceBetween,
-  //                     //                       children: [
-  //                     //                         CircleAvatar(
-  //                     //                           maxRadius: 20.0,
-  //                     //                           backgroundImage:NetworkImage(
-  //                     //                             copyTradelist[index].traderHeadPic.toString(),
-  //                     //
-  //                     //
-  //                     //                           ),
-  //                     //                         ),
-  //                     //                         const SizedBox(
-  //                     //                           width: 15.0,
-  //                     //                         ),
-  //                     //                         Flexible(
-  //                     //                             child: Container(
-  //                     //
-  //                     //                               child:  Text(
-  //                     //                                 copyTradelist[index].traderNickName.toString(),
-  //                     //                                 style: CustomWidget(
-  //                     //                                     context: context)
-  //                     //                                     .CustomSizedTextStyle(
-  //                     //                                     14.0,
-  //                     //                                     Theme.of(context)
-  //                     //                                         .primaryColor,
-  //                     //                                     FontWeight.w400,
-  //                     //                                     'FontRegular'),
-  //                     //                                 textAlign: TextAlign.start,
-  //                     //
-  //                     //                               ),
-  //                     //                               width: MediaQuery.of(context).size.width,
-  //                     //                             ),flex: 2,),
-  //                     //                         Flexible(child: Column(
-  //                     //                           children: [
-  //                     //                             Text(
-  //                     //                               copyTradelist[index].columnList![0].value.toString()+"%",
-  //                     //                               style:
-  //                     //                               CustomWidget(context: context)
-  //                     //                                   .CustomSizedTextStyle(
-  //                     //                                   14.0,
-  //                     //
-  //                     //                                   double.parse( copyTradelist[index].columnList![0].value.toString())>0?    Theme.of(context)
-  //                     //                                       .primaryColorLight: Theme.of(context)
-  //                     //                                       .scaffoldBackgroundColor,
-  //                     //                                   FontWeight.w400,
-  //                     //                                   'FontRegular'),
-  //                     //                             ),
-  //                     //                             Text(
-  //                     //                               copyTradelist[index].columnList![0].describe.toString(),
-  //                     //                               style:
-  //                     //                               CustomWidget(context: context)
-  //                     //                                   .CustomSizedTextStyle(
-  //                     //                                   14.0, Theme.of(context)
-  //                     //                                   .canvasColor,
-  //                     //                                   FontWeight.w400,
-  //                     //                                   'FontRegular'),
-  //                     //                             ),
-  //                     //                           ],
-  //                     //                         ),flex: 1,)
-  //                     //                       ],
-  //                     //                     ),
-  //                     //                     children: [
-  //                     //                       Column(
-  //                     //                         children: [
-  //                     //                           Row(
-  //                     //                             children: [
-  //                     //                               Column(
-  //                     //                                 children: [
-  //                     //
-  //                     //                                   Row(
-  //                     //                                     children: [
-  //                     //                                       Text(
-  //                     //                                         copyTradelist[index].columnList![1].describe.toString(),
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .canvasColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                       const SizedBox(
-  //                     //                                         width: 10.0,
-  //                     //                                       ),
-  //                     //                                       Text(
-  //                     //                                         "\$"+  copyTradelist[index].columnList![1].value.toString(),
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .primaryColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                     ],
-  //                     //                                   ),
-  //                     //                                   const SizedBox(
-  //                     //                                     height: 5.0,
-  //                     //                                   ),
-  //                     //                                   Row(
-  //                     //                                     children: [
-  //                     //                                       Text(
-  //                     //                                         copyTradelist[index].columnList![2].describe.toString(),
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .canvasColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                       const SizedBox(
-  //                     //                                         width: 10.0,
-  //                     //                                       ),
-  //                     //                                       Text(
-  //                     //                                         "\$"+  copyTradelist[index].columnList![2].value.toString(),
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .primaryColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                     ],
-  //                     //                                   ),
-  //                     //                                   const SizedBox(
-  //                     //                                     height: 5.0,
-  //                     //                                   ),
-  //                     //                                   Row(
-  //                     //                                     children: [
-  //                     //                                       Text(
-  //                     //                                         "Win rate",
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .canvasColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                       const SizedBox(
-  //                     //                                         width: 10.0,
-  //                     //                                       ),
-  //                     //                                       Text(
-  //                     //                                         copyTradelist[index].averageWinRate.toString()+ "%",
-  //                     //                                         style: CustomWidget(
-  //                     //                                             context:
-  //                     //                                             context)
-  //                     //                                             .CustomTextStyle(
-  //                     //                                             Theme.of(
-  //                     //                                                 context)
-  //                     //                                                 .primaryColor,
-  //                     //                                             FontWeight
-  //                     //                                                 .w400,
-  //                     //                                             'FontRegular'),
-  //                     //                                         softWrap: true,
-  //                     //                                         overflow: TextOverflow
-  //                     //                                             .ellipsis,
-  //                     //                                       ),
-  //                     //                                     ],
-  //                     //                                   )
-  //                     //                                 ],
-  //                     //                                 crossAxisAlignment:
-  //                     //                                 CrossAxisAlignment.start,
-  //                     //                               ),
-  //                     //                               SvgPicture.asset(index % 2 == 0
-  //                     //                                   ? 'assets/icon/graph_success.svg'
-  //                     //                                   : 'assets/icon/graph_fail.svg'),
-  //                     //                             ],
-  //                     //                             mainAxisAlignment:
-  //                     //                             MainAxisAlignment.spaceAround,
-  //                     //                             crossAxisAlignment:
-  //                     //                             CrossAxisAlignment.center,
-  //                     //                           ),
-  //                     //                           const SizedBox(
-  //                     //                             height: 8.0,
-  //                     //                           ),
-  //                     //                           Container(
-  //                     //                             margin: EdgeInsets.only(
-  //                     //                                 left: 20.0, right: 20.0),
-  //                     //                             height: 0.5,
-  //                     //                             width: MediaQuery.of(context)
-  //                     //                                 .size
-  //                     //                                 .width,
-  //                     //                             color:
-  //                     //                             Theme.of(context).canvasColor,
-  //                     //                           ),
-  //                     //                           const SizedBox(
-  //                     //                             height: 8.0,
-  //                     //                           ),
-  //                     //                           Padding(
-  //                     //                             padding:
-  //                     //                             EdgeInsets.only(left: 20.0),
-  //                     //                             child: Row(
-  //                     //                               children: [
-  //                     //                                 Text(
-  //                     //                                   "AUM",
-  //                     //                                   style: CustomWidget(
-  //                     //                                       context: context)
-  //                     //                                       .CustomTextStyle(
-  //                     //                                       Theme.of(context)
-  //                     //                                           .canvasColor,
-  //                     //                                       FontWeight.w400,
-  //                     //                                       'FontRegular'),
-  //                     //                                   softWrap: true,
-  //                     //                                   overflow:
-  //                     //                                   TextOverflow.ellipsis,
-  //                     //                                 ),
-  //                     //                                 const SizedBox(
-  //                     //                                   width: 10.0,
-  //                     //                                 ),
-  //                     //                                 Text(
-  //                     //                                   copyTradelist[index].columnList![5].value.toString()+"%",
-  //                     //                                   style: CustomWidget(
-  //                     //                                       context: context)
-  //                     //                                       .CustomTextStyle(
-  //                     //                                       Theme.of(context)
-  //                     //                                           .primaryColor,
-  //                     //                                       FontWeight.w400,
-  //                     //                                       'FontRegular'),
-  //                     //                                   softWrap: true,
-  //                     //                                   overflow:
-  //                     //                                   TextOverflow.ellipsis,
-  //                     //                                 ),
-  //                     //                               ],
-  //                     //                             ),
-  //                     //                           ),
-  //                     //                           const SizedBox(
-  //                     //                             height: 8.0,
-  //                     //                           ),
-  //                     //                           Padding(
-  //                     //                             padding:
-  //                     //                             EdgeInsets.only(left: 20.0),
-  //                     //                             child: Row(
-  //                     //                               children: [
-  //                     //                                 Text(
-  //                     //                                   "Total Followers",
-  //                     //                                   style: CustomWidget(
-  //                     //                                       context: context)
-  //                     //                                       .CustomTextStyle(
-  //                     //                                       Theme.of(context)
-  //                     //                                           .canvasColor,
-  //                     //                                       FontWeight.w400,
-  //                     //                                       'FontRegular'),
-  //                     //                                   softWrap: true,
-  //                     //                                   overflow:
-  //                     //                                   TextOverflow.ellipsis,
-  //                     //                                 ),
-  //                     //                                 const SizedBox(
-  //                     //                                   width: 10.0,
-  //                     //                                 ),
-  //                     //                                 Text(
-  //                     //                                   copyTradelist[index].totalFollowers.toString(),
-  //                     //                                   style: CustomWidget(
-  //                     //                                       context: context)
-  //                     //                                       .CustomTextStyle(
-  //                     //                                       Theme.of(context)
-  //                     //                                           .primaryColor,
-  //                     //                                       FontWeight.w400,
-  //                     //                                       'FontRegular'),
-  //                     //                                   softWrap: true,
-  //                     //                                   overflow:
-  //                     //                                   TextOverflow.ellipsis,
-  //                     //                                 ),
-  //                     //                               ],
-  //                     //                             ),
-  //                     //                           ),
-  //                     //                           const SizedBox(
-  //                     //                             height: 10.0,
-  //                     //                           ),
-  //                     //                           InkWell(
-  //                     //                             child: Container(
-  //                     //                               margin: EdgeInsets.only(
-  //                     //                                   left: 15.0, right: 15.0),
-  //                     //                               padding: EdgeInsets.only(
-  //                     //                                   top: 8.0, bottom: 8.0),
-  //                     //                               child: Center(
-  //                     //                                 child: Text("Copy",
-  //                     //                                   style: CustomWidget(
-  //                     //                                       context: context)
-  //                     //                                       .CustomSizedTextStyle(
-  //                     //                                       18.0, Theme.of(
-  //                     //                                           context)
-  //                     //                                           .canvasColor,
-  //                     //                                       FontWeight.w500,
-  //                     //                                       'FontRegular'),
-  //                     //                                   softWrap: true,
-  //                     //                                   overflow:
-  //                     //                                   TextOverflow.ellipsis,
-  //                     //                                 ),
-  //                     //                               ),
-  //                     //                               decoration: BoxDecoration(
-  //                     //                                   borderRadius:
-  //                     //                                   BorderRadius.circular(
-  //                     //                                       25.0),
-  //                     //                                   border: Border.all(
-  //                     //                                     color: Theme.of(context)
-  //                     //                                         .canvasColor,
-  //                     //                                   ),
-  //                     //                                   color: index % 2 == 0
-  //                     //                                       ? Theme.of(context)
-  //                     //                                       .canvasColor
-  //                     //                                       .withOpacity(0.2)
-  //                     //                                       : Theme.of(context)
-  //                     //                                       .errorColor),
-  //                     //                             ),
-  //                     //                             onTap: () {
-  //                     //                               Navigator.of(context).push(
-  //                     //                                   MaterialPageRoute(
-  //                     //                                       builder: (context) =>
-  //                     //                                           CopyTradeDetails(copyTradelist: copyTradelist[index],)));
-  //                     //
-  //                     //                             },
-  //                     //                           )
-  //                     //                         ],
-  //                     //                       ),
-  //                     //                       SizedBox(
-  //                     //                         height: 10.0,
-  //                     //                       ),
-  //                     //                     ],
-  //                     //                     trailing: Container(
-  //                     //                       width: 1.0,
-  //                     //                       height: 10.0,
-  //                     //                     ),
-  //                     //                   ),
-  //                     //                 ),
-  //                     //                 const SizedBox(
-  //                     //                   height: 5.0,
-  //                     //                 ),
-  //                     //               ],
-  //                     //             ),
-  //                     //           ),
-  //                     //           const SizedBox(
-  //                     //             height: 10.0,
-  //                     //           ),
-  //                     //         ],
-  //                     //       );
-  //                     //     },
-  //                     //   ),
-  //                     // ),
-  //
-  //                     Container(
-  //                       height: 35.0,
-  //                       width: MediaQuery.of(context).size.width,
-  //                       margin: EdgeInsets.only(left: 15.0, right: 15.0),
-  //                       padding: EdgeInsets.only(left: 0.2, right: 0.2),
-  //                       decoration: BoxDecoration(
-  //                           color: CustomTheme.of(context).focusColor,
-  //                           borderRadius: BorderRadius.circular(12.0),
-  //                           border: Border.all(
-  //                               color: CustomTheme.of(context).unselectedWidgetColor, width: 1.0)),
-  //                       child: TabBar(
-  //                         controller: _tabController,
-  //                         isScrollable: true,
-  //                         labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
-  //                             13.0,
-  //                             Theme.of(context).unselectedWidgetColor,
-  //                             FontWeight.w600,
-  //                             'FontRegular'),
-  //
-  //                         labelColor: CustomTheme.of(context).primaryColor,
-  //                         //<-- selected text color
-  //                         unselectedLabelColor:
-  //                         CustomTheme.of(context).primaryColor.withOpacity(0.5),
-  //                         // isScrollable: true,
-  //                         indicatorColor: CustomTheme.of(context).cardColor,
-  //                         indicator: BoxDecoration(
-  //                           borderRadius: BorderRadius.circular(12), // Creates border
-  //                           color: CustomTheme.of(context).primaryColorLight,
-  //                         ),
-  //                         tabs: <Widget>[
-  //                           Tab(
-  //                             text: "Overview",
-  //                           ),
-  //                           Tab(
-  //                             text: "Futures",
-  //                           ),
-  //                           Tab(
-  //                             text: "Spot",
-  //                           ),
-  //                           Tab(
-  //                             text: "Bots",
-  //                           ),
-  //
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     Expanded(
-  //                       child: Container(
-  //                         margin: EdgeInsets.only(top: 10.0),
-  //                         color: CustomTheme.of(context).backgroundColor,
-  //                         child: TabBarView(
-  //                           controller: _tabController,
-  //                           children: <Widget>[
-  //
-  //                             OverviewUI(),
-  //                             // CrosstradeUI(),
-  //                             // CopyTrading(),
-  //                             // FuturetradeUI(),
-  //                             // FiattradeUI(),
-  //                             // Future_Trade_Screen(),
-  //
-  //                             // spotList()
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ),
-  //
-  //
-  //                   ],
-  //                 ),
-  //               )),
-  //           botLoader?  Container(
-  //             height: MediaQuery.of(context).size.height*0.3,
-  //             child: CustomWidget(context: context).loadingIndicator(
-  //               CustomTheme.of(context).primaryColorLight,
-  //             ),
-  //           ):Container()
-  //         ],
-  //       ));
-  // }
+  Widget tradeUI() {
+    return Container(
+        color: CustomTheme.of(context).focusColor,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+                controller: _scrollController,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                  child: Column(
+                    children: [
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     const SizedBox(
+                      //       height: 10.0,
+                      //     ),
+                      //     Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       children: [
+                      //         Column(
+                      //           mainAxisAlignment: MainAxisAlignment.start,
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           children: [
+                      //             InkWell(
+                      //               onTap: () {
+                      //                 setState(() {
+                      //                   if (collapse) {
+                      //                     collapse = false;
+                      //                   } else {
+                      //                     collapse = true;
+                      //                   }
+                      //                 });
+                      //               },
+                      //               child: Container(
+                      //                   padding: const EdgeInsets.only(
+                      //                       right: 10.0, bottom: 3.0),
+                      //                   child: Row(
+                      //                     crossAxisAlignment:
+                      //                     CrossAxisAlignment.center,
+                      //                     mainAxisAlignment:
+                      //                     MainAxisAlignment.center,
+                      //                     children: [
+                      //                       Text(
+                      //                         collapse
+                      //                             ? "Current Price"
+                      //                             : "Last Price",
+                      //                         style: CustomWidget(context: context)
+                      //                             .CustomSizedTextStyle(
+                      //                             10.0,
+                      //                             Theme.of(context).hintColor,
+                      //                             FontWeight.w500,
+                      //                             'FontRegular'),
+                      //                       ),
+                      //                       Icon(
+                      //                         collapse
+                      //                             ? Icons.arrow_drop_up_sharp
+                      //                             : Icons.arrow_drop_down,
+                      //                         color:
+                      //                         CustomTheme.of(context).hintColor,
+                      //                         size: 15.0,
+                      //                       ),
+                      //                     ],
+                      //                   )),
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 8.0,
+                      //             ),
+                      //             Text(
+                      //               "28853.22",
+                      //               style: CustomWidget(context: context)
+                      //                   .CustomSizedTextStyle(
+                      //                   18.0,
+                      //                   Theme.of(context).indicatorColor,
+                      //                   FontWeight.w700,
+                      //                   'FontRegular'),
+                      //               textAlign: TextAlign.start,
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 8.0,
+                      //             ),
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.start,
+                      //               mainAxisAlignment: MainAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   "\$144444.46",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context).primaryColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "+ 1.76%",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       12.0,
+                      //                       Theme.of(context).indicatorColor,
+                      //                       FontWeight.w700,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 8.0,
+                      //             ),
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   "Mark price",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context).primaryColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "20,0929.81",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       12.0,
+                      //                       Theme.of(context).primaryColor,
+                      //                       FontWeight.w400,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         Column(
+                      //           mainAxisAlignment: MainAxisAlignment.start,
+                      //           crossAxisAlignment: CrossAxisAlignment.end,
+                      //           children: [
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.center,
+                      //               mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 Text(
+                      //                   "24h high",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context)
+                      //                           .scaffoldBackgroundColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.start,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "732.32",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       8.0,
+                      //                       Theme.of(context).canvasColor,
+                      //                       FontWeight.w700,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 5.0,
+                      //             ),
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.center,
+                      //               mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 Text(
+                      //                   "24h low",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context)
+                      //                           .scaffoldBackgroundColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.start,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "43.98",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       8.0,
+                      //                       Theme.of(context).canvasColor,
+                      //                       FontWeight.w700,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 5.0,
+                      //             ),
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.center,
+                      //               mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 Text(
+                      //                   "24h vol(BTC)",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context)
+                      //                           .scaffoldBackgroundColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.start,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "413.09",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       8.0,
+                      //                       Theme.of(context).canvasColor,
+                      //                       FontWeight.w700,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //             const SizedBox(
+                      //               height: 5.0,
+                      //             ),
+                      //             Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.center,
+                      //               mainAxisAlignment:
+                      //               MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 Text(
+                      //                   "24h vol(USDT)",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       10.0,
+                      //                       Theme.of(context)
+                      //                           .scaffoldBackgroundColor,
+                      //                       FontWeight.w500,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.start,
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   width: 10.0,
+                      //                 ),
+                      //                 Text(
+                      //                   "82.23M",
+                      //                   style: CustomWidget(context: context)
+                      //                       .CustomSizedTextStyle(
+                      //                       8.0,
+                      //                       Theme.of(context).canvasColor,
+                      //                       FontWeight.w700,
+                      //                       'FontRegular'),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     )
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   height: 45.0,
+                      //   padding: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(
+                      //         color: Theme.of(context).splashColor,
+                      //         width: 1.0),
+                      //     borderRadius: BorderRadius.circular(10.0),
+                      //     color: Theme.of(context).focusColor,
+                      //   ),
+                      //   child: Theme(
+                      //     data: Theme.of(context).copyWith(
+                      //       canvasColor: Theme.of(context).backgroundColor,
+                      //     ),
+                      //     child: DropdownButtonHideUnderline(
+                      //       child: DropdownButton(
+                      //         menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
+                      //         items: borrows
+                      //             .map((value) => DropdownMenuItem(
+                      //           child: Text(
+                      //             value.toString(),
+                      //             style: CustomWidget(context: context)
+                      //                 .CustomSizedTextStyle(
+                      //                 14.0,
+                      //                 Theme.of(context).primaryColor,
+                      //                 FontWeight.w600,
+                      //                 'FontRegular'),
+                      //           ),
+                      //           value: value,
+                      //         ))
+                      //             .toList(),
+                      //         onChanged: (value) async {
+                      //           setState(() {
+                      //             selectedBorrow = value.toString();
+                      //             loading=true;
+                      //             ["Default", "ROI", "Total PNL", "AUM"];
+                      //             if(selectedBorrow=="Default")
+                      //               {
+                      //                 type="composite";
+                      //               }
+                      //           else  if(selectedBorrow=="ROI")
+                      //             {
+                      //               type="roi";
+                      //             }
+                      //             else  if(selectedBorrow=="Total PNL")
+                      //             {
+                      //               type="totalPL";
+                      //             }
+                      //             else  if(selectedBorrow=="AUM")
+                      //             {
+                      //               type="aum";
+                      //             }
+                      //             copyTradelist=[];
+                      //             copyLoadTradelist=[];
+                      //             page="1";
+                      //             getToken();
+                      //
+                      //           });
+                      //         },
+                      //
+                      //         isExpanded: true,
+                      //         value: selectedBorrow,
+                      //         icon: Icon(
+                      //           Icons.arrow_forward_ios_rounded,
+                      //           size: 15.0,
+                      //           color: Theme.of(context).primaryColor,
+                      //           // color: Them,
+                      //           // color: AppColors.otherTextColor,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      // SizedBox(
+                      //   height: collapse ? 15.0 : 1.0,
+                      // ),
+                      // SingleChildScrollView(
+                      //   child: ListView.builder(
+                      //     itemCount: copyTradelist.length,
+                      //     shrinkWrap: true,
+                      //     controller: controller,
+                      //     itemBuilder: (BuildContext context, int index) {
+                      //       return Column(
+                      //         children: [
+                      //           Container(
+                      //             decoration: BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(15.0),
+                      //                 border: Border.all(
+                      //                   color: Theme.of(context)
+                      //                       .canvasColor
+                      //                       .withOpacity(0.5),
+                      //                 )),
+                      //             child: Column(
+                      //               children: [
+                      //                 Theme(
+                      //                   data: Theme.of(context).copyWith(
+                      //                       dividerColor: Colors.transparent),
+                      //                   child: ExpansionTile(
+                      //                     key: PageStorageKey(index.toString()),
+                      //                     title: Row(
+                      //                       mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceBetween,
+                      //                       children: [
+                      //                         CircleAvatar(
+                      //                           maxRadius: 20.0,
+                      //                           backgroundImage:NetworkImage(
+                      //                             copyTradelist[index].traderHeadPic.toString(),
+                      //
+                      //
+                      //                           ),
+                      //                         ),
+                      //                         const SizedBox(
+                      //                           width: 15.0,
+                      //                         ),
+                      //                         Flexible(
+                      //                             child: Container(
+                      //
+                      //                               child:  Text(
+                      //                                 copyTradelist[index].traderNickName.toString(),
+                      //                                 style: CustomWidget(
+                      //                                     context: context)
+                      //                                     .CustomSizedTextStyle(
+                      //                                     14.0,
+                      //                                     Theme.of(context)
+                      //                                         .primaryColor,
+                      //                                     FontWeight.w400,
+                      //                                     'FontRegular'),
+                      //                                 textAlign: TextAlign.start,
+                      //
+                      //                               ),
+                      //                               width: MediaQuery.of(context).size.width,
+                      //                             ),flex: 2,),
+                      //                         Flexible(child: Column(
+                      //                           children: [
+                      //                             Text(
+                      //                               copyTradelist[index].columnList![0].value.toString()+"%",
+                      //                               style:
+                      //                               CustomWidget(context: context)
+                      //                                   .CustomSizedTextStyle(
+                      //                                   14.0,
+                      //
+                      //                                   double.parse( copyTradelist[index].columnList![0].value.toString())>0?    Theme.of(context)
+                      //                                       .primaryColorLight: Theme.of(context)
+                      //                                       .scaffoldBackgroundColor,
+                      //                                   FontWeight.w400,
+                      //                                   'FontRegular'),
+                      //                             ),
+                      //                             Text(
+                      //                               copyTradelist[index].columnList![0].describe.toString(),
+                      //                               style:
+                      //                               CustomWidget(context: context)
+                      //                                   .CustomSizedTextStyle(
+                      //                                   14.0, Theme.of(context)
+                      //                                   .canvasColor,
+                      //                                   FontWeight.w400,
+                      //                                   'FontRegular'),
+                      //                             ),
+                      //                           ],
+                      //                         ),flex: 1,)
+                      //                       ],
+                      //                     ),
+                      //                     children: [
+                      //                       Column(
+                      //                         children: [
+                      //                           Row(
+                      //                             children: [
+                      //                               Column(
+                      //                                 children: [
+                      //
+                      //                                   Row(
+                      //                                     children: [
+                      //                                       Text(
+                      //                                         copyTradelist[index].columnList![1].describe.toString(),
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .canvasColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                       const SizedBox(
+                      //                                         width: 10.0,
+                      //                                       ),
+                      //                                       Text(
+                      //                                         "\$"+  copyTradelist[index].columnList![1].value.toString(),
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .primaryColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                   const SizedBox(
+                      //                                     height: 5.0,
+                      //                                   ),
+                      //                                   Row(
+                      //                                     children: [
+                      //                                       Text(
+                      //                                         copyTradelist[index].columnList![2].describe.toString(),
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .canvasColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                       const SizedBox(
+                      //                                         width: 10.0,
+                      //                                       ),
+                      //                                       Text(
+                      //                                         "\$"+  copyTradelist[index].columnList![2].value.toString(),
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .primaryColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                   const SizedBox(
+                      //                                     height: 5.0,
+                      //                                   ),
+                      //                                   Row(
+                      //                                     children: [
+                      //                                       Text(
+                      //                                         "Win rate",
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .canvasColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                       const SizedBox(
+                      //                                         width: 10.0,
+                      //                                       ),
+                      //                                       Text(
+                      //                                         copyTradelist[index].averageWinRate.toString()+ "%",
+                      //                                         style: CustomWidget(
+                      //                                             context:
+                      //                                             context)
+                      //                                             .CustomTextStyle(
+                      //                                             Theme.of(
+                      //                                                 context)
+                      //                                                 .primaryColor,
+                      //                                             FontWeight
+                      //                                                 .w400,
+                      //                                             'FontRegular'),
+                      //                                         softWrap: true,
+                      //                                         overflow: TextOverflow
+                      //                                             .ellipsis,
+                      //                                       ),
+                      //                                     ],
+                      //                                   )
+                      //                                 ],
+                      //                                 crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                               ),
+                      //                               SvgPicture.asset(index % 2 == 0
+                      //                                   ? 'assets/icon/graph_success.svg'
+                      //                                   : 'assets/icon/graph_fail.svg'),
+                      //                             ],
+                      //                             mainAxisAlignment:
+                      //                             MainAxisAlignment.spaceAround,
+                      //                             crossAxisAlignment:
+                      //                             CrossAxisAlignment.center,
+                      //                           ),
+                      //                           const SizedBox(
+                      //                             height: 8.0,
+                      //                           ),
+                      //                           Container(
+                      //                             margin: EdgeInsets.only(
+                      //                                 left: 20.0, right: 20.0),
+                      //                             height: 0.5,
+                      //                             width: MediaQuery.of(context)
+                      //                                 .size
+                      //                                 .width,
+                      //                             color:
+                      //                             Theme.of(context).canvasColor,
+                      //                           ),
+                      //                           const SizedBox(
+                      //                             height: 8.0,
+                      //                           ),
+                      //                           Padding(
+                      //                             padding:
+                      //                             EdgeInsets.only(left: 20.0),
+                      //                             child: Row(
+                      //                               children: [
+                      //                                 Text(
+                      //                                   "AUM",
+                      //                                   style: CustomWidget(
+                      //                                       context: context)
+                      //                                       .CustomTextStyle(
+                      //                                       Theme.of(context)
+                      //                                           .canvasColor,
+                      //                                       FontWeight.w400,
+                      //                                       'FontRegular'),
+                      //                                   softWrap: true,
+                      //                                   overflow:
+                      //                                   TextOverflow.ellipsis,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   width: 10.0,
+                      //                                 ),
+                      //                                 Text(
+                      //                                   copyTradelist[index].columnList![5].value.toString()+"%",
+                      //                                   style: CustomWidget(
+                      //                                       context: context)
+                      //                                       .CustomTextStyle(
+                      //                                       Theme.of(context)
+                      //                                           .primaryColor,
+                      //                                       FontWeight.w400,
+                      //                                       'FontRegular'),
+                      //                                   softWrap: true,
+                      //                                   overflow:
+                      //                                   TextOverflow.ellipsis,
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                           const SizedBox(
+                      //                             height: 8.0,
+                      //                           ),
+                      //                           Padding(
+                      //                             padding:
+                      //                             EdgeInsets.only(left: 20.0),
+                      //                             child: Row(
+                      //                               children: [
+                      //                                 Text(
+                      //                                   "Total Followers",
+                      //                                   style: CustomWidget(
+                      //                                       context: context)
+                      //                                       .CustomTextStyle(
+                      //                                       Theme.of(context)
+                      //                                           .canvasColor,
+                      //                                       FontWeight.w400,
+                      //                                       'FontRegular'),
+                      //                                   softWrap: true,
+                      //                                   overflow:
+                      //                                   TextOverflow.ellipsis,
+                      //                                 ),
+                      //                                 const SizedBox(
+                      //                                   width: 10.0,
+                      //                                 ),
+                      //                                 Text(
+                      //                                   copyTradelist[index].totalFollowers.toString(),
+                      //                                   style: CustomWidget(
+                      //                                       context: context)
+                      //                                       .CustomTextStyle(
+                      //                                       Theme.of(context)
+                      //                                           .primaryColor,
+                      //                                       FontWeight.w400,
+                      //                                       'FontRegular'),
+                      //                                   softWrap: true,
+                      //                                   overflow:
+                      //                                   TextOverflow.ellipsis,
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                           const SizedBox(
+                      //                             height: 10.0,
+                      //                           ),
+                      //                           InkWell(
+                      //                             child: Container(
+                      //                               margin: EdgeInsets.only(
+                      //                                   left: 15.0, right: 15.0),
+                      //                               padding: EdgeInsets.only(
+                      //                                   top: 8.0, bottom: 8.0),
+                      //                               child: Center(
+                      //                                 child: Text("Copy",
+                      //                                   style: CustomWidget(
+                      //                                       context: context)
+                      //                                       .CustomSizedTextStyle(
+                      //                                       18.0, Theme.of(
+                      //                                           context)
+                      //                                           .canvasColor,
+                      //                                       FontWeight.w500,
+                      //                                       'FontRegular'),
+                      //                                   softWrap: true,
+                      //                                   overflow:
+                      //                                   TextOverflow.ellipsis,
+                      //                                 ),
+                      //                               ),
+                      //                               decoration: BoxDecoration(
+                      //                                   borderRadius:
+                      //                                   BorderRadius.circular(
+                      //                                       25.0),
+                      //                                   border: Border.all(
+                      //                                     color: Theme.of(context)
+                      //                                         .canvasColor,
+                      //                                   ),
+                      //                                   color: index % 2 == 0
+                      //                                       ? Theme.of(context)
+                      //                                       .canvasColor
+                      //                                       .withOpacity(0.2)
+                      //                                       : Theme.of(context)
+                      //                                       .errorColor),
+                      //                             ),
+                      //                             onTap: () {
+                      //                               Navigator.of(context).push(
+                      //                                   MaterialPageRoute(
+                      //                                       builder: (context) =>
+                      //                                           CopyTradeDetails(copyTradelist: copyTradelist[index],)));
+                      //
+                      //                             },
+                      //                           )
+                      //                         ],
+                      //                       ),
+                      //                       SizedBox(
+                      //                         height: 10.0,
+                      //                       ),
+                      //                     ],
+                      //                     trailing: Container(
+                      //                       width: 1.0,
+                      //                       height: 10.0,
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //                 const SizedBox(
+                      //                   height: 5.0,
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //           const SizedBox(
+                      //             height: 10.0,
+                      //           ),
+                      //         ],
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+
+                      Container(
+                        height: 35.0,
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                        padding: EdgeInsets.only(left: 0.2, right: 0.2),
+                        decoration: BoxDecoration(
+                            color: CustomTheme.of(context).focusColor,
+                            borderRadius: BorderRadius.circular(12.0),
+                            border: Border.all(
+                                color: CustomTheme.of(context).unselectedWidgetColor, width: 1.0)),
+                        child: TabBar(
+                          controller: _tabController,
+                          isScrollable: true,
+                          labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                              13.0,
+                              Theme.of(context).unselectedWidgetColor,
+                              FontWeight.w600,
+                              'FontRegular'),
+
+                          labelColor: CustomTheme.of(context).primaryColor,
+                          //<-- selected text color
+                          unselectedLabelColor:
+                          CustomTheme.of(context).primaryColor.withOpacity(0.5),
+                          // isScrollable: true,
+                          indicatorColor: CustomTheme.of(context).cardColor,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12), // Creates border
+                            color: CustomTheme.of(context).primaryColorLight,
+                          ),
+                          tabs: <Widget>[
+                            Tab(
+                              text: "Overview",
+                            ),
+                            Tab(
+                              text: "Futures",
+                            ),
+                            Tab(
+                              text: "Spot",
+                            ),
+                            Tab(
+                              text: "Bots",
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          color: CustomTheme.of(context).backgroundColor,
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: <Widget>[
+
+                              OverviewUI(),
+                              OverviewUI(),
+                              OverviewUI(),
+                              OverviewUI(),
+                              // CrosstradeUI(),
+                              // CopyTrading(),
+                              // FuturetradeUI(),
+                              // FiattradeUI(),
+                              // Future_Trade_Screen(),
+
+                              // spotList()
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                )),
+            botLoader?  Container(
+              height: MediaQuery.of(context).size.height*0.3,
+              child: CustomWidget(context: context).loadingIndicator(
+                CustomTheme.of(context).primaryColorLight,
+              ),
+            ):Container()
+          ],
+        ));
+  }
 
   Widget OverviewUI() {
     return Container(

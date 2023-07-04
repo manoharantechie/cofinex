@@ -181,6 +181,7 @@ class _My_Strategies_ScreenState extends State<My_Strategies_Screen>
               child: TabBar(
                 controller: _tabController,
                 isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                     13.0,
                     Theme.of(context).unselectedWidgetColor,

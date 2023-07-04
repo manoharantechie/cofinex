@@ -200,6 +200,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                   child: TabBar(
                     controller: _tabController,
                     isScrollable: true,
+                    indicatorSize:TabBarIndicatorSize.label,
                     labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         13.0,
                         Theme.of(context).unselectedWidgetColor,
@@ -915,7 +916,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         ),
                         const SizedBox(height: 15.0,),
                         GridView.builder(
-                            itemCount: 10,
+                            itemCount: 30,
                             shrinkWrap: true,
                             controller: _scrollController,
                             gridDelegate:
@@ -937,6 +938,17 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Theme.of(context).primaryColorLight.withOpacity(0.3),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                                            blurRadius: 10.0, // soften the shadow
+                                            spreadRadius: 2.0, //extend the shadow
+                                            offset: Offset(
+                                              7.0, // Move to right 7.0 horizontally
+                                              8.0, // Move to bottom 8.0 Vertically
+                                            )
+                                        ),
+                                      ]
                                   ),
                                   child: Center(
                                     child: Text(
@@ -949,7 +961,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                               .primaryColorLight,
                                           FontWeight.w500,
                                           'FontRegular'),
-
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ),

@@ -24,6 +24,7 @@ class CopyTrading extends StatefulWidget {
 class _CopyTradingState extends State<CopyTrading>
     with TickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
+  ScrollController _futurescrollController = ScrollController();
   ScrollController controller = ScrollController();
   TextEditingController amtController = TextEditingController();
   TextEditingController coinController = TextEditingController();
@@ -32,6 +33,7 @@ class _CopyTradingState extends State<CopyTrading>
   List<String> borrows = ["Default", "ROI", "Total PNL", "AUM"];
 
   List<CopyTrade> copyTradelist = [];
+  List<CopyTrade> searchcopyTradelist = [];
   List<CopyTrade> copyLoadTradelist = [];
   String selectedBorrow = "";
   String type = "composite";
@@ -60,15 +62,16 @@ class _CopyTradingState extends State<CopyTrading>
     selectedType = orderType.first;
     loading = true;
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+    _futurescrollController.addListener(() {
+      if (_futurescrollController.position.pixels ==
+          _futurescrollController.position.maxScrollExtent) {
         _loadAllMore();
       }
     });
     getToken();
 
-    _tabController = TabController(vsync: this, length: 4);
+    _tabController = TabController(vsync: this, length: 1);
+    //_tabController = TabController(vsync: this, length: 4);
   }
 
 
@@ -100,16 +103,7 @@ class _CopyTradingState extends State<CopyTrading>
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(
-          // body: Container(
-          //   height: MediaQuery.of(context).size.height,
-          //   width: MediaQuery.of(context).size.width,
-          //   color: CustomTheme.of(context).backgroundColor,
-          //   child: loading
-          //       ? CustomWidget(context: context).loadingIndicator(
-          //           CustomTheme.of(context).primaryColorLight,
-          //         )
-          //       : tradeUI(),
-          // ),
+
           body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -154,23 +148,30 @@ class _CopyTradingState extends State<CopyTrading>
                     ),
                     tabs: <Widget>[
 
-                      Tab(
-                        text: "Overview",
-                      ),
+                      // Tab(
+                      //   text: "Overview",
+                      // ),
                       Tab(
                         text: "Futures",
                       ),
-                      Tab(
-                        text: "Spot",
-                      ),
-                      Tab(
-                        text: "Bots",
-                      ),
+                      // Tab(
+                      //   text: "Spot",
+                      // ),
+                      // Tab(
+                      //   text: "Bots",
+                      // ),
 
                     ],
                   ),
                 ),
-                Expanded(
+                loading   ? Container(
+                  height: MediaQuery.of(context).size.height*0.5,
+                  child: Center(
+                    child: CustomWidget(context: context).loadingIndicator(
+                      CustomTheme.of(context).primaryColorLight,
+                    ) ,
+                  ),
+                ):   Expanded(
                   child: Container(
                     margin: EdgeInsets.only(top: 10.0),
                     color: CustomTheme.of(context).backgroundColor,
@@ -178,10 +179,10 @@ class _CopyTradingState extends State<CopyTrading>
                       controller: _tabController,
                       children: <Widget>[
 
-                        OverviewUI(),
+                        // OverviewUI(),
                         FutureUI(),
-                        SpotUI(),
-                        BotsUI(),
+                        // SpotUI(),
+                        // BotsUI(),
 
                       ],
                     ),
@@ -193,857 +194,7 @@ class _CopyTradingState extends State<CopyTrading>
         ));
   }
 
-  Widget tradeUI() {
-    return Container(
-        color: CustomTheme.of(context).focusColor,
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-                controller: _scrollController,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-                  child: Column(
-                    children: [
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     const SizedBox(
-                      //       height: 10.0,
-                      //     ),
-                      //     Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         Column(
-                      //           mainAxisAlignment: MainAxisAlignment.start,
-                      //           crossAxisAlignment: CrossAxisAlignment.start,
-                      //           children: [
-                      //             InkWell(
-                      //               onTap: () {
-                      //                 setState(() {
-                      //                   if (collapse) {
-                      //                     collapse = false;
-                      //                   } else {
-                      //                     collapse = true;
-                      //                   }
-                      //                 });
-                      //               },
-                      //               child: Container(
-                      //                   padding: const EdgeInsets.only(
-                      //                       right: 10.0, bottom: 3.0),
-                      //                   child: Row(
-                      //                     crossAxisAlignment:
-                      //                     CrossAxisAlignment.center,
-                      //                     mainAxisAlignment:
-                      //                     MainAxisAlignment.center,
-                      //                     children: [
-                      //                       Text(
-                      //                         collapse
-                      //                             ? "Current Price"
-                      //                             : "Last Price",
-                      //                         style: CustomWidget(context: context)
-                      //                             .CustomSizedTextStyle(
-                      //                             10.0,
-                      //                             Theme.of(context).hintColor,
-                      //                             FontWeight.w500,
-                      //                             'FontRegular'),
-                      //                       ),
-                      //                       Icon(
-                      //                         collapse
-                      //                             ? Icons.arrow_drop_up_sharp
-                      //                             : Icons.arrow_drop_down,
-                      //                         color:
-                      //                         CustomTheme.of(context).hintColor,
-                      //                         size: 15.0,
-                      //                       ),
-                      //                     ],
-                      //                   )),
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 8.0,
-                      //             ),
-                      //             Text(
-                      //               "28853.22",
-                      //               style: CustomWidget(context: context)
-                      //                   .CustomSizedTextStyle(
-                      //                   18.0,
-                      //                   Theme.of(context).indicatorColor,
-                      //                   FontWeight.w700,
-                      //                   'FontRegular'),
-                      //               textAlign: TextAlign.start,
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 8.0,
-                      //             ),
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                      //               mainAxisAlignment: MainAxisAlignment.start,
-                      //               children: [
-                      //                 Text(
-                      //                   "\$144444.46",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context).primaryColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "+ 1.76%",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       12.0,
-                      //                       Theme.of(context).indicatorColor,
-                      //                       FontWeight.w700,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 8.0,
-                      //             ),
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                      //               children: [
-                      //                 Text(
-                      //                   "Mark price",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context).primaryColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "20,0929.81",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       12.0,
-                      //                       Theme.of(context).primaryColor,
-                      //                       FontWeight.w400,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         Column(
-                      //           mainAxisAlignment: MainAxisAlignment.start,
-                      //           crossAxisAlignment: CrossAxisAlignment.end,
-                      //           children: [
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.center,
-                      //               mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //               children: [
-                      //                 Text(
-                      //                   "24h high",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.start,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "732.32",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       8.0,
-                      //                       Theme.of(context).canvasColor,
-                      //                       FontWeight.w700,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 5.0,
-                      //             ),
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.center,
-                      //               mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //               children: [
-                      //                 Text(
-                      //                   "24h low",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.start,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "43.98",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       8.0,
-                      //                       Theme.of(context).canvasColor,
-                      //                       FontWeight.w700,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 5.0,
-                      //             ),
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.center,
-                      //               mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //               children: [
-                      //                 Text(
-                      //                   "24h vol(BTC)",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.start,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "413.09",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       8.0,
-                      //                       Theme.of(context).canvasColor,
-                      //                       FontWeight.w700,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             const SizedBox(
-                      //               height: 5.0,
-                      //             ),
-                      //             Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.center,
-                      //               mainAxisAlignment:
-                      //               MainAxisAlignment.spaceBetween,
-                      //               children: [
-                      //                 Text(
-                      //                   "24h vol(USDT)",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       10.0,
-                      //                       Theme.of(context)
-                      //                           .scaffoldBackgroundColor,
-                      //                       FontWeight.w500,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.start,
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 10.0,
-                      //                 ),
-                      //                 Text(
-                      //                   "82.23M",
-                      //                   style: CustomWidget(context: context)
-                      //                       .CustomSizedTextStyle(
-                      //                       8.0,
-                      //                       Theme.of(context).canvasColor,
-                      //                       FontWeight.w700,
-                      //                       'FontRegular'),
-                      //                   textAlign: TextAlign.center,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ],
-                      //     )
-                      //   ],
-                      // ),
-                      // const SizedBox(
-                      //   height: 15.0,
-                      // ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: 45.0,
-                      //   padding: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(
-                      //         color: Theme.of(context).splashColor,
-                      //         width: 1.0),
-                      //     borderRadius: BorderRadius.circular(10.0),
-                      //     color: Theme.of(context).focusColor,
-                      //   ),
-                      //   child: Theme(
-                      //     data: Theme.of(context).copyWith(
-                      //       canvasColor: Theme.of(context).backgroundColor,
-                      //     ),
-                      //     child: DropdownButtonHideUnderline(
-                      //       child: DropdownButton(
-                      //         menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
-                      //         items: borrows
-                      //             .map((value) => DropdownMenuItem(
-                      //           child: Text(
-                      //             value.toString(),
-                      //             style: CustomWidget(context: context)
-                      //                 .CustomSizedTextStyle(
-                      //                 14.0,
-                      //                 Theme.of(context).primaryColor,
-                      //                 FontWeight.w600,
-                      //                 'FontRegular'),
-                      //           ),
-                      //           value: value,
-                      //         ))
-                      //             .toList(),
-                      //         onChanged: (value) async {
-                      //           setState(() {
-                      //             selectedBorrow = value.toString();
-                      //             loading=true;
-                      //             ["Default", "ROI", "Total PNL", "AUM"];
-                      //             if(selectedBorrow=="Default")
-                      //               {
-                      //                 type="composite";
-                      //               }
-                      //           else  if(selectedBorrow=="ROI")
-                      //             {
-                      //               type="roi";
-                      //             }
-                      //             else  if(selectedBorrow=="Total PNL")
-                      //             {
-                      //               type="totalPL";
-                      //             }
-                      //             else  if(selectedBorrow=="AUM")
-                      //             {
-                      //               type="aum";
-                      //             }
-                      //             copyTradelist=[];
-                      //             copyLoadTradelist=[];
-                      //             page="1";
-                      //             getToken();
-                      //
-                      //           });
-                      //         },
-                      //
-                      //         isExpanded: true,
-                      //         value: selectedBorrow,
-                      //         icon: Icon(
-                      //           Icons.arrow_forward_ios_rounded,
-                      //           size: 15.0,
-                      //           color: Theme.of(context).primaryColor,
-                      //           // color: Them,
-                      //           // color: AppColors.otherTextColor,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 15.0,
-                      // ),
-                      // SizedBox(
-                      //   height: collapse ? 15.0 : 1.0,
-                      // ),
-                      // SingleChildScrollView(
-                      //   child: ListView.builder(
-                      //     itemCount: copyTradelist.length,
-                      //     shrinkWrap: true,
-                      //     controller: controller,
-                      //     itemBuilder: (BuildContext context, int index) {
-                      //       return Column(
-                      //         children: [
-                      //           Container(
-                      //             decoration: BoxDecoration(
-                      //                 borderRadius: BorderRadius.circular(15.0),
-                      //                 border: Border.all(
-                      //                   color: Theme.of(context)
-                      //                       .canvasColor
-                      //                       .withOpacity(0.5),
-                      //                 )),
-                      //             child: Column(
-                      //               children: [
-                      //                 Theme(
-                      //                   data: Theme.of(context).copyWith(
-                      //                       dividerColor: Colors.transparent),
-                      //                   child: ExpansionTile(
-                      //                     key: PageStorageKey(index.toString()),
-                      //                     title: Row(
-                      //                       mainAxisAlignment:
-                      //                       MainAxisAlignment.spaceBetween,
-                      //                       children: [
-                      //                         CircleAvatar(
-                      //                           maxRadius: 20.0,
-                      //                           backgroundImage:NetworkImage(
-                      //                             copyTradelist[index].traderHeadPic.toString(),
-                      //
-                      //
-                      //                           ),
-                      //                         ),
-                      //                         const SizedBox(
-                      //                           width: 15.0,
-                      //                         ),
-                      //                         Flexible(
-                      //                             child: Container(
-                      //
-                      //                               child:  Text(
-                      //                                 copyTradelist[index].traderNickName.toString(),
-                      //                                 style: CustomWidget(
-                      //                                     context: context)
-                      //                                     .CustomSizedTextStyle(
-                      //                                     14.0,
-                      //                                     Theme.of(context)
-                      //                                         .primaryColor,
-                      //                                     FontWeight.w400,
-                      //                                     'FontRegular'),
-                      //                                 textAlign: TextAlign.start,
-                      //
-                      //                               ),
-                      //                               width: MediaQuery.of(context).size.width,
-                      //                             ),flex: 2,),
-                      //                         Flexible(child: Column(
-                      //                           children: [
-                      //                             Text(
-                      //                               copyTradelist[index].columnList![0].value.toString()+"%",
-                      //                               style:
-                      //                               CustomWidget(context: context)
-                      //                                   .CustomSizedTextStyle(
-                      //                                   14.0,
-                      //
-                      //                                   double.parse( copyTradelist[index].columnList![0].value.toString())>0?    Theme.of(context)
-                      //                                       .primaryColorLight: Theme.of(context)
-                      //                                       .scaffoldBackgroundColor,
-                      //                                   FontWeight.w400,
-                      //                                   'FontRegular'),
-                      //                             ),
-                      //                             Text(
-                      //                               copyTradelist[index].columnList![0].describe.toString(),
-                      //                               style:
-                      //                               CustomWidget(context: context)
-                      //                                   .CustomSizedTextStyle(
-                      //                                   14.0, Theme.of(context)
-                      //                                   .canvasColor,
-                      //                                   FontWeight.w400,
-                      //                                   'FontRegular'),
-                      //                             ),
-                      //                           ],
-                      //                         ),flex: 1,)
-                      //                       ],
-                      //                     ),
-                      //                     children: [
-                      //                       Column(
-                      //                         children: [
-                      //                           Row(
-                      //                             children: [
-                      //                               Column(
-                      //                                 children: [
-                      //
-                      //                                   Row(
-                      //                                     children: [
-                      //                                       Text(
-                      //                                         copyTradelist[index].columnList![1].describe.toString(),
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .canvasColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                       const SizedBox(
-                      //                                         width: 10.0,
-                      //                                       ),
-                      //                                       Text(
-                      //                                         "\$"+  copyTradelist[index].columnList![1].value.toString(),
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .primaryColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                     ],
-                      //                                   ),
-                      //                                   const SizedBox(
-                      //                                     height: 5.0,
-                      //                                   ),
-                      //                                   Row(
-                      //                                     children: [
-                      //                                       Text(
-                      //                                         copyTradelist[index].columnList![2].describe.toString(),
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .canvasColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                       const SizedBox(
-                      //                                         width: 10.0,
-                      //                                       ),
-                      //                                       Text(
-                      //                                         "\$"+  copyTradelist[index].columnList![2].value.toString(),
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .primaryColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                     ],
-                      //                                   ),
-                      //                                   const SizedBox(
-                      //                                     height: 5.0,
-                      //                                   ),
-                      //                                   Row(
-                      //                                     children: [
-                      //                                       Text(
-                      //                                         "Win rate",
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .canvasColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                       const SizedBox(
-                      //                                         width: 10.0,
-                      //                                       ),
-                      //                                       Text(
-                      //                                         copyTradelist[index].averageWinRate.toString()+ "%",
-                      //                                         style: CustomWidget(
-                      //                                             context:
-                      //                                             context)
-                      //                                             .CustomTextStyle(
-                      //                                             Theme.of(
-                      //                                                 context)
-                      //                                                 .primaryColor,
-                      //                                             FontWeight
-                      //                                                 .w400,
-                      //                                             'FontRegular'),
-                      //                                         softWrap: true,
-                      //                                         overflow: TextOverflow
-                      //                                             .ellipsis,
-                      //                                       ),
-                      //                                     ],
-                      //                                   )
-                      //                                 ],
-                      //                                 crossAxisAlignment:
-                      //                                 CrossAxisAlignment.start,
-                      //                               ),
-                      //                               SvgPicture.asset(index % 2 == 0
-                      //                                   ? 'assets/icon/graph_success.svg'
-                      //                                   : 'assets/icon/graph_fail.svg'),
-                      //                             ],
-                      //                             mainAxisAlignment:
-                      //                             MainAxisAlignment.spaceAround,
-                      //                             crossAxisAlignment:
-                      //                             CrossAxisAlignment.center,
-                      //                           ),
-                      //                           const SizedBox(
-                      //                             height: 8.0,
-                      //                           ),
-                      //                           Container(
-                      //                             margin: EdgeInsets.only(
-                      //                                 left: 20.0, right: 20.0),
-                      //                             height: 0.5,
-                      //                             width: MediaQuery.of(context)
-                      //                                 .size
-                      //                                 .width,
-                      //                             color:
-                      //                             Theme.of(context).canvasColor,
-                      //                           ),
-                      //                           const SizedBox(
-                      //                             height: 8.0,
-                      //                           ),
-                      //                           Padding(
-                      //                             padding:
-                      //                             EdgeInsets.only(left: 20.0),
-                      //                             child: Row(
-                      //                               children: [
-                      //                                 Text(
-                      //                                   "AUM",
-                      //                                   style: CustomWidget(
-                      //                                       context: context)
-                      //                                       .CustomTextStyle(
-                      //                                       Theme.of(context)
-                      //                                           .canvasColor,
-                      //                                       FontWeight.w400,
-                      //                                       'FontRegular'),
-                      //                                   softWrap: true,
-                      //                                   overflow:
-                      //                                   TextOverflow.ellipsis,
-                      //                                 ),
-                      //                                 const SizedBox(
-                      //                                   width: 10.0,
-                      //                                 ),
-                      //                                 Text(
-                      //                                   copyTradelist[index].columnList![5].value.toString()+"%",
-                      //                                   style: CustomWidget(
-                      //                                       context: context)
-                      //                                       .CustomTextStyle(
-                      //                                       Theme.of(context)
-                      //                                           .primaryColor,
-                      //                                       FontWeight.w400,
-                      //                                       'FontRegular'),
-                      //                                   softWrap: true,
-                      //                                   overflow:
-                      //                                   TextOverflow.ellipsis,
-                      //                                 ),
-                      //                               ],
-                      //                             ),
-                      //                           ),
-                      //                           const SizedBox(
-                      //                             height: 8.0,
-                      //                           ),
-                      //                           Padding(
-                      //                             padding:
-                      //                             EdgeInsets.only(left: 20.0),
-                      //                             child: Row(
-                      //                               children: [
-                      //                                 Text(
-                      //                                   "Total Followers",
-                      //                                   style: CustomWidget(
-                      //                                       context: context)
-                      //                                       .CustomTextStyle(
-                      //                                       Theme.of(context)
-                      //                                           .canvasColor,
-                      //                                       FontWeight.w400,
-                      //                                       'FontRegular'),
-                      //                                   softWrap: true,
-                      //                                   overflow:
-                      //                                   TextOverflow.ellipsis,
-                      //                                 ),
-                      //                                 const SizedBox(
-                      //                                   width: 10.0,
-                      //                                 ),
-                      //                                 Text(
-                      //                                   copyTradelist[index].totalFollowers.toString(),
-                      //                                   style: CustomWidget(
-                      //                                       context: context)
-                      //                                       .CustomTextStyle(
-                      //                                       Theme.of(context)
-                      //                                           .primaryColor,
-                      //                                       FontWeight.w400,
-                      //                                       'FontRegular'),
-                      //                                   softWrap: true,
-                      //                                   overflow:
-                      //                                   TextOverflow.ellipsis,
-                      //                                 ),
-                      //                               ],
-                      //                             ),
-                      //                           ),
-                      //                           const SizedBox(
-                      //                             height: 10.0,
-                      //                           ),
-                      //                           InkWell(
-                      //                             child: Container(
-                      //                               margin: EdgeInsets.only(
-                      //                                   left: 15.0, right: 15.0),
-                      //                               padding: EdgeInsets.only(
-                      //                                   top: 8.0, bottom: 8.0),
-                      //                               child: Center(
-                      //                                 child: Text("Copy",
-                      //                                   style: CustomWidget(
-                      //                                       context: context)
-                      //                                       .CustomSizedTextStyle(
-                      //                                       18.0, Theme.of(
-                      //                                           context)
-                      //                                           .canvasColor,
-                      //                                       FontWeight.w500,
-                      //                                       'FontRegular'),
-                      //                                   softWrap: true,
-                      //                                   overflow:
-                      //                                   TextOverflow.ellipsis,
-                      //                                 ),
-                      //                               ),
-                      //                               decoration: BoxDecoration(
-                      //                                   borderRadius:
-                      //                                   BorderRadius.circular(
-                      //                                       25.0),
-                      //                                   border: Border.all(
-                      //                                     color: Theme.of(context)
-                      //                                         .canvasColor,
-                      //                                   ),
-                      //                                   color: index % 2 == 0
-                      //                                       ? Theme.of(context)
-                      //                                       .canvasColor
-                      //                                       .withOpacity(0.2)
-                      //                                       : Theme.of(context)
-                      //                                       .errorColor),
-                      //                             ),
-                      //                             onTap: () {
-                      //                               Navigator.of(context).push(
-                      //                                   MaterialPageRoute(
-                      //                                       builder: (context) =>
-                      //                                           CopyTradeDetails(copyTradelist: copyTradelist[index],)));
-                      //
-                      //                             },
-                      //                           )
-                      //                         ],
-                      //                       ),
-                      //                       SizedBox(
-                      //                         height: 10.0,
-                      //                       ),
-                      //                     ],
-                      //                     trailing: Container(
-                      //                       width: 1.0,
-                      //                       height: 10.0,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   height: 5.0,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //           const SizedBox(
-                      //             height: 10.0,
-                      //           ),
-                      //         ],
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
 
-                      Container(
-                        height: 35.0,
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(left: 15.0, right: 15.0),
-                        padding: EdgeInsets.only(left: 0.2, right: 0.2),
-                        decoration: BoxDecoration(
-                            color: CustomTheme.of(context).focusColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(
-                                color: CustomTheme.of(context).unselectedWidgetColor, width: 1.0)),
-                        child: TabBar(
-                          controller: _tabController,
-                          isScrollable: true,
-                          labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              13.0,
-                              Theme.of(context).unselectedWidgetColor,
-                              FontWeight.w600,
-                              'FontRegular'),
-
-                          labelColor: CustomTheme.of(context).primaryColor,
-                          //<-- selected text color
-                          unselectedLabelColor:
-                          CustomTheme.of(context).primaryColor.withOpacity(0.5),
-                          // isScrollable: true,
-                          indicatorColor: CustomTheme.of(context).cardColor,
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12), // Creates border
-                            color: CustomTheme.of(context).primaryColorLight,
-                          ),
-                          tabs: <Widget>[
-                            Tab(
-                              text: "Overview",
-                            ),
-                            Tab(
-                              text: "Futures",
-                            ),
-                            Tab(
-                              text: "Spot",
-                            ),
-                            Tab(
-                              text: "Bots",
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 10.0),
-                          color: CustomTheme.of(context).backgroundColor,
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: <Widget>[
-
-                              OverviewUI(),
-                              OverviewUI(),
-                              OverviewUI(),
-                              OverviewUI(),
-                              // CrosstradeUI(),
-                              // CopyTrading(),
-                              // FuturetradeUI(),
-                              // FiattradeUI(),
-                              // Future_Trade_Screen(),
-
-                              // spotList()
-                            ],
-                          ),
-                        ),
-                      ),
-
-
-                    ],
-                  ),
-                )),
-            botLoader?  Container(
-              height: MediaQuery.of(context).size.height*0.3,
-              child: CustomWidget(context: context).loadingIndicator(
-                CustomTheme.of(context).primaryColorLight,
-              ),
-            ):Container()
-          ],
-        ));
-  }
 
   Widget OverviewUI() {
     return Container(
@@ -1138,91 +289,7 @@ class _CopyTradingState extends State<CopyTrading>
                       ],
                     ),
                   ),
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height * 0.2,
-                  //   padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,2.0),
-                  //   width: MediaQuery.of(context).size.width,
-                  //   decoration: BoxDecoration(
-                  //     color: Theme.of(context).primaryColorLight,
-                  //     borderRadius: BorderRadius.circular(10.0)
-                  //   ),
-                  //   child: CarouselSlider(
-                  //     options: CarouselOptions(
-                  //       onPageChanged: (index, reason) {
-                  //         setState(() {
-                  //           slideIndex = index;
-                  //         });
-                  //       },
-                  //       autoPlay: true,
-                  //       aspectRatio: 1.0,
-                  //       enlargeCenterPage: true,
-                  //       viewportFraction: 1,
-                  //     ),
-                  //     items: bannerList
-                  //         .map((item) => Container(
-                  //       width:
-                  //       MediaQuery.of(context).size.width,
-                  //       padding: EdgeInsets.all(1),
-                  //       decoration: BoxDecoration(
-                  //         borderRadius:
-                  //         BorderRadius.circular(5.0),
-                  //         color: CustomTheme.of(context)
-                  //             .backgroundColor,
-                  //       ),
-                  //       child: Row(
-                  //         children: [
-                  //           Flexible(child: Column(
-                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                  //             children: [
-                  //               Text(
-                  //                 "Win Trading!",
-                  //                 style: CustomWidget(context: context)
-                  //                     .CustomSizedTextStyle(
-                  //                     12.0,
-                  //                     Theme.of(context).primaryColor,
-                  //                     FontWeight.w400,
-                  //                     'FontRegular'),
-                  //               ),
-                  //               const SizedBox(height: 5.0,),
-                  //               Container(
-                  //                 width: MediaQuery.of(context).size.width * 0.5,
-                  //                 child:  Text(
-                  //                   "Win Spot copy trading welcome gift!",
-                  //                   style: CustomWidget(context: context)
-                  //                       .CustomSizedTextStyle(
-                  //                       18.0,
-                  //                       Theme.of(context).primaryColor,
-                  //                       FontWeight.w500,
-                  //                       'FontRegular'),
-                  //                 ),
-                  //               ),
-                  //               const SizedBox(height: 5.0,),
-                  //               Container(
-                  //                 padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                  //                 decoration: BoxDecoration(
-                  //                     borderRadius: BorderRadius.circular(6.0),
-                  //                     border: Border.all(width: 1.0, color: Theme.of(context).backgroundColor,),
-                  //                     color: Theme.of(context).bottomAppBarColor
-                  //                 ),
-                  //                 child: Text(
-                  //                   "Login Today",
-                  //                   style: CustomWidget(context: context)
-                  //                       .CustomSizedTextStyle(
-                  //                       9.0,
-                  //                       Theme.of(context).primaryColor,
-                  //                       FontWeight.w400,
-                  //                       'FontRegular'),
-                  //                 ),
-                  //               )
-                  //             ],
-                  //           ), flex: 2,),
-                  //           Flexible(child: Image.asset(""),flex: 1,)
-                  //         ],
-                  //       ),
-                  //     ))
-                  //         .toList(),
-                  //   ),
-                  // ),
+
                   const SizedBox(height: 10.0,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -3064,233 +2131,162 @@ class _CopyTradingState extends State<CopyTrading>
   Widget FutureUI() {
     return Container(
         color: CustomTheme.of(context).focusColor,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-            controller: _scrollController,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-              child: Column(
+
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+          child: Stack(
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width * 0.5,
-                  //   padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //     color: Theme.of(context).unselectedWidgetColor,
-                  //     // image: DecorationImage(
-                  //     //   image: AssetImage("assets/icon/back.png"),
-                  //     //   fit: BoxFit.cover,
-                  //     // ),
-                  //   ),
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Row(
+
+                  // Row(
+                  //   children: [
+                  //     Flexible(child: Container(
+                  //       width: MediaQuery.of(context).size.width,
+                  //       padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(10.0),
+                  //         color: Theme.of(context).unselectedWidgetColor,
+                  //         // image: DecorationImage(
+                  //         //   image: AssetImage("assets/icon/back.png"),
+                  //         //   fit: BoxFit.cover,
+                  //         // ),
+                  //       ),
+                  //       child: Column(
                   //         crossAxisAlignment: CrossAxisAlignment.start,
-                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         mainAxisAlignment: MainAxisAlignment.start,
                   //         children: [
-                  //           Flexible(
-                  //             child: Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 const SizedBox(height: 10.0,),
-                  //                 Text(
-                  //                   "My copy traders",
-                  //                   style: CustomWidget(context: context)
-                  //                       .CustomSizedTextStyle(
-                  //                       10.0,
-                  //                       Theme.of(context).focusColor,
-                  //                       FontWeight.w500,
-                  //                       'FontRegular'),
-                  //                 ),
-                  //                 const SizedBox(height: 30.0,),
+                  //           Row(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Flexible(
+                  //                 child: Column(
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     const SizedBox(height: 10.0,),
+                  //                     Text(
+                  //                       "My copy traders",
+                  //                       style: CustomWidget(context: context)
+                  //                           .CustomSizedTextStyle(
+                  //                           10.0,
+                  //                           Theme.of(context).focusColor,
+                  //                           FontWeight.w500,
+                  //                           'FontRegular'),
+                  //                     ),
+                  //                     const SizedBox(height: 30.0,),
                   //
-                  //                 Container(
-                  //                   padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
-                  //                   decoration: BoxDecoration(
-                  //                       borderRadius: BorderRadius.circular(6.0),
-                  //                       border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
-                  //                       color: Theme.of(context).focusColor
-                  //                   ),
-                  //                   child: Text(
-                  //                     "View traders",
-                  //                     style: CustomWidget(context: context)
-                  //                         .CustomSizedTextStyle(
-                  //                         5.0,
-                  //                         Theme.of(context).primaryColor,
-                  //                         FontWeight.w400,
-                  //                         'FontRegular'),
-                  //                   ),
-                  //                 )
-                  //               ],
-                  //             ),
-                  //             flex: 2,
-                  //           ),
-                  //           Flexible(
-                  //             child: Container(
-                  //               child: Align(
-                  //                 alignment: Alignment.bottomCenter,
-                  //                 child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
+                  //                     Container(
+                  //                       padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
+                  //                       decoration: BoxDecoration(
+                  //                           borderRadius: BorderRadius.circular(6.0),
+                  //                           border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
+                  //                           color: Theme.of(context).focusColor
+                  //                       ),
+                  //                       child: Text(
+                  //                         "View traders",
+                  //                         style: CustomWidget(context: context)
+                  //                             .CustomSizedTextStyle(
+                  //                             5.0,
+                  //                             Theme.of(context).primaryColor,
+                  //                             FontWeight.w400,
+                  //                             'FontRegular'),
+                  //                       ),
+                  //                     )
+                  //                   ],
+                  //                 ),
+                  //                 flex: 2,
                   //               ),
-                  //             ),
-                  //             flex: 1,
+                  //               Flexible(
+                  //                 child: Container(
+                  //                   child: Align(
+                  //                     alignment: Alignment.bottomCenter,
+                  //                     child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
+                  //                   ),
+                  //                 ),
+                  //                 flex: 1,
+                  //               ),
+                  //             ],
                   //           ),
                   //         ],
                   //       ),
-                  //     ],
-                  //   ),
+                  //     ),flex: 1,),
+                  //     const SizedBox(width: 10.0,),
+                  //     Flexible(child: Container(
+                  //       width: MediaQuery.of(context).size.width,
+                  //       padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(10.0),
+                  //         color: Theme.of(context).primaryColorLight,
+                  //         // image: DecorationImage(
+                  //         //   image: AssetImage("assets/icon/back.png"),
+                  //         //   fit: BoxFit.cover,
+                  //         // ),
+                  //       ),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         mainAxisAlignment: MainAxisAlignment.start,
+                  //         children: [
+                  //           Row(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //             children: [
+                  //               Flexible(
+                  //                 child: Column(
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     const SizedBox(height: 10.0,),
+                  //                     Text(
+                  //                       "Earn as a trader",
+                  //                       style: CustomWidget(context: context)
+                  //                           .CustomSizedTextStyle(
+                  //                           10.0,
+                  //                           Theme.of(context).focusColor,
+                  //                           FontWeight.w500,
+                  //                           'FontRegular'),
+                  //                     ),
+                  //                     const SizedBox(height: 30.0,),
+                  //
+                  //                     Container(
+                  //                       padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
+                  //                       decoration: BoxDecoration(
+                  //                           borderRadius: BorderRadius.circular(6.0),
+                  //                           border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
+                  //                           color: Theme.of(context).focusColor
+                  //                       ),
+                  //                       child: Text(
+                  //                         "Apply now",
+                  //                         style: CustomWidget(context: context)
+                  //                             .CustomSizedTextStyle(
+                  //                             5.0,
+                  //                             Theme.of(context).primaryColor,
+                  //                             FontWeight.w400,
+                  //                             'FontRegular'),
+                  //                       ),
+                  //                     )
+                  //                   ],
+                  //                 ),
+                  //                 flex: 2,
+                  //               ),
+                  //               Flexible(
+                  //                 child: Container(
+                  //                   child: Align(
+                  //                     alignment: Alignment.bottomCenter,
+                  //                     child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
+                  //                   ),
+                  //                 ),
+                  //                 flex: 1,
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),flex: 1,)
+                  //   ],
                   // ),
                   // const SizedBox(height: 10.0,),
-
-                  Row(
-                    children: [
-                      Flexible(child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).unselectedWidgetColor,
-                          // image: DecorationImage(
-                          //   image: AssetImage("assets/icon/back.png"),
-                          //   fit: BoxFit.cover,
-                          // ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 10.0,),
-                                      Text(
-                                        "My copy traders",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).focusColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                      ),
-                                      const SizedBox(height: 30.0,),
-
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(6.0),
-                                            border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
-                                            color: Theme.of(context).focusColor
-                                        ),
-                                        child: Text(
-                                          "View traders",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                              5.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w400,
-                                              'FontRegular'),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  flex: 2,
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
-                                    ),
-                                  ),
-                                  flex: 1,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),flex: 1,),
-                      const SizedBox(width: 10.0,),
-                      Flexible(child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).primaryColorLight,
-                          // image: DecorationImage(
-                          //   image: AssetImage("assets/icon/back.png"),
-                          //   fit: BoxFit.cover,
-                          // ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 10.0,),
-                                      Text(
-                                        "Earn as a trader",
-                                        style: CustomWidget(context: context)
-                                            .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).focusColor,
-                                            FontWeight.w500,
-                                            'FontRegular'),
-                                      ),
-                                      const SizedBox(height: 30.0,),
-
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(6.0),
-                                            border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
-                                            color: Theme.of(context).focusColor
-                                        ),
-                                        child: Text(
-                                          "Apply now",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                              5.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w400,
-                                              'FontRegular'),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  flex: 2,
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
-                                    ),
-                                  ),
-                                  flex: 1,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),flex: 1,)
-                    ],
-                  ),
-                  const SizedBox(height: 10.0,),
 
                   Text(
                     "Elite traders",
@@ -3315,303 +2311,87 @@ class _CopyTradingState extends State<CopyTrading>
                   Container(
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 12.0),
                     width: MediaQuery.of(context).size.width,
+                    height: 40.0,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).canvasColor,
-                      borderRadius: BorderRadius.circular(15.0)
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(15.0)
                     ),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).unselectedWidgetColor,),
+                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).focusColor,),
                         const SizedBox(width: 10.0,),
-                        Text(
-                          "Search trader",
-                          style: CustomWidget(context: context)
+                        Flexible(child: TextField(
+                          enabled: true,
+
+                          controller:
+                          priceController,
+                          keyboardType:
+                          const TextInputType
+                              .numberWithOptions(
+                              decimal: true),
+                          style: CustomWidget(
+                              context:
+                              context)
                               .CustomSizedTextStyle(
-                              12.0,
-                              Theme.of(context).unselectedWidgetColor,
-                              FontWeight.w600,
+                              13.0,
+                              Theme.of(
+                                  context)
+                                  .focusColor,
+                              FontWeight.w500,
                               'FontRegular'),
-                        ),
+
+
+                          onChanged: (value) {
+                        setState(() {
+                          copyTradelist=[];
+                          if(value.isNotEmpty)
+
+                          {
+                            for(int m=0;m<searchcopyTradelist.length;m++)
+                            {
+                              if(searchcopyTradelist[m].traderNickName.toString().toLowerCase().contains(value.toString().toLowerCase())){
+                                copyTradelist.add(searchcopyTradelist[m]);
+                              }
+
+                            }
+                          }
+                          else{
+                            copyTradelist.clear();copyTradelist=[];
+                            copyTradelist.addAll(searchcopyTradelist);
+                          }
+                        });
+                          },
+                          decoration: InputDecoration(
+                              contentPadding:
+                              EdgeInsets.only(
+                                  top:
+                                  5.0,bottom: 13.0),
+                              hintText: "Search Traders",
+                              hintStyle: CustomWidget(
+                                  context:
+                                  context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(
+                                      context)
+                                      .unselectedWidgetColor,
+                                  FontWeight
+                                      .w500,
+                                  'FontRegular'),
+                              border: InputBorder
+                                  .none),
+                          textAlign:
+                          TextAlign.start,
+                        ),)
+                       
                       ],
                     ),
                   ),
                   const SizedBox(height: 20.0,),
 
-                  Container(
-                      color: Theme.of(context).focusColor,
-                      child: SingleChildScrollView(
-                          child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: 6,
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        controller: controller,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Future_Details_Screen()));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).canvasColor,
-                                      borderRadius: BorderRadius.circular(15.0)),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              15.0, 12.0, 0.0, 13.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      padding: EdgeInsets.all(5.0),
-                                                      decoration: BoxDecoration(
-                                                          color: Theme.of(context)
-                                                              .focusColor,
-                                                          shape: BoxShape.circle),
-                                                      child: Image.asset(
-                                                        "assets/images/bg.png",
-                                                        height: 30.0,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 20.0,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        Container(
-                                                          width: MediaQuery.of(context).size.width * 0.4,
-                                                          child: Text(
-                                                            "BTC7Monitor",
-                                                            style: CustomWidget(context: context)
-                                                                .CustomSizedTextStyle(
-                                                                10.0,
-                                                                Theme.of(context).focusColor,
-                                                                FontWeight.w600,
-                                                                'FontRegular'),
-                                                            overflow: TextOverflow.ellipsis,
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                              EdgeInsets.zero,
-                                                              child: Icon(
-                                                                Icons.person,
-                                                                size: 10.0,
-                                                                color:
-                                                                Theme.of(context)
-                                                                    .focusColor,
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 5.0,
-                                                            ),
-                                                            Text(
-                                                              "999/1000",
-                                                              style: CustomWidget(
-                                                                  context:
-                                                                  context)
-                                                                  .CustomSizedTextStyle(
-                                                                  4.0,
-                                                                  Theme.of(
-                                                                      context)
-                                                                      .focusColor,
-                                                                  FontWeight.w600,
-                                                                  'FontRegular'),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(right: 10.0),
-                                                child: InkWell(
-                                                  child: Container(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        15.0, 5.0, 15.0, 6.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius.circular(15.0),
-                                                      color: Theme.of(context)
-                                                          .primaryColorLight,
-                                                    ),
-                                                    child: Text(
-                                                      "Copy ",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomSizedTextStyle(
-                                                          8.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        height: 0.5,
-                                        color: Theme.of(context).focusColor,
-                                      ),
-                                      Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              15.0, 12.0, 0.0, 0.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "ROI",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomSizedTextStyle(
-                                                          8.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5.0,
-                                                    ),
-                                                    Text(
-                                                      "+372.18%",
-                                                      style: CustomWidget(
-                                                          context: context)
-                                                          .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .focusColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 15.0,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                child: SvgPicture.asset(
-                                                  "assets/images/copy_trade.svg",
-                                                  fit: BoxFit.cover,
-                                                  // height: 60.0,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        height: 0.5,
-                                        color: Theme.of(context).focusColor,
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            15.0, 10.0, 15.0, 10.0),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context).primaryColor,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(15.0),
-                                                bottomRight: Radius.circular(15.0))),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'Total Copy traders profit ',
-                                                style: CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                    6.0,
-                                                    Theme.of(context)
-                                                        .unselectedWidgetColor,
-                                                    FontWeight.w600,
-                                                    'FontRegular'),
-                                                children: const <TextSpan>[
-                                                  TextSpan(
-                                                      text: '\$1,37456.10',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 6.0,
-                                                        fontWeight: FontWeight.w600,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 5.0,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'AUM ',
-                                                style: CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                    6.0,
-                                                    Theme.of(context)
-                                                        .unselectedWidgetColor,
-                                                    FontWeight.w600,
-                                                    'FontRegular'),
-                                                children: const <TextSpan>[
-                                                  TextSpan(
-                                                      text: '\$1,974573.10',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 6.0,
-                                                        fontWeight: FontWeight.w600,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20.0,),
 
-                            ],
-                          );
-                        },
-                      ))),
 
                   const SizedBox(height: 10.0,),
 
@@ -3620,7 +2400,295 @@ class _CopyTradingState extends State<CopyTrading>
 
                 ],
               ),
-            )));
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15),
+                child:  ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: copyTradelist.length,
+                  shrinkWrap: true,
+
+                  controller: _futurescrollController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CopyTradeOverviewDetails(
+                                          data: copyTradelist[index],
+
+                                        )));
+
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(15.0)),
+                            child: Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        15.0, 12.0, 0.0, 13.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(5.0),
+                                                decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .focusColor,
+                                                    shape: BoxShape.circle),
+                                                child: Image.asset(
+                                                  "assets/images/bg.png",
+                                                  height: 30.0,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 20.0,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: MediaQuery.of(context).size.width * 0.4,
+                                                    child: Text(
+                                                      copyTradelist[index].traderNickName.toString(),
+                                                      style: CustomWidget(context: context)
+                                                          .CustomSizedTextStyle(
+                                                          10.0,
+                                                          Theme.of(context).focusColor,
+                                                          FontWeight.w600,
+                                                          'FontRegular'),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        EdgeInsets.zero,
+                                                        child: Icon(
+                                                          Icons.person,
+                                                          size: 10.0,
+                                                          color:
+                                                          Theme.of(context)
+                                                              .focusColor,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5.0,
+                                                      ),
+                                                      Text(
+                                                        copyTradelist[index].followCount.toString()+ " / "+copyTradelist[index].totalFollowers.toString(),
+                                                        style: CustomWidget(
+                                                            context:
+                                                            context)
+                                                            .CustomSizedTextStyle(
+                                                            4.0,
+                                                            Theme.of(
+                                                                context)
+                                                                .focusColor,
+                                                            FontWeight.w600,
+                                                            'FontRegular'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 10.0),
+                                          child: InkWell(
+                                            child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  15.0, 5.0, 15.0, 6.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(15.0),
+                                                color: Theme.of(context)
+                                                    .primaryColorLight,
+                                              ),
+                                              child: Text(
+                                                "Copy ",
+                                                style: CustomWidget(
+                                                    context: context)
+                                                    .CustomSizedTextStyle(
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .primaryColor,
+                                                    FontWeight.w600,
+                                                    'FontRegular'),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 0.5,
+                                  color: Theme.of(context).focusColor,
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        15.0, 12.0, 0.0, 0.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "ROI",
+                                                style: CustomWidget(
+                                                    context: context)
+                                                    .CustomSizedTextStyle(
+                                                    8.0,
+                                                    Theme.of(context)
+                                                        .focusColor,
+                                                    FontWeight.w600,
+                                                    'FontRegular'),
+                                              ),
+                                              const SizedBox(
+                                                height: 5.0,
+                                              ),
+                                              Text(
+                                                copyTradelist[index].columnList![0].value.toString()+ "%",
+                                                style: CustomWidget(
+                                                    context: context)
+                                                    .CustomSizedTextStyle(
+                                                    14.0,
+                                                    Theme.of(context)
+                                                        .focusColor,
+                                                    FontWeight.w600,
+                                                    'FontRegular'),
+                                              ),
+                                              const SizedBox(
+                                                height: 15.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          child: SvgPicture.asset(
+                                            "assets/images/copy_trade.svg",
+                                            fit: BoxFit.cover,
+                                            // height: 60.0,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 0.5,
+                                  color: Theme.of(context).focusColor,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      15.0, 10.0, 15.0, 10.0),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(15.0),
+                                          bottomRight: Radius.circular(15.0))),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Total Copy traders profit ',
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              6.0,
+                                              Theme.of(context)
+                                                  .unselectedWidgetColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                          children:  <TextSpan>[
+                                            TextSpan(
+                                                text: copyTradelist[index].columnList![3].value.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 7.0,
+                                                  fontWeight: FontWeight.w600,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'AUM ',
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              6.0,
+                                              Theme.of(context)
+                                                  .unselectedWidgetColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                          children:  <TextSpan>[
+                                            TextSpan(
+                                                text: copyTradelist[index].columnList![5].value.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 7.0,
+                                                  fontWeight: FontWeight.w600,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20.0,),
+
+                      ],
+                    );
+                  },
+                ),
+              ),
+              botLoader?Container(
+                child: Center(
+                  child: CustomWidget(context: context).loadingIndicator(
+                    CustomTheme.of(context).primaryColorLight,
+                  ) ,
+                ),
+              ):Container()
+            ],
+          ),
+        ));
   }
 
   Widget SpotUI() {
@@ -4137,10 +3205,10 @@ class _CopyTradingState extends State<CopyTrading>
 
                   InkWell(
                     onTap: (){
-                      Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  CopyTradeOverviewDetails()));
+                      // Navigator.of(context).push(
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             CopyTradeOverviewDetails()));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -4847,6 +3915,7 @@ class _CopyTradingState extends State<CopyTrading>
       if (loginData["msg"].toString() == "success") {
         List<dynamic> listData = loginData["data"];
 
+        print(loginData["data"]);
         setState(() {
           copyLoadTradelist=[];
           loading = false;
@@ -4854,6 +3923,7 @@ class _CopyTradingState extends State<CopyTrading>
           List<CopyTrade>       copyTradelistN =
               (listData).map((item) => CopyTrade.fromJson(item)).toList();
           copyTradelist.addAll(copyTradelistN);
+          searchcopyTradelist.addAll(copyTradelistN);
           copyLoadTradelist.addAll(copyTradelistN);
         });
       }
@@ -4863,9 +3933,11 @@ class _CopyTradingState extends State<CopyTrading>
             loading=false;
             botLoader=false;
             copyTradelist=[];
+            searchcopyTradelist=[];
           });
         }
     }).catchError((Object error) {
+      print(error);
       setState(() {
         loading = false;
         botLoader = false;

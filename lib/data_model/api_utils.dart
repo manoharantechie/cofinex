@@ -248,13 +248,15 @@ class APIUtils {
     };
 
 
-    final response = await http.post(
-      Uri.parse(getCopyTrade),
-      body: json.encode(emailbodyData),
+    final response = await http.get(
+      Uri.parse('https://q30l60g1ej.execute-api.us-east-1.amazonaws.com/prod/copytrade/getTraderList?sortRule=$type&sortFlag=desc&pageNo=$page&pageSize=10'),
+
       headers: {
         'Authorization': "Bearer "+preferences.getString("token").toString()
       },
     );
+
+    print(response.body);
 
     return json.decode(response.body);
   }

@@ -1,3 +1,4 @@
+import 'package:cofinex/data_model/model/copy_trade_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +8,8 @@ import '../../common/localization/localizations.dart';
 import '../../common/theme/custom_theme.dart';
 
 class CopyTradeOverviewDetails extends StatefulWidget {
-  const CopyTradeOverviewDetails({Key? key}) : super(key: key);
+  final CopyTrade data;
+  const CopyTradeOverviewDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<CopyTradeOverviewDetails> createState() => _CopyTradeOverviewDetailsState();
@@ -25,15 +27,17 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
   String selectedType = "";
   List<String> imgText = ["High profit", "Secure","Most popular","Most popular","Most popular"];
   bool his = false;
+  CopyTrade? copyData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-    _tabSpotsController = TabController(vsync: this, length: 5);
+    _tabController = TabController(vsync: this, length: 1);
+    _tabSpotsController = TabController(vsync: this, length: 1);
     selectedType = orderType.first;
     his=false;
+    copyData=widget.data;
   }
 
   @override
@@ -92,7 +96,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "VuDuc Thanlong",
+                              copyData!.traderNickName.toString(),
                               style: CustomWidget(
                                   context: context)
                                   .CustomSizedTextStyle(
@@ -225,9 +229,9 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                       Tab(
                         text: "Futures",
                       ),
-                      Tab(
-                        text: "Spot",
-                      ),
+                      // Tab(
+                      //   text: "Spot",
+                      // ),
 
                     ],
                   ),
@@ -241,7 +245,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                       children: <Widget>[
 
                         FutureUI(),
-                        SpotUI(),
+                        // SpotUI(),
 
                       ],
                     ),
@@ -303,7 +307,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "2269",
+                            copyData!.totalTradeCount.toString(),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 14.0,
@@ -327,7 +331,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            "900/1000",
+                            copyData!.followCount.toString()+  " / "+ copyData!.maxFollowCount.toString(),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 14.0,
@@ -458,21 +462,21 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                 color: CustomTheme.of(context).focusColor,
               ),
               tabs: <Widget>[
-                Tab(
-                  text: "Overview",
-                ),
+                // Tab(
+                //   text: "Overview",
+                // ),
                 Tab(
                   text: "Stats",
                 ),
-                Tab(
-                  text: "Orders",
-                ),
-                Tab(
-                  text: "Followers",
-                ),
-                Tab(
-                  text: "Insights",
-                ),
+                // Tab(
+                //   text: "Orders",
+                // ),
+                // Tab(
+                //   text: "Followers",
+                // ),
+                // Tab(
+                //   text: "Insights",
+                // ),
 
               ],
             ),
@@ -485,11 +489,11 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                 controller: _tabSpotsController,
                 children: <Widget>[
 
-                  Current(),
+                  // Current(),
                   Stats(),
-                  Orders(),
-                  Followers(),
-                  Insights(),
+                  // Orders(),
+                  // Followers(),
+                  // Insights(),
 
                 ],
               ),
@@ -758,7 +762,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "+1233.5% ",
+                                    copyData!.columnList![0].value.toString()+   " %",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -783,7 +787,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "11.9% ",
+                                    copyData!.columnList![6].value.toString()+ " % ",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -808,7 +812,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "20310 ",
+                                      copyData!.columnList![4].value.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -833,7 +837,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "\$123452.01 ",
+                                    copyData!.columnList![3].value.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -858,7 +862,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "30.5% ",
+                                    copyData!.columnList![2].value.toString()+"% ",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -883,7 +887,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                         'FontRegular'),
                                   ),flex: 1,),
                                   Flexible(child: Text(
-                                    "16908.10 ",
+                                      copyData!.columnList![5].value.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
@@ -916,7 +920,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         ),
                         const SizedBox(height: 15.0,),
                         GridView.builder(
-                            itemCount: 30,
+                            itemCount: copyData!.tradingPairsAvailable!.length,
                             shrinkWrap: true,
                             controller: _scrollController,
                             gridDelegate:
@@ -952,13 +956,13 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "High profit",
+                                      copyData!.tradingPairsAvailable![index].toString(),
                                       style: CustomWidget(
                                           context: context)
                                           .CustomSizedTextStyle(
-                                          9.0,
+                                          10.0,
                                           Theme.of(context)
-                                              .primaryColorLight,
+                                              .primaryColor,
                                           FontWeight.w500,
                                           'FontRegular'),
                                       overflow: TextOverflow.ellipsis,

@@ -64,6 +64,10 @@ class _MarketScreenState extends State<MarketScreen>
 
           getPairList();
         }
+      else
+        {
+          getPairList();
+        }
 
     });
   }

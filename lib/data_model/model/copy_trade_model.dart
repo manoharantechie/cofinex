@@ -54,6 +54,8 @@ class CopyTrade {
   String? followerTotalProfit;
   List<DailyProfitRate>? profitRate24H;
   List<DailyProfit>? profit24H;
+  String? lastTradeTime;
+  String? copyTradeDays;
 
   CopyTrade({
     this.canTrace,
@@ -77,6 +79,8 @@ class CopyTrade {
     this.followerTotalProfit,
     this.profitRate24H,
     this.profit24H,
+    this.lastTradeTime,
+    this.copyTradeDays
   });
 
   factory CopyTrade.fromJson(Map<String, dynamic> json) => CopyTrade(
@@ -101,6 +105,8 @@ class CopyTrade {
     followerTotalProfit: json["followerTotalProfit"],
     profitRate24H: List<DailyProfitRate>.from(json["profitRate24h"].map((x) => DailyProfitRate.fromJson(x))),
     profit24H: List<DailyProfit>.from(json["profit24h"].map((x) => DailyProfit.fromJson(x))),
+    lastTradeTime: json["lastTradeTime"],
+    copyTradeDays: json["copyTradeDays"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,6 +131,8 @@ class CopyTrade {
     "followerTotalProfit": followerTotalProfit,
     "profitRate24h": List<dynamic>.from(profitRate24H!.map((x) => x.toJson())),
     "profit24h": List<dynamic>.from(profit24H!.map((x) => x.toJson())),
+    "lastTradeTime": lastTradeTime,
+    "copyTradeDays": copyTradeDays,
   };
 }
 

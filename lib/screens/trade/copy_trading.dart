@@ -70,8 +70,8 @@ class _CopyTradingState extends State<CopyTrading>
     });
     getToken();
 
-    _tabController = TabController(vsync: this, length: 1);
-    //_tabController = TabController(vsync: this, length: 4);
+    // _tabController = TabController(vsync: this, length: 1);
+    _tabController = TabController(vsync: this, length: 4);
   }
 
 
@@ -148,18 +148,18 @@ class _CopyTradingState extends State<CopyTrading>
                     ),
                     tabs: <Widget>[
 
-                      // Tab(
-                      //   text: "Overview",
-                      // ),
+                      Tab(
+                        text: "Overview",
+                      ),
                       Tab(
                         text: "Futures",
                       ),
-                      // Tab(
-                      //   text: "Spot",
-                      // ),
-                      // Tab(
-                      //   text: "Bots",
-                      // ),
+                      Tab(
+                        text: "Spot",
+                      ),
+                      Tab(
+                        text: "Bots",
+                      ),
 
                     ],
                   ),
@@ -179,10 +179,10 @@ class _CopyTradingState extends State<CopyTrading>
                       controller: _tabController,
                       children: <Widget>[
 
-                        // OverviewUI(),
+                        OverviewUI(),
                         FutureUI(),
-                        // SpotUI(),
-                        // BotsUI(),
+                        SpotUI(),
+                        BotsUI(),
 
                       ],
                     ),
@@ -2444,17 +2444,10 @@ class _CopyTradingState extends State<CopyTrading>
                                             mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Container(
-                                                padding: EdgeInsets.all(5.0),
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .focusColor,
-                                                    shape: BoxShape.circle),
-                                                child: Image.asset(
-                                                  "assets/images/bg.png",
-                                                  height: 30.0,
-                                                ),
-                                              ),
+                                              CircleAvatar(
+                                                backgroundImage: NetworkImage(  copyTradelist[index].traderHeadPic.toString(),),
+                                              )
+                                             ,
                                               const SizedBox(
                                                 width: 20.0,
                                               ),
@@ -2681,7 +2674,7 @@ class _CopyTradingState extends State<CopyTrading>
               ),
               botLoader?Container(
                 child: Center(
-                  child: CustomWidget(context: context).loadingIndicator(
+                  child: CustomWidget(context: context).loadingIndicator_white(
                     CustomTheme.of(context).primaryColorLight,
                   ) ,
                 ),

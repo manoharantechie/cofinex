@@ -40,6 +40,11 @@ class _AssetsState extends State<Assets> {
         loading = true;
         getCurrency();
       }
+      else
+        {
+          loading = true;
+          getCurrency();
+        }
     });
   }
 

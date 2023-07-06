@@ -35,6 +35,7 @@ class _SpotTradeState extends State<SpotTrade>
   AllPairListModel? selectPair;
   APIUtils apiUtils = APIUtils();
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<OrderBookData> buyData = [];
   List<OrderBookData> sellData = [];
   List<OpenOrdersHistory> orderHistory = [];
@@ -114,20 +115,284 @@ class _SpotTradeState extends State<SpotTrade>
     setState(() {
       bearer = preferences.getString("token").toString();
       loginStatus = preferences.getBool("login")!;
-      if (loginStatus) {
+
         //getToken();
         loading = true;
 
         getPairList();
-      }
+
     });
   }
 
+
+  Widget drawerUI(){
+    return  Drawer(
+//      backgroundColor:    CustomTheme.of(context).primaryColor,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.only(top: 0.0),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                // Add one stop for each color
+                // Values should increase from 0.0 to 1.0
+                stops: [
+                  0.1,
+                  0.5,
+                  0.9,
+                ],
+                colors: [
+                Theme.of(context).highlightColor,
+                  Theme.of(context).highlightColor,
+                  Theme.of(context).highlightColor,
+                ])),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "Market",
+                  style: CustomWidget(context: context).CustomSizedTextStyle(16.0,
+                      Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+
+                ListView.builder(
+                  physics: ScrollPhysics(),
+                  itemCount: allTicker.length,
+                  shrinkWrap: true,
+                  controller: _scrollController,
+                  itemBuilder: (BuildContext context, int index) {
+                    bool test = false;
+
+                    String coinImage = allTicker[index].pair!.split("_")[0].toString();
+                    String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
+                    coinImage=coinImage.replaceAll("USDT", "-USDT");
+                    coinImage=coinImage.replaceAll("10000", "");
+
+                    String coinName=coinImage1.replaceAll("USDT", "");
+                    coinName=coinName.replaceAll("10000", "");
+
+                    if (double.parse(allTicker[index]
+                        .priceChangePercent24Hr
+                        .toString()) >
+                        0) {
+                      test = true;
+                    } else {
+                      test = false;
+                    }
+                    return Column(
+                      children: [
+                       InkWell(
+
+                         child:  Container(
+                           width: MediaQuery.of(context).size.width,
+                           padding:
+                           EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             children: [
+                               Row(
+                                 crossAxisAlignment:
+                                 CrossAxisAlignment.start,
+                                 mainAxisAlignment:
+                                 MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   Container(
+                                     child: Row(
+                                       crossAxisAlignment:
+                                       CrossAxisAlignment.start,
+                                       children: [
+                                         Container(
+                                           width: 40,
+                                           height: 40,
+                                           padding: EdgeInsets.all(5.0),
+                                           decoration: BoxDecoration(
+                                             border: Border.all(
+                                                 color: Theme.of(context)
+                                                     .splashColor,
+                                                 width: 1.0),
+                                             borderRadius:
+                                             BorderRadius.circular(
+                                                 10.0),
+                                             color: Theme.of(context)
+                                                 .highlightColor,
+                                           ),
+                                           child: SvgPicture.network(
+                                             "https://images.cofinex.io/crypto/ico/" +
+                                                 coinName.toLowerCase() +
+                                                 ".svg",
+                                             height: 15.0,
+                                           ),
+                                         ),
+                                         SizedBox(
+                                           width: 5.0,
+                                         ),
+                                         Column(
+                                           crossAxisAlignment:
+                                           CrossAxisAlignment.start,
+                                           mainAxisAlignment:
+                                           MainAxisAlignment.center,
+                                           children: [
+                                             Text(
+                                               coinImage,
+                                               style: CustomWidget(
+                                                   context: context)
+                                                   .CustomSizedTextStyle(
+                                                   13.0,
+                                                   Theme.of(context)
+                                                       .primaryColor,
+                                                   FontWeight.w600,
+                                                   'FontRegular'),
+                                               textAlign: TextAlign.center,
+                                             ),
+                                             SizedBox(
+                                               height: 8.0,
+                                             ),
+                                             Text(
+                                               coinImage,
+                                               style: CustomWidget(
+                                                   context: context)
+                                                   .CustomSizedTextStyle(
+                                                   12.0,
+                                                   Theme.of(context)
+                                                       .canvasColor,
+                                                   FontWeight.w500,
+                                                   'FontRegular'),
+                                               textAlign: TextAlign.center,
+                                             ),
+                                           ],
+                                         )
+                                       ],
+                                     ),
+                                   ),
+
+                                   Container(
+                                     child: Column(
+                                       crossAxisAlignment:
+                                       CrossAxisAlignment.end,
+                                       mainAxisAlignment:
+                                       MainAxisAlignment.center,
+                                       children: [
+                                         Text(
+                                           double.parse(allTicker[index]
+                                               .marketPrice
+                                               .toString())
+                                               .toStringAsFixed(4),
+                                           style: CustomWidget(
+                                               context: context)
+                                               .CustomSizedTextStyle(
+                                               12.0,
+                                               Theme.of(context)
+                                                   .primaryColor,
+                                               FontWeight.w600,
+                                               'FontRegular'),
+                                           textAlign: TextAlign.center,
+                                         ),
+                                         SizedBox(
+                                           height: 8.0,
+                                         ),
+                                         Row(
+                                           children: [
+                                             Text(
+                                               double.parse(allTicker[
+                                               index]
+                                                   .priceChangePercent24Hr
+                                                   .toString())
+                                                   .toStringAsFixed(2),
+                                               style: CustomWidget(
+                                                   context: context)
+                                                   .CustomSizedTextStyle(
+                                                   10.0,
+                                                   test
+                                                       ? Theme.of(
+                                                       context)
+                                                       .indicatorColor
+                                                       : Theme.of(
+                                                       context)
+                                                       .scaffoldBackgroundColor,
+                                                   FontWeight.w600,
+                                                   'FontRegular'),
+                                               textAlign: TextAlign.center,
+                                             ),
+                                           ],
+                                         )
+                                       ],
+                                     ),
+                                   )
+                                 ],
+                               ),
+                               SizedBox(
+                                 height: 10.0,
+                               ),
+                             ],
+                           ),
+                         ),
+                         onTap: (){
+                           selectPair = allTicker[index];
+
+                           String coinImage1 =selectPair!.pair!.split("_")[0].toString();
+                           coinOne = coinImage1.replaceAll("USDT", "");
+                           coinTwo = "USDT";
+                           // getOpenOrders();
+
+                           channelOpenOrder!.sink.close();
+
+
+                           buyData=[];
+                           sellData=[];
+                           buyData.clear();
+                           sellData.clear();
+                           channelOpenOrder = IOWebSocketChannel.connect(
+                               Uri.parse(
+                                   "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+                               pingInterval: Duration(seconds: 5));
+                           channelOpenOrder!.sink.add(json.encode({
+                             "action":"orderbook-subscribe",
+                             "subscription":{
+                               "pair":coinOne+coinTwo
+                             }
+                           }));
+                           buyData.clear();
+                           sellData.clear();
+                           socketData();
+                           _scaffoldKey.currentState!.closeDrawer();
+                         },
+                       ),
+                        Container(
+                          height: 1.0,
+                          color: Theme.of(context).splashColor,
+                        )
+                      ],
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(
+          key: _scaffoldKey,
           body: Container(
               color: CustomTheme.of(context).focusColor,
               height: MediaQuery.of(context).size.height,
@@ -163,7 +428,8 @@ class _SpotTradeState extends State<SpotTrade>
                                                   textAlign: TextAlign.center,
                                                 ),
                                                 onTap: () {
-                                                  showSheeet();
+                                                  _scaffoldKey.currentState!.openDrawer();
+
                                                 },
                                               ),
                                               const SizedBox(
@@ -1605,6 +1871,7 @@ class _SpotTradeState extends State<SpotTrade>
                       : Container()
                 ],
               )),
+          drawer: drawerUI(),
         ));
   }
 
@@ -2201,17 +2468,16 @@ class _SpotTradeState extends State<SpotTrade>
     channelOpenOrder!.stream.listen(
       (data) {
         if (data != null || data != "null") {
+          print(data);
           print("Mano");
           var decode = jsonDecode(data);
 
-          print(decode["asks"]);
+
           List<dynamic> listData =
               decode["asks"];
           List<dynamic> listData1 =
               decode["bids"];
 
-          print("Mano1");
-          print(listData[0]);
           if (mounted) {
             setState(() {
               loading = false;
@@ -2248,7 +2514,10 @@ class _SpotTradeState extends State<SpotTrade>
 
         socketData();
       },
-      onError: (error) => {},
+      onError: (error) => {
+        print("test"),
+        print(error)
+      },
     );
   }
 

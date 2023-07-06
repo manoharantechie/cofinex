@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/screens/basic/home.dart';
 import 'package:cofinex/screens/basic/onboard_screen.dart';
 import 'package:cofinex/screens/basic/signin.dart';
@@ -15,6 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   String address = "";
   String token = "";
+  APIUtils apiUtils=APIUtils();
 
   @override
   void initState() {
@@ -44,11 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
 
 
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
-          });
-          // checkDeviceID(deviceData['device_id'].toString());
+      // Future.delayed(const Duration(seconds: 3), () {
+
+      // });
+   getToken();
+
 
 
 
@@ -73,5 +77,42 @@ class _SplashScreenState extends State<SplashScreen> {
           // child:Image.asset('assets/images/god.png', height: 300.0,),
           ),
     );
+  }
+  getToken() {
+    apiUtils.generateToken().then((dynamic loginData) {
+      setState(() {
+        token = loginData["header"];
+
+        print("test");
+        List<int> decodedint = base64.decode(token);
+        var decodedstring = utf8.decode(decodedint);
+        Map cake=json.decode(decodedstring) ;
+        String val=cake["Authorization"];
+        val=val.replaceAll("Bearer", "");
+        val=val.replaceAll(" ", "");
+        storeData(val);
+
+        // storeData(datas["Authorization"].toString());
+        // storeData(token);
+
+      });
+
+      //socketHistoryData();
+    }).catchError((Object error) {
+      setState(() {
+
+      });
+    });
+  }
+
+  storeData(String token) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("token", token);
+
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
+
+
+
   }
 }

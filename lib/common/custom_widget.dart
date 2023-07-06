@@ -134,6 +134,24 @@ class CustomWidget {
       ),
     );
   }
+  Widget loadingIndicator_white(Color color) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      // color:  Color(0xFF1d0068),
+      child:  Center(
+        child: Container(
+          child: Center(
+              child:  Image.asset(
+                  'assets/icon/loader_white.gif',
+                  width: 60,
+                  height: 60
+              )
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget loadingIndicatorWeb(Color color) {
     return SizedBox(

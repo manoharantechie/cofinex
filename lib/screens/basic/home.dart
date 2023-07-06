@@ -6,6 +6,7 @@ import 'package:cofinex/common/theme/themes.dart';
 import 'package:cofinex/common/web_loader.dart';
 import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/graph_ql_utils.dart';
+import 'package:cofinex/data_model/model/all_pair_list_model.dart';
 import 'package:cofinex/data_model/model/ticker_data_model.dart';
 import 'package:cofinex/data_model/model/user_details_model.dart';
 import 'package:cofinex/data_model/query_utils.dart';
@@ -98,8 +99,8 @@ class _Home_ScreenState extends State<Home_Screen> {
   ];
   Widget screen = MarketScreen();
 
-  List<AllTicker> allTicker = [];
-  GraphAPIUtils qlapiUtils = GraphAPIUtils();
+  List<AllPairListModel> allTicker = [];
+
 
   @override
   void initState() {
@@ -115,9 +116,12 @@ class _Home_ScreenState extends State<Home_Screen> {
     preferences.setBool("login", widget.loginStatus);
 
     if (widget.loginStatus) {
-      fillList();
+      getPairList();
       getUserDetails();
       getKycDetails();
+    }
+    else{
+      getPairList();
     }
   }
 
@@ -835,8 +839,15 @@ class _Home_ScreenState extends State<Home_Screen> {
                         controller: _scrollController,
                         itemBuilder: (BuildContext context, int index) {
                           bool test = false;
-                          String coinImage =
-                              allTicker[index].pair!.split("-")[0].toString();
+
+                          String coinImage = allTicker[index].pair!.split("_")[0].toString();
+                          String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
+                          coinImage=coinImage.replaceAll("USDT", "-USDT");
+                          coinImage=coinImage.replaceAll("10000", "");
+
+                          String coinName=coinImage1.replaceAll("USDT", "");
+                          coinName=coinName.replaceAll("10000", "");
+
                           if (double.parse(allTicker[index]
                                   .priceChangePercent24Hr
                                   .toString()) >
@@ -869,7 +880,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                               Container(
                                                 width: 40,
                                                 height: 40,
-                                                padding: EdgeInsets.all(8.0),
+                                                padding: EdgeInsets.all(5.0),
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                       color: Theme.of(context)
@@ -883,7 +894,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                                 ),
                                                 child: SvgPicture.network(
                                                   "https://images.cofinex.io/crypto/ico/" +
-                                                      coinImage.toLowerCase() +
+                                                      coinName.toLowerCase() +
                                                       ".svg",
                                                   height: 15.0,
                                                 ),
@@ -898,9 +909,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    allTicker[index]
-                                                        .pair
-                                                        .toString(),
+                                                   coinImage,
                                                     style: CustomWidget(
                                                             context: context)
                                                         .CustomSizedTextStyle(
@@ -949,7 +958,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                                 style: CustomWidget(
                                                         context: context)
                                                     .CustomSizedTextStyle(
-                                                        14.0,
+                                                        12.0,
                                                         Theme.of(context)
                                                             .primaryColor,
                                                         FontWeight.w600,
@@ -970,7 +979,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                                                     style: CustomWidget(
                                                             context: context)
                                                         .CustomSizedTextStyle(
-                                                            12.0,
+                                                            10.0,
                                                             test
                                                                 ? Theme.of(
                                                                         context)
@@ -1041,28 +1050,36 @@ class _Home_ScreenState extends State<Home_Screen> {
     );
   }
 
-  fillList() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    QueryMutation queryMutation = QueryMutation();
 
-    GraphQLClient _client =
-        qlapiUtils.clientToQuery(preferences.getString("token").toString());
-    QueryResult result = await _client.query(
-      QueryOptions(document: gql(queryMutation.getTickeDetails())),
-    );
+  getPairList() {
 
-    List<dynamic> listData = result.data!["getAllTickerInfoV2"]["items"];
+    apiUtils.getAllpaitList().then((dynamic loginData) {
 
-    setState(() {
-      allTicker = (listData).map((item) => AllTicker.fromJson(item)).toList();
 
-      allTicker
-        ..sort((a, b) => ((double.parse(b.marketPrice.toString()) +
-                (double.parse(b.volumeTotal24Hr.toString())))
-            .compareTo((double.parse(a.marketPrice.toString()) +
-                (double.parse(a.volumeTotal24Hr.toString()))))));
+      List<dynamic> listData = loginData;
+
+      setState(() {
+        allTicker=[];
+
+
+        List<AllPairListModel>       copyTradelistN =
+        (listData).map((item) => AllPairListModel.fromJson(item)).toList();
+        allTicker.addAll(copyTradelistN);
+        allTicker
+          ..sort((a, b) => ((double.parse(b.marketPrice.toString()) +
+              (double.parse(b.volumeTotal24Hr.toString())))
+              .compareTo((double.parse(a.marketPrice.toString()) +
+              (double.parse(a.volumeTotal24Hr.toString()))))));
+
+      });
+
+    }).catchError((Object error) {
+      setState(() {
+
+      });
     });
   }
+
 
   getUserDetails() {
     apiUtils.getUserDetails().then((dynamic loginData) {

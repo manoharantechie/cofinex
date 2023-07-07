@@ -212,7 +212,6 @@ class _CopyTradingState extends State<CopyTrading>
   }
 
 
-
   // Widget OverviewUI() {
   //   return Container(
   //       color: CustomTheme.of(context).focusColor,

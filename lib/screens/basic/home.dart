@@ -2126,6 +2126,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                   SizedBox(
                     height: 30.0,
                   ),
+
                 ],
               ),
             )));

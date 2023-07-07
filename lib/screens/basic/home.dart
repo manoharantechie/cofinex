@@ -286,7 +286,8 @@ class _Home_ScreenState extends State<Home_Screen> {
                         const SizedBox(width: 5.0,),
                         InkWell(
                             onTap: () {
-
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Notification_Screen()));
                             },
                             child: Container(
                               padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),

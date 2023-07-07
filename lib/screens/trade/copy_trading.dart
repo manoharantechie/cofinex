@@ -2705,7 +2705,7 @@ class _CopyTradingState extends State<CopyTrading>
                         padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 5.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: Theme.of(context).unselectedWidgetColor,
+                          color: Theme.of(context).primaryColor,
                           // image: DecorationImage(
                           //   image: AssetImage("assets/icon/back.png"),
                           //   fit: BoxFit.cover,
@@ -2738,8 +2738,8 @@ class _CopyTradingState extends State<CopyTrading>
                                       Container(
                                         padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(6.0),
-                                            border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
+                                            borderRadius: BorderRadius.circular(4.0),
+                                            border: Border.all(width: 1.0, color: Theme.of(context).primaryColorLight,),
                                             color: Theme.of(context).focusColor
                                         ),
                                         child: Text(
@@ -2760,7 +2760,7 @@ class _CopyTradingState extends State<CopyTrading>
                                   child: Container(
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
-                                      child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, ),
+                                      child: SvgPicture.asset("assets/images/cofi.svg", fit: BoxFit.contain, color: Theme.of(context).primaryColorLight, ),
                                     ),
                                   ),
                                   flex: 1,
@@ -2809,7 +2809,7 @@ class _CopyTradingState extends State<CopyTrading>
                                       Container(
                                         padding: EdgeInsets.fromLTRB(6.0, 6.0, 6.0, 7.0),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(6.0),
+                                            borderRadius: BorderRadius.circular(4.0),
                                             border: Border.all(width: 1.0, color: Theme.of(context).primaryColor,),
                                             color: Theme.of(context).focusColor
                                         ),
@@ -2886,20 +2886,21 @@ class _CopyTradingState extends State<CopyTrading>
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 12.0),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).canvasColor,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(15.0)
                     ),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).unselectedWidgetColor,),
+                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).focusColor,),
                         const SizedBox(width: 10.0,),
                         Text(
                           "Search trader",
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              12.0,
+                              10.0,
                               Theme.of(context).unselectedWidgetColor,
-                              FontWeight.w600,
+                              FontWeight.w500,
                               'FontRegular'),
                         ),
                       ],
@@ -2921,7 +2922,7 @@ class _CopyTradingState extends State<CopyTrading>
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context).canvasColor,
+                                        color: Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.circular(15.0)),
                                     child: Column(
                                       children: [
@@ -3458,7 +3459,7 @@ class _CopyTradingState extends State<CopyTrading>
                     padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 12.0),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).canvasColor,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(15.0)
                     ),
                     child: Row(
@@ -3469,9 +3470,9 @@ class _CopyTradingState extends State<CopyTrading>
                           "Search trader",
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              12.0,
+                              10.0,
                               Theme.of(context).unselectedWidgetColor,
-                              FontWeight.w600,
+                              FontWeight.w500,
                               'FontRegular'),
                         ),
                       ],
@@ -3493,7 +3494,7 @@ class _CopyTradingState extends State<CopyTrading>
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor.withOpacity(0.8),
+                                        color: Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.circular(15.0)),
                                     child: Column(
                                       children: [

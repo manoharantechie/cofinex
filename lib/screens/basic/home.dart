@@ -213,13 +213,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Profile_Screen()));
                       },
-                      child: Container(
-                        padding: EdgeInsets.all(2.0),
-                        decoration: BoxDecoration(
-                            color:Theme.of(context).focusColor,
-                            shape: BoxShape.circle
+                      child: CircleAvatar(
+                        maxRadius: 35,
+                        minRadius: 35,
+                        backgroundImage: AssetImage(
+                          "assets/images/bg_5.png"
                         ),
-                        child: Image.asset("assets/images/bg_5.png", fit: BoxFit.contain, height: 45.0,),
                       ),)),
               title: currentIndex == 0
                   ? InkWell(

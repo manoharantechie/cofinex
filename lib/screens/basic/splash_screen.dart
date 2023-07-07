@@ -106,10 +106,6 @@ class _SplashScreenState extends State<SplashScreen> {
      storeData(token);
 
         onLoad();
-
-        // storeData(datas["Authorization"].toString());
-        // storeData(token);
-
       });
 
       //socketHistoryData();

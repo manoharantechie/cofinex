@@ -143,15 +143,21 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                             const SizedBox(
                               height: 5.0,
                             ),
-                            Text(
-                              dfinal,
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                      12.0,
-                                      Theme.of(context).unselectedWidgetColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                            ),
+                          Row(
+                            children: [
+                              Icon(Icons.calendar_month_sharp,size: 15.0,),
+                              const SizedBox(width: 10.0,),
+                              Text(
+                                dfinal,
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    12.0,
+                                    Theme.of(context).unselectedWidgetColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                              ),
+                            ],
+                          ),
                             const SizedBox(
                               height: 5.0,
                             ),
@@ -235,15 +241,18 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         ),
                       ),
                       CircleAvatar(
+                        maxRadius: 35,
+                        minRadius: 35,
                         backgroundImage: NetworkImage(
                           copyData!.traderHeadPic.toString(),
+
                         ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 10.0,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -444,7 +453,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                               }
                           },
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                            padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
@@ -472,7 +481,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         child: InkWell(
                           child: Container(
                             // width: MediaQuery.of(context).size.width ,
-                            padding: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
+                            padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),

@@ -1220,12 +1220,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                   const SizedBox(height: 15.0,),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.21,
+
                     child: Row(
                       children: [
                         Flexible(child: Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.fromLTRB(20.0, 20.0, 15.0, 20.0),
+                          padding: EdgeInsets.fromLTRB(20.0, 30.0, 15.0, 25.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
@@ -1599,38 +1599,6 @@ class _Home_ScreenState extends State<Home_Screen> {
                         );
                       },
                     ),
-                  ),
-                  const SizedBox(height: 15.0,),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/images/speak.svg", height: 20.0,),
-                            const SizedBox(width: 5.0,),
-                            Container(
-                              // width: MediaQuery.of(context).size.width * 0.5,
-                              child:  Text(
-                                "Lorem ipsum dolor sit amet consectetur. Sed.",
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    11.0,
-                                    Theme.of(context).primaryColor,
-                                    FontWeight.w500,
-                                    'FontRegular'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(
-                        Icons.menu,
-                        color: Theme.of(context).unselectedWidgetColor,
-                        size: 20.0,
-                      )
-                    ],
                   ),
                   const SizedBox(height: 15.0,),
                   Row(

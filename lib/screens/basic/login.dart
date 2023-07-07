@@ -46,7 +46,8 @@ class _Sign_Up_screenState extends State<Login> {
  isoCountryCode = systemLocales.first.countryCode.toString();
  splitFirst=widget.email.toString().split("@")[0];
     splitSecond=widget.email.toString().split("@")[1];
-   // passwordController.text="Avanzar@1234";
+
+    passwordController.text="Avanzar@1234";
 
     getData();
 
@@ -63,7 +64,7 @@ class _Sign_Up_screenState extends State<Login> {
       for(int m=0;m<r-2;m++)
       {
 
-
+        print(m);
         splitFirst=splitFirst+"*";
       }
     });

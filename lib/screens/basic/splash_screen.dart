@@ -25,13 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     getdata();
+
+
+
   }
 
   getdata() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     address = preferences.getString("first").toString();
-    token = preferences.getString("token").toString();
-   onLoad();
+
+    getToken();
+
   }
 
   onLoad() {
@@ -46,6 +50,12 @@ class _SplashScreenState extends State<SplashScreen> {
         // checkDeviceID(deviceData['device_id'].toString());
       });
     } else {
+
+
+      Future.delayed(const Duration(seconds:0), () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
+      });
 
 
       // Future.delayed(const Duration(seconds: 3), () {
@@ -81,16 +91,21 @@ class _SplashScreenState extends State<SplashScreen> {
   getToken() {
     apiUtils.generateToken().then((dynamic loginData) {
       setState(() {
-        token = loginData["header"];
+     String   tokens = loginData["header"];
 
-        print("test");
-        List<int> decodedint = base64.decode(token);
+
+        List<int> decodedint = base64.decode(tokens);
         var decodedstring = utf8.decode(decodedint);
         Map cake=json.decode(decodedstring) ;
         String val=cake["Authorization"];
         val=val.replaceAll("Bearer", "");
         val=val.replaceAll(" ", "");
-        storeData(val);
+
+        token=val;
+
+     storeData(token);
+
+        onLoad();
 
         // storeData(datas["Authorization"].toString());
         // storeData(token);
@@ -106,11 +121,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   storeData(String token) async {
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("token", token);
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => Home_Screen(loginStatus: false)));
+
+
 
 
 

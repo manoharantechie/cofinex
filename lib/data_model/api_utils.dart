@@ -146,6 +146,7 @@ class APIUtils {
       getTokenURL,
     ));
 
+    print(response.body);
     return json.decode(response.body);
   }
 
@@ -156,6 +157,7 @@ class APIUtils {
         'x-api-key': '29PTN4TiBOz4LPpP24k4vQd0C9fXWk',
       },
     );
+
 
     return CurrencyListModel.fromJson(json.decode(response.body));
   }
@@ -295,7 +297,6 @@ class APIUtils {
         'Authorization': "Bearer "+preferences.getString("token").toString()
       },
     );
-
     return json.decode(response.body);
   }
 

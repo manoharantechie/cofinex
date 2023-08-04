@@ -25,6 +25,9 @@ class APIUtils {
   static const getTokenURL = "https://api.cofinex.in/encodewsheader";
   static const getCopyTrade = "https://q30l60g1ej.execute-api.us-east-1.amazonaws.com/prod/copytrade/getTraderList";
   static const getPairURL = "marketdata/getTickerInfo?productType=UMCBL";
+  static const getCoinBalanceURL = "wallet";
+  static const getleaderHisURL = "copytrade/futures/trader";
+
 
   Future<dynamic> doRegisterEmail(
       String firstName,
@@ -313,4 +316,74 @@ class APIUtils {
 
     return json.decode(response.body);
   }
+
+  Future<dynamic> getCoinBalance(String coin,String type) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+    var emailbodyData = {
+      'action': "GET_WALLET_BALANCE",
+
+      'coin': coin.toString().toUpperCase(),
+      'type': type,
+
+    };
+
+
+    final response = await http.post(
+      Uri.parse(newAuthURL + getCoinBalanceURL),
+      body: json.encode(emailbodyData),
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+
+    return json.decode(response.body);
+  }
+
+  Future<dynamic> getLeaderHistory(String  traderID) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+    var emailbodyData = {
+      'action': "LEAD_TRADER_HISTORY_ORDERS",
+      'traderId': traderID,
+
+    };
+
+
+    final response = await http.post(
+      Uri.parse(newAuthURL + getleaderHisURL),
+      body: json.encode(emailbodyData),
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+
+    return json.decode(response.body);
+  }
+
+  Future<dynamic> getLeaderOpenOrder(String  traderID) async {
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+
+    var emailbodyData = {
+      'action': "LEAD_TRADER_OPEN_ORDERS",
+      'traderId': 'traderID',
+
+    };
+
+
+    final response = await http.post(
+      Uri.parse(newAuthURL + getleaderHisURL),
+      body: json.encode(emailbodyData),
+      headers: {
+        'Authorization': "Bearer "+preferences.getString("token").toString()
+      },
+    );
+
+
+    return json.decode(response.body);
+  }
+
+
 }

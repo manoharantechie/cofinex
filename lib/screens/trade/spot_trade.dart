@@ -68,10 +68,12 @@ class _SpotTradeState extends State<SpotTrade>
   bool loginStatus = false;
   String tradeAmount = "0.00";
   String totalAmount = "0.00";
- bool first = false;
+  bool first = false;
   bool second = false;
   bool third = false;
   bool fourth = false;
+
+  String balance = "0.00";
 
   @override
   void initState() {
@@ -81,11 +83,8 @@ class _SpotTradeState extends State<SpotTrade>
     selectedVol = volType.first;
     _tabTradeController = TabController(vsync: this, length: 3);
     channelOpenOrder = IOWebSocketChannel.connect(
-        Uri.parse(
-            "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+        Uri.parse("wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
         pingInterval: Duration(seconds: 30));
-
-
 
     getBearer();
     getRand();
@@ -116,17 +115,15 @@ class _SpotTradeState extends State<SpotTrade>
       bearer = preferences.getString("token").toString();
       loginStatus = preferences.getBool("login")!;
 
-        //getToken();
-        loading = true;
+      //getToken();
+      loading = true;
 
-        getPairList();
-
+      getPairList();
     });
   }
 
-
-  Widget drawerUI(){
-    return  Drawer(
+  Widget drawerUI() {
+    return Drawer(
 //      backgroundColor:    CustomTheme.of(context).primaryColor,
       backgroundColor: Colors.transparent,
       child: Container(
@@ -140,34 +137,35 @@ class _SpotTradeState extends State<SpotTrade>
                 // Add one stop for each color
                 // Values should increase from 0.0 to 1.0
                 stops: [
-                  0.1,
-                  0.5,
-                  0.9,
-                ],
+              0.1,
+              0.5,
+              0.9,
+            ],
                 colors: [
-                Theme.of(context).highlightColor,
-                  Theme.of(context).highlightColor,
-                  Theme.of(context).highlightColor,
-                ])),
+              Theme.of(context).highlightColor,
+              Theme.of(context).highlightColor,
+              Theme.of(context).highlightColor,
+            ])),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(15, 2, 15, 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const SizedBox(
                   height: 10.0,
                 ),
                 Text(
                   "Market",
-                  style: CustomWidget(context: context).CustomSizedTextStyle(16.0,
-                      Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                  style: CustomWidget(context: context).CustomSizedTextStyle(
+                      16.0,
+                      Theme.of(context).primaryColor,
+                      FontWeight.w500,
+                      'FontRegular'),
                 ),
                 const SizedBox(
                   height: 10.0,
                 ),
-
                 ListView.builder(
                   physics: ScrollPhysics(),
                   itemCount: allTicker.length,
@@ -176,17 +174,19 @@ class _SpotTradeState extends State<SpotTrade>
                   itemBuilder: (BuildContext context, int index) {
                     bool test = false;
 
-                    String coinImage = allTicker[index].pair!.split("_")[0].toString();
-                    String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
-                    coinImage=coinImage.replaceAll("USDT", "-USDT");
-                    coinImage=coinImage.replaceAll("10000", "");
+                    String coinImage =
+                        allTicker[index].pair!.split("_")[0].toString();
+                    String coinImage1 =
+                        allTicker[index].pair!.split("_")[0].toString();
+                    coinImage = coinImage.replaceAll("USDT", "-USDT");
+                    coinImage = coinImage.replaceAll("10000", "");
 
-                    String coinName=coinImage1.replaceAll("USDT", "");
-                    coinName=coinName.replaceAll("10000", "");
+                    String coinName = coinImage1.replaceAll("USDT", "");
+                    coinName = coinName.replaceAll("10000", "");
 
                     if (double.parse(allTicker[index]
-                        .priceChangePercent24Hr
-                        .toString()) >
+                            .priceChangePercent24Hr
+                            .toString()) >
                         0) {
                       test = true;
                     } else {
@@ -194,183 +194,173 @@ class _SpotTradeState extends State<SpotTrade>
                     }
                     return Column(
                       children: [
-                       InkWell(
+                        InkWell(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 40,
+                                            height: 40,
+                                            padding: EdgeInsets.all(5.0),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Theme.of(context)
+                                                      .splashColor,
+                                                  width: 1.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: Theme.of(context)
+                                                  .highlightColor,
+                                            ),
+                                            child: SvgPicture.network(
+                                              "https://images.cofinex.io/crypto/ico/" +
+                                                  coinName.toLowerCase() +
+                                                  ".svg",
+                                              height: 15.0,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5.0,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                coinImage,
+                                                style: CustomWidget(
+                                                        context: context)
+                                                    .CustomSizedTextStyle(
+                                                        13.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              SizedBox(
+                                                height: 8.0,
+                                              ),
+                                              Text(
+                                                coinImage,
+                                                style: CustomWidget(
+                                                        context: context)
+                                                    .CustomSizedTextStyle(
+                                                        12.0,
+                                                        Theme.of(context)
+                                                            .canvasColor,
+                                                        FontWeight.w500,
+                                                        'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            double.parse(allTicker[index]
+                                                    .marketPrice
+                                                    .toString())
+                                                .toStringAsFixed(4),
+                                            style:
+                                                CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                        12.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(
+                                            height: 8.0,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                double.parse(allTicker[index]
+                                                        .priceChangePercent24Hr
+                                                        .toString())
+                                                    .toStringAsFixed(2),
+                                                style: CustomWidget(
+                                                        context: context)
+                                                    .CustomSizedTextStyle(
+                                                        10.0,
+                                                        test
+                                                            ? Theme.of(context)
+                                                                .indicatorColor
+                                                            : Theme.of(context)
+                                                                .scaffoldBackgroundColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            selectPair = allTicker[index];
 
-                         child:  Container(
-                           width: MediaQuery.of(context).size.width,
-                           padding:
-                           EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 0.0),
-                           child: Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             mainAxisAlignment: MainAxisAlignment.start,
-                             children: [
-                               Row(
-                                 crossAxisAlignment:
-                                 CrossAxisAlignment.start,
-                                 mainAxisAlignment:
-                                 MainAxisAlignment.spaceBetween,
-                                 children: [
-                                   Container(
-                                     child: Row(
-                                       crossAxisAlignment:
-                                       CrossAxisAlignment.start,
-                                       children: [
-                                         Container(
-                                           width: 40,
-                                           height: 40,
-                                           padding: EdgeInsets.all(5.0),
-                                           decoration: BoxDecoration(
-                                             border: Border.all(
-                                                 color: Theme.of(context)
-                                                     .splashColor,
-                                                 width: 1.0),
-                                             borderRadius:
-                                             BorderRadius.circular(
-                                                 10.0),
-                                             color: Theme.of(context)
-                                                 .highlightColor,
-                                           ),
-                                           child: SvgPicture.network(
-                                             "https://images.cofinex.io/crypto/ico/" +
-                                                 coinName.toLowerCase() +
-                                                 ".svg",
-                                             height: 15.0,
-                                           ),
-                                         ),
-                                         SizedBox(
-                                           width: 5.0,
-                                         ),
-                                         Column(
-                                           crossAxisAlignment:
-                                           CrossAxisAlignment.start,
-                                           mainAxisAlignment:
-                                           MainAxisAlignment.center,
-                                           children: [
-                                             Text(
-                                               coinImage,
-                                               style: CustomWidget(
-                                                   context: context)
-                                                   .CustomSizedTextStyle(
-                                                   13.0,
-                                                   Theme.of(context)
-                                                       .primaryColor,
-                                                   FontWeight.w600,
-                                                   'FontRegular'),
-                                               textAlign: TextAlign.center,
-                                             ),
-                                             SizedBox(
-                                               height: 8.0,
-                                             ),
-                                             Text(
-                                               coinImage,
-                                               style: CustomWidget(
-                                                   context: context)
-                                                   .CustomSizedTextStyle(
-                                                   12.0,
-                                                   Theme.of(context)
-                                                       .canvasColor,
-                                                   FontWeight.w500,
-                                                   'FontRegular'),
-                                               textAlign: TextAlign.center,
-                                             ),
-                                           ],
-                                         )
-                                       ],
-                                     ),
-                                   ),
+                            String coinImage1 =
+                                selectPair!.pair!.split("_")[0].toString();
+                            coinOne = coinImage1.replaceAll("USDT", "");
+                            coinTwo = "USDT";
+                            // getOpenOrders();
 
-                                   Container(
-                                     child: Column(
-                                       crossAxisAlignment:
-                                       CrossAxisAlignment.end,
-                                       mainAxisAlignment:
-                                       MainAxisAlignment.center,
-                                       children: [
-                                         Text(
-                                           double.parse(allTicker[index]
-                                               .marketPrice
-                                               .toString())
-                                               .toStringAsFixed(4),
-                                           style: CustomWidget(
-                                               context: context)
-                                               .CustomSizedTextStyle(
-                                               12.0,
-                                               Theme.of(context)
-                                                   .primaryColor,
-                                               FontWeight.w600,
-                                               'FontRegular'),
-                                           textAlign: TextAlign.center,
-                                         ),
-                                         SizedBox(
-                                           height: 8.0,
-                                         ),
-                                         Row(
-                                           children: [
-                                             Text(
-                                               double.parse(allTicker[
-                                               index]
-                                                   .priceChangePercent24Hr
-                                                   .toString())
-                                                   .toStringAsFixed(2),
-                                               style: CustomWidget(
-                                                   context: context)
-                                                   .CustomSizedTextStyle(
-                                                   10.0,
-                                                   test
-                                                       ? Theme.of(
-                                                       context)
-                                                       .indicatorColor
-                                                       : Theme.of(
-                                                       context)
-                                                       .scaffoldBackgroundColor,
-                                                   FontWeight.w600,
-                                                   'FontRegular'),
-                                               textAlign: TextAlign.center,
-                                             ),
-                                           ],
-                                         )
-                                       ],
-                                     ),
-                                   )
-                                 ],
-                               ),
-                               SizedBox(
-                                 height: 10.0,
-                               ),
-                             ],
-                           ),
-                         ),
-                         onTap: (){
-                           selectPair = allTicker[index];
+                            channelOpenOrder!.sink.close();
 
-                           String coinImage1 =selectPair!.pair!.split("_")[0].toString();
-                           coinOne = coinImage1.replaceAll("USDT", "");
-                           coinTwo = "USDT";
-                           // getOpenOrders();
-
-                           channelOpenOrder!.sink.close();
-
-
-                           buyData=[];
-                           sellData=[];
-                           buyData.clear();
-                           sellData.clear();
-                           channelOpenOrder = IOWebSocketChannel.connect(
-                               Uri.parse(
-                                   "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
-                               pingInterval: Duration(seconds: 5));
-                           channelOpenOrder!.sink.add(json.encode({
-                             "action":"orderbook-subscribe",
-                             "subscription":{
-                               "pair":coinOne+coinTwo
-                             }
-                           }));
-                           buyData.clear();
-                           sellData.clear();
-                           socketData();
-                           _scaffoldKey.currentState!.closeDrawer();
-                         },
-                       ),
+                            buyData = [];
+                            sellData = [];
+                            buyData.clear();
+                            sellData.clear();
+                            channelOpenOrder = IOWebSocketChannel.connect(
+                                Uri.parse(
+                                    "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+                                pingInterval: Duration(seconds: 5));
+                            channelOpenOrder!.sink.add(json.encode({
+                              "action": "orderbook-subscribe",
+                              "subscription": {"pair": coinOne + coinTwo}
+                            }));
+                            buyData.clear();
+                            sellData.clear();
+                            socketData();
+                            _scaffoldKey.currentState!.closeDrawer();
+                          },
+                        ),
                         Container(
                           height: 1.0,
                           color: Theme.of(context).splashColor,
@@ -384,9 +374,9 @@ class _SpotTradeState extends State<SpotTrade>
           ),
         ),
       ),
-
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -428,8 +418,8 @@ class _SpotTradeState extends State<SpotTrade>
                                                   textAlign: TextAlign.center,
                                                 ),
                                                 onTap: () {
-                                                  _scaffoldKey.currentState!.openDrawer();
-
+                                                  _scaffoldKey.currentState!
+                                                      .openDrawer();
                                                 },
                                               ),
                                               const SizedBox(
@@ -611,6 +601,16 @@ class _SpotTradeState extends State<SpotTrade>
                                               onTap: () {
                                                 setState(() {
                                                   tradeOption = true;
+                                                  priceController.clear();
+                                                  amtController.clear();
+                                                  totalAmount = "0.00";
+                                                  first = false;
+                                                  second = false;
+                                                  third = false;
+                                                  fourth = false;
+                                                  totalAmount="0.00";
+                                                  loading = true;
+                                                  getCoinBalance();
                                                 });
                                               },
                                               child: Container(
@@ -648,7 +648,17 @@ class _SpotTradeState extends State<SpotTrade>
                                                 child: InkWell(
                                               onTap: () {
                                                 setState(() {
+                                                  priceController.clear();
+                                                  amtController.clear();
+                                                  totalAmount = "0.00";
+                                                  first = false;
+                                                  totalAmount="0.00";
+                                                  second = false;
+                                                  third = false;
+                                                  fourth = false;
                                                   tradeOption = false;
+                                                  loading = true;
+                                                  getCoinBalance();
                                                 });
                                               },
                                               child: Container(
@@ -735,6 +745,11 @@ class _SpotTradeState extends State<SpotTrade>
                                                       priceController.clear();
                                                       amtController.clear();
                                                       totalAmount = "0.00";
+                                                      first = false;
+                                                      second = false;
+                                                      third = false;
+                                                      fourth = false;
+                                                      totalAmount="0.00";
                                                     });
                                                   },
                                                   isExpanded: true,
@@ -1220,57 +1235,44 @@ class _SpotTradeState extends State<SpotTrade>
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             InkWell(
-                                              onTap: (){
-                                                // setState(() {
-                                                //   priceController.clear();
-                                                //   amtController.clear();
-                                                //   totalController.clear();
-                                                //   first = false;
-                                                //   second = true;
-                                                //   third = false;
-                                                //   fourth = false;
-                                                //   priceController.text = price;
-                                                //   if (bu) {
-                                                //     double perce = (double.parse(
-                                                //         secondBalance) *
-                                                //         25) /
-                                                //         100;
-                                                //
-                                                //     totalAmount = double.parse(
-                                                //         perce.toString())
-                                                //         .toStringAsFixed(8);
-                                                //     totalController.text =
-                                                //         totalAmount;
-                                                //     double a = double.parse(perce
-                                                //         .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
-                                                //     double b =
-                                                //     double.parse(price);
-                                                //     amtController
-                                                //         .text = double.parse(
-                                                //         (a / b).toString())
-                                                //         .toStringAsFixed(8);
-                                                //     double amount =
-                                                //     double.parse(
-                                                //         priceController.text
-                                                //             .toString());
-                                                //
-                                                //   } else {
-                                                //     double perce = (double.parse(
-                                                //         firstBalance) *
-                                                //         25) /
-                                                //         100;
-                                                //     amtController.text =
-                                                //     "0.25";
-                                                //     print(perce);
-                                                //
-                                                //     totalController
-                                                //         .text = (0.50 *
-                                                //         double.parse(price
-                                                //             .toString()))
-                                                //         .toString();
-                                                //   }
-                                                // });
+                                              onTap: () {
+                                                setState(() {
+                                                  priceController.clear();
+                                                  amtController.clear();
+                                                  totalAmount="0.00";
+                                                  first = true;
+                                                  second = false;
+                                                  third = false;
+                                                  fourth = false;
+                                                  priceController.text = selectPair!.marketPrice.toString();
 
+                                                  if(double.parse(balance)>0)
+                                                  {
+                                                    double perce = (double.parse(
+                                                        balance) *
+                                                        25) /
+                                                        100;
+
+
+
+                                                    totalAmount = double.parse(
+                                                        perce.toString())
+                                                        .toStringAsFixed(8);
+
+                                                    double a = double.parse(perce
+                                                        .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
+                                                    double b =
+                                                    double.parse(selectPair!.marketPrice.toString());
+                                                    amtController
+                                                        .text = double.parse(
+                                                        (a / b).toString())
+                                                        .toStringAsFixed(8);
+                                                  }
+
+
+
+
+                                                });
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
@@ -1307,105 +1309,213 @@ class _SpotTradeState extends State<SpotTrade>
                                                     ),
                                                   )),
                                             ),
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    color:
-                                                        CustomTheme.of(context)
-                                                            .errorColor,
-                                                    border: Border.all(
-                                                      color: CustomTheme.of(
-                                                              context)
-                                                          .canvasColor
-                                                          .withOpacity(0.5),
-                                                    )),
-                                                padding: EdgeInsets.only(
-                                                    left: 7.0,
-                                                    right: 7.0,
-                                                    top: 5.0,
-                                                    bottom: 5.0),
-                                                child: Center(
-                                                  child: Text(
-                                                    "50%",
-                                                    style: CustomWidget(
-                                                            context: context)
-                                                        .CustomSizedTextStyle(
-                                                            8.0,
-                                                            Theme.of(context)
-                                                                .canvasColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                )),
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    color:
-                                                        CustomTheme.of(context)
-                                                            .errorColor,
-                                                    border: Border.all(
-                                                      color: CustomTheme.of(
-                                                              context)
-                                                          .canvasColor
-                                                          .withOpacity(0.5),
-                                                    )),
-                                                padding: EdgeInsets.only(
-                                                    left: 7.0,
-                                                    right: 7.0,
-                                                    top: 5.0,
-                                                    bottom: 5.0),
-                                                child: Center(
-                                                  child: Text(
-                                                    "75%",
-                                                    style: CustomWidget(
-                                                            context: context)
-                                                        .CustomSizedTextStyle(
-                                                            8.0,
-                                                            Theme.of(context)
-                                                                .canvasColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                )),
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    color:
-                                                        CustomTheme.of(context)
-                                                            .errorColor,
-                                                    border: Border.all(
-                                                      color: CustomTheme.of(
-                                                              context)
-                                                          .canvasColor
-                                                          .withOpacity(0.5),
-                                                    )),
-                                                padding: EdgeInsets.only(
-                                                    left: 7.0,
-                                                    right: 7.0,
-                                                    top: 5.0,
-                                                    bottom: 5.0),
-                                                child: Center(
-                                                  child: Text(
-                                                    "100%",
-                                                    style: CustomWidget(
-                                                            context: context)
-                                                        .CustomSizedTextStyle(
-                                                            8.0,
-                                                            Theme.of(context)
-                                                                .canvasColor,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                )),
+                                           InkWell(
+
+                                             onTap: (){
+                                               priceController.clear();
+                                               amtController.clear();
+                                               totalAmount="0.00";
+                                               first = false;
+                                               second = true;
+                                               third = false;
+                                               fourth = false;
+                                               priceController.text = selectPair!.marketPrice.toString();
+
+                                               if(double.parse(balance)>0)
+                                               {
+                                                 double perce = (double.parse(
+                                                     balance) *
+                                                     50) /
+                                                     100;
+
+
+
+                                                 totalAmount = double.parse(
+                                                     perce.toString())
+                                                     .toStringAsFixed(8);
+
+                                                 double a = double.parse(perce
+                                                     .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
+                                                 double b =
+                                                 double.parse(selectPair!.marketPrice.toString());
+                                                 amtController
+                                                     .text = double.parse(
+                                                     (a / b).toString())
+                                                     .toStringAsFixed(8);
+                                               }
+
+                                             },
+                                             child:   Container(
+                                                 decoration: BoxDecoration(
+                                                     borderRadius:
+                                                     BorderRadius.circular(
+                                                         10.0),
+                                                     color:
+                                                     CustomTheme.of(context)
+                                                         .errorColor,
+                                                     border: Border.all(
+                                                       color: CustomTheme.of(
+                                                           context)
+                                                           .canvasColor
+                                                           .withOpacity(0.5),
+                                                     )),
+                                                 padding: EdgeInsets.only(
+                                                     left: 7.0,
+                                                     right: 7.0,
+                                                     top: 5.0,
+                                                     bottom: 5.0),
+                                                 child: Center(
+                                                   child: Text(
+                                                     "50%",
+                                                     style: CustomWidget(
+                                                         context: context)
+                                                         .CustomSizedTextStyle(
+                                                         8.0,
+                                                         Theme.of(context)
+                                                             .canvasColor,
+                                                         FontWeight.w500,
+                                                         'FontRegular'),
+                                                     textAlign: TextAlign.center,
+                                                   ),
+                                                 )),
+                                           ),
+                                         InkWell(
+                                           onTap: (){
+                                             priceController.clear();
+                                             amtController.clear();
+                                             totalAmount="0.00";
+                                             first = false;
+                                             second = false;
+                                             third = true;
+                                             fourth = false;
+                                             priceController.text = selectPair!.marketPrice.toString();
+
+                                             if(double.parse(balance)>0)
+                                             {
+                                               double perce = (double.parse(
+                                                   balance) *
+                                                   75) /
+                                                   100;
+
+
+
+                                               totalAmount = double.parse(
+                                                   perce.toString())
+                                                   .toStringAsFixed(8);
+
+                                               double a = double.parse(perce
+                                                   .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
+                                               double b =
+                                               double.parse(selectPair!.marketPrice.toString());
+                                               amtController
+                                                   .text = double.parse(
+                                                   (a / b).toString())
+                                                   .toStringAsFixed(8);
+                                             }
+
+                                           },
+                                             child:     Container(
+                                                 decoration: BoxDecoration(
+                                                     borderRadius:
+                                                     BorderRadius.circular(
+                                                         10.0),
+                                                     color:
+                                                     CustomTheme.of(context)
+                                                         .errorColor,
+                                                     border: Border.all(
+                                                       color: CustomTheme.of(
+                                                           context)
+                                                           .canvasColor
+                                                           .withOpacity(0.5),
+                                                     )),
+                                                 padding: EdgeInsets.only(
+                                                     left: 7.0,
+                                                     right: 7.0,
+                                                     top: 5.0,
+                                                     bottom: 5.0),
+                                                 child: Center(
+                                                   child: Text(
+                                                     "75%",
+                                                     style: CustomWidget(
+                                                         context: context)
+                                                         .CustomSizedTextStyle(
+                                                         8.0,
+                                                         Theme.of(context)
+                                                             .canvasColor,
+                                                         FontWeight.w500,
+                                                         'FontRegular'),
+                                                     textAlign: TextAlign.center,
+                                                   ),
+                                                 )),
+                                         ),
+                                           InkWell(
+                                             onTap: (){
+                                               priceController.clear();
+                                               amtController.clear();
+                                               totalAmount="0.00";
+                                               first = false;
+                                               second = false;
+                                               third = false;
+                                               fourth = true;
+                                               priceController.text = selectPair!.marketPrice.toString();
+
+                                               if(double.parse(balance)>0)
+                                               {
+                                                 double perce = (double.parse(
+                                                     balance) *
+                                                     100) /
+                                                     100;
+                                                 amtController.text =
+                                                 "0.25";
+                                                 totalAmount = double.parse(
+                                                     perce.toString())
+                                                     .toStringAsFixed(8);
+
+                                                 double a = double.parse(perce
+                                                     .toString()); // this is the value in my first text field (This is the percentage rate i intend to use)
+                                                 double b =
+                                                  double.parse(selectPair!.marketPrice.toString());
+                                                 amtController
+                                                     .text = double.parse(
+                                                     (a / b).toString())
+                                                     .toStringAsFixed(8);
+                                               }
+
+                                             },
+                                             child:  Container(
+                                                 decoration: BoxDecoration(
+                                                     borderRadius:
+                                                     BorderRadius.circular(
+                                                         10.0),
+                                                     color:
+                                                     CustomTheme.of(context)
+                                                         .errorColor,
+                                                     border: Border.all(
+                                                       color: CustomTheme.of(
+                                                           context)
+                                                           .canvasColor
+                                                           .withOpacity(0.5),
+                                                     )),
+                                                 padding: EdgeInsets.only(
+                                                     left: 7.0,
+                                                     right: 7.0,
+                                                     top: 5.0,
+                                                     bottom: 5.0),
+                                                 child: Center(
+                                                   child: Text(
+                                                     "100%",
+                                                     style: CustomWidget(
+                                                         context: context)
+                                                         .CustomSizedTextStyle(
+                                                         8.0,
+                                                         Theme.of(context)
+                                                             .canvasColor,
+                                                         FontWeight.w500,
+                                                         'FontRegular'),
+                                                     textAlign: TextAlign.center,
+                                                   ),
+                                                 )),
+                                           )
                                           ],
                                         ),
                                         const SizedBox(
@@ -1513,56 +1623,128 @@ class _SpotTradeState extends State<SpotTrade>
                                                       'FontRegular'),
                                               textAlign: TextAlign.start,
                                             ),
-                                            Text(
-                                              "=0.00 USD",
-                                              style: CustomWidget(
-                                                      context: context)
-                                                  .CustomSizedTextStyle(
-                                                      10.0,
-                                                      CustomTheme.of(context)
-                                                          .primaryColorLight,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
-                                              textAlign: TextAlign.start,
-                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  balance + " ",
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .primaryColorLight,
+                                                          FontWeight.w600,
+                                                          'FontRegular'),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                                Text(
+                                                  tradeOption
+                                                      ? coinTwo
+                                                      : coinOne,
+                                                  style: CustomWidget(
+                                                          context: context)
+                                                      .CustomSizedTextStyle(
+                                                          10.0,
+                                                          CustomTheme.of(
+                                                                  context)
+                                                              .primaryColorLight,
+                                                          FontWeight.w600,
+                                                          'FontRegular'),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                         const SizedBox(
                                           height: 10.0,
                                         ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                              color: tradeOption
-                                                  ? Theme.of(context)
-                                                      .primaryColorLight
-                                                  : Theme.of(context)
-                                                      .primaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0)),
-                                          padding: EdgeInsets.only(
-                                              top: 7.0, bottom: 7.0),
-                                          child: Center(
-                                            child: Text(
-                                              tradeOption
-                                                  ? "Buy " + coinOne
-                                                  : "Sell " + coinTwo,
-                                              style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                          14.0,
-                                                          tradeOption
-                                                              ? CustomTheme.of(
-                                                                      context)
-                                                                  .errorColor
-                                                              : CustomTheme.of(
-                                                                      context)
-                                                                  .focusColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                        InkWell(
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                                color: tradeOption
+                                                    ? Theme.of(context)
+                                                        .primaryColorLight
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.0)),
+                                            padding: EdgeInsets.only(
+                                                top: 7.0, bottom: 7.0),
+                                            child: Center(
+                                              child: Text(
+                                                tradeOption
+                                                    ? "Buy " + coinOne
+                                                    : "Sell " + coinTwo,
+                                                style: CustomWidget(
+                                                        context: context)
+                                                    .CustomSizedTextStyle(
+                                                        14.0,
+                                                        tradeOption
+                                                            ? CustomTheme.of(
+                                                                    context)
+                                                                .errorColor
+                                                            : CustomTheme.of(
+                                                                    context)
+                                                                .focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                              ),
                                             ),
                                           ),
+                                          onTap: () {
+                                            if (selectedType.toLowerCase() ==
+                                                "limit") {
+                                              if (priceController
+                                                  .text.isEmpty) {
+                                                CustomWidget(context: context)
+                                                    .showSnackBar(
+                                                        context,
+                                                        "Please Enter Price...!",
+                                                        true);
+                                              } else if (amtController
+                                                  .text.isEmpty) {
+                                                CustomWidget(context: context)
+                                                    .showSnackBar(
+                                                        context,
+                                                        "Please Enter Amount...!",
+                                                        true);
+                                              } else if (double.parse(balance) <
+                                                  double.parse(totalAmount)) {
+                                                CustomWidget(context: context)
+                                                    .showSnackBar(
+                                                        context,
+                                                        "Balance was too low...!",
+                                                        true);
+                                              } else {
+                                                loading = true;
+                                                postTrade();
+                                              }
+                                            } else {
+                                              if (amtController.text.isEmpty) {
+                                                CustomWidget(context: context)
+                                                    .showSnackBar(
+                                                        context,
+                                                        "Please Enter Amount...!",
+                                                        true);
+                                              } else if (double.parse(balance) <
+                                                  double.parse(totalAmount)) {
+                                                CustomWidget(context: context)
+                                                    .showSnackBar(
+                                                        context,
+                                                        "Balance was too low...!",
+                                                        true);
+                                              } else {
+                                                loading = true;
+                                                postTrade();
+                                              }
+                                            }
+                                          },
                                         )
                                       ],
                                     ),
@@ -1967,7 +2149,6 @@ class _SpotTradeState extends State<SpotTrade>
         builder: (contexts) {
           return StatefulBuilder(
             builder: (BuildContext contexts, StateSetter setStates) {
-
               return Container(
                 height: MediaQuery.of(contexts).size.height * 0.9,
                 width: MediaQuery.of(contexts).size.width,
@@ -2096,13 +2277,20 @@ class _SpotTradeState extends State<SpotTrade>
                             controller: _scrollController,
                             itemCount: searchPair.length,
                             itemBuilder: ((BuildContext context, int index) {
-                              String coinImage = allTicker[index].pair!.split("_")[0].toString();
-                              String coinImage1 = allTicker[index].pair!.split("_")[0].toString();
-                              coinImage=coinImage.replaceAll("USDT", "-USDT");
-                              coinImage=coinImage.replaceAll("10000", "");
+                              String coinImage = allTicker[index]
+                                  .pair!
+                                  .split("_")[0]
+                                  .toString();
+                              String coinImage1 = allTicker[index]
+                                  .pair!
+                                  .split("_")[0]
+                                  .toString();
+                              coinImage = coinImage.replaceAll("USDT", "-USDT");
+                              coinImage = coinImage.replaceAll("10000", "");
 
-                              String coinName=coinImage1.replaceAll("USDT", "");
-                              coinName=coinName.replaceAll("10000", "");
+                              String coinName =
+                                  coinImage1.replaceAll("USDT", "");
+                              coinName = coinName.replaceAll("10000", "");
                               return Column(
                                 children: [
                                   InkWell(
@@ -2110,33 +2298,37 @@ class _SpotTradeState extends State<SpotTrade>
                                       setState(() {
                                         selectPair = searchPair[index];
 
-                                        String coinImage1 =selectPair!.pair!.split("_")[0].toString();
-                                        coinOne = coinImage1.replaceAll("USDT", "");
+                                        String coinImage1 = selectPair!.pair!
+                                            .split("_")[0]
+                                            .toString();
+                                        coinOne =
+                                            coinImage1.replaceAll("USDT", "");
                                         coinTwo = "USDT";
-                                       // getOpenOrders();
+                                        // getOpenOrders();
 
                                         channelOpenOrder!.sink.close();
 
-
-                                        buyData=[];
-                                        sellData=[];
+                                        buyData = [];
+                                        sellData = [];
                                         buyData.clear();
                                         sellData.clear();
-                                        channelOpenOrder = IOWebSocketChannel.connect(
-                                            Uri.parse(
-                                                "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
-                                            pingInterval: Duration(seconds: 5));
+                                        channelOpenOrder =
+                                            IOWebSocketChannel.connect(
+                                                Uri.parse(
+                                                    "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
+                                                pingInterval:
+                                                    Duration(seconds: 5));
                                         channelOpenOrder!.sink.add(json.encode({
-                                          "action":"orderbook-subscribe",
-                                          "subscription":{
-                                            "pair":coinOne+coinTwo
+                                          "action": "orderbook-subscribe",
+                                          "subscription": {
+                                            "pair": coinOne + coinTwo
                                           }
                                         }));
                                         buyData.clear();
                                         sellData.clear();
-                                       socketData();
+                                        socketData();
                                         //getTradeHistory();
-                                     //   getToken();
+                                        //   getToken();
                                       });
 
                                       Navigator.pop(contexts);
@@ -2292,32 +2484,33 @@ class _SpotTradeState extends State<SpotTrade>
     );
   }
 
-
   getPairList() {
-
     apiUtils.getAllpaitList().then((dynamic loginData) {
       setState(() {
-        loading=false;
+        loading = false;
       });
 
       List<dynamic> listData = loginData;
       setState(() {
-        allTicker=[];
+        allTicker = [];
         loading = false;
-        List<AllPairListModel>      copyTradelistN = (listData).map((item) => AllPairListModel.fromJson(item)).toList();
+        List<AllPairListModel> copyTradelistN =
+            (listData).map((item) => AllPairListModel.fromJson(item)).toList();
         allTicker.addAll(copyTradelistN);
-        allTicker..sort((a, b) => b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
+        allTicker
+          ..sort((a, b) =>
+              b.priceChangePercent24Hr!.compareTo(a.priceChangePercent24Hr!));
         selectPair = allTicker[0];
         String coinImage1 = allTicker[0].pair!.split("_")[0].toString();
         coinOne = coinImage1.replaceAll("USDT", "");
         coinTwo = "USDT";
         searchPair.addAll(allTicker);
+
+        getCoinBalance();
       });
       channelOpenOrder!.sink.add(json.encode({
-        "action":"orderbook-subscribe",
-        "subscription":{
-          "pair":coinOne+coinTwo
-        }
+        "action": "orderbook-subscribe",
+        "subscription": {"pair": coinOne + coinTwo}
       }));
       socketData();
       //getOpenOrders();
@@ -2328,6 +2521,7 @@ class _SpotTradeState extends State<SpotTrade>
       });
     });
   }
+
   // coinList() async {
   //   SharedPreferences preferences = await SharedPreferences.getInstance();
   //   QueryMutation queryMutation = QueryMutation();
@@ -2462,21 +2656,56 @@ class _SpotTradeState extends State<SpotTrade>
     });
   }
 
+  getCoinBalance() {
+    apiUtils
+        .getCoinBalance(tradeOption ? coinTwo : coinOne, "spot")
+        .then((dynamic loginData) {
+      setState(() {
+        loading = false;
+
+        balance = loginData[0]["available"];
+      });
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
+  postTrade() {
+    apiUtils
+        .postSpotTrade(
+            coinOne.toUpperCase() + "-" + coinTwo.toUpperCase(),
+            tradeOption ? "buy" : "sell",
+            selectedType.toLowerCase(),
+            priceController.text.toString(),
+            selectedType.toString().toLowerCase() == "limit"
+                ? amtController.toString()
+                : selectPair!.marketPrice.toString())
+        .then((dynamic loginData) {
+      setState(() {
+        loading = false;
+        getCoinBalance();
+      });
+
+      getTradeHistory();
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
   socketData() {
     setState(() {});
 
     channelOpenOrder!.stream.listen(
       (data) {
         if (data != null || data != "null") {
-          print(data);
-          print("Mano");
           var decode = jsonDecode(data);
 
-
-          List<dynamic> listData =
-              decode["asks"];
-          List<dynamic> listData1 =
-              decode["bids"];
+          List<dynamic> listData = decode["asks"];
+          List<dynamic> listData1 = decode["bids"];
 
           if (mounted) {
             setState(() {
@@ -2505,66 +2734,60 @@ class _SpotTradeState extends State<SpotTrade>
                 "wss://3f5261roz0.execute-api.us-east-1.amazonaws.com/prod"),
             pingInterval: Duration(seconds: 30));
         channelOpenOrder!.sink.add(json.encode({
-          "action":"orderbook-subscribe",
-          "subscription":{
-            "pair":coinOne+coinTwo
-          }
+          "action": "orderbook-subscribe",
+          "subscription": {"pair": coinOne + coinTwo}
         }));
-
 
         socketData();
       },
-      onError: (error) => {
-        print("test"),
-        print(error)
-      },
+      onError: (error) => {print("test"), print(error)},
     );
   }
 
-  // socketHistoryData() {
-  //   setState(() {});
-  //
-  //   channelTradeHistory!.stream.listen(
-  //     (data) {
-  //       if (data != null || data != "null") {
-  //         var decode = jsonDecode(data);
-  //
-  //         if (mounted) {
-  //           setState(() {
-  //             orderHistory.add(OpenOrdersHistory.fromJson(
-  //                 decode["payload"]["data"]["updatedTradeItemV2"]));
-  //           });
-  //         }
-  //       }
-  //     },
-  //     onDone: () async {
-  //       await Future.delayed(Duration(seconds: 10));
-  //       getRand1();
-  //       String coin = selectPair!.pair.toString();
-  //       channelTradeHistory = IOWebSocketChannel.connect(
-  //           Uri.parse(
-  //               "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
-  //           headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
-  //           pingInterval: Duration(seconds: 30));
-  //
-  //       channelTradeHistory!.sink.add(json.encode({
-  //         "id": num2 + "asss",
-  //         "payload": {
-  //           "data":
-  //               "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
-  //           "extensions": {
-  //             "authorization": {
-  //               "Authorization": "Bearer $bearer",
-  //               "host":
-  //                   "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
-  //             }
-  //           }
-  //         },
-  //         "type": "start"
-  //       }));
-  //       socketHistoryData();
-  //     },
-  //     onError: (error) => {},
-  //   );
-  // }
+// socketHistoryData() {
+//   setState(() {});
+//
+//   channelTradeHistory!.stream.listen(
+//     (data) {
+//       if (data != null || data != "null") {
+//         var decode = jsonDecode(data);
+//
+//         if (mounted) {
+//           setState(() {
+//             orderHistory.add(OpenOrdersHistory.fromJson(
+//                 decode["payload"]["data"]["updatedTradeItemV2"]));
+//           });
+//         }
+//       }
+//     },
+//     onDone: () async {
+//       await Future.delayed(Duration(seconds: 10));
+//       getRand1();
+//       String coin = selectPair!.pair.toString();
+//       channelTradeHistory = IOWebSocketChannel.connect(
+//           Uri.parse(
+//               "wss://yxeqaxptabeftfyndq527s76se.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=$token&payload=e30="),
+//           headers: {"Sec-WebSocket-Protocol": "graphql-ws"},
+//           pingInterval: Duration(seconds: 30));
+//
+//       channelTradeHistory!.sink.add(json.encode({
+//         "id": num2 + "asss",
+//         "payload": {
+//           "data":
+//               "{\"query\":\"subscription MySubscription {\\n  updatedTradeItemV2(pair: \\\"BTC-USDT\\\",system: \\\"global\\\") {\\n    pair\\n    price\\n    qty\\n    time\\n  side\\n trans_id\\n}\\n}\",\"variables\":null}",
+//           "extensions": {
+//             "authorization": {
+//               "Authorization": "Bearer $bearer",
+//               "host":
+//                   "yxeqaxptabeftfyndq527s76se.appsync-api.us-east-1.amazonaws.com"
+//             }
+//           }
+//         },
+//         "type": "start"
+//       }));
+//       socketHistoryData();
+//     },
+//     onError: (error) => {},
+//   );
+// }
 }

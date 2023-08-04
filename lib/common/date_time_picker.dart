@@ -734,7 +734,7 @@ class _DateTimePickerState extends FormFieldState<String> {
   }
 
   Future<void> _showDatePickerDialog() async {
-    final ldDatePicked = await showDatePicker(
+    final ldDatePicked = await showDatePickers(
       context: context,
       initialDate: _dDate,
       firstDate: widget.firstDate ?? DateTime.now(),
@@ -851,7 +851,7 @@ class _DateTimePickerState extends FormFieldState<String> {
   Future<void> _showDateTimePickerDialog() async {
     String lsFormatedDate;
 
-    final ldDatePicked = await showDatePicker(
+    final ldDatePicked = await showDatePickers(
       context: context,
       initialDate: _dDate,
       firstDate: widget.firstDate ?? DateTime.now(),

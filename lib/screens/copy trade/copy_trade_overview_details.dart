@@ -1,4 +1,7 @@
+import 'package:cofinex/data_model/api_utils.dart';
 import 'package:cofinex/data_model/model/copy_trade_model.dart';
+import 'package:cofinex/data_model/model/leader_history_model.dart';
+import 'package:cofinex/data_model/model/leader_order_list.dart';
 import 'package:cofinex/screens/basic/login_first.dart';
 import 'package:cofinex/screens/basic/register.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,11 +41,16 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
     "Most popular",
     "Most popular"
   ];
-  bool his = false;
+  bool his = true;
   CopyTrade? copyData;
   bool loginStatus=false;
   String dfinal = "";
 
+  List<LeaderHistoryList> historyList=[];
+  List<LeaderOrderList> orderList=[];
+
+  bool loading=false;
+  APIUtils apiUtils = APIUtils();
   @override
   void initState() {
     // TODO: implement initState
@@ -52,7 +60,7 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
     selectedType = orderType.first;
     his = false;
     copyData = widget.data;
-    print(copyData!.lastTradeTime.toString());
+
     var dt = DateTime.fromMillisecondsSinceEpoch(
         int.parse(copyData!.lastTradeTime.toString()));
 
@@ -67,6 +75,15 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
     setState(() {
 
       loginStatus=preferences.getBool("login")!;
+
+if(loginStatus)
+  {
+
+    loading=true;
+    getHistoryList();
+    getHistoryOpenList();
+
+  }
 
 
     });
@@ -514,88 +531,100 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
       color: CustomTheme.of(context).focusColor,
       height: MediaQuery.of(context).size.height,
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child:  Stack(
         children: [
-          Container(
-            alignment: Alignment.center,
-            height: 35.0,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: 35.0,
 
-            width: MediaQuery.of(context).size.width,
-            // margin: EdgeInsets.only(left: 15.0, right: 15.0),
-            padding: EdgeInsets.only(left: 0.2, right: 0.2),
-            decoration: BoxDecoration(
-                color: CustomTheme.of(context).focusColor,
-                border: Border(
-                    bottom: BorderSide(
-                  width: 1.0,
-                ))),
-            child: TabBar(
-              controller: _tabSpotsController,
-              isScrollable: true,
-              indicatorSize: TabBarIndicatorSize.label,
-              labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                  13.0,
-                  Theme.of(context).unselectedWidgetColor,
-                  FontWeight.w600,
-                  'FontRegular'),
+                width: MediaQuery.of(context).size.width,
+                // margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                padding: EdgeInsets.only(left: 0.2, right: 0.2),
+                decoration: BoxDecoration(
+                    color: CustomTheme.of(context).focusColor,
+                    border: Border(
+                        bottom: BorderSide(
+                          width: 1.0,
+                        ))),
+                child: TabBar(
+                  controller: _tabSpotsController,
+                  isScrollable: true,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                      13.0,
+                      Theme.of(context).unselectedWidgetColor,
+                      FontWeight.w600,
+                      'FontRegular'),
 
-              labelColor: CustomTheme.of(context).primaryColorLight,
-              //<-- selected text color
-              unselectedLabelColor:
+                  labelColor: CustomTheme.of(context).primaryColorLight,
+                  //<-- selected text color
+                  unselectedLabelColor:
                   CustomTheme.of(context).primaryColor.withOpacity(0.5),
-              // isScrollable: true,
-              indicatorColor: CustomTheme.of(context).cardColor,
-              indicator: BoxDecoration(
-                // borderRadius: BorderRadius.circular(12), // Creates border
-                border: Border(
-                  bottom: BorderSide(
-                      width: 3.0,
-                      color: CustomTheme.of(context).primaryColorLight),
+                  // isScrollable: true,
+                  indicatorColor: CustomTheme.of(context).cardColor,
+                  indicator: BoxDecoration(
+                    // borderRadius: BorderRadius.circular(12), // Creates border
+                    border: Border(
+                      bottom: BorderSide(
+                          width: 3.0,
+                          color: CustomTheme.of(context).primaryColorLight),
+                    ),
+                    color: CustomTheme.of(context).focusColor,
+                  ),
+                  tabs: <Widget>[
+                    Tab(
+                      text: "Overview",
+                    ),
+                    Tab(
+                      text: "Stats",
+                    ),
+                    Tab(
+                      text: "Orders",
+                    ),
+                    Tab(
+                      text: "Followers",
+                    ),
+                    Tab(
+                      text: "Insights",
+                    ),
+                  ],
                 ),
-                color: CustomTheme.of(context).focusColor,
               ),
-              tabs: <Widget>[
-                Tab(
-                  text: "Overview",
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  color: CustomTheme.of(context).backgroundColor,
+                  child: TabBarView(
+                    controller: _tabSpotsController,
+                    children: <Widget>[
+                      Current(),
+                      Stats(),
+                      Orders(),
+                      Followers(),
+                      Insights(),
+                    ],
+                  ),
                 ),
-                Tab(
-                  text: "Stats",
-                ),
-                Tab(
-                  text: "Orders",
-                ),
-                Tab(
-                  text: "Followers",
-                ),
-                Tab(
-                  text: "Insights",
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(top: 10.0),
-              color: CustomTheme.of(context).backgroundColor,
-              child: TabBarView(
-                controller: _tabSpotsController,
-                children: <Widget>[
-                  Current(),
-                  Stats(),
-                  Orders(),
-                  Followers(),
-                  Insights(),
-                ],
               ),
+              const SizedBox(
+                height: 10.0,
+              ),
+            ],
+          ),
+
+          loading?Container(
+            child: Center(
+              child: CustomWidget(context: context).loadingIndicator_white(
+                CustomTheme.of(context).primaryColorLight,
+              ) ,
             ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
+          ):Container()
         ],
-      ),
+      )
     );
   }
 
@@ -1430,278 +1459,623 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                         const SizedBox(
                           height: 10.0,
                         ),
-                        Container(
-                            color: Theme.of(context).focusColor,
-                            child: SingleChildScrollView(
-                                child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: 6,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              controller: controller,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            10.0, 10.0, 10.0, 10.0),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                            color: Theme.of(context).focusColor,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context)
-                                                      .unselectedWidgetColor
-                                                      .withOpacity(0.2),
-                                                  blurRadius: 10.0,
-                                                  // soften the shadow
-                                                  spreadRadius: 2.0,
-                                                  //extend the shadow
-                                                  offset: Offset(
-                                                    7.0,
-                                                    // Move to right 7.0 horizontally
-                                                    8.0, // Move to bottom 8.0 Vertically
-                                                  )),
-                                            ]),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      10.0, 5.0, 10.0, 5.0),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3.0),
-                                                    color: Theme.of(context)
-                                                        .scaffoldBackgroundColor,
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Short",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              5.0,
-                                                              Theme.of(context)
-                                                                  .focusColor,
-                                                              FontWeight.w500,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10.0,
-                                                ),
-                                                RichText(
-                                                  text: TextSpan(
-                                                    text: '5X',
-                                                    style: CustomWidget(
-                                                            context: context)
-                                                        .CustomSizedTextStyle(
-                                                            9.0,
-                                                            Theme.of(context)
-                                                                .primaryColorLight,
-                                                            FontWeight.w500,
-                                                            'FontRegular'),
-                                                    children: const <TextSpan>[
-                                                      TextSpan(
-                                                          text: 'INJUSDT',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 9.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10.0,
-                                                ),
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      10.0, 5.0, 10.0, 5.0),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3.0),
-                                                    color: Theme.of(context)
-                                                        .unselectedWidgetColor
-                                                        .withOpacity(0.5),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Cross",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              5.0,
-                                                              Theme.of(context)
-                                                                  .focusColor,
-                                                              FontWeight.w500,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 5.0,
-                                                ),
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      10.0, 5.0, 10.0, 5.0),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3.0),
-                                                    color: Theme.of(context)
-                                                        .unselectedWidgetColor
-                                                        .withOpacity(0.5),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "USDT",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              5.0,
-                                                              Theme.of(context)
-                                                                  .focusColor,
-                                                              FontWeight.w500,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 15.0,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Flexible(
-                                                    child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "9.233",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              14.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                    Text(
-                                                      "Entry price",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              8.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ],
-                                                )),
-                                                Flexible(
-                                                    child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "6.999",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              14.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                    Text(
-                                                      "Current price",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              8.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ],
-                                                )),
-                                                Flexible(
-                                                    child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      "-2.356",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              14.0,
-                                                              Theme.of(context)
-                                                                  .scaffoldBackgroundColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                    Text(
-                                                      "ROI",
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              8.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w600,
-                                                              'FontRegular'),
-                                                    ),
-                                                  ],
-                                                )),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 15.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 25.0,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ))),
+
                       ],
                     ),
                   ),
                   const SizedBox(
                     height: 10.0,
                   ),
+                  his?historyUI():orderUI()
                 ],
+              ),
+            )));
+  }
+
+
+  Widget historyUI(){
+    return   Container(
+        color: Theme.of(context).focusColor,
+        child: historyList.length>0?SingleChildScrollView(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: historyList.length,
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              controller: controller,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(
+                            10.0, 10.0, 10.0, 10.0),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(15.0),
+                            color: Theme.of(context).focusColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Theme.of(context)
+                                      .unselectedWidgetColor
+                                      .withOpacity(0.2),
+                                  blurRadius: 10.0,
+                                  // soften the shadow
+                                  spreadRadius: 2.0,
+                                  //extend the shadow
+                                  offset: Offset(
+                                    7.0,
+                                    // Move to right 7.0 horizontally
+                                    8.0, // Move to bottom 8.0 Vertically
+                                  )),
+                            ]),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      historyList[index].holdSide.toString().toUpperCase(),
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '',
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomSizedTextStyle(
+                                        9.0,
+                                        Theme.of(context)
+                                            .primaryColorLight,
+                                        FontWeight.w500,
+                                        'FontRegular'),
+                                    children:  <TextSpan>[
+                                      TextSpan(
+                                          text: historyList[index].symbol.toString(),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 9.0,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                        historyList[index].holdMode.toString().toUpperCase(),
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "USDT",
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            Row(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              mainAxisAlignment:
+                              MainAxisAlignment
+                                  .spaceBetween,
+                              children: [
+                                Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          historyList[index].openPrice.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        Text(
+                                          "Entry price",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                      ],
+                                    )),
+                                Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          historyList[index].closePrice.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        Text(
+                                          "Current price",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                      ],
+                                    )),
+                                Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          historyList[index].closeAmount.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                            double.parse( historyList[index].closeAmount.toString()) >0?Theme.of(context)
+                                                .indicatorColor: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        Text(
+                                          "ROI",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25.0,
+                    ),
+                  ],
+                );
+              },
+            )):
+        Container(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height*0.15,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    // Add one stop for each color
+                    // Values should increase from 0.0 to 1.0
+                    stops: [
+                      0.1,
+                      0.5,
+                      0.9,
+                    ],
+                    colors: [
+                      Theme
+                          .of(context)
+                          .focusColor,
+                      Theme
+                          .of(context)
+                          .focusColor,
+                      Theme
+                          .of(context)
+                          .focusColor,
+                    ])),
+            child: Center(
+              child: Text(
+                " No records Found..!",
+                style: CustomWidget(context: context).CustomSizedTextStyle(16.0,
+                    Theme
+                        .of(context)
+                        .primaryColor, FontWeight.w500, 'FontRegular'),
+              ),
+            )));
+  }
+  Widget orderUI(){
+    return   Container(
+        color: Theme.of(context).focusColor,
+        child: orderList.length>0? SingleChildScrollView(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: orderList.length,
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              controller: controller,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(
+                            10.0, 10.0, 10.0, 10.0),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(15.0),
+                            color: Theme.of(context).focusColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Theme.of(context)
+                                      .unselectedWidgetColor
+                                      .withOpacity(0.2),
+                                  blurRadius: 10.0,
+                                  // soften the shadow
+                                  spreadRadius: 2.0,
+                                  //extend the shadow
+                                  offset: Offset(
+                                    7.0,
+                                    // Move to right 7.0 horizontally
+                                    8.0, // Move to bottom 8.0 Vertically
+                                  )),
+                            ]),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      orderList[index].holdSide.toString().toUpperCase(),
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text:  orderList[index].leverage.toString()+' X',
+                                    style: CustomWidget(
+                                        context: context)
+                                        .CustomSizedTextStyle(
+                                        9.0,
+                                        Theme.of(context)
+                                            .primaryColorLight,
+                                        FontWeight.w500,
+                                        'FontRegular'),
+                                    children:  <TextSpan>[
+                                      TextSpan(
+                                          text:  orderList[index].symbol.toString().toUpperCase(),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 9.0,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10.0,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      orderList[index].holdMode.toString().toUpperCase(),
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5.0,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.0, 5.0, 10.0, 5.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        3.0),
+                                    color: Theme.of(context)
+                                        .unselectedWidgetColor
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "USDT",
+                                      style: CustomWidget(
+                                          context: context)
+                                          .CustomSizedTextStyle(
+                                          5.0,
+                                          Theme.of(context)
+                                              .focusColor,
+                                          FontWeight.w500,
+                                          'FontRegular'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            Row(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              mainAxisAlignment:
+                              MainAxisAlignment
+                                  .spaceBetween,
+                              children: [
+                                Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          orderList[index].openPrice.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        Text(
+                                          "Entry price",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                      ],
+                                    )),
+                                Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          orderList[index].takeProfitPrice.toString()==""?"0.00": orderList[index].takeProfitPrice.toString(),
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                        Text(
+                                          "Profit price",
+                                          style: CustomWidget(
+                                              context: context)
+                                              .CustomSizedTextStyle(
+                                              8.0,
+                                              Theme.of(context)
+                                                  .primaryColor,
+                                              FontWeight.w600,
+                                              'FontRegular'),
+                                        ),
+                                      ],
+                                    )),
+                                // Flexible(
+                                //     child: Column(
+                                //       crossAxisAlignment:
+                                //       CrossAxisAlignment.end,
+                                //       children: [
+                                //         Text(
+                                //           "-2.356",
+                                //           style: CustomWidget(
+                                //               context: context)
+                                //               .CustomSizedTextStyle(
+                                //               14.0,
+                                //               Theme.of(context)
+                                //                   .scaffoldBackgroundColor,
+                                //               FontWeight.w600,
+                                //               'FontRegular'),
+                                //         ),
+                                //         Text(
+                                //           "ROI",
+                                //           style: CustomWidget(
+                                //               context: context)
+                                //               .CustomSizedTextStyle(
+                                //               8.0,
+                                //               Theme.of(context)
+                                //                   .primaryColor,
+                                //               FontWeight.w600,
+                                //               'FontRegular'),
+                                //         ),
+                                //       ],
+                                //     )),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25.0,
+                    ),
+                  ],
+                );
+              },
+            )):Container(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height*0.15,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    // Add one stop for each color
+                    // Values should increase from 0.0 to 1.0
+                    stops: [
+                      0.1,
+                      0.5,
+                      0.9,
+                    ],
+                    colors: [
+                      Theme
+                          .of(context)
+                          .focusColor,
+                      Theme
+                          .of(context)
+                          .focusColor,
+                      Theme
+                          .of(context)
+                          .focusColor,
+                    ])),
+            child: Center(
+              child: Text(
+                " No records Found..!",
+                style: CustomWidget(context: context).CustomSizedTextStyle(16.0,
+                    Theme
+                        .of(context)
+                        .primaryColor, FontWeight.w500, 'FontRegular'),
               ),
             )));
   }
@@ -2051,5 +2425,63 @@ class _CopyTradeOverviewDetailsState extends State<CopyTradeOverviewDetails>
                 children: [],
               ),
             )));
+  }
+
+
+  getHistoryList() {
+
+    apiUtils.getLeaderHistory(widget.data.traderUid.toString()).then((dynamic loginData) {
+      setState(() {
+        loading=false;
+      });
+
+      List<dynamic> listData = loginData;
+
+      setState(() {
+        historyList=[];
+        loading = false;
+
+        List<LeaderHistoryList>       copyTradelistN =
+        (listData).map((item) => LeaderHistoryList.fromJson(item)).toList();
+        historyList.addAll(copyTradelistN);
+
+      });
+
+    }).catchError((Object error) {
+      print(error);
+      setState(() {
+        loading = false;
+
+      });
+    });
+  }
+  getHistoryOpenList() {
+
+    apiUtils.getLeaderOpenOrder(widget.data.traderUid.toString()).then((dynamic loginData) {
+      setState(() {
+        loading=false;
+      });
+      List<dynamic> listData = loginData;
+
+
+    print(loginData);
+      setState(() {
+        orderList=[];
+        loading = false;
+
+        List<LeaderOrderList>       copyTradelistN =
+        (listData).map((item) => LeaderOrderList.fromJson(item)).toList();
+        orderList.addAll(copyTradelistN);
+
+      });
+
+
+    }).catchError((Object error) {
+      print(error);
+      setState(() {
+        loading = false;
+
+      });
+    });
   }
 }
